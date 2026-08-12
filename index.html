@@ -20,7 +20,7 @@
 html,body{margin:0;height:100%}
 body{background:#020409;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;overscroll-behavior:none}
 .dot{font-family:'Dela Gothic One',sans-serif}
-#app{max-width:560px;height:100dvh;margin:auto;overflow:auto;padding:10px;position:relative;
+#app{max-width:560px;height:100dvh;margin:auto;overflow:auto;padding:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom));position:relative;
  background:
   radial-gradient(1px 1px at 20% 15%,#9fe9ff88,transparent 60%),
   radial-gradient(1px 1px at 70% 8%,#ffffff55,transparent 60%),
@@ -370,7 +370,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 @keyframes shake{0%,100%{transform:translate(0)}20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,-1px)}80%{transform:translate(3px,1px)}}
 .zt{display:flex;justify-content:center;gap:12px;align-items:center;color:#62d8ff;font-weight:900;font-size:12px;margin:5px 0;letter-spacing:1px}
 .gy{color:#c9b06a;text-decoration:underline;cursor:pointer}
-#game{display:flex;flex-direction:column;min-height:calc(100dvh - 20px)}
+#game{display:flex;flex-direction:column;min-height:calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
 #game>.top{flex:0 0 auto}
 #game>.zt{flex:0 0 auto}
 #game>.board{flex:1 1 70px;min-height:150px}
@@ -434,7 +434,8 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .midbtns{display:flex;gap:6px;margin:6px 0}
 .midbtns button{flex:1;padding:9px;font-size:14px}
 .log{border:1.5px solid #00d2ff88;border-radius:10px;padding:7px;background:#050e1bee;text-align:center;font-size:12px;cursor:pointer;min-height:31px}
-.hint{border:1px dashed #3a557d;border-radius:10px;padding:5px;background:#0a1526;text-align:center;font-size:11px;color:#9fc4e8;margin-top:6px}
+.hint{display:none;border:1px dashed #3a557d;border-radius:10px;padding:5px;background:#0a1526;text-align:center;font-size:11px;color:#9fc4e8;margin-top:6px}
+.hint.tut{display:block}
 
 /* ===== cards ===== */
 .hand{display:flex;gap:11px;overflow-x:auto;padding:12px 10px;min-height:200px;background:linear-gradient(#1b2334,#131a29);border-radius:18px;align-items:flex-start;margin-top:6px;border:1px solid #2a3a55}
@@ -781,6 +782,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .eb{display:flex;gap:6px;align-items:center}
 .eb button{width:38px;padding:8px 0}
 .cnt{min-width:26px;text-align:center;font-weight:900;font-size:16px}
+.foot .rateLink{flex-basis:100%;order:9;text-align:center;padding:4px 0 0;font-size:12px}
 .foot{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100vw,560px);background:#061122f2;border-top:1px solid #2ab6ff;padding:8px calc(8px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));display:flex;gap:8px;flex-wrap:wrap;z-index:6}
 .foot button{flex:1 1 21%;font-size:13px;padding:10px 4px}
 
@@ -993,6 +995,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
   <div class="side" onclick="showGrave('p')"><div class="who">自分</div><div class="dk">山<b id="pd">0</b></div><div class="dk">墓<b id="pgN">0</b></div></div>
   <div id="log" class="log" onclick="showLogs()">開始</div>
  </div>
+ <div id="hint" class="hint"></div>
  <div id="hand" class="hand"></div>
 </div>
 
@@ -1577,7 +1580,9 @@ function loadDeck(){
  const a=deckSlots(),s=a[curSlot()];
  if(s&&validDeck(s.cards))return [...s.cards];
  const first=a.find(x=>x&&validDeck(x.cards));
- return first?[...first.cards]:[...defDeck];
+ if(first)return [...first.cards];
+ if(starterGiven())return STARTER_DECK.filter(id=>by(id)); // スターター配布済みで枠が空なら初期デッキ
+ return [...defDeck];
 }
 // 今の内容を今の枠へ書き込む（対戦用の cmdeck100 も一緒に更新）
 function writeCurSlot(){
@@ -1736,7 +1741,7 @@ function grantStarterDeck(){
  store.set("cmOwned",JSON.stringify(m));
  STARTER_DECK.forEach(id=>{if(by(id))encounterCard(id)});
  deck=STARTER_DECK.filter(id=>by(id));
- store.set("cmdeck100",JSON.stringify(deck));
+ writeCurSlot();                       // デッキ枠(slots)にも保存。reload時にloadDeckがここを読む
  store.set("cmStarterGiven","1");
  return true;
 }
@@ -2573,10 +2578,10 @@ function renderPackTabs(){
  box.innerHTML=list.map(p=>'<button class="'+(p.id==curPack?"on":"")+'" onclick="setGachaPack('+p.id+')">'+p.name+'</button>').join("");
 }
 function renderStepGacha(){
- const box=$("stepInfo"),btn=$("stepBtn");if(!box||!btn)return;
+ const box=$("stepInfo"),btn=$("stepBtn"),b10=$("gacha10Btn");if(!box||!btn)return;
  const s=stepCur(),i=stepDone();
- if(!s||packById(curPack).noStep){box.classList.add("hide");btn.classList.add("hide");return}
- box.classList.remove("hide");btn.classList.remove("hide");
+ if(!s||packById(curPack).noStep){box.classList.add("hide");btn.classList.add("hide");if(b10)b10.classList.remove("hide");return}
+ box.classList.remove("hide");btn.classList.remove("hide");if(b10)b10.classList.add("hide"); // 初回確定中は10連の代わりに置き換え
  const L=stepList();
  const cells=L.map((x,k)=>{
   const cls=k<i?"passed":(k==i?"now":"");
@@ -2954,7 +2959,7 @@ async function prematchGo(){
 
 function start(personality,fixed){
  if(!personality&&!isIntroDone()){log2Toast("序章をクリアすると解放されます");return menu()}
- deck=deck.filter(id=>by(id));if(deck.length!=30)deck=[...defDeck];
+ deck=deck.filter(id=>by(id));if(deck.length!=30){deck=loadDeck().filter(id=>by(id));if(deck.length!=30)deck=[...defDeck];}
  let opp=personality||PERSONALITIES[Math.random()*PERSONALITIES.length|0];
  // ストーリー敵の名前差し込み(ライバル等)
  if(opp.name&&opp.name.includes("{"))opp={...opp,name:fillText(opp.name)};
