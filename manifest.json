@@ -1,0 +1,32 @@
+{
+  "name": "CORE MONSTERS",
+  "short_name": "CORE MONSTERS",
+  "description": "3レーン制のカードバトル。コアでモンスターを召喚し、呪文を放ち、相手のHPを削りきれ。",
+  "lang": "ja",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#020409",
+  "theme_color": "#0a1526",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
