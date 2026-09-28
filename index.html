@@ -571,25 +571,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .gachaTree.lit.cr{filter:drop-shadow(0 0 36px #8ff0ff) drop-shadow(0 0 18px #4ee3ff);animation:treeGlowCr 1s ease-in-out infinite}
 @keyframes treeGlowUr{0%,100%{filter:drop-shadow(0 0 24px #f7dd8a) drop-shadow(0 0 10px #f7dd8a)}50%{filter:drop-shadow(0 0 36px #ffe9a0) drop-shadow(0 0 18px #f7dd8a)}}
 @keyframes treeGlowCr{0%,100%{filter:drop-shadow(0 0 30px #8ff0ff) drop-shadow(0 0 14px #4ee3ff)}50%{filter:drop-shadow(0 0 44px #bff8ff) drop-shadow(0 0 22px #4ee3ff)}}
-.gachaCore{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:3;width:154px;height:178px;opacity:0;pointer-events:none}
-.gachaCore.show{opacity:1}
-.gachaCore .coreImg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 16px #fff)}
-.gachaCore .coreGlow{position:absolute;inset:-22%;border-radius:50%;background:radial-gradient(circle,var(--gc,#fff),transparent 62%);opacity:0;filter:blur(9px);z-index:0}
-.gachaCore .coreImg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 16px #fff);z-index:1}
-.gachaCore.charging .coreGlow{opacity:.5;animation:gcPulse .8s ease-in-out infinite alternate}
-.gachaCore.charging .coreImg{animation:gcCharge 2.6s ease-in forwards}
-@keyframes gcCharge{0%{transform:scale(.9);filter:drop-shadow(0 0 8px var(--gc,#fff)) brightness(1)}
-  60%{transform:scale(1.04);filter:drop-shadow(0 0 22px var(--gc,#fff)) brightness(1.25)}
-  100%{transform:scale(1.12);filter:drop-shadow(0 0 40px var(--gc,#fff)) drop-shadow(0 0 18px #fff) brightness(1.6)}}
-@keyframes gcPulse{0%{opacity:.35;transform:scale(.9)}100%{opacity:.85;transform:scale(1.2)}}
-.gachaCore.crack .coreImg{animation:gcBurst .5s ease-out forwards}
-@keyframes gcBurst{0%{transform:scale(1.12);filter:brightness(2)}35%{transform:scale(1.32);filter:brightness(2.6)}100%{transform:scale(2.1);opacity:0;filter:brightness(3)}}
-.gachaCore.crack .coreGlow{opacity:1;animation:none}
 /* ① 待機中のクリスタル：中央でゆっくり浮遊・明滅 */
-.gachaCore.idle .coreImg{animation:coreIdle 3.4s ease-in-out infinite}
-.gachaCore.idle .coreGlow{opacity:.4;background:radial-gradient(circle,#7fdcff,transparent 62%);animation:coreIdleGlow 3.4s ease-in-out infinite}
-@keyframes coreIdle{0%,100%{transform:translateY(0) scale(1);filter:drop-shadow(0 0 12px #bfe9ff) drop-shadow(0 0 22px #4ea8ff88)}50%{transform:translateY(-6px) scale(1.035);filter:drop-shadow(0 0 20px #eaf9ff) drop-shadow(0 0 34px #4ea8ffbb)}}
-@keyframes coreIdleGlow{0%,100%{opacity:.32;transform:scale(.95)}50%{opacity:.6;transform:scale(1.1)}}
 /* ② 裏向きカード→タップでめくり（詳細と同じ縦長比率＝六角形をやめる） */
 .gachaGrid.single{grid-template-columns:1fr;width:min(210px,56vw);max-width:210px}
 .gCard{aspect-ratio:.72/1;perspective:720px;cursor:pointer}
@@ -603,6 +585,14 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .gCardFront img{width:100%;height:100%;object-fit:cover}
 /* ⑤ レア度の光は「カードの背面レイヤー」に置く（絵に被せない） */
 .gCard{position:relative}
+/* C案：裏向きカードが画面外から飛んできて着地する */
+.gCard.flyIn{animation:gCardFly .44s cubic-bezier(.2,.9,.3,1.2) backwards}
+@keyframes gCardFly{
+ 0%{transform:translate(-150%,-60%) rotate(-22deg);opacity:0}
+ 70%{opacity:1}
+ 100%{transform:translate(0,0) rotate(0);opacity:1}
+}
+@media (prefers-reduced-motion:reduce){.gCard.flyIn{animation:none}}
 .gCard .gCardInner{z-index:1}
 .gCard::before{content:"";position:absolute;inset:-7px;border-radius:14px;z-index:0;opacity:0;filter:blur(9px);transition:opacity .3s}
 .gCard.n::before{background:radial-gradient(closest-side,#ffffff66,transparent);opacity:.4}
@@ -639,10 +629,6 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 @keyframes shardBlink{0%,42%{opacity:0}56%,88%{opacity:1}100%{opacity:0}}
 .coreParts{position:absolute;inset:-50px;z-index:1;pointer-events:none}
 .coreParts .gp{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gc,#fff);box-shadow:0 0 6px var(--gc,#fff);transition:left 1s ease-in,top 1s ease-in,opacity 1s;opacity:0}
-.coreFrags{position:absolute;inset:0;z-index:3;pointer-events:none}
-.coreFrags i{position:absolute;left:calc(50% - 14px);top:calc(50% - 14px);width:28px;height:28px;background:linear-gradient(135deg,#fff,var(--gc,#fff) 60%,#0a1c30);clip-path:polygon(50% 0,100% 40%,80% 100%,10% 80%,0 30%);box-shadow:0 0 10px var(--gc,#fff);opacity:0}
-.coreFrags i.go{animation:gcFrag .7s ease-out forwards}
-@keyframes gcFrag{0%{opacity:1;transform:translate(0,0) rotate(0) scale(1.1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(300deg) scale(.3)}}
 .gachaCapsule{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:3;width:120px;height:132px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
  background:linear-gradient(160deg,#0c3a63,#041526);display:flex;align-items:center;justify-content:center;
  box-shadow:0 0 24px #2ed4ff88 inset;font-size:52px;transition:transform .1s}
@@ -658,7 +644,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .flashOv.sr{background:radial-gradient(circle,#c98bffcc,transparent 70%)}
 .flashOv.ur{background:radial-gradient(circle,#ffe27acc,transparent 65%)}
 .flashOv.cr{background:radial-gradient(circle,#4ee3ffee,transparent 60%)}
-.newRibbon{position:absolute;top:-42px;left:50%;transform:translateX(-50%);background:linear-gradient(#ff5a5a,#b31c1c);color:#fff;font-weight:900;font-size:19px;letter-spacing:1px;padding:5px 22px;border-radius:99px;box-shadow:0 3px 12px #000a;z-index:8;white-space:nowrap;border:2px solid #ffd6d6;text-shadow:0 1px 2px #0007;animation:ribbonPop .34s cubic-bezier(.2,1.4,.4,1)}
+.newRibbon{position:absolute;top:2px;left:50%;transform:translateX(-50%);background:linear-gradient(#ff5a5a,#b31c1c);color:#fff;font-weight:900;font-size:19px;letter-spacing:1px;padding:5px 22px;border-radius:99px;box-shadow:0 3px 12px #000a;z-index:8;white-space:nowrap;border:2px solid #ffd6d6;text-shadow:0 1px 2px #0007;animation:ribbonPop .34s cubic-bezier(.2,1.4,.4,1)}
 @keyframes ribbonPop{0%{transform:translateX(-50%) scale(.4);opacity:0}70%{transform:translateX(-50%) scale(1.12)}100%{transform:translateX(-50%) scale(1);opacity:1}}
 .gachaGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:min(500px,92vw);max-width:500px;margin:0 auto;padding:6px 0}
 .rateLink{display:block;margin:6px auto 0;padding:4px;font-size:11px;color:#7f9cbb;
@@ -897,6 +883,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 /* 絵と、その上下に重なる部品をまとめる入れ物 */
 .dstage{flex:1 1 auto;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;
  padding:30px 0 22px;box-sizing:border-box}
+.dc:has(.newRibbon) .dstage{padding-top:48px}
 /* 絵とちょうど同じ大きさの入れ物。コスト・レア度・ATK/DEF はここに合わせて置く */
 .dwrap{position:relative;height:100%;aspect-ratio:.72/1;max-width:100%}
 .dtop{position:absolute;top:-22px;left:-6px;right:-6px;height:44px;display:flex;align-items:center;
@@ -1167,12 +1154,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="editorHead"><h1>ガチャ</h1><div class="sub">ベータ版（排出保存は未実装／所持クリスタルは端末に保存）</div><div id="gachaTicketBadge" class="ticketBadge hide">🎫 <span id="gachaTicket">0</span></div><div id="gachaShard" class="shardBadge">🔹 0</div><div id="gachaCrystal" class="crystalBadge">💎 0</div></div>
  <div id="gachaPackTabs" class="packPick hide"></div>
  <div class="gachaStage">
-  <div id="gachaCore" class="gachaCore">
-   <div class="coreGlow"></div>
-   <img id="gachaCoreImg" class="coreImg" src="" alt="コア">
-   <div id="gachaCoreParts" class="coreParts"></div>
-   <div id="gachaCoreFrags" class="coreFrags"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  </div>
+  
   <div id="gachaCapsule" class="gachaCapsule">🎴</div>
   <div id="gachaHint" class="gachaHint"></div>
   <div id="gachaGrid" class="gachaGrid hide"></div>
@@ -1759,9 +1741,11 @@ const GACHA_COST_1=100,GACHA_COST_10=900;
      3. ステップアップの構成を変えたいなら STEP_GACHA_BY_PACK[2] に入れる
    ガチャの抽選・ステップアップの進行は弾ごとに独立。
    かけら・レベル・クリスタルは弾をまたいで共通。 */
+// リリース時はプロモ弾を出さないため、イベントとプロモ弾は一時的に閉じる（公開するときは false に戻す）
+const EVENTS_LOCKED=true;
 const PACKS=[
  {id:1, name:"第1弾", sub:"始まりの100枚", open:true},
- {id:90,name:"プロモ弾",sub:"イベントの記念カード",open:true,cost:"ticket",noStep:true}
+ {id:90,name:"プロモ弾",sub:"イベントの記念カード",open:!EVENTS_LOCKED,cost:"ticket",noStep:true}
 ];
 function openPacks(){return PACKS.filter(p=>p.open)}
 function packById(id){return PACKS.find(p=>p.id==id)||PACKS[0]}
@@ -1912,8 +1896,6 @@ const ICON={
  tasks:'<path d="M18 16h28v36H18z"/><path d="M26 16v-4h12v4z"/><path d="M24 28l4 4 7-8"/><path d="M24 40l4 4 7-8"/><path d="M39 30h5M39 42h5"/>',
  list:'<path d="M16 14h24l8 8v28H16z"/><path d="M40 14v8h8"/><path d="M23 30h18M23 37h18M23 44h11"/>'
 };
-// リリース時はプロモ弾を出さないため、イベントは一時的に閉じる（公開するときは false に戻す）
-const EVENTS_LOCKED=true;
 const WHEEL=[
  {id:"story", icon:"story",  name:"ストーリー", desc:"旅を進める",              go:()=>openStory()},
  {id:"battle",icon:"battle", name:"ランダム対戦", desc:"好きなデッキで一戦",     go:()=>tryRandomBattle(), lock:()=>!isIntroDone(), lockDesc:"序章をクリアすると解放"},
@@ -2679,7 +2661,7 @@ function renderCodex(){
 
 /* ================= ガチャ(ベータ演出) ================= */
 const GACHA_TABLE=[{r:"N",w:55},{r:"R",w:30},{r:"SR",w:11},{r:"UR",w:3.5},{r:"CR",w:0.5}];
-let gachaBusy=false,gachaBatch=[],gachaOpened=[],gachaNew=[],gachaShard=[],gachaAnimStart=0;
+let gachaBusy=false,gachaBatch=[],gachaOpened=[],gachaNew=[],gachaShard=[],gachaAnimStart=0,gachaFly=false;
 // ◆点滅を全カードで同期させる（めくった時刻に依らず共通の位相にする）
 function gachaShardDelay(){return (-(((Date.now()-gachaAnimStart)%1800)/1000))+"s"}
 function stepList(pack){return STEP_GACHA_BY_PACK[pack==null?curPack:pack]||STEP_GACHA}
@@ -2744,15 +2726,11 @@ async function pullStepGacha(){
  gachaBatch=buildBatch(10,s.guarantee);
  if(s.card&&by(s.card))gachaBatch.push(cp(by(s.card)));   // プロモ配布ぶんを末尾に足す
  gachaOpened=new Array(gachaBatch.length).fill(false);
+ gachaNew=new Array(gachaBatch.length).fill(false);
+ gachaShard=new Array(gachaBatch.length).fill(false);
  setStepDone(curPack,stepDone()+1);
- litTree(topRarity(gachaBatch));
- await sleep(1500);
- crackCore(topRarity(gachaBatch));
- await sleep(300);
- $("gachaCapsule").classList.add("hide");
- $("gachaGrid").classList.remove("hide");
- $("gachaOpenAllBtn").classList.remove("hide");
- renderGachaGrid();sfx("draw");
+ await sleep(120);
+ showGachaResults();
  gachaBusy=false;$("gachaBtn").disabled=false;$("gacha10Btn").disabled=false;$("stepBtn").disabled=false;
  renderStepGacha();
 }
@@ -2792,33 +2770,11 @@ function gachaResetView(){gachaBatch=[];gachaOpened=[];gachaNew=[];gachaShard=[]
  $("gachaHint").innerHTML=gachaHintText();
  ["n","r","sr","ur","cr"].forEach(r=>$("gachaCapsule").classList.remove(r));
  $("gachaOpenAllBtn").classList.add("hide");
- resetTree()}
-function resetTree(){const c=$("gachaCore");if(!c)return;
- c.className="gachaCore show idle";c.style.removeProperty("--gc");
- const img=$("gachaCoreImg");if(img){img.src=TREE_BASE_URL+"core_crystal.webp";img.style.filter="";}
- const f=$("gachaCoreFrags");if(f)[...f.children].forEach(x=>x.classList.remove("go"));}
+}
+
 const CORE_COL={n:"#ffffff",r:"#4ea8ff",sr:"#b56bff",ur:"#f0c76a",cr:"#4ee3ff"};
-const CORE_FILTER={n:"saturate(.25) brightness(1.18)",r:"saturate(1.15)",sr:"hue-rotate(48deg) saturate(1.3)",ur:"hue-rotate(158deg) saturate(1.5) brightness(1.06)",cr:"hue-rotate(-16deg) saturate(1.3) brightness(1.08)"};
-// コアがレア度の色にチャージ→（crackCoreで）砕ける
-function litTree(rarity){const c=$("gachaCore");if(!c)return;
- const r=(rarity||"N").toLowerCase();
- c.style.setProperty("--gc",CORE_COL[r]||"#fff");
- const img=$("gachaCoreImg");
- if(img){if(!img.getAttribute("src"))img.src=TREE_BASE_URL+"core_crystal.webp";
-  img.style.filter=(CORE_FILTER[r]||"")+" drop-shadow(0 0 16px "+(CORE_COL[r]||"#fff")+")";}
- $("gachaCapsule").classList.add("hide");$("gachaHint").classList.add("hide");
- c.className="gachaCore show charging "+r;
- const parts=$("gachaCoreParts");
- if(parts){parts.innerHTML="";
-  for(let k=0;k<32;k++){const p=document.createElement("div");p.className="gp";
-   p.style.left=(Math.random()*100)+"%";p.style.top=(Math.random()*100)+"%";p.style.transitionDelay=(Math.random()*0.3)+"s";parts.appendChild(p);}
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{[...parts.children].forEach(p=>{p.style.left="50%";p.style.top="50%";p.style.opacity="0";});}));
- }}
-function crackCore(rarity){const c=$("gachaCore");if(!c||c.classList.contains("crack"))return;
- c.classList.remove("charging");c.classList.add("crack");
- const frags=$("gachaCoreFrags");
- if(frags){const dirs=[[-90,-60],[95,-50],[-75,75],[85,70],[0,-100],[-30,95],[45,-90]];
-  [...frags.children].forEach((f,i)=>{const d=dirs[i%dirs.length];f.style.setProperty("--dx",d[0]+"px");f.style.setProperty("--dy",d[1]+"px");f.classList.remove("go");void f.offsetWidth;f.classList.add("go");});}}
+
+
 // カード配列から最高レア度を返す
 function topRarity(cards){let best="N";cards.forEach(c=>{if((RARITY_ORDER[c.rarity]||0)>(RARITY_ORDER[best]||0))best=c.rarity});return best}
 async function pullGacha(){if(gachaBusy)return;
@@ -2832,19 +2788,16 @@ async function pullGacha(){if(gachaBusy)return;
  sfx("sel");
  gachaBatch=[rollGacha()];
  gachaOpened=[false];gachaNew=[false];gachaShard=[false];
- // クリスタルコアバースト: レア度色の粒子が集結→光る→砕ける
- litTree(gachaBatch[0].rarity);
- await sleep(1600);
- crackCore(gachaBatch[0].rarity);
- await sleep(650);
+ await sleep(120);
  showGachaResults();
  gachaBusy=false;$("gachaBtn").disabled=false;$("gacha10Btn").disabled=false;
 }
 // 砕けたあと、裏向きカードを並べる（1連=1枚中央／10連=5列）。タップでめくる。
 function showGachaResults(){
  gachaAnimStart=Date.now();
+ gachaFly=true;
+ setTimeout(()=>{gachaFly=false},900);   // 演出が済んだら通常描画に戻す
  $("gachaCapsule").classList.add("hide");$("gachaHint").classList.add("hide");
- $("gachaCore").classList.remove("show");
  const grid=$("gachaGrid");
  grid.classList.remove("hide");
  grid.classList.toggle("single",gachaBatch.length===1);
@@ -2863,11 +2816,7 @@ async function pull10Gacha(){if(gachaBusy)return;
  sfx("sel");
  gachaBatch=buildBatch(10,["R"]);   // 10枚目はR以上確定
  gachaOpened=new Array(10).fill(false);gachaNew=new Array(10).fill(false);gachaShard=new Array(10).fill(false);
- // クリスタルコアバースト: 10枚の最高レア度で光る
- litTree(topRarity(gachaBatch));
- await sleep(1500);
- crackCore(topRarity(gachaBatch));
- await sleep(350);
+ await sleep(120);
  showGachaResults();
  gachaBusy=false;$("gachaBtn").disabled=false;$("gacha10Btn").disabled=false;
 }
@@ -2881,6 +2830,7 @@ function renderGachaGrid(){
   const shardMark=gachaShard[i]?`<div class="gCardShard" style="animation-delay:${gachaShardDelay()}">◆</div>`:"";
   const d=document.createElement("div");
   d.className="gCard "+c.rarity.toLowerCase()+(opened?" flipped":"")+(gachaShard[i]?" shard":"");
+  if(gachaFly){d.classList.add("flyIn");d.style.animationDelay=(i*70)+"ms"}
   d.innerHTML=`<div class="gCardInner"><div class="gCardFace gCardBack"></div><div class="gCardFace gCardFront">${face}${shardMark}</div></div>`;
   d.onclick=()=>flipGachaCard(i);
   g.appendChild(d)})}
