@@ -1,0 +1,8 @@
+[
+ {
+  "id": "test_idolwink",
+  "title": "配布テスト",
+  "msg": "プレゼントBOXの動作確認用です",
+  "items": [{"type": "card", "id": "idolwinkp"}]
+ }
+]
