@@ -636,7 +636,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 /* かけら交換所 */
 .exGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(460px,94vw);margin:10px auto;padding:2px}
 /* 下の「戻る」の帯に最後の行が隠れないよう、帯の高さぶん下に余白をとる */
-#exchange,#presents,#news{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+#exchange,#presents,#news,#friend{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 .exCard{background:#0c1e33;border:2px solid #24425f;border-radius:12px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .exCard.rr-r{border-color:#4ea8ff}.exCard.rr-sr{border-color:#b56bff}.exCard.rr-ur{border-color:#f0c76a;box-shadow:0 0 10px #f0c76a55}
 .exArt{width:100%;aspect-ratio:.86/1;border-radius:8px;overflow:hidden;background:#081524;display:flex;align-items:center;justify-content:center;font-size:30px}
@@ -893,6 +893,20 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .nBody{font-size:12px;line-height:1.7;color:#cfe0f0;word-break:break-word}
 .nPopTag{display:inline-block;font-size:11px;font-weight:900;color:#1a0a04;background:#ff8a5c;border-radius:99px;padding:2px 10px;margin-bottom:6px}
 .nPopBody{margin-top:8px;max-height:45vh;overflow:auto;text-align:left;font-size:13px;line-height:1.7;color:#cfe0f0;word-break:break-word}
+/* フレンドマッチ */
+.friendLink{display:block;width:100%;margin-top:10px;padding:11px;border-radius:14px;border:1px dashed #4a7bab;background:#0b1a2ecc;color:#cfe6ff;font-size:14px;font-weight:900;font-family:inherit}
+.friendLink small{font-size:10px;color:#8fb8dc;font-weight:700}
+.frBox{width:min(460px,94vw);margin:14px auto;padding:16px;box-sizing:border-box;border-radius:16px;background:#0c1e33;border:1px solid #2f5a8d;text-align:center}
+.frBox h3{margin:0 0 8px;font-size:15px}
+.frNote{font-size:12px;color:#9fc0dd;line-height:1.7}
+.frCode{font-family:'Dela Gothic One',sans-serif;font-size:46px;letter-spacing:10px;color:#fff;text-shadow:0 0 18px #2ab6ff;margin:6px 0}
+.frInput{width:100%;box-sizing:border-box;margin:8px 0;padding:12px;border-radius:12px;border:1px solid #2f5a8d;background:#020b16;color:#fff;font-size:26px;text-align:center;letter-spacing:10px;font-family:inherit}
+.frBtns{display:flex;gap:8px;margin-top:10px}.frBtns button{flex:1}
+.frWho{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
+.frWho div{flex:1;padding:10px 6px;border-radius:12px;background:#061122;border:1px solid #2f5a8d;font-size:12px}
+.frWho b{display:block;font-size:15px;margin-top:2px}
+.frOk{color:#37e08a;font-weight:900}.frErr{color:#ff8a8a;font-weight:800;word-break:break-all}
+.frLog{margin-top:10px;max-height:120px;overflow:auto;text-align:left;font-size:12px;color:#cfe0f0;background:#061122;border-radius:10px;padding:8px}
 .pEmpty{margin:48px 12px;text-align:center;font-size:13px;color:#8fa9c4;line-height:1.7}
 
 /* pop buttons */
@@ -1065,7 +1079,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.0</div>
+ <div class="tVer" id="tVer">ver.3.2</div>
 </div>
 
 <div id="app">
@@ -1159,7 +1173,14 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
    <button class="m4 sm" id="m4_tablet" onclick="menuGo(5)"><span class="m4em">🪨</span>石版</button>
    <button class="m4 sm" id="m4_tasks" onclick="menuGo(7)"><span class="m4em">✅</span>タスク</button>
   </div>
+  <button type="button" class="friendLink" onclick="openFriend()">👥 フレンドマッチ <small>（接続テスト中）</small></button>
  </div>
+</div>
+
+<div id="friend" class="hide">
+ <div class="editorHead"><h1>フレンドマッチ</h1><div class="sub">部屋コードで友だちとつながる（いまは接続テスト）</div></div>
+ <div id="friendBody"></div>
+ <div class="foot"><button type="button" class="sec" onclick="friendLeave(true)">戻る</button></div>
 </div>
 
 <div id="game" class="hide">
@@ -1454,7 +1475,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.0</div>
+  <div class="aboutVer" id="aboutVer">ver.3.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1681,8 +1702,11 @@ const PERSONALITIES=[
 /* ================= ストーリーモード ================= */
 // ストーリー専用の敵(既存性格のデッキを流用して難易度調整)
 const STORY_ENEMIES={
- villager:{id:"villager",name:"村人",tagline:"最近カードを覚えたんだ",aggro:0.5,deck:PERSONALITIES[0].deck},
- sailor:{id:"sailor",name:"船乗り",tagline:"船賃がわりに一勝負",aggro:0.9,deck:PERSONALITIES[0].deck},
+ // 序章の敵は、はじまりシリーズ中心のデッキ（新しく始めた人も同じはじまりデッキなので、ここで釣り合う）
+ // sim（はじまりデッキで挑んだ勝率）：双子 約60% → 村人 約54% → 船乗り 約39%
+ villager:{id:"villager",name:"村人",tagline:"最近カードを覚えたんだ",aggro:0.5,deck:[...STARTER_DECK]},
+ sailor:{id:"sailor",name:"船乗り",tagline:"船賃がわりに一勝負",aggro:0.9,
+  deck:(()=>{const d=STARTER_DECK.map(x=>({p07:"aquaknight",p05:"wolfket",p04:"mucha",p08:"kucha"})[x]||x);d[d.indexOf("p09")]="babygolem";return d})()},
  rival:{id:"rival",name:"{rival}",tagline:"いい宝石は全部もらう",aggro:1.2,deck:PERSONALITIES[1].deck},
  rival_tw:{id:"rival_tw",name:"{rival}",tagline:"双子の{rk}",aggro:0.8,deck:[...STARTER_DECK]},
  kaya:{id:"kaya",name:"門番のカヤ",tagline:"よそ者は、まず私を抜いてから",aggro:1.3,deck:PERSONALITIES[1].deck},
@@ -2776,7 +2800,7 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
@@ -3353,6 +3377,97 @@ async function loadPresents(){
  presentLoaded=true;renderPresentBadge();
  const s=$("presents");if(s&&!s.classList.contains("hide"))renderPresents()}
 function openPresents(){hideAll();$("presents").classList.remove("hide");$("app").scrollTop=0;sfx("sel");renderPresents();loadPresents()}
+
+/* ================= フレンドマッチ（ステップ1：部屋コードでつなぐ） =================
+   Firebase Realtime Database の cm_rooms/<4桁> に部屋を作る。
+   ホスト：部屋を作って待つ　ゲスト：コードを入れて入る　→　お互いの名前とデッキ枚数が見えればつながっている。
+   Firebase の読み込みはこの画面を開いたときだけ（普段の起動は重くならない）。 */
+const FB_CONFIG={
+ apiKey:"AIzaSyD8zzQETqHIb7KKfoQoF5QYglkickoVAe8",
+ authDomain:"coremonsters-654ae.firebaseapp.com",
+ databaseURL:"https://coremonsters-654ae-default-rtdb.asia-southeast1.firebasedatabase.app",
+ projectId:"coremonsters-654ae",
+ storageBucket:"coremonsters-654ae.firebasestorage.app",
+ messagingSenderId:"1085219758067",
+ appId:"1:1085219758067:web:53e3e4e383ab6a9849fc86"};
+const FB_SDK="https://www.gstatic.com/firebasejs/10.12.2/";
+let fbDb=null,fbLoading=null;
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=()=>rej(new Error("読み込み失敗："+src));document.head.appendChild(s)})}
+async function fbInit(){if(fbDb)return fbDb;
+ if(!fbLoading)fbLoading=(async()=>{
+  if(!window.firebase)await loadScript(FB_SDK+"firebase-app-compat.js");
+  if(!window.firebase.database)await loadScript(FB_SDK+"firebase-database-compat.js");
+  const app=window.firebase.apps.length?window.firebase.app():window.firebase.initializeApp(FB_CONFIG);
+  fbDb=app.database();return fbDb})();
+ try{return await fbLoading}catch(e){fbLoading=null;throw e}}
+// 状態：{mode:"top"|"host"|"guest", code, me:"host"|"guest", ref, room}
+let fr={mode:"top"};
+function frName(){return (player&&player.name)||"ななし"}
+function frDeck(){try{return loadDeck().filter(id=>by(id))}catch(e){return[]}}
+function frLog(t){fr.log=(fr.log||[]).concat(t).slice(-20);const el=$("frLog");if(el){el.innerHTML=fr.log.map(escH).join("<br>");el.scrollTop=99999}}
+function openFriend(){hideAll();$("friend").classList.remove("hide");$("app").scrollTop=0;sfx("sel");fr={mode:"top"};renderFriend()}
+function renderFriend(msg){const b=$("friendBody");if(!b)return;
+ const err=msg?'<div class="frNote frErr">'+escH(msg)+'</div>':"";
+ if(fr.mode=="top"){b.innerHTML=
+  '<div class="frBox"><h3>部屋を作る</h3><div class="frNote">4けたの部屋コードが出るので、相手に伝えてください。</div>'
+  +'<div class="frBtns"><button type="button" onclick="friendCreate()">部屋を作る</button></div></div>'
+  +'<div class="frBox"><h3>部屋に入る</h3><div class="frNote">相手から聞いた4けたのコードを入れてください。</div>'
+  +'<input id="frCodeIn" class="frInput" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off">'
+  +'<div class="frBtns"><button type="button" class="gold" onclick="friendJoin()">入る</button></div></div>'+err;return}
+ const R=fr.room||{},h=R.host,g=R.guest,both=!!(h&&g);
+ b.innerHTML='<div class="frBox">'
+  +(fr.me=="host"?'<div class="frNote">部屋コード</div><div class="frCode">'+fr.code+'</div>':'<div class="frNote">部屋 '+fr.code+' に入りました</div>')
+  +(both?'<div class="frNote frOk">✅ つながりました！</div>':'<div class="frNote">相手を待っています…</div>')
+  +'<div class="frWho"><div>ホスト<b>'+(h?escH(h.name):"—")+'</b>'+(h?'デッキ '+(h.deck||[]).length+'枚':"")+'</div>'
+  +'<div>ゲスト<b>'+(g?escH(g.name):"—")+'</b>'+(g?'デッキ '+(g.deck||[]).length+'枚':"")+'</div></div>'
+  +(both?'<div class="frBtns"><button type="button" onclick="friendPing()">👋 あいさつを送る</button></div>':"")
+  +'<div id="frLog" class="frLog"></div>'
+  +'<div class="frBtns"><button type="button" class="sec" onclick="friendLeave(false)">部屋を出る</button></div>'
+  +'</div>'+err;
+ frLog([])}
+function frMe(){return {name:frName(),deck:frDeck(),at:Date.now()}}
+async function friendCreate(){renderFriend("接続中…");
+ try{const db=await fbInit();
+  for(let k=0;k<8;k++){const code=String(Math.floor(Math.random()*10000)).padStart(4,"0");
+   const ref=db.ref("cm_rooms/"+code);
+   const cur=(await ref.once("value")).val();
+   if(cur&&cur.host&&Date.now()-(cur.created||0)<3*3600e3)continue;   // 使用中（3時間以内）の番号は使わない
+   const room={created:Date.now(),host:frMe()};
+   await ref.set(room);
+   ref.onDisconnect().remove();                                          // アプリを閉じたら部屋ごと消える
+   fr={mode:"room",me:"host",code,ref,room,log:[]};
+   frWatch();renderFriend();sfx("sel");return}
+  renderFriend("部屋を作れませんでした。もう一度試してください")}
+ catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
+async function friendJoin(){const code=(($("frCodeIn")||{}).value||"").replace(/\D/g,"");
+ if(code.length!=4){renderFriend("4けたの数字を入れてください");return}
+ renderFriend("接続中…");
+ try{const db=await fbInit(),ref=db.ref("cm_rooms/"+code);
+  const v=(await ref.once("value")).val();
+  if(!v||!v.host){renderFriend("その部屋は見つかりませんでした");return}
+  if(v.guest){renderFriend("その部屋はもう満員です");return}
+  const me=frMe();
+  await ref.child("guest").set(me);
+  ref.child("guest").onDisconnect().remove();                           // アプリを閉じたら退室
+  fr={mode:"room",me:"guest",code,ref,room:{...v,guest:me},log:[]};
+  frWatch();renderFriend();sfx("sel")}
+ catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
+function frWatch(){const ref=fr.ref;if(!ref)return;
+ fr.onVal=ref.on("value",snap=>{const v=snap.val();
+  if(!v){if(fr.me=="guest"){frStop();fr={mode:"top"};renderFriend("ホストが部屋を閉じました")}return}
+  const hadG=!!(fr.room&&fr.room.guest);fr.room=v;renderFriend();
+  if(!hadG&&v.guest&&fr.me=="host"){sfx("win");log2Toast(v.guest.name+"さんが入りました")}
+  if(hadG&&!v.guest&&fr.me=="host")log2Toast("相手が部屋を出ました")});
+ fr.onPing=ref.child("ping").on("value",snap=>{const p=snap.val();if(!p||p.from==fr.me)return;
+  sfx("sel");log2Toast("👋 "+p.name+"さんからあいさつ");frLog("👋 "+p.name+"さんからあいさつが届きました")})}
+function frStop(){try{if(fr.ref){fr.ref.off();fr.ref.child("ping").off()}}catch(e){}}
+function friendPing(){if(!fr.ref)return;fr.ref.child("ping").set({from:fr.me,name:frName(),at:Date.now()});frLog("👋 あいさつを送りました");sfx("sel")}
+async function friendLeave(toMenu){
+ try{if(fr.ref){frStop();
+  if(fr.me=="host")await fr.ref.remove();else await fr.ref.child("guest").remove();
+  fr.ref.onDisconnect().cancel()}}catch(e){}
+ fr={mode:"top"};
+ if(toMenu)menu();else renderFriend()}
 
 /* ================= お知らせ =================
    GitHub のルートに置いた news.json を書き換えるだけで配信できる（index.html の更新は不要）。
