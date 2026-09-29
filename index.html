@@ -226,7 +226,13 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .discBar button{padding:7px 13px;font-size:12px;border-radius:9px}
 
 /* ===== イベント ===== */
-.evList{display:flex;flex-direction:column;gap:10px}
+.evList{display:flex;flex-direction:column;gap:14px;width:min(460px,94vw);margin:10px auto 0}
+.evCard.closed{opacity:.6}
+.evIco{position:absolute;right:26px;top:32px;font-size:44px;filter:drop-shadow(0 2px 6px #000a)}
+.evCard .evDesc{margin:2px 0 6px;font-size:12px;color:#bcd6ee;line-height:1.6}
+.evRw{margin-bottom:8px;font-size:12px;font-weight:900;color:var(--ga)}
+.evGoBtn{display:block;width:100%;padding:11px;font-size:15px}
+#events{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 .evCard{position:relative;display:block;width:100%;padding:0;overflow:hidden;text-align:left;
  border-radius:16px;border:1px solid #2f5a8d;background:linear-gradient(#0d2440,#08182b);box-shadow:0 4px 14px #0008}
 .evCard.open{border-color:var(--gold2);box-shadow:0 4px 18px #0009,0 0 18px #f0c76a33}
@@ -1046,7 +1052,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.2.1</div>
+ <div class="tVer" id="tVer">ver.2.12</div>
 </div>
 
 <div id="app">
@@ -1435,7 +1441,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.2.1</div>
+  <div class="aboutVer" id="aboutVer">ver.2.12</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1491,7 +1497,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 </div></div>
 
 <script>
-const CARD_IMAGES={"p01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p01.webp","p02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p02.webp","p03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p03.webp","p04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p04.webp","p05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p05.webp","p06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p06.webp","p07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p07.webp","p08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p08.webp","p09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p09.webp","p10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p10.webp","p11":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p11.webp","p12":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p12.webp","p13":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p13.webp","p14":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p14.webp","p15":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p15.webp","idolwinkp":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwinkp.webp","armor":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/armor.webp","suiso":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suiso.webp","jirasanaide":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jirasanaide.webp","deathmark":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathmark.webp","gomen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gomen.webp","kokoikku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kokoikku.webp","kinkyu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kinkyu.webp","kami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kami.webp","gabriel":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gabriel.webp","kaendan":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaendan.webp","kaijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaijou.webp","ousei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ousei.webp","daichi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/daichi.webp","uriega":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uriega.webp","idolwink":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwink.webp","mrk":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mrk.webp","makijack":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/makijack.webp","hotdog":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hotdog.webp","fontni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fontni.webp","boobybar":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boobybar.webp","nekura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/nekura.webp","suhada":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suhada.webp","jujika":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jujika.webp","solo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/solo.webp","saralion":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/saralion.webp","koutei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/koutei.webp","oomawari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/oomawari.webp","uradracula":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uradracula.webp","ippanA":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ippanA.webp","sokougeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sokougeki.webp","udon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/udon.webp","sakanakushun":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sakanakushun.webp","kanpou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kanpou.webp","shoukyuukei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shoukyuukei.webp","library":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/library.webp","lastpower":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lastpower.webp","battlepose":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/battlepose.webp","batto":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/batto.webp","boseki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boseki.webp","ami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ami.webp","an":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an.webp","ikiru":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru.webp","deathhero":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero.webp","kou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou.webp","misuzui":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui.webp","komoku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku.webp","hien":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien.webp","baikingu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/baikingu.webp","yoshiyoshi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/yoshiyoshi.webp","shokei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shokei.webp","quickorder":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/quickorder.webp","aichu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aichu.webp","muffin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/muffin.webp","allcharge":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/allcharge.webp","firecurve":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firecurve.webp","firestraight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firestraight.webp","gaikotsu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gaikotsu.webp","slime":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/slime.webp","boen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boen.webp","mucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mucha.webp","kucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kucha.webp","katatsumura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/katatsumura.webp","balloon5":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/balloon5.webp","ladyga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ladyga.webp","fukurou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fukurou.webp","magnetmin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/magnetmin.webp","tarakong":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tarakong.webp","pentagon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pentagon.webp","aquaknight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aquaknight.webp", "babydragon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babydragon.webp", "babygolem":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babygolem.webp", "dashpanther":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dashpanther.webp", "fairy":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fairy.webp", "goblingo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/goblingo.webp", "heavylancer":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heavylancer.webp", "kamakamakiri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kamakamakiri.webp", "majician":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/majician.webp", "sonobashinobi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sonobashinobi.webp", "wolfket":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wolfket.webp","spelllock":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/spelllock.webp","wsurprise":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wsurprise.webp","choi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/choi.webp","tsubame":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tsubame.webp","teppeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/teppeki.webp","hibashira":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hibashira.webp","hontou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hontou.webp","mikaera":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mikaera.webp","mimi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mimi.webp","minnano":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/minnano.webp","mottai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mottai.webp","rafaeri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/rafaeri.webp","ramen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ramen.webp","moratta":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/moratta.webp","tomoni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tomoni.webp","suki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suki.webp","chantprep":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chantprep.webp","dokubari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dokubari.webp","maketakunai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/maketakunai.webp","michizure":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/michizure.webp","heijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heijou.webp","ikiru_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru_cr.webp","deathhero_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero_cr.webp","an_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an_cr.webp","kou_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou_cr.webp","hien_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien_cr.webp","misuzui_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui_cr.webp","komoku_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku_cr.webp"}; // 本番: GitHub raw URL参照方式
+const CARD_IMAGES={"chronoga_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronogacr.webp","b_chronoga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronogacr.webp","pv08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv08.webp","pv10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv10.webp","chronoga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronoga.webp","pv01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv01.webp","pv02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv02.webp","pv03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv03.webp","pv04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv04.webp","pv06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv06.webp","p01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p01.webp","p02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p02.webp","p03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p03.webp","p04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p04.webp","p05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p05.webp","p06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p06.webp","p07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p07.webp","p08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p08.webp","p09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p09.webp","p10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p10.webp","p11":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p11.webp","p12":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p12.webp","p13":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p13.webp","p14":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p14.webp","p15":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p15.webp","idolwinkp":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwinkp.webp","armor":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/armor.webp","suiso":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suiso.webp","jirasanaide":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jirasanaide.webp","deathmark":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathmark.webp","gomen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gomen.webp","kokoikku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kokoikku.webp","kinkyu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kinkyu.webp","kami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kami.webp","gabriel":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gabriel.webp","kaendan":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaendan.webp","kaijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaijou.webp","ousei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ousei.webp","daichi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/daichi.webp","uriega":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uriega.webp","idolwink":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwink.webp","mrk":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mrk.webp","makijack":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/makijack.webp","hotdog":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hotdog.webp","fontni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fontni.webp","boobybar":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boobybar.webp","nekura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/nekura.webp","suhada":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suhada.webp","jujika":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jujika.webp","solo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/solo.webp","saralion":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/saralion.webp","koutei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/koutei.webp","oomawari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/oomawari.webp","uradracula":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uradracula.webp","ippanA":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ippanA.webp","sokougeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sokougeki.webp","udon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/udon.webp","sakanakushun":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sakanakushun.webp","kanpou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kanpou.webp","shoukyuukei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shoukyuukei.webp","library":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/library.webp","lastpower":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lastpower.webp","battlepose":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/battlepose.webp","batto":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/batto.webp","boseki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boseki.webp","ami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ami.webp","an":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an.webp","ikiru":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru.webp","deathhero":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero.webp","kou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou.webp","misuzui":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui.webp","komoku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku.webp","hien":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien.webp","baikingu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/baikingu.webp","yoshiyoshi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/yoshiyoshi.webp","shokei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shokei.webp","quickorder":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/quickorder.webp","aichu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aichu.webp","muffin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/muffin.webp","allcharge":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/allcharge.webp","firecurve":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firecurve.webp","firestraight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firestraight.webp","gaikotsu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gaikotsu.webp","slime":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/slime.webp","boen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boen.webp","mucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mucha.webp","kucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kucha.webp","katatsumura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/katatsumura.webp","balloon5":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/balloon5.webp","ladyga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ladyga.webp","fukurou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fukurou.webp","magnetmin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/magnetmin.webp","tarakong":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tarakong.webp","pentagon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pentagon.webp","aquaknight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aquaknight.webp", "babydragon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babydragon.webp", "babygolem":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babygolem.webp", "dashpanther":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dashpanther.webp", "fairy":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fairy.webp", "goblingo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/goblingo.webp", "heavylancer":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heavylancer.webp", "kamakamakiri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kamakamakiri.webp", "majician":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/majician.webp", "sonobashinobi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sonobashinobi.webp", "wolfket":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wolfket.webp","spelllock":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/spelllock.webp","wsurprise":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wsurprise.webp","choi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/choi.webp","tsubame":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tsubame.webp","teppeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/teppeki.webp","hibashira":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hibashira.webp","hontou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hontou.webp","mikaera":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mikaera.webp","mimi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mimi.webp","minnano":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/minnano.webp","mottai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mottai.webp","rafaeri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/rafaeri.webp","ramen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ramen.webp","moratta":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/moratta.webp","tomoni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tomoni.webp","suki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suki.webp","chantprep":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chantprep.webp","dokubari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dokubari.webp","maketakunai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/maketakunai.webp","michizure":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/michizure.webp","heijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heijou.webp","ikiru_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru_cr.webp","deathhero_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero_cr.webp","an_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an_cr.webp","kou_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou_cr.webp","hien_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien_cr.webp","misuzui_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui_cr.webp","komoku_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku_cr.webp"}; // 本番: GitHub raw URL参照方式
 const TREE_BASE_URL="https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/";
 const TREE_IMAGES={base:TREE_BASE_URL+"tree_base.webp",N:TREE_BASE_URL+"tree_n.webp",R:TREE_BASE_URL+"tree_r.webp",SR:TREE_BASE_URL+"tree_sr.webp",UR:TREE_BASE_URL+"tree_ur.webp",CR:TREE_BASE_URL+"tree_cr.webp"};
 function kanaSort(a,b){return (a.sortName||a.name).localeCompare((b.sortName||b.name),'ja')}
@@ -1515,16 +1521,33 @@ const P=[{"id":"aichu","name":"アイチュ","sortName":"あいちゅ","type":"m
 {"type":"spell","id":"idolwinkp","name":"アイドルのウィンク","sortName":"あいどるのうぃんく","cost":3,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター1体のATKとDEFを+2000する","eff":"targetAllyAtkDef2000","rarity":"R","pack":0,"promo":1,"baseId":"idolwink"},
 /* ===== プロモ弾：時間の神クロノガ（イベント報酬）===== */
 {"type":"monster","id":"chronoga","name":"時間の神 クロノガ","sortName":"じかんのかみくろのが","cost":6,"atk":4000,"def":3000,"text":"破壊される時、自分の山札を5枚墓地へ置き、破壊を無効にする。この効果は自分のターンに1回しか使えない","millGuard":5,"rarity":"UR","pack":90,"promo":1,"event":1},
+{"type":"monster","id":"chronoga_cr","name":"時間の神 クロノガ","sortName":"じかんのかみくろのが","cost":6,"atk":4000,"def":3000,"text":"破壊される時、自分の山札を5枚墓地へ置き、破壊を無効にする。この効果は自分のターンに1回しか使えない","millGuard":5,"rarity":"CR","pack":90,"promo":1,"event":1,"baseId":"chronoga","lore":"砂は落ちるものではなく、還るもの。神殿の砂時計が逆さに流れはじめたとき、時の神は長い眠りから目を覚ました。"},
 {"type":"monster","id":"pv01","name":"刻ノ民","sortName":"ときのたみ","cost":2,"atk":1000,"def":1000,"text":"登場時、自分の山札を2枚墓地へ置く","on":"selfMill2","rarity":"R","pack":90,"promo":1,"event":1},
 {"type":"monster","id":"pv02","name":"刻ノ守人","sortName":"ときのもりびと","cost":3,"atk":2000,"def":2000,"text":"【守護】。登場時、自分の山札を2枚墓地へ置く","guard":1,"on":"selfMill2","rarity":"R","pack":90,"promo":1,"event":1},
 {"type":"monster","id":"pv03","name":"刻ノ尖兵","sortName":"ときのせんぺい","cost":5,"atk":0,"def":0,"text":"【突撃】。このモンスターのATKとDEFは、自分の墓地のカードの枚数×300になる","charge":1,"graveAtk":300,"graveDef":300,"rarity":"SR","pack":90,"promo":1,"event":1},
 {"type":"monster","id":"pv04","name":"刻ノ将","sortName":"ときのしょう","cost":5,"atk":4000,"def":1000,"text":"破壊された時、自分の山札を3枚墓地へ置く","death":"selfMill3","rarity":"SR","pack":90,"promo":1,"event":1},
-{"type":"spell","id":"pv06","name":"等価交換ノ刻","sortName":"とうかこうかんのとき","cost":2,"atk":0,"def":0,"text":"手札を2枚選んで捨てる。その後、自分の山札を2枚ドローする","eff":"selfDiscard2Draw2","rarity":"R","pack":90,"promo":1,"event":1},
-{"type":"spell","id":"pv07","name":"平等ノ刻","sortName":"びょうどうのとき","cost":2,"atk":0,"def":0,"text":"お互いの山札を3枚墓地へ置く","eff":"millBoth3","rarity":"R","pack":90,"promo":1,"event":1},
+{"type":"spell","id":"pv06","name":"等価交換ノ刻","sortName":"とうかこうかんのとき","cost":2,"atk":0,"def":0,"text":"手札を2枚選んで捨てる。その後、自分の山札を2枚ドローする","eff":"selfDiscard2Draw2","rarity":"R","pack":90,"promo":1,"event":1,"unreleased":1},
+{"type":"spell","id":"pv07","name":"平等ノ刻","sortName":"びょうどうのとき","cost":2,"atk":0,"def":0,"text":"お互いの山札を3枚墓地へ置く","eff":"millBoth3","rarity":"R","pack":90,"promo":1,"event":1,"unreleased":1},
 {"type":"spell","id":"pv08","name":"積年の怨念","sortName":"せきねんのおんねん","cost":5,"atk":0,"def":0,"text":"相手プレイヤーに、自分の墓地のカードの枚数×300ダメージを与える","eff":"graveBurn300","rarity":"SR","pack":90,"promo":1,"event":1},
-{"type":"spell","id":"pv09","name":"失ワレシ刻","sortName":"うしなわれしとき","cost":5,"atk":0,"def":0,"text":"手札を最大5枚まで選んで捨てる。捨てた枚数×1000ダメージを相手プレイヤーに与える","eff":"discardBurn","rarity":"UR","pack":90,"promo":1,"event":1},
+{"type":"spell","id":"pv09","name":"失ワレシ刻","sortName":"うしなわれしとき","cost":5,"atk":0,"def":0,"text":"手札を最大5枚まで選んで捨てる。捨てた枚数×1000ダメージを相手プレイヤーに与える","eff":"discardBurn","rarity":"UR","pack":90,"promo":1,"event":1,"unreleased":1},
 {"type":"spell","id":"pv10","name":"奪ワレシ刻","sortName":"うばわれしとき","cost":4,"atk":0,"def":0,"text":"相手の墓地のカードの枚数×300、自分のHPを回復する","eff":"enemyGraveHeal","rarity":"R","pack":90,"promo":1,"event":1}
 ].sort(kanaSort);
+
+/* ===== ボス専用カード =====
+   イベントのボスだけが使う強化版。プレイヤーは手に入らない（ガチャ・交換所・図鑑・報酬のどれにも出ない）。
+   bossOnly:1 … 手に入らない印。imgOf … 絵は元のカードのものを使う。
+   強さはここだけで調整できる（プレイヤー側のバランスに影響しない）。 */
+const BOSS_CARDS=[
+ {"type":"monster","id":"b_chronoga","name":"覚醒 時間の神 クロノガ","sortName":"かくせいじかんのかみくろのが","cost":5,"atk":5000,"def":4000,"text":"破壊される時、自分の山札を5枚墓地へ置き、破壊を無効にする。この効果は自分のターンに1回しか使えない","millGuard":5,"rarity":"UR","imgOf":"chronoga"},
+ {"type":"monster","id":"b_pv01","name":"覚醒 刻ノ民","sortName":"かくせいときのたみ","cost":2,"atk":2000,"def":2000,"text":"登場時、自分の山札を2枚墓地へ置く","on":"selfMill2","rarity":"R","imgOf":"pv01"},
+ {"type":"monster","id":"b_pv02","name":"覚醒 刻ノ守人","sortName":"かくせいときのもりびと","cost":3,"atk":2500,"def":3500,"text":"【守護】。登場時、自分の山札を2枚墓地へ置く","guard":1,"on":"selfMill2","rarity":"R","imgOf":"pv02"},
+ {"type":"monster","id":"b_pv03","name":"覚醒 刻ノ尖兵","sortName":"かくせいときのせんぺい","cost":4,"atk":0,"def":0,"text":"【突撃】。このモンスターのATKとDEFは、自分の墓地のカードの枚数×400になる","charge":1,"graveAtk":400,"graveDef":400,"rarity":"SR","imgOf":"pv03"},
+ {"type":"monster","id":"b_pv04","name":"覚醒 刻ノ将","sortName":"かくせいときのしょう","cost":5,"atk":5000,"def":3000,"text":"破壊された時、自分の山札を3枚墓地へ置く","death":"selfMill3","rarity":"SR","imgOf":"pv04"},
+ {"type":"spell","id":"b_pv08","name":"覚醒 積年の怨念","sortName":"かくせいせきねんのおんねん","cost":4,"atk":0,"def":0,"text":"相手プレイヤーに、自分の墓地のカードの枚数×300ダメージを与える","eff":"graveBurn300","rarity":"SR","imgOf":"pv08"},
+ {"type":"spell","id":"b_pv10","name":"覚醒 奪ワレシ刻","sortName":"かくせいうばわれしとき","cost":3,"atk":0,"def":0,"text":"相手の墓地のカードの枚数×300、自分のHPを回復する","eff":"enemyGraveHeal","rarity":"R","imgOf":"pv10"}
+].map(c=>({...c,pack:99,promo:1,bossOnly:1}));
+P.push(...BOSS_CARDS);
+BOSS_CARDS.forEach(c=>{if(!CARD_IMAGES[c.id]&&CARD_IMAGES[c.imgOf])CARD_IMAGES[c.id]=CARD_IMAGES[c.imgOf]});
 
 /* ================= 基盤 ================= */
 function $(id){return document.getElementById(id)}
@@ -1865,7 +1888,7 @@ const GACHA_COST_1=100,GACHA_COST_10=900;
    ガチャの抽選・ステップアップの進行は弾ごとに独立。
    かけら・レベル・クリスタルは弾をまたいで共通。 */
 // リリース時はプロモ弾を出さないため、イベントとプロモ弾は一時的に閉じる（公開するときは false に戻す）
-const EVENTS_LOCKED=true;
+const EVENTS_LOCKED=false;   // 9/29 公開
 const PACKS=[
  {id:1, name:"第1弾", sub:"始まりの100枚", open:true},
  {id:90,name:"プロモ弾",sub:"イベントの記念カード",open:!EVENTS_LOCKED,cost:"ticket",noStep:true}
@@ -1901,16 +1924,17 @@ const STEP_GACHA=[
    ── ガチャごとの設定（どれも省略可） ──
      limit:1            … 引ける回数（ボタンを押した回数で数える）。使い切るとブロックごと消える
      start/end:"2026-10-01" … 期間限定。期間外は一覧に出ない。period を省くと「〜10/31まで」を自動表示
+     pity:{n:50,r:"CR"} … 天井。n回引いてもそのレア度が出なければ、n回目で必ず出す（出た時点で数え直し）
      pulls:[{label,count,cost,cur,guarantee}] … 専用の引くボタン。これがあると通常の1回/10回/ステップアップの代わりに出る
         cur:"ticket" で🎫券払い（省略は💎）。guarantee は確定枠（例 ["SR"]＝最後の1枚がSR以上） */
 const GACHAS=[
  {id:"p1",   pack:1, title:"第1弾",   sub:"始まりの100枚",       period:"常設",       theme:["#1d5aa6","#0a1d3c"],accent:"#f0c76a"},
  {id:"start",pack:1, title:"スタートダッシュ",sub:"10連・SR以上1枚確定",period:"初回限定",theme:["#b5541a","#3a1206"],accent:"#ffc36a",
   limit:1, pulls:[{label:"10回引く",count:10,cost:100,guarantee:["SR"]}]},
- {id:"promo",pack:90,title:"プロモ弾",sub:"イベントの記念カード",period:"イベント期間",theme:["#8a2d6e","#2a0c2a"],accent:"#ff9ad8"}
+ {id:"promo",pack:90,title:"プロモ弾",sub:"イベントの記念カード",whenEvent:true,pity:{n:50,r:"CR"},theme:["#8a2d6e","#2a0c2a"],accent:"#ff9ad8"}
 ];
 function gachaById(id){return GACHAS.find(g=>g.id==id)||GACHAS[0]}
-function visibleGachas(){return GACHAS.filter(g=>{const p=PACKS.find(x=>x.id==g.pack);return p&&p.open&&gachaInPeriod(g)&&gachaLeft(g)>0})}
+function visibleGachas(){return GACHAS.filter(g=>{const p=PACKS.find(x=>x.id==g.pack);return p&&p.open&&gachaInPeriod(g)&&gachaLeft(g)>0&&(!g.whenEvent||eventsActive().length>0)})}
 // ガチャごとの使用回数 {ガチャID:回数}
 function gachaUseMap(){try{const v=JSON.parse(store.get("cmGachaUse")||"{}");return (v&&typeof v=="object")?v:{}}catch(e){return{}}}
 function gachaUsed(id){return gachaUseMap()[id]||0}
@@ -1918,6 +1942,8 @@ function addGachaUse(id){const m=gachaUseMap();m[id]=(m[id]||0)+1;store.set("cmG
 function gachaLeft(G){return G.limit?Math.max(0,G.limit-gachaUsed(G.id)):Infinity}
 function gachaInPeriod(G,day){day=day||todayStr();return (!G.start||day>=G.start)&&(!G.end||day<=G.end)}
 function gachaPeriodText(G){if(G.period)return G.period;
+ if(G.whenEvent){const ends=eventsActive().map(e=>e.end).filter(Boolean).sort();   // イベント連動：開催中イベントの一番遅い終了日
+  if(!ends.length)return "イベント開催中";const a=ends[ends.length-1].split("-");return "〜"+(+a[1])+"/"+(+a[2])+"まで"}
  if(G.end){const a=G.end.split("-");return "〜"+(+a[1])+"/"+(+a[2])+"まで"}
  return "常設"}
 const WELCOME_TASKS=[
@@ -2191,23 +2217,39 @@ function renderMenuLock(){renderWheel();renderTreeGlow();renderContinue()}
 /* ===== イベント =====
    ★イベントを増やすときは EVENTS に1つ足すだけ★
    open:false にすると「準備中」として並びだけ出る。
-   kind:"boss" は挑戦型（勝つと券がもらえる）。他の形は後から足せる。 */
+   kind:"boss" は挑戦型（勝つと券がもらえる）。他の形は後から足せる。
+   ── 一覧の見た目（ガチャと同じブロック） ──
+     title / sub … バナーの大きい文字と小さい文字（省略すると name / tag）
+     theme:["上の色","下の色"], accent:"差し色" … バナーの色
+     banner:"ファイル名.webp" … 絵ができたら文字バナーの代わりに出す
+   ── 開催期間（どちらも省略可） ──
+     start:"2026-10-01", end:"2026-10-31" … 期間外は一覧に出ない・挑戦できない
+     period を書くとその文字を出す。省略すると「〜10/31まで」か「常設」を自動で出す */
 const EVENTS=[
  {id:"chronoga",kind:"boss",open:true,icon:"⏳",tag:"リリース記念",
-  name:"時の神への挑戦",
+  name:"時の神への挑戦",title:"時の神への挑戦",sub:"リリース記念・ボスバトル",
+  theme:["#5b3a8f","#170a2e"],accent:"#f0c76a",
+  start:"",end:"",
   desc:"どこからともなく現れた時間の神に挑む。勝つたびにプロモ券がもらえる。",
   boss:{name:"時間の神 クロノガ",ico:"⏳",
    story:"「――遅かったな。いや、早すぎたか」\n時を司る神は、盤上でも時間を味方につける。倒しても、倒しても、彼は失った時間を代わりに差し出して立ち上がる。",
    aggro:1.0,
-   // 時の神のデッキ（プロモ弾10種＋墓地を活かす既存カード）
-   deck:["pv01","pv01","pv02","pv02","pv03","pv03","pv04","pv04","chronoga","chronoga",
-         "pv07","pv07","pv08","pv08","pv09","pv09","pv10","pv10","pv06","pv06",
-         "nekura","nekura","uradracula","uradracula","gaikotsu","gaikotsu",
-         "jujika","jujika","daichi","daichi"]},
+   // 時の神のデッキ（9/29 強化）。ボス専用の「覚醒」刻ノカード（BOSS_CARDS）が主体。
+   // sim：プレイヤー側の平均勝率 約76%（最初）→ 約44%
+   deck:["b_chronoga","b_chronoga","b_pv01","b_pv01","b_pv02","b_pv02","b_pv03","b_pv03",
+         "b_pv04","b_pv04","b_pv08","b_pv08","b_pv10","b_pv10",
+         "nekura","nekura","gaikotsu","gaikotsu","katatsumura","katatsumura",
+         "batto","batto","shokei","shokei","firecurve","firecurve","allcharge","allcharge","daichi","daichi"]},
   reward:{ticket:1,dailyCap:5}},
  // 例: {id:"welcome",kind:"login",open:false,icon:"🎁",tag:"はじめての方へ",name:"ウェルカムイベント",desc:"準備中",...}
 ];
 function eventById(id){return EVENTS.find(e=>e.id==id)}
+function eventInPeriod(e,day){day=day||todayStr();return (!e.start||day>=e.start)&&(!e.end||day<=e.end)}
+function eventsShown(){return EVENTS.filter(e=>eventInPeriod(e))}              // 一覧に出るもの（準備中も含む）
+function eventsActive(){return EVENTS.filter(e=>e.open&&eventInPeriod(e))}     // 遊べるもの
+function eventPeriodText(e){if(!e.open)return"準備中";if(e.period)return e.period;
+ if(e.end){const a=e.end.split("-");return "〜"+(+a[1])+"/"+(+a[2])+"まで"}
+ return "開催中"}
 function openEvents(){hideAll();$("events").classList.remove("hide");$("app").scrollTop=0;renderEvents()}
 function tryEvents(){
  if(EVENTS_LOCKED){sfx("sel");log2Toast("イベントは近日公開です");return}
@@ -2215,17 +2257,21 @@ function tryEvents(){
  openEvents();
 }
 function renderEvents(){
- const open=EVENTS.filter(e=>e.open).length;
- $("eventsInfo").textContent=open?("開催中 "+open+"件"):"現在ひらいているイベントはありません";
- $("eventList").innerHTML=EVENTS.map(e=>
-  '<button type="button" class="evCard '+(e.open?"open":"closed")+'"'
-  +(e.open?' onclick="openEventDetail(\''+e.id+'\')"':"")+'>'
-  +'<div class="evBanner">'+e.icon+'</div>'
-  +'<div class="evBody"><span class="evTag">'+e.tag+'</span>'
-  +'<div class="evName">'+e.name+'</div>'
-  +'<div class="evDesc">'+(e.open?e.desc:"準備中")+'</div>'
-  +'<div class="evFoot"><span class="evReward">'+(e.open&&e.reward&&e.reward.ticket?("勝利で 🎫プロモ券 ×"+e.reward.ticket):"")+'</span>'
-  +'<span class="evGo">'+(e.open?"挑む ▶":"準備中")+'</span></div></div></button>').join("");
+ const L=eventsShown(),n=eventsActive().length;
+ $("eventsInfo").textContent=n?("開催中 "+n+"件"):"現在ひらいているイベントはありません";
+ $("eventList").innerHTML=L.length?L.map(e=>{
+  const th=e.theme||["#1d5aa6","#0a1d3c"],ac=e.accent||"#f0c76a";
+  const banner=e.banner
+   ?'<div class="gBanner" style="background:url('+TREE_BASE_URL+e.banner+') center/cover"><div class="gbPeriod">'+eventPeriodText(e)+'</div></div>'
+   :'<div class="gBanner"><div class="gbPeriod">'+eventPeriodText(e)+'</div><div class="evIco">'+(e.icon||"")+'</div>'
+    +'<div class="gbTitle">'+(e.title||e.name)+'</div><div class="gbSub">'+(e.sub||e.tag||"")+'</div></div>';
+  const rw=e.open&&e.reward&&e.reward.ticket?'<div class="evRw">勝利で 🎫プロモ券 ×'+e.reward.ticket+(e.reward.dailyCap?'（1日'+e.reward.dailyCap+'枚まで）':"")+'</div>':"";
+  return '<section class="gBlock evCard '+(e.open?"open":"closed")+'" style="--g1:'+th[0]+';--g2:'+th[1]+';--ga:'+ac+'">'+banner
+   +'<div class="gBody"><div class="evDesc">'+(e.open?e.desc:"準備中です。お楽しみに。")+'</div>'+rw
+   +(e.open?'<button type="button" class="gold evGoBtn" onclick="openEventDetail(\''+e.id+'\')">挑戦する ▶</button>'
+    :'<button type="button" class="sec evGoBtn" disabled>準備中</button>')
+   +'</div></section>'}).join("")
+  :'<div class="pEmpty">現在ひらいているイベントはありません</div>';
 }
 
 /* ===== 券 ===== */
@@ -2250,6 +2296,7 @@ function bumpTicketToday(){
 let curEvent=null;
 function openEventDetail(id){
  const e=eventById(id);if(!e||!e.open)return;
+ if(!eventInPeriod(e)){log2Toast("このイベントは開催期間外です");renderEvents();return}
  curEvent=e;
  hideAll();$("eventDetail").classList.remove("hide");$("app").scrollTop=0;
  renderEventDetail();
@@ -2287,6 +2334,7 @@ let eventBattleId=null;
 function onEventWin(){
  const e=eventById(eventBattleId);eventBattleId=null;
  if(!e||!e.reward||!e.reward.ticket)return;
+ if(!eventInPeriod(e)){log2Toast("イベントの開催期間が終わりました");return}
  const cap=e.reward.dailyCap||0;
  if(cap&&ticketToday()>=cap){log2Toast("今日の券はもらいきりました");return}
  bumpTicketToday();addTicket(e.reward.ticket,e.name);
@@ -2733,6 +2781,7 @@ function unlockCard(id){const m=ownedMap(),c=by(id);
  if(wasZero&&!(c&&c.promo))addXp(XP_NEWCARD,"新しいカード");
  return wasZero} // ガチャ排出時にこれを呼ぶ。初取得ならtrueを返す
 function isVisible(c){
+ if(c.bossOnly||c.unreleased)return false;   // ボス専用・未配布は図鑑・デッキ編集に出さない
  if(c.event)return ownedCount(c.id)>0;      // イベント報酬は手に入れるまで伏せる
  if(c.promo&&c.baseId)return ownedCount(c.id)>0;   // 配布の別イラスト（プロモ）は手に入れるまで伏せる
  return c.rarity!="CR"||ownedCount(c.id)>0} // 核心レアはガチャ排出で解禁されるまで一覧・図鑑に出さない
@@ -2894,6 +2943,23 @@ function renderStepGacha(){
 function buildBatch(count,guarantee){
  const a=Array.from({length:count},()=>rollGacha());
  (guarantee||[]).slice().reverse().forEach((r,k)=>{const idx=count-1-k;if(idx>=0)a[idx]=rollGachaMin(r)});
+ applyPity(a);
+ return a}
+// ===== 天井（ガチャごと） =====
+// 今の弾で天井を持つガチャ。1枚ずつ数えて、n枚目までに目当てのレア度が出なければn枚目を差し替える
+function pityGacha(){return GACHAS.find(g=>g.pity&&g.pack==curPack)||null}
+function pityMap(){try{const v=JSON.parse(store.get("cmPity")||"{}");return (v&&typeof v=="object")?v:{}}catch(e){return{}}}
+function pityCount(id){return pityMap()[id]||0}
+// CRをまだ持っていない人には、提供割合と同じくCRを伏せて「？？レア」と出す
+function pityLabel(G){return (G.pity.r=="CR"&&!crRevealed())?"？？レア":G.pity.r}
+function pityLeft(G){return G&&G.pity?Math.max(1,G.pity.n-pityCount(G.id)):0}
+function applyPity(a){const G=pityGacha();if(!G)return a;
+ const m=pityMap(),need=RARITY_ORDER[G.pity.r]||0;let n=m[G.id]||0;
+ for(let i=0;i<a.length;i++){
+  n++;
+  if((RARITY_ORDER[a[i].rarity]||0)>=need){n=0;continue}
+  if(n>=G.pity.n){const pool=packPool(G.pity.r);if(pool.length){a[i]=cp(pool[Math.random()*pool.length|0]);n=0}}}
+ m[G.id]=n;store.set("cmPity",JSON.stringify(m));
  return a}
 async function pullStepGacha(){
  if(gachaBusy)return;
@@ -2917,27 +2983,39 @@ async function pullStepGacha(){
 function gachaFanfare(card){
  sfx(card.rarity=="CR"?"jackpot":card.rarity=="UR"?"win":card.rarity=="SR"?"cast":"draw");
  if(card.rarity=="CR"){const app=$("app");app.classList.remove("bigShake");void app.offsetWidth;app.classList.add("bigShake")}}
-function rollRarity(){const total=GACHA_TABLE.reduce((s,x)=>s+x.w,0);let roll=Math.random()*total;
- for(const t of GACHA_TABLE){if(roll<t.w)return t.r;roll-=t.w}
- return"N"}
+function rollRarity(){const T=packTable(),total=T.reduce((s,x)=>s+x.w,0);let roll=Math.random()*total;
+ for(const t of T){if(roll<t.w)return t.r;roll-=t.w}
+ return T.length?T[T.length-1].r:"N"}
 // 選択中の弾のカードだけを対象にする。その弾にそのレア度が無ければ1段下げる
 // 弾で分けているので、promo かどうかではなく pack だけで絞る
 // （スターターのプロモは pack 0 なので、選べる弾には入らない）
-function packPool(rarity){return P.filter(c=>c.rarity==rarity&&packOf(c)==curPack)}
+// unreleased:1 のカードはデータだけあって配っていない（ガチャにも図鑑にも出ない）
+function packPool(rarity){return P.filter(c=>c.rarity==rarity&&packOf(c)==curPack&&!c.unreleased&&!c.bossOnly)}
+// その弾で実際に出るレア度に直した排出表。無いレア度は1段下へ、下に無ければ上へ寄せる
+// （プロモ弾はNが無いので、Nの分はRになる）
+function packRarityOf(r){const order=["CR","UR","SR","R","N"],i=order.indexOf(r);
+ for(let k=i;k<order.length;k++)if(packPool(order[k]).length)return order[k];
+ for(let k=i-1;k>=0;k--)if(packPool(order[k]).length)return order[k];
+ return r}
+function packTable(){const m={};GACHA_TABLE.forEach(t=>{const r=packRarityOf(t.r);m[r]=(m[r]||0)+t.w});
+ return GACHA_TABLE.map(t=>t.r).filter(r=>m[r]!=null).map(r=>({r,w:Math.round(m[r]*10)/10}))}
 function pickFromPool(rarity){
  const order=["CR","UR","SR","R","N"];
  for(let i=order.indexOf(rarity);i<order.length;i++){
   const pool=packPool(order[i]);
   if(pool.length)return pool[Math.random()*pool.length|0];
  }
- const any=P.filter(c=>packOf(c)==curPack);
+ const r2=packRarityOf(rarity),pool=packPool(r2);          // 下に無ければ上のレア度から（全カード均等にはしない）
+ if(pool.length)return pool[Math.random()*pool.length|0];
+ const any=P.filter(c=>packOf(c)==curPack&&!c.unreleased&&!c.bossOnly);
  return any[Math.random()*any.length|0];
 }
 function rollGacha(){return pickFromPool(rollRarity())}
 // 指定レア度以上だけを対象に抽選する（確定枠用）。元の比率のまま押し上げる
 function rollRarityMin(min){
  const need=RARITY_ORDER[min]||0;
- const t=GACHA_TABLE.filter(x=>(RARITY_ORDER[x.r]||0)>=need);
+ const T=packTable();let t=T.filter(x=>(RARITY_ORDER[x.r]||0)>=need);
+ if(!t.length)t=T.slice(-1);
  const total=t.reduce((s,x)=>s+x.w,0);
  let roll=Math.random()*total;
  for(const x of t){if(roll<x.w)return x.r;roll-=x.w}
@@ -2966,7 +3044,7 @@ async function pullGacha(){if(gachaBusy)return;
  $("gachaBtn").disabled=true;$("gacha10Btn").disabled=true;
  $("gachaHint").classList.add("hide");
  sfx("sel");
- gachaBatch=[rollGacha()];
+ gachaBatch=buildBatch(1,[]);
  gachaOpened=[false];gachaNew=[false];gachaShard=[false];
  await sleep(120);
  showGachaResults();
@@ -3073,7 +3151,7 @@ function gachaHintText(){return ""}
 const RARITY_LABEL={N:"N",R:"R",SR:"SR",UR:"UR",CR:"核心レア"};
 function openRates(){
  const list=$("rateList");
- list.innerHTML=GACHA_TABLE.map(t=>{
+ list.innerHTML=packTable().map(t=>{
   const secret=t.r=="CR"&&!crRevealed();
   return '<div class="rateRow'+(secret?" secret":"")+'"><span>'
    +(secret?"？？":RARITY_LABEL[t.r])+'</span><span>'+t.w+'%</span></div>';
@@ -3082,9 +3160,10 @@ function openRates(){
  if(G.pulls){$("rateNote").innerHTML="<b>確定枠</b>"+G.pulls.map(b=>{const t=guaranteeText(b.guarantee||((b.count||1)>=10?["R"]:[]));return t?"<br>・"+b.label+"："+t:""}).join("")
   +(G.limit?"<br>・このガチャは "+G.limit+" 回まで":"");
   $("ratePop").classList.add("show");sfx("sel");return}
- const s=stepCur();
+ const s=stepCur(),pg=pityGacha();
  $("rateNote").innerHTML="<b>確定枠</b><br>・10連の10枚目は R以上 確定"
-  +(s?"<br>・ステップアップガチャ STEP"+(stepDone()+1)+"："+s.head:"");
+  +(s?"<br>・ステップアップガチャ STEP"+(stepDone()+1)+"："+s.head:"")
+  +(pg?"<br>・"+pg.pity.n+"回以内に "+pityLabel(pg)+" 確定（あと"+pityLeft(pg)+"回）":"");
  $("ratePop").classList.add("show");sfx("sel");
 }
 function closeRates(){$("ratePop").classList.remove("show")}
@@ -3156,6 +3235,7 @@ function renderGachaList(){
   return '<section class="gBlock" style="--g1:'+G.theme[0]+';--g2:'+G.theme[1]+';--ga:'+G.accent+'">'+banner
    +'<div class="gBody">'+gachaBlockStep(G)
    +(G.limit?'<div class="gLeft">残り <b>'+gachaLeft(G)+'</b> 回</div>':"")
+   +(G.pity?'<div class="gLeft">'+pityLabel(G)+'確定まで あと <b>'+pityLeft(G)+'</b> 回</div>':"")
    +'<div class="gBtns">'+gachaBlockBtns(G)+'</div>'
    +'<button class="rateLink" onclick="openRatesFor(\''+G.id+'\')">提供割合</button></div></section>'}).join("");
 }
@@ -4199,6 +4279,12 @@ function cpuGate(c){const E=c.eff,ps=pStats(),cs=cStats(),php=S.php,chp=S.chp;
   case"cost2kill":return S.pb.some(m=>m&&m.cost<=2&&at(m,"p")>=1000);
   case"enemyCenterKill":return S.pb[1]&&at(S.pb[1],"p")>=2000;
   case"def1500":{const t=S.pb.filter(m=>m&&df(m,"p")<=1500);return t.length>=2||t.some(m=>at(m,"p")>=2500)}
+  // プロモ弾（時の神）の呪文。条件がないとCPUが一度も使わなかった
+  case"selfDiscard2Draw2":return S.ch.length>=4;                       // 自分を除いて3枚以上あるとき
+  case"millBoth3":return S.cd.length>=10;                              // 山札切れの心配がないうち
+  case"graveBurn300":return S.cg.length>=8||S.cg.length*300>=php;      // 2400以上か、とどめになるとき
+  case"discardBurn":{const k=Math.min(5,S.ch.length-1);return k>=3||k*1000>=php}
+  case"enemyGraveHeal":return chp<=7000&&S.pg.length>=5;
   case"enemySidesKill":return(S.pb[0]&&S.pb[2])||[0,2].some(i=>S.pb[i]&&at(S.pb[i],"p")>=3500);
   case"bothCenterKill":return S.pb[1]&&at(S.pb[1],"p")>=2500&&(!S.cb[1]||at(S.cb[1],"c")<=1500);
   case"allkill":return ps.pow>cs.pow+2000&&ps.n>=Math.max(1,cs.n);
