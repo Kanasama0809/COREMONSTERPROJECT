@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CORE MONSTERS">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
 <style>
@@ -616,6 +616,8 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .openAllBtn:active{transform:translateY(1px);filter:brightness(1.05)}
 /* かけら交換所 */
 .exGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(460px,94vw);margin:10px auto;padding:2px}
+/* 下の「戻る」の帯に最後の行が隠れないよう、帯の高さぶん下に余白をとる */
+#exchange,#presents,#news{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 .exCard{background:#0c1e33;border:2px solid #24425f;border-radius:12px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .exCard.rr-r{border-color:#4ea8ff}.exCard.rr-sr{border-color:#b56bff}.exCard.rr-ur{border-color:#f0c76a;box-shadow:0 0 10px #f0c76a55}
 .exArt{width:100%;aspect-ratio:.86/1;border-radius:8px;overflow:hidden;background:#081524;display:flex;align-items:center;justify-content:center;font-size:30px}
@@ -821,6 +823,33 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .taskCheck{font-size:18px;margin-left:8px;color:#37e08a}
 .taskRow.ready{border-color:var(--gold2);box-shadow:0 0 12px #f0c76a44}
 .taskClaimBtn{margin-left:8px;padding:6px 14px;font-size:12px;border-radius:10px}
+/* ミッション（カード型） */
+.tabDot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff3b5c;margin-left:4px;vertical-align:top}
+.mSum{width:min(460px,94vw);margin:10px auto 12px;padding:14px 14px 12px;border-radius:16px;box-sizing:border-box;text-align:center;
+ background:linear-gradient(#173a63,#0c2240);border:2px solid var(--gold2);box-shadow:0 0 14px #f0c76a33}
+.mSumTtl{font-size:17px;font-weight:900;letter-spacing:1px}
+.mSumSub{font-size:11px;color:#9fc0dd;margin:2px 0 10px}
+.mTimer{display:inline-block;margin-top:9px;padding:3px 14px;border-radius:99px;background:#061122;border:1px solid #2f5a8d;font-size:13px;font-weight:800;color:#d8e6f5;font-variant-numeric:tabular-nums}
+.mAllBtn{display:block;width:100%;margin-top:10px;padding:9px;font-size:13px}
+.mBar{position:relative;height:18px;border-radius:99px;background:#061122;border:1px solid #2f5a8d;overflow:hidden}
+.mBar.big{height:22px}
+.mFill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#2ab6ff,#70d7ff);border-radius:99px}
+.mBar span{position:relative;display:block;text-align:center;font-size:11px;font-weight:900;line-height:18px;color:#fff;text-shadow:0 1px 2px #000}
+.mBar.big span{line-height:22px;font-size:12px}
+.mCard{display:flex;align-items:center;gap:10px;width:min(460px,94vw);margin:0 auto 8px;padding:11px 12px;box-sizing:border-box;border-radius:14px;
+ background:#0d1d32;border:1px solid #42628a}
+.mCard.ready{border:2px solid var(--gold2);box-shadow:0 0 12px #f0c76a44}
+.mCard.ready .mFill{background:linear-gradient(90deg,#f0c76a,#ffe39a)}
+.mCard.taken{opacity:.55}
+.mCard.taken .mFill{background:#37e08a}
+.mMain{flex:1 1 auto;min-width:0}
+.mLabel{font-size:13px;font-weight:900;margin-bottom:6px}
+.mSide{flex:0 0 76px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.mRew{font-size:12px;color:#ffd23e}
+.mRew b{font-size:15px;margin-left:1px}
+.mSide .taskClaimBtn{margin:0;padding:6px 0;width:100%;white-space:nowrap}
+.mGot{font-size:11px;font-weight:800;color:#37e08a;white-space:nowrap}
+#tasks{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 /* プレゼントBOX */
 .presentBtn{position:relative}
 .pBadge{position:absolute;top:-6px;right:-6px;min-width:17px;height:17px;padding:0 4px;border-radius:99px;background:#ff3b5c;color:#fff;font-size:10px;font-weight:900;line-height:17px;text-align:center;box-shadow:0 0 0 2px #061122;pointer-events:none}
@@ -832,6 +861,19 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .pItems{margin-top:4px;font-size:12px;font-weight:800;color:var(--gold2)}
 .pEnd{margin-top:2px;font-size:10px;color:#7f9bb8}
 .pRow .taskClaimBtn{flex:0 0 auto;white-space:nowrap}
+.aboutSnd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding:8px 10px;border-radius:10px;background:#0c1e33;font-size:13px;font-weight:800}
+.aboutSnd button{padding:6px 14px;font-size:12px;min-width:92px}
+/* お知らせ */
+.nRow{width:min(460px,94vw);margin:8px auto;padding:12px 14px;box-sizing:border-box;border-radius:12px;background:#0c1e33;border:1px solid #2f5a8d}
+.nRow.imp{border-color:#ff8a5c}
+.nHead{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.nDate{font-size:11px;color:#7f9bb8}
+.nNew{font-size:10px;font-weight:900;color:#fff;background:#ff3b5c;border-radius:99px;padding:1px 7px}
+.nImp{font-size:10px;font-weight:900;color:#1a0a04;background:#ff8a5c;border-radius:99px;padding:1px 7px}
+.nTtl{font-size:14px;font-weight:900;margin:4px 0 6px}
+.nBody{font-size:12px;line-height:1.7;color:#cfe0f0;word-break:break-word}
+.nPopTag{display:inline-block;font-size:11px;font-weight:900;color:#1a0a04;background:#ff8a5c;border-radius:99px;padding:2px 10px;margin-bottom:6px}
+.nPopBody{margin-top:8px;max-height:45vh;overflow:auto;text-align:left;font-size:13px;line-height:1.7;color:#cfe0f0;word-break:break-word}
 .pEmpty{margin:48px 12px;text-align:center;font-size:13px;color:#8fa9c4;line-height:1.7}
 
 /* pop buttons */
@@ -851,7 +893,9 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 @keyframes up{to{opacity:0;transform:translate(-50%,-70px)}}
 
 /* editor / list */
-.editorHead{position:sticky;top:-10px;background:#08162cf2;z-index:5;padding:7px 4px 5px;border-bottom:1px solid #2ab6ff;margin:-10px -4px 0}
+.editorHead{position:sticky;top:-10px;background:#08162c;z-index:5;padding:7px 4px 5px;border-bottom:1px solid #2ab6ff;margin:-10px -4px 0;
+ box-shadow:0 calc(-1 * env(safe-area-inset-top,0px)) 0 #08162c}
+/* ↑影で見出しの色を上（時計・電池の裏）まで伸ばし、スクロールした中身が透けないようにする */
 .editorHead h1{font-size:17px;margin:0 0 2px;text-align:center}
 .editorHead .sub{margin:1px 0 5px;letter-spacing:1px;font-size:11px}
 .fb{display:flex;gap:6px}
@@ -976,6 +1020,11 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .confirmBox{width:min(86vw,320px);background:#071a2e;border:2px solid #70d7ff;border-radius:18px;padding:18px;box-shadow:0 0 18px #33b8ff;text-align:center}
 .confirmText{font-size:17px;font-weight:900;margin-bottom:16px}
 .confirmBtns{display:flex;gap:10px}
+.saveLinks{display:flex;gap:8px;margin-top:12px}
+.saveLinks button{flex:1;font-size:12px;padding:8px 4px}
+.saveNote{font-size:12px;color:#9fc0dd;line-height:1.6;text-align:left;margin:4px 0 8px}
+.saveCode{width:100%;height:110px;box-sizing:border-box;border-radius:10px;border:1px solid #2f5a8d;background:#020b16;color:#cfe6ff;
+ font-size:11px;font-family:monospace;padding:8px;word-break:break-all;resize:none}
 .confirmBtns button{flex:1}
 #resultov{z-index:150;background:#000d}
 .resultBox{text-align:center;padding:28px 22px;width:min(86vw,340px);background:linear-gradient(#0a2140,#050f20);border:2px solid #70d7ff;border-radius:22px;box-shadow:0 0 30px #33b8ff66}
@@ -997,7 +1046,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer">ver.2</div>
+ <div class="tVer" id="tVer">ver.2.1</div>
 </div>
 
 <div id="app">
@@ -1067,7 +1116,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
    <div id="menuShard" class="shardBadge">🔹 0</div>
    <div id="menuCrystal" class="crystalBadge">💎 0</div>
    <button type="button" id="presentBtn" class="sndToggle presentBtn" onclick="openPresents()" aria-label="プレゼント">🎁<span id="presentBadge" class="pBadge hide">0</span></button>
-   <button class="sndToggle" onclick="toggleSound()" aria-label="サウンド切替"><span id="sndM">🔊</span></button>
+   <button type="button" id="newsBtn" class="sndToggle presentBtn" onclick="openNews()" aria-label="お知らせ">📢<span id="newsBadge" class="pBadge hide">0</span></button>
    <button class="sndToggle" onclick="openAbout()" aria-label="このアプリについて">ⓘ</button>
   </div>
  </div>
@@ -1213,6 +1262,20 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  </div>
 </div>
 
+<div id="news" class="hide">
+ <div class="editorHead"><h1>お知らせ</h1><div class="sub">運営からのお知らせ</div></div>
+ <div id="newsBody"></div>
+ <div class="foot"><button type="button" class="sec" onclick="menu()">戻る</button></div>
+</div>
+
+<div id="newsPop" class="pov"><div class="confirmBox newsPopBox" onclick="event.stopPropagation()">
+ <div class="nPopTag">重要なお知らせ</div>
+ <h3 id="newsPopTtl"></h3>
+ <div id="newsPopDate" class="nDate"></div>
+ <div id="newsPopBody" class="nPopBody"></div>
+ <div class="confirmBtns" style="margin-top:12px"><button onclick="closeNewsPop()">閉じる</button></div>
+</div></div>
+
 <div id="presents" class="hide">
  <div class="editorHead"><h1>プレゼントBOX</h1><div class="sub">運営からのプレゼントを受け取れます</div></div>
  <div id="presentBody"></div>
@@ -1229,7 +1292,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 </div>
 
 <div id="tasks" class="hide">
- <div class="editorHead"><h1>タスク／ログボ</h1><div id="tasksCrystal" class="crystalBadge">💎 0</div>
+ <div class="editorHead"><h1>タスク</h1><div id="tasksCrystal" class="crystalBadge">💎 0</div>
   <div id="taskTabs" class="packTabs"></div>
  </div>
  <div id="taskBody"></div>
@@ -1372,11 +1435,20 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer">ver.2</div>
+  <div class="aboutVer" id="aboutVer">ver.2.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
+ <div class="aboutSnd"><span>サウンド</span><button type="button" class="sec mini" id="sndA" onclick="toggleSound()">🔊 オン</button></div>
+ <div class="saveLinks"><button class="sec mini" onclick="openSaveExport()">データを書き出す</button><button class="sec mini" onclick="openSaveImport()">データを読み込む</button></div>
  <div class="confirmBtns" style="margin-top:12px"><button class="sec" onclick="closeAbout()">閉じる</button></div>
+</div></div>
+
+<div id="savePop" class="pov"><div class="confirmBox" onclick="event.stopPropagation()">
+ <h3 id="saveTtl">データの引き継ぎ</h3>
+ <div id="saveNote" class="saveNote"></div>
+ <textarea id="saveCode" class="saveCode" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+ <div class="confirmBtns" style="margin-top:10px"><button id="saveMainBtn" onclick="saveMain()">コピー</button><button class="sec" onclick="closeSave()">閉じる</button></div>
 </div></div>
 
 <div id="lvupPop" class="pov"><div class="confirmBox lvupBox">
@@ -1548,7 +1620,8 @@ function sfx(t){if(!sndOn)return;
  else if(t=="jackpot"){[523,659,784,1047,1319,1568].forEach((f,i)=>setTimeout(()=>tone(f,f,.26,"triangle",.1),i*110));setTimeout(()=>tone(1568,2093,.5,"sine",.09),700)}
  else if(t=="lose"){[392,330,262,196].forEach((f,i)=>setTimeout(()=>tone(f,f*.9,.26,"sawtooth",.07),i*180))}
 }catch(e){}}
-function toggleSound(){sndOn=!sndOn;store.set("cmSnd",sndOn?"1":"0");["sndM","sndG"].forEach(i=>{if($(i))$(i).textContent=sndOn?"🔊":"🔇"});if(sndOn)sfx("sel")}
+function renderSndLabels(){["sndM","sndG"].forEach(i=>{if($(i))$(i).textContent=sndOn?"🔊":"🔇"});if($("sndA"))$("sndA").textContent=sndOn?"🔊 オン":"🔇 オフ"}
+function toggleSound(){sndOn=!sndOn;store.set("cmSnd",sndOn?"1":"0");renderSndLabels();if(sndOn)sfx("sel")}
 
 /* ================= デッキ ================= */
 let defDeck=["slime","aichu","magnetmin","kamakamakiri","fairy","kucha","goblingo","wolfket","majician","babygolem","aquaknight","oomawari","gaikotsu","suhada","hotdog","babydragon","misuzui","katatsumura","dashpanther","tarakong","firestraight","firecurve","quickorder","yoshiyoshi","library","batto","allcharge","teppeki","shokei","muffin"];
@@ -2552,7 +2625,7 @@ function bumpWeeklyPersona(personaId){ensureTaskState();
  if(!taskState.weeklyPersonaSet.includes(personaId))taskState.weeklyPersonaSet.push(personaId);
  taskState.weeklyProgress.allPersona=taskState.weeklyPersonaSet.length;
  const task=WEEKLY_TASKS.find(t=>t.id=="allPersona");
- if(taskState.weeklyProgress.allPersona>=task.goal){taskState.weeklyClaimed.push("allPersona");addCrystal(task.reward,"ウィークリー："+task.label)}
+ if(taskState.weeklyProgress.allPersona>=task.goal){taskState.weeklyClaimed.push("allPersona");markTaskReady("k:"+taskState.weekKey+":allPersona",task.label)}
  saveTaskState();renderTasks()}
 function claimLogin(){ensureTaskState();if(taskState.loginDate===todayStr())return false;
  taskState.loginDate=todayStr();addCrystal(LOGIN_BONUS,"ログインボーナス");saveTaskState();renderTasks();return true}
@@ -2565,39 +2638,70 @@ function onBattleEnd(won,oppId){ensureTaskState();addXp(won?XP_WIN:XP_LOSE,won?"
 function onGachaPull(){ensureTaskState();completeWelcome("gacha1");bumpWeekly("gacha5",1);addXp(XP_GACHA,"ガチャ")}
 
 const TASK_TABS=[
- {id:"login",label:"ログボ"},
- {id:"daily",label:"デイリー"},
- {id:"weekly",label:"ウィークリー"},
- {id:"welcome",label:"ウェルカム"}
+ {id:"daily",label:"デイリー",title:"デイリーミッション",sub:"毎日0時にリセット"},
+ {id:"weekly",label:"ウィークリー",title:"ウィークリーミッション",sub:"毎週月曜0時にリセット"},
+ {id:"welcome",label:"ウェルカム",title:"ウェルカムミッション",sub:"はじめての人向け・1回だけ"}
 ];
-let taskTab=0;
-function openTasks(){hideAll();$("tasks").classList.remove("hide");$("app").scrollTop=0;ensureTaskState();taskTab=0;renderLevelDisplays();renderTasks()}
+let taskTab=0,taskTimer=null;
+function openTasks(){hideAll();$("tasks").classList.remove("hide");$("app").scrollTop=0;ensureTaskState();taskTab=0;renderLevelDisplays();renderTasks();startTaskTimer()}
 function setTaskTab(i){taskTab=i;renderTasks()}
-function taskRowHtml(label,prog,goal,reward,done){
- return `<div class=taskInfo><div class=taskLabel>${label}</div>${goal?`<div class=taskProg>${Math.min(goal,prog)}/${goal}</div>`:""}</div><div class=taskReward>+${reward}💎</div>${done?`<span class=taskCheck>✔</span>`:""}`}
+// 次のリセットまでの残り時間
+function taskResetLeft(cat,now){now=now||new Date();
+ if(cat=="daily"){const n=new Date(now);n.setHours(24,0,0,0);return n-now}
+ if(cat=="weekly"){const n=new Date(now);const day=(n.getDay()+6)%7;n.setDate(n.getDate()+(7-day));n.setHours(0,0,0,0);return n-now}
+ return 0}
+function fmtLeft(ms){const t=Math.max(0,Math.floor(ms/1000)),d=Math.floor(t/86400),h=Math.floor(t%86400/3600),m=Math.floor(t%3600/60),sec=t%60,z=n=>String(n).padStart(2,"0");
+ return (d?d+"日 ":"")+z(h)+":"+z(m)+":"+z(sec)}
+function startTaskTimer(){if(taskTimer)return;
+ taskTimer=setInterval(()=>{const el=$("mTimer"),box=$("tasks");
+  if(!el||!box||box.classList.contains("hide")){clearInterval(taskTimer);taskTimer=null;return}
+  const cat=TASK_TABS[taskTab].id,left=taskResetLeft(cat);
+  if(left<=1000){ensureTaskState();renderTasks();return}   // 日付をまたいだら作り直す
+  el.textContent="残り "+fmtLeft(left)},1000)}
+// 画面に並べる1件分 {key,label,prog,goal,reward,state:"ready"|"doing"|"taken",claim}
+function taskItems(cat){
+ const L=[];
+ if(cat=="daily"){
+  const got=taskState.loginDate===todayStr();
+  L.push({key:"login",label:"ログインしよう",prog:1,goal:1,reward:LOGIN_BONUS,state:got?"taken":"ready",claim:"claimLoginUI()"})}
+ const src={welcome:WELCOME_TASKS,daily:DAILY_TASKS,weekly:WEEKLY_TASKS}[cat]||[];
+ const pre={welcome:"w:",daily:"d:"+taskState.dailyDate+":",weekly:"k:"+taskState.weekKey+":"}[cat];
+ const prog={welcome:{},daily:taskState.dailyProgress,weekly:taskState.weeklyProgress}[cat];
+ const doneList={welcome:taskState.welcomeDone,daily:taskState.dailyClaimed,weekly:taskState.weeklyClaimed}[cat]||[];
+ src.forEach(t=>{const key=pre+t.id,ready=isTaskReady(key),fin=doneList.includes(t.id);
+  const goal=t.goal||1,p=fin?goal:Math.min(goal,prog[t.id]||0);
+  const state=ready?"ready":((isTaskTaken(key)||fin)?"taken":"doing");
+  L.push({key,label:t.label,prog:p,goal,reward:t.reward,state,
+   claim:"claimTask('"+key+"',"+t.reward+",'"+t.label.replace(/'/g,"")+"')"})});
+ // 受け取れる → 進行中 → 受け取り済み の順
+ const ord={ready:0,doing:1,taken:2};
+ return L.map((x,i)=>({x,i})).sort((a,b)=>ord[a.x.state]-ord[b.x.state]||a.i-b.i).map(o=>o.x)}
+function claimAllTasks(){const L=taskItems(TASK_TABS[taskTab].id).filter(x=>x.state=="ready");
+ L.forEach(x=>{if(x.key=="login")claimLogin();else claimTask(x.key,x.reward,x.label)});
+ renderTasks();renderMenuBadge()}
 function renderTasks(){
  ensureTaskState();renderCrystalDisplays();
  const tabs=$("taskTabs");tabs.innerHTML="";
- TASK_TABS.forEach((t,i)=>{const b=document.createElement("button");b.className="packTab"+(i==taskTab?" on":"");b.textContent=t.label;b.onclick=()=>setTaskTab(i);tabs.appendChild(b)});
+ TASK_TABS.forEach((t,i)=>{const b=document.createElement("button");
+  const n=taskItems(t.id).filter(x=>x.state=="ready").length;
+  b.className="packTab"+(i==taskTab?" on":"");b.innerHTML=t.label+(n?'<span class="tabDot"></span>':"");b.onclick=()=>setTaskTab(i);tabs.appendChild(b)});
  const body=$("taskBody");body.innerHTML="";
- const cat=TASK_TABS[taskTab].id;
- if(cat=="login"){
-  const claimedToday=taskState.loginDate===todayStr();
-  const row=document.createElement("div");row.className="taskRow"+(claimedToday?" done":"");
-  row.innerHTML=taskRowHtml("本日のログインボーナス",0,0,LOGIN_BONUS,claimedToday)+
-   (claimedToday?"":`<button class="taskClaimBtn" onclick="claimLoginUI()">受け取る</button>`);
-  body.appendChild(row);
- }else{
-  const src={welcome:WELCOME_TASKS,daily:DAILY_TASKS,weekly:WEEKLY_TASKS}[cat]||[];
-  const pre={welcome:"w:",daily:"d:"+taskState.dailyDate+":",weekly:"k:"+taskState.weekKey+":"}[cat];
-  const prog={welcome:{},daily:taskState.dailyProgress,weekly:taskState.weeklyProgress}[cat];
-  src.forEach(t=>{
-   const key=pre+t.id,ready=isTaskReady(key),taken=isTaskTaken(key);
-   const row=document.createElement("div");row.className="taskRow"+(taken?" done":(ready?" ready":""));
-   row.innerHTML=taskRowHtml(t.label,prog[t.id]||0,t.goal||0,t.reward,taken)
-    +(ready?'<button class="taskClaimBtn" onclick="claimTask(\''+key+'\','+t.reward+',\''+t.label+'\')">受け取る</button>':"");
-   body.appendChild(row)});
- }
+ const T=TASK_TABS[taskTab],cat=T.id,L=taskItems(cat);
+ const fin=L.filter(x=>x.state!="doing").length,readyN=L.filter(x=>x.state=="ready").length,left=taskResetLeft(cat);
+ const sum=document.createElement("div");sum.className="mSum";
+ sum.innerHTML='<div class="mSumTtl">'+T.title+'</div><div class="mSumSub">'+T.sub+'</div>'
+  +'<div class="mBar big"><div class="mFill" style="width:'+(L.length?fin/L.length*100:0)+'%"></div><span>'+fin+' / '+L.length+'</span></div>'
+  +(left?'<div class="mTimer" id="mTimer">残り '+fmtLeft(left)+'</div>':"")
+  +(readyN>=2?'<button class="mAllBtn" onclick="claimAllTasks()">まとめて受け取る（'+readyN+'件）</button>':"");
+ body.appendChild(sum);
+ L.forEach(x=>{
+  const row=document.createElement("div");row.className="mCard "+x.state;
+  row.innerHTML='<div class="mMain"><div class="mLabel">'+x.label+'</div>'
+   +'<div class="mBar"><div class="mFill" style="width:'+(x.prog/x.goal*100)+'%"></div><span>'+x.prog+' / '+x.goal+'</span></div></div>'
+   +'<div class="mSide"><div class="mRew">💎<b>'+x.reward+'</b></div>'
+   +(x.state=="ready"?'<button class="taskClaimBtn" onclick="'+x.claim+'">受け取る</button>'
+    :x.state=="taken"?'<div class="mGot">✔ 受取済み</div>':"")+'</div>';
+  body.appendChild(row)});
  renderMenuBadge()}
 function claimLoginUI(){if(claimLogin()){renderTasks();renderMenuBadge()}}
 function deckAvgCost(){if(!deck.length)return"0.0";const t=deck.reduce((s,id)=>s+(by(id)?.cost||0),0);return(Math.round(t/deck.length*10)/10).toFixed(1)}
@@ -2611,9 +2715,9 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
-function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge()}catch(e){}}
+function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
 function openEdit(){hideAll();$("edit").classList.remove("hide");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit()}
 function renderEditInfo(){const over=deck.length>30,el=$("info");
@@ -2984,6 +3088,40 @@ function openRates(){
  $("ratePop").classList.add("show");sfx("sel");
 }
 function closeRates(){$("ratePop").classList.remove("show")}
+/* ===== データの引き継ぎ =====
+   ホーム画面のアプリとSafariはデータが別なので、アイコンを作り直す前に書き出して、新しい方で読み込む。
+   cm で始まる保存データを丸ごと1本の文字列にする */
+let saveMode="export";
+function saveKeys(){const a=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&/^cm/.test(k))a.push(k)}}catch(e){}return a}
+function exportSaveCode(){const o={};saveKeys().forEach(k=>o[k]=store.get(k));
+ return "CM1:"+btoa(unescape(encodeURIComponent(JSON.stringify({v:1,t:Date.now(),d:o}))))}
+function parseSaveCode(code){code=String(code||"").replace(/\s+/g,"");
+ if(!/^CM1:/.test(code))return null;
+ try{const j=JSON.parse(decodeURIComponent(escape(atob(code.slice(4)))));return (j&&j.d&&typeof j.d=="object")?j.d:null}catch(e){return null}}
+function importSaveCode(code){const d=parseSaveCode(code);if(!d)return false;
+ saveKeys().forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+ Object.keys(d).forEach(k=>{if(/^cm/.test(k)&&typeof d[k]=="string")store.set(k,d[k])});
+ return true}
+function openSaveExport(){saveMode="export";$("saveTtl").textContent="データを書き出す";
+ $("saveNote").innerHTML="下の文字列をコピーして、メモ帳などに保存してください。<br>新しい方で「データを読み込む」に貼り付けると引き継げます。";
+ const t=$("saveCode");t.value=exportSaveCode();t.readOnly=true;$("saveMainBtn").textContent="コピー";
+ $("aboutPop").classList.remove("show");$("savePop").classList.add("show");sfx("sel")}
+function openSaveImport(){saveMode="import";$("saveTtl").textContent="データを読み込む";
+ $("saveNote").innerHTML="書き出した文字列を貼り付けてください。<br><b>今のこの端末のデータは上書きされます。</b>";
+ const t=$("saveCode");t.value="";t.readOnly=false;$("saveMainBtn").textContent="読み込む";
+ $("aboutPop").classList.remove("show");$("savePop").classList.add("show");sfx("sel")}
+function closeSave(){$("savePop").classList.remove("show")}
+function saveMain(){const t=$("saveCode");
+ if(saveMode=="export"){
+  const done=()=>log2Toast("コピーしました");
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value).then(done,()=>{t.select();document.execCommand("copy");done()});return}}catch(e){}
+  try{t.select();document.execCommand("copy");done()}catch(e){log2Toast("長押しでコピーしてください")}
+  return}
+ if(!parseSaveCode(t.value)){log2Toast("文字列が正しくありません");sfx("hit");return}
+ closeSave();
+ askYesNo("今のデータを上書きして読み込みますか？",()=>{
+  if(importSaveCode(t.value)){log2Toast("読み込みました。再起動します");setTimeout(()=>location.reload(),800)}
+  else log2Toast("読み込めませんでした")})}
 function openAbout(){$("aboutPop").classList.add("show");sfx("sel")}
 function closeAbout(){$("aboutPop").classList.remove("show")}
 // 一覧／結果の切り替え（CSSで lOnly・rOnly を出し分ける）
@@ -3122,6 +3260,65 @@ async function loadPresents(){
  presentLoaded=true;renderPresentBadge();
  const s=$("presents");if(s&&!s.classList.contains("hide"))renderPresents()}
 function openPresents(){hideAll();$("presents").classList.remove("hide");$("app").scrollTop=0;sfx("sel");renderPresents();loadPresents()}
+
+/* ================= お知らせ =================
+   GitHub のルートに置いた news.json を書き換えるだけで配信できる（index.html の更新は不要）。
+   [
+    {"id":"n001","date":"2026-10-01","title":"タイトル","body":"本文。改行は \\n で入れる",
+     "important":true, "start":"2026-10-01","end":"2026-10-31"}
+   ]
+   ・id は必ず別々にする（既読の判定に使う）
+   ・important:true は起動時に1回だけポップで表示する（メンテ・不具合のおわびなど）
+   ・start / end は省略可。期間外は表示しない
+   ・新しい順に並ぶ（date の新しい順） */
+const NEWS_URL="news.json";
+let newsList=[],newsLoaded=false,newsErr=false,newsNewSet=null;   // newsNewSet：画面を開いた時点の未読（NEW表示用）
+function newsIds(key){try{const v=JSON.parse(store.get(key)||"[]");return Array.isArray(v)?v:[]}catch(e){return[]}}
+function addNewsIds(key,ids){const a=newsIds(key);ids.forEach(i=>{if(!a.includes(i))a.push(i)});store.set(key,JSON.stringify(a))}
+function newsActive(day){day=day||todayStr();
+ return newsList.filter(n=>n&&n.id&&n.title&&(!n.start||day>=n.start)&&(!n.end||day<=n.end))
+  .slice().sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))}
+function newsUnread(){const seen=newsIds("cmNewsSeen");return newsActive().filter(n=>!seen.includes(n.id))}
+function renderNewsBadge(){const b=$("newsBadge");if(!b)return;const n=newsUnread().length;
+ b.textContent=n>99?"99+":String(n);b.classList.toggle("hide",!n)}
+function newsDateText(d){if(!d)return"";const a=String(d).split("-");return a.length==3?(+a[0])+"/"+(+a[1])+"/"+(+a[2]):escH(d)}
+function newsBodyHtml(t){return escH(t||"").replace(/\n/g,"<br>")}
+function renderNews(){const box=$("newsBody");if(!box)return;
+ const L=newsActive(),seen=newsIds("cmNewsSeen"),isNew=id=>newsNewSet?newsNewSet.includes(id):!seen.includes(id);
+ if(!L.length){box.innerHTML='<div class="pEmpty">'+(!newsLoaded?"読み込み中…":newsErr?"お知らせを読み込めませんでした<br>通信状態を確認してください":"お知らせはありません")+'</div>';return}
+ box.innerHTML=L.map(n=>'<div class="nRow'+(n.important?" imp":"")+'"><div class="nHead"><span class="nDate">'+newsDateText(n.date)+'</span>'
+  +(n.important?'<span class="nImp">重要</span>':"")+(isNew(n.id)?'<span class="nNew">NEW</span>':"")+'</div>'
+  +'<div class="nTtl">'+escH(n.title)+'</div><div class="nBody">'+newsBodyHtml(n.body)+'</div></div>').join("")}
+function markNewsSeen(){if(newsNewSet)newsNewSet=newsNewSet.concat(newsUnread().map(n=>n.id));
+ addNewsIds("cmNewsSeen",newsActive().map(n=>n.id));renderNewsBadge()}
+function openNews(){hideAll();$("news").classList.remove("hide");$("app").scrollTop=0;sfx("sel");
+ newsNewSet=newsUnread().map(n=>n.id);
+ renderNews();markNewsSeen();
+ loadNews()}
+let newsPopCur=null;
+function maybeShowImportantNews(){
+ if(newsPopCur||!newsLoaded)return;
+ const m=$("menu");if(!m||m.classList.contains("hide"))return;
+ if(typeof titleGone!="undefined"&&!titleGone)return;
+ const tt=$("title");if(tt&&tt.style&&tt.style.display!="none"&&tt.classList&&tt.classList.contains("fade"))return;   // タイトルが消えきるまで待つ
+ if(document.querySelector&&document.querySelector(".pov.show"))return;
+ const shown=newsIds("cmNewsPopped"),n=newsActive().find(x=>x.important&&!shown.includes(x.id));
+ if(!n)return;
+ newsPopCur=n;
+ $("newsPopTtl").textContent=n.title;$("newsPopDate").textContent=newsDateText(n.date);$("newsPopBody").innerHTML=newsBodyHtml(n.body);
+ $("newsPop").classList.add("show")}
+function closeNewsPop(){const n=newsPopCur;$("newsPop").classList.remove("show");newsPopCur=null;
+ if(n){addNewsIds("cmNewsPopped",[n.id]);addNewsIds("cmNewsSeen",[n.id])}
+ renderNewsBadge();setTimeout(maybeShowImportantNews,250)}
+async function loadNews(){
+ if(typeof fetch!="function"){newsLoaded=true;newsErr=true;return}
+ try{const r=await fetch(NEWS_URL+"?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error(r.status);
+  const j=await r.json();newsList=Array.isArray(j)?j:(j&&Array.isArray(j.news)?j.news:[]);newsErr=false}
+ catch(e){newsErr=true}
+ newsLoaded=true;renderNewsBadge();
+ const s=$("news");if(s&&!s.classList.contains("hide")){markNewsSeen();renderNews()}
+ maybeShowImportantNews()}
 
 /* ================= かけら交換所 ================= */
 const EX_RATE={N:20,R:50,SR:150,UR:400};
@@ -4151,9 +4348,10 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  setTimeout(()=>$("resultov").classList.add("show"),600)}
 
 /* ================= 起動 ================= */
-["sndM","sndG"].forEach(i=>{if($(i))$(i).textContent=sndOn?"🔊":"🔇"});
+try{renderSndLabels()}catch(e){}
 renderCrystalDisplays();
 try{loadPresents()}catch(e){}
+try{loadNews()}catch(e){}
 /* ===== タイトル画面 =====
    画像の読み込みが終わるまで待ってから「TAP TO START」を出す。
    最初のタップで音を有効にできるので、1回目の効果音が鳴らない問題も防げる。 */
@@ -4182,7 +4380,7 @@ function titleGo(){
  try{sfx("sel");preloadSfx()}catch(e){}   // ここで音を有効にし、ファイルの先読みも始める
  const t=$("title");
  t.classList.add("fade");
- setTimeout(()=>{t.style.display="none"},500);
+ setTimeout(()=>{t.style.display="none";try{maybeShowImportantNews()}catch(e){}},500);
  if(!player)bootIntro();else menu();
 }
 (function bootTitle(){
