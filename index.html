@@ -1065,7 +1065,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.2.15</div>
+ <div class="tVer" id="tVer">ver.3.0</div>
 </div>
 
 <div id="app">
@@ -1454,7 +1454,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.2.15</div>
+  <div class="aboutVer" id="aboutVer">ver.3.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -4275,6 +4275,9 @@ async function endTurn(){if(!S||S.busy||S.over)return;
 function pStats(){let n=0,pow=0,mx=0,ready=0;S.pb.forEach(m=>{if(m){n++;const a=at(m,"p");pow+=a+df(m,"p");mx=Math.max(mx,a)}});return{n,pow,mx}}
 function cStats(){let n=0,pow=0,sick=0,ready=0;S.cb.forEach(m=>{if(m){n++;pow+=at(m,"c")+df(m,"c");if(m.used&&(m.attacks||0)<=0&&!m.cantAttack)sick++;if(!m.used&&(m.attacks||0)>0&&!m.cantAttack)ready++}});return{n,pow,sick,ready}}
 const BUFF_FX={allAtk2000:1,allAtk2500:1,laneBuff:1,allCharge:1,allChargeAtk1000:1,hpMinusAllCharge:1,targetAllyAtk2000:1,targetAllyAtkDef2000:1,targetChargeAtk2000:1,allyChargeAtk1000:1,enemyDefMinus2000:1};
+// こちらの一番強い攻撃でも越えられない守護（壁）がいるか
+function guardWall(){let mx=0;S.cb.forEach(m=>{if(m&&!m.cantAttack)mx=Math.max(mx,at(m,"c"))});
+ return S.pb.some(m=>m&&m.guard&&df(m,"p")>=mx&&mx>0)}
 function cpuGate(c){const E=c.eff,ps=pStats(),cs=cStats(),php=S.php,chp=S.chp;
  switch(E){
   case"heal2000":return chp<=7000;
@@ -4286,12 +4289,12 @@ function cpuGate(c){const E=c.eff,ps=pStats(),cs=cStats(),php=S.php,chp=S.chp;
   case"draw2":return S.ch.length<=3;
   case"healMill":return chp<=6000&&S.cd.length>4;
   case"face1000":return php<=1000||php<=5000;
-  case"face2000":return php<=6000;
+  case"face2000":return php<=6000||S.ch.length>=6;
   case"finish":return php<=2000;
-  case"targetEnemyKill":return S.pb.some(m=>m&&(at(m,"p")>=2500||m.guard));
-  case"targetEnemyDef0":return ps.mx>=3000;
-  case"cost3kill":return S.pb.some(m=>m&&m.cost<=3&&at(m,"p")>=1500);
-  case"cost2kill":return S.pb.some(m=>m&&m.cost<=2&&at(m,"p")>=1000);
+  case"targetEnemyKill":return S.pb.some(m=>m&&(at(m,"p")>=2500||m.guard||monVal(m,"p")>=5000));
+  case"targetEnemyDef0":return ps.mx>=3000||(guardWall()&&cs.n>=1);
+  case"cost3kill":return S.pb.some(m=>m&&m.cost<=3&&(at(m,"p")>=1500||m.guard));
+  case"cost2kill":return S.pb.some(m=>m&&m.cost<=2&&(at(m,"p")>=1000||m.guard));
   case"enemyCenterKill":return S.pb[1]&&at(S.pb[1],"p")>=2000;
   case"def1500":{const t=S.pb.filter(m=>m&&df(m,"p")<=1500);return t.length>=2||t.some(m=>at(m,"p")>=2500)}
   // プロモ弾（時の神）の呪文。条件がないとCPUが一度も使わなかった
@@ -4318,15 +4321,11 @@ function cpuGate(c){const E=c.eff,ps=pStats(),cs=cStats(),php=S.php,chp=S.chp;
   case"graveHealShuffle":return chp<=6000&&S.cg.length>=6;
   case"def2":case"allDef3000":case"targetAllyDef3000":case"allGuard":return cs.n>=2&&ps.n>=1;
   case"damageShield":return chp<=4000;
-  /* バフ系（攻撃前フェーズ） */
-  case"allAtk2000":case"allAtk2500":case"laneBuff":return cs.ready>=2;
-  case"targetAllyAtk2000":case"targetAllyAtkDef2000":return cs.ready>=1&&ps.n>=1;
-  case"enemyDefMinus2000":return cs.ready>=1&&ps.n>=1;
-  case"allCharge":return cs.sick>=2;
-  case"allChargeAtk1000":return cs.sick>=1||cs.ready>=2;
-  case"hpMinusAllCharge":return cs.sick>=2&&chp>5000;
-  case"targetChargeAtk2000":return cs.sick>=1&&chp>2500;
-  case"allyChargeAtk1000":return cs.sick>=1;
+  /* バフ系（攻撃前フェーズ）：掛けると攻撃の得が十分増えるときだけ使う。とどめになるなら必ず使う */
+  case"allAtk2000":case"allAtk2500":case"laneBuff":case"targetAllyAtk2000":case"targetAllyAtkDef2000":
+  case"enemyDefMinus2000":case"allCharge":case"allChargeAtk1000":case"targetChargeAtk2000":case"allyChargeAtk1000":
+   {const g=buffGainOf(E);return g>=1e6||g>=c.cost*700}
+  case"hpMinusAllCharge":{if(chp<=4000)return false;const g=buffGainOf(E);return g>=1e6||g>=4000}
   default:return false}}
 function cpuPickSpell(cc,buffPhase){if(S.cLock)return null;let best=null,bs=-1;
  S.ch.forEach((c,idx)=>{if(c.type!="spell")return;
@@ -4361,56 +4360,112 @@ function cpuSummon(sm,cc){const c=sm.c,pos=cpuLane(c);if(pos<0)return cc;
  S.cb[pos]=m;S.ch.splice(sm.idx,1);sfx("summon");
  log("CPU："+c.name+"を召喚");summonEff(m,"c");encounterCard(c.id);chk();
  return cc-sm.cost}
+/* ===== CPUの攻撃判断 =====
+   攻撃1回ごとに「全員×届く相手」を採点して、一番得なものから順に殴る。
+   プレイヤーは守護で受け止められる（どの守護でも・1体1ターン1回）ので、
+   「プレイヤーが一番いい受け方をした場合」の損得で考える。得にならない攻撃はしない。 */
+function monVal(m,sd){return at(m,sd)+df(m,sd)+(m.cost||0)*400+(m.guard?800:0)}
+function faceVal(dmg){if(dmg<=0)return 0;
+ if(S.pShield)return 300;                              // 無効化されるので、盾を割る分だけ
+ if(dmg>=S.php)return 1e7;                             // とどめ
+ const aggro=(S.opp&&S.opp.aggro)||1;
+ return dmg*(S.php<=4000?1.6:1)*aggro}
+// 攻撃側がav、相手のモンスターdと戦ったときのCPUの得（dの位置dt）
+function clashGain(av,A,d,dt){const dv=df(d,"p");
+ if(av>dv)return monVal(d,"p")+(dt==1&&!d.noPierce?faceVal(av-dv):0);
+ if(av==dv)return monVal(d,"p")-A;
+ return (d.defSelf?monVal(d,"p"):0)-A}
+function attackGain(pos,t){const m=S.cb[pos];if(!m)return -1e9;
+ const av=at(m,"c"),A=monVal(m,"c"),d=S.pb[t];
+ let base;
+ if(!d){if(t!=1)return -1e9;base=faceVal(av)}
+ else base=clashGain(av,A,d,t);
+ // プレイヤーの受け方：守護で止める（相手にとって一番得なもの）か、通すか
+ let worst=base;
+ guards(S.pb,-1).forEach(g=>{if(g===t&&d)return;const v=clashGain(av,A,S.pb[g],g);if(v<worst)worst=v});
+ return worst}
+// 今の盤面で見込める攻撃の得（各モンスターの一番いい攻撃の合計）。sick=true なら召喚したばかりのものも数える
+function attackPotential(sick){let sum=0;
+ for(const pos of[1,0,2]){const m=S.cb[pos];if(!m||m.cantAttack)continue;
+  const ready=!m.used&&(m.attacks||0)>0;if(!ready&&!sick)continue;
+  let b=0;for(let t=0;t<3;t++){if(!(pos==1||t==1||pos+t==2))continue;if(!S.pb[t]&&t!=1)continue;b=Math.max(b,attackGain(pos,t))}
+  sum+=Math.min(b,2e6)}
+ return sum}
+// 強化呪文を使うと攻撃の得がどれだけ増えるかを、仮に掛けて測る（測ったら元に戻す）
+function buffGainOf(E){
+ const before=attackPotential(false),undo=[];
+ const add=(m,a,d)=>{undo.push([m,m.buff||0,m.defBuff||0]);m.buff=(m.buff||0)+a;m.defBuff=(m.defBuff||0)+(d||0)};
+ let sick=false,after=before;
+ try{
+  if(E=="allAtk2000")S.cb.forEach(m=>m&&add(m,2000));
+  else if(E=="allAtk2500")S.cb.forEach(m=>m&&add(m,2500));
+  else if(E=="laneBuff")S.cb.forEach((m,i)=>m&&add(m,i==1?700:500,i==1?700:500));
+  else if(E=="allChargeAtk1000"){S.cb.forEach(m=>m&&add(m,1000));sick=true}
+  else if(E=="allCharge"||E=="hpMinusAllCharge")sick=true;
+  else if(E=="allyChargeAtk1000"||E=="targetChargeAtk2000"||E=="targetAllyAtk2000"||E=="targetAllyAtkDef2000"){
+   // 1体に掛ける呪文：一番伸びる1体で測る
+   const v=E=="targetChargeAtk2000"||E=="targetAllyAtk2000"||E=="targetAllyAtkDef2000"?2000:1000,chg=/Charge/.test(E);
+   let bestAfter=before;
+   S.cb.forEach(m=>{if(!m)return;const u=[m.buff||0,m.used,m.attacks];m.buff=(m.buff||0)+v;
+    if(chg&&m.used&&(m.attacks||0)<=0){m.used=false;m.attacks=1}
+    bestAfter=Math.max(bestAfter,attackPotential(false));m.buff=u[0];m.used=u[1];m.attacks=u[2]});
+   return bestAfter-before}
+  else if(E=="enemyDefMinus2000"){let b=before;
+   S.pb.forEach(m=>{if(!m)return;const u=m.defBuff||0;m.defBuff=u-2000;b=Math.max(b,attackPotential(false));m.defBuff=u});return b-before}
+  after=attackPotential(sick);
+ }finally{undo.forEach(([m,b,d])=>{m.buff=b;m.defBuff=d})}
+ return after-before}
 async function cpuAttacks(){
- for(const pos of[1,0,2]){
-  for(let loop=0;loop<4;loop++){
-   if(!S||S.over)return;
-   const m=S.cb[pos];
-   if(!m||m.used||(m.attacks||0)<=0||m.cantAttack)break;
-   const av=at(m,"c");
-   // 攻撃先を決めてから、守るかどうかをプレイヤーに聞く
-   let tgt=-1;
-   {let bs=-1;
-    for(let t=0;t<3;t++){const e=S.pb[t];
-     if(!(pos==1||t==1||pos+t==2))continue;
-     if(!e){if(t==1){tgt=1;bs=99999}continue}
-     const dv=df(e,"p");if(av>dv){const v=at(e,"p")+dv;if(v>bs){bs=v;tgt=t}}}
-    }
-   if(tgt<0)break;
-   setLaneFx({atk:{side:"c",i:pos},tgt:{side:"p",i:tgt}});   // 赤＝相手／青＝狙われている場所
-   await sleep(600);
-   const bi=await askBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなた（直接）"));
-   clearLaneFx();
-   if(!S||S.over)return;
-   if(bi>=0&&bi!=tgt){
-    S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");
-    log(S.pb[bi].name+"が守護で受け止めた！");
-    await mark("c",pos);await battle("c",pos,"p",bi);await sleep(450);continue}
-   if(tgt==1&&!S.pb[1]){
-    await mark("c",pos);const dmg=av;heroDmg("p",dmg,"c");
-    if(m.lifesteal)healHero("c",dmg);afterAtk(m,"c");render();chk();await sleep(450);continue}
-   await mark("c",pos);await battle("c",pos,"p",tgt);await sleep(450);continue;
-   let bt=-1,bs=0;
-   for(let t=0;t<3;t++){const e=S.pb[t];if(!e)continue;
+ for(let loop=0;loop<12;loop++){
+  if(!S||S.over)return;
+  let best=null,bs=0;
+  for(const pos of[1,0,2]){const m=S.cb[pos];
+   if(!m||m.used||(m.attacks||0)<=0||m.cantAttack)continue;
+   for(let t=0;t<3;t++){
     if(!(pos==1||t==1||pos+t==2))continue;
-    const dv=df(e,"p");let sc=-1;
-    if(av>dv)sc=800+at(e,"p")+df(e,"p")/2+(dv<av&&df(m,"c")>at(e,"p")?300:0);
-    else if(av==dv&&av>0&&at(e,"p")+df(e,"p")>=av+df(m,"c"))sc=200+at(e,"p");
-    if(sc>bs){bs=sc;bt=t}}
-   const faceOK=!S.pb[1];
-   const aggro=(S.opp&&S.opp.aggro)||1;
-   const faceScore=faceOK?av*0.4*aggro+(av>=S.php?1e6:0):-1;
-   if(faceScore>bs&&faceOK&&av>0){
-    await mark("c",pos);
-    heroDmg("p",av,"c");if(m.lifesteal)healHero("c",av);
-    log("CPUの直接攻撃！");afterAtk(m,"c");render();await sleep(420);
-    if(S.over)return;continue}
-   if(bt>=0){await mark("c",pos);await battle("c",pos,"p",bt);await sleep(250);continue}
-   break}}}
+    if(!S.pb[t]&&t!=1)continue;
+    const v=attackGain(pos,t)+Math.random()*20;
+    if(v>bs){bs=v;best={pos,t}}}}
+  if(!best)return;                                       // 得になる攻撃がもうない
+  const pos=best.pos,tgt=best.t,m=S.cb[pos],av=at(m,"c");
+  setLaneFx({atk:{side:"c",i:pos},tgt:{side:"p",i:tgt}});   // 赤＝相手／青＝狙われている場所
+  await sleep(600);
+  const bi=await askBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなた（直接）"));
+  clearLaneFx();
+  if(!S||S.over)return;
+  if(bi>=0&&bi!=tgt){
+   S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");
+   log(S.pb[bi].name+"が守護で受け止めた！");
+   await mark("c",pos);await battle("c",pos,"p",bi);await sleep(450);continue}
+  if(S.pb[tgt]&&S.pb[tgt].guard&&!S.pb[tgt].guardTurn)S.pb[tgt].guardTurn=true;   // 守護そのものを殴った
+  if(tgt==1&&!S.pb[1]){
+   await mark("c",pos);heroDmg("p",av,"c");
+   if(m.lifesteal)healHero("c",av);afterAtk(m,"c");render();chk();await sleep(450);continue}
+  await mark("c",pos);await battle("c",pos,"p",tgt);await sleep(450)}}
+// 手札から「今のコストで一番たくさん使える組み合わせ」を選ぶ（呪文は使う条件を満たすものだけ）
+function cpuPlan(cc){
+ const free=[0,1,2].filter(i=>!S.cb[i]).length;
+ const cand=[];
+ S.ch.forEach(c=>{const cost=ec(c,"c");if(cost>cc)return;
+  if(c.type=="monster"){if(c.handLessThan3&&S.ch.length>=3)return;if(cpuLane(c)<0)return;cand.push({c,cost,mon:1,v:(c.atk||0)+(c.def||0)})}
+  else if(!S.cLock&&!BUFF_FX[c.eff]&&cpuGate(c))cand.push({c,cost,mon:0,v:cost*300})});
+ const L=cand.slice(0,11);let best=[],bs=0;
+ for(let mask=1;mask<(1<<L.length);mask++){let cost=0,mon=0,v=0;
+  for(let k=0;k<L.length;k++)if(mask>>k&1){cost+=L[k].cost;mon+=L[k].mon;v+=L[k].v}
+  if(cost>cc||mon>free)continue;
+  const sc=cost*1000+v/2;
+  if(sc>bs){bs=sc;best=L.filter((x,k)=>mask>>k&1)}}
+ return best.sort((a,b)=>(a.mon-b.mon)||(b.v-a.v))}   // 呪文（除去など）→ 強いモンスターの順
 async function cpuTurn(){if(!S||S.over)return;
  S.active="c";S.cDef2=false;S.cDefBonus=0;S.cShield=false;S.pOnce=false;S.cOnce=false;
  resetBoard("c");draw("c");log("CPUのターン：1枚ドロー");render();await sleep(800);
  let cc=S.max;
+ for(const pl of cpuPlan(cc)){
+  if(!S||S.over)return;
+  const idx=S.ch.indexOf(pl.c);if(idx<0)continue;
+  const cost=ec(pl.c,"c");if(cost>cc)continue;
+  if(pl.mon){if(cpuLane(pl.c)<0)continue;cc=cpuSummon({c:pl.c,idx,cost},cc);render();await sleep(900)}
+  else{if(S.cLock||!cpuGate(pl.c))continue;cc-=cost;castCpu({c:pl.c,idx,cost});render();await sleep(900)}}
  for(let k=0;k<8;k++){
   if(!S||S.over)return;
   const sp=cpuPickSpell(cc,false);
