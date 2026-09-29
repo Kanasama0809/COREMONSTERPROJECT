@@ -71,6 +71,12 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .m4.big{flex:0 0 auto;padding:16px 12px;border-color:#ffd23e;background:linear-gradient(#243218,#15150f);color:#ffe9b0;box-shadow:0 4px 0 #5a3d0a,0 8px 20px #0007}
 .m4.big .m4em{font-size:40px}
 .m4.big .m4nm{font-size:21px;letter-spacing:2px;font-family:'Dela Gothic One',sans-serif}
+/* 対戦は「ひとりで（CPU）」「だれかと（フレンド）」の2つ並び */
+.m4pair{display:grid;grid-template-columns:1fr 1fr;gap:9px;flex:0 0 auto}
+.m4pair .m4.big{padding:14px 6px}
+.m4pair .m4.big .m4em{font-size:34px}
+.m4pair .m4.big .m4nm{font-size:19px;letter-spacing:1px}
+.m4.big.friendT{border-color:#6fd3ff;background:linear-gradient(#10304a,#0a1522);color:#d8f3ff;box-shadow:0 4px 0 #0a3a5a,0 8px 20px #0007}
 .m4med{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;flex:1 1 0;min-height:0}
 .m4med .m4{padding:12px 6px}
 .m4med .m4 .m4em{font-size:26px}
@@ -245,6 +251,18 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .evCard .evDesc{margin:2px 0 6px;font-size:12px;color:#bcd6ee;line-height:1.6}
 .evRw{margin-bottom:8px;font-size:12px;font-weight:900;color:var(--ga)}
 .evGoBtn{display:block;width:100%;padding:11px;font-size:15px}
+.evStory{margin:2px 0 10px;padding:10px 12px;border-radius:12px;background:#061122aa;border:1px solid #2f5a8d;font-size:12px;color:#cfe0f0;line-height:1.8}
+.evCard .evStat{margin:0 0 10px}
+.evNote{margin-top:8px;font-size:11px;color:#9fc0dd;text-align:center}
+.evSubBtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+.evSubBtn{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 6px;border-radius:14px;border:2px solid #2f5a8d;
+ background:linear-gradient(#0d1e33,#08131f);color:#dcebfa;font-weight:900;font-size:13px;font-family:inherit;cursor:pointer;box-shadow:0 3px 0 #04122a}
+.evSubBtn .esIco{font-size:20px}
+.evSubBtn small{display:block;font-size:10px;color:#9fc0dd;font-weight:700}
+.evSubBtn .pBadge{top:-7px;right:-7px}
+.evCard .gbTitle{padding-right:70px;font-size:clamp(20px,6.6vw,28px)}
+#taskTabs{display:flex;gap:6px}
+#taskTabs .packTab{flex:1 1 0;min-width:0;padding-left:4px;padding-right:4px;white-space:nowrap}
 #events{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 .evCard{position:relative;display:block;width:100%;padding:0;overflow:hidden;text-align:left;
  border-radius:16px;border:1px solid #2f5a8d;background:linear-gradient(#0d2440,#08182b);box-shadow:0 4px 14px #0008}
@@ -894,6 +912,9 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .nPopTag{display:inline-block;font-size:11px;font-weight:900;color:#1a0a04;background:#ff8a5c;border-radius:99px;padding:2px 10px;margin-bottom:6px}
 .nPopBody{margin-top:8px;max-height:45vh;overflow:auto;text-align:left;font-size:13px;line-height:1.7;color:#cfe0f0;word-break:break-word}
 /* フレンドマッチ */
+.fmNet{position:fixed;left:50%;top:calc(6px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:150;display:none;
+ padding:7px 14px;border-radius:99px;background:#3a0f14ee;border:1px solid #ff8a8a;color:#ffd6d6;font-size:12px;font-weight:800;white-space:nowrap;box-shadow:0 4px 14px #000a}
+.fmNet.show{display:block}
 .friendLink{display:block;width:100%;margin-top:10px;padding:11px;border-radius:14px;border:1px dashed #4a7bab;background:#0b1a2ecc;color:#cfe6ff;font-size:14px;font-weight:900;font-family:inherit}
 .friendLink small{font-size:10px;color:#8fb8dc;font-weight:700}
 .frBox{width:min(460px,94vw);margin:14px auto;padding:16px;box-sizing:border-box;border-radius:16px;background:#0c1e33;border:1px solid #2f5a8d;text-align:center}
@@ -1079,7 +1100,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.3</div>
+ <div class="tVer" id="tVer">ver.3.9</div>
 </div>
 
 <div id="app">
@@ -1161,7 +1182,10 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  </button>
 
  <div class="menu4">
-  <button class="m4 big" id="m4_battle" onclick="menuGo(1)"><span class="m4em">⚔️</span><span class="m4nm">たたかう</span><span class="m4sub">ランダム対戦</span></button>
+  <div class="m4pair">
+   <button class="m4 big" id="m4_battle" onclick="menuGo(1)"><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">CPUと対戦</span></button>
+   <button class="m4 big friendT" id="m4_friend" onclick="menuGo(9)"><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンドマッチ</span></button>
+  </div>
   <div class="m4med">
    <button class="m4" id="m4_story" onclick="menuGo(0)"><span class="m4em">📖</span><span class="m4nm">ストーリー</span></button>
    <button class="m4" id="m4_events" onclick="menuGo(2)"><span class="m4em">⏳</span><span class="m4nm">イベント</span></button>
@@ -1173,16 +1197,16 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
    <button class="m4 sm" id="m4_tablet" onclick="menuGo(5)"><span class="m4em">🪨</span>石版</button>
    <button class="m4 sm" id="m4_tasks" onclick="menuGo(7)"><span class="m4em">✅</span>タスク</button>
   </div>
-  <button type="button" class="friendLink" onclick="openFriend()">👥 フレンドマッチ <small>（テスト中）</small></button>
  </div>
 </div>
 
 <div id="friend" class="hide">
- <div class="editorHead"><h1>フレンドマッチ</h1><div class="sub">部屋コードで友だちと対戦（テスト中）</div></div>
+ <div class="editorHead"><h1>フレンドマッチ</h1><div class="sub">部屋コードで友だちと対戦</div></div>
  <div id="friendBody"></div>
  <div class="foot"><button type="button" class="sec" onclick="friendLeave(true)">戻る</button></div>
 </div>
 
+<div id="fmNet" class="fmNet"></div>
 <div id="game" class="hide">
  <div class="top">
   <div class="box" id="chpBox"><small id="chpLabel">CPU HP</small><div id="chp" class="hp">10000</div><div class="hpbar"><i id="chpBar"></i></div></div>
@@ -1475,7 +1499,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.3</div>
+  <div class="aboutVer" id="aboutVer">ver.3.9</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1581,6 +1605,17 @@ const BOSS_CARDS=[
  {"type":"spell","id":"b_pv10","name":"覚醒 奪ワレシ刻","sortName":"かくせいうばわれしとき","cost":3,"atk":0,"def":0,"text":"相手の墓地のカードの枚数×300、自分のHPを回復する","eff":"enemyGraveHeal","rarity":"R","imgOf":"pv10"}
 ].map(c=>({...c,pack:99,promo:1,bossOnly:1}));
 P.push(...BOSS_CARDS);
+/* ===== プロモ枠の通し番号 =====
+   図鑑の「プロモ」タブは、はじまりシリーズ・配布カード・イベントのカードをまとめて、決まった番号で並べる。
+   ★これからイベントのカードを配るときは、最後の番号の続き（24〜）をここに足す★
+   CRは元カードの番号に -c が付く（クロノガCR＝023-c）。未配布のカードは番号を振らない。 */
+const PROMO_NO={p01:1,p02:2,p03:3,p04:4,p05:5,p06:6,p07:7,p08:8,p09:9,p10:10,p11:11,p12:12,p13:13,p14:14,p15:15,
+ idolwinkp:16,                                                        // 配布：アイドルのウィンク
+ pv01:17,pv02:18,pv03:19,pv04:20,pv08:21,pv10:22,chronoga:23};       // 時の神への挑戦（クロノガシリーズ）
+P.forEach(c=>{if(PROMO_NO[c.id])c.no=PROMO_NO[c.id]});
+const PROMO_TOTAL=Math.max(...Object.values(PROMO_NO));
+// 図鑑でどのタブに入れるか。イベントのカード（ガチャ上は pack 90）もプロモ枠へ
+function codexTabOf(c){return (c.event||c.pack===0)?0:(c.pack??1)}
 BOSS_CARDS.forEach(c=>{if(!CARD_IMAGES[c.id]&&CARD_IMAGES[c.imgOf])CARD_IMAGES[c.id]=CARD_IMAGES[c.imgOf]});
 
 /* ================= 基盤 ================= */
@@ -2009,6 +2044,12 @@ let crystal=parseInt(store.get("cmCrystal")||"0",10)||0;
 function loadPlayer(){try{return JSON.parse(store.get("cmPlayer")||"null")}catch(e){return null}}
 let player=loadPlayer(); // {name, sex:"m"/"f"} 未設定ならnull
 function savePlayer(){store.set("cmPlayer",JSON.stringify(player))}
+/* ===== ゲームを始めた日 =====
+   お知らせ・プレゼントは、この日より前の日付のものを出さない（あとから始めた人が過去の配布を受け取れないように）。
+   この仕組みを入れる前から遊んでいた人は日付がわからないので、全部受け取れる扱い（2000-01-01）にする。 */
+function playerStartDay(){return store.get("cmStart")||""}
+if(player&&!playerStartDay())store.set("cmStart","2000-01-01");
+function beforeStart(day){const st=playerStartDay();return !!(day&&st&&String(day)<st)}
 // 差し込み: {name}=名前 {i}=一人称 {rival}=ライバル名 {ri}=ライバル一人称
 function fillText(s){
  if(!player)return s;
@@ -2079,7 +2120,7 @@ function menuBgUrl(){
  return u.indexOf("http")==0?u:("https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/"+u);
 }
 const MENU_BG_DIM=.3; // 背景の上下を暗くする量。0で無効（明るい線画イラストなら0推奨）
-const MENU_ICON_IMAGES={story:"",battle:"",events:"",deck:"",codex:"",tablet:"",gacha:"",tasks:"",list:""};
+const MENU_ICON_IMAGES={story:"",battle:"",events:"",deck:"",codex:"",tablet:"",gacha:"",tasks:"",list:"",friend:""};
 
 function menuIconFallback(img,key){
  const p=img.parentNode;if(!p)return;
@@ -2119,7 +2160,8 @@ const WHEEL=[
  {id:"tablet",icon:"tablet", name:"石版",       desc:"読み解いた言葉を見る",    go:()=>openTablet()},
  {id:"gacha", icon:"gacha",  name:"ガチャ",     desc:"💎を使って引く",          go:()=>openGacha()},
  {id:"tasks", icon:"tasks",  name:"タスク",     desc:"報酬を受け取る",          go:()=>openTasks()},
- {id:"list",  icon:"list",   name:"カード一覧", desc:"全カードを50音順で",      go:()=>openList()}
+ {id:"list",  icon:"list",   name:"カード一覧", desc:"全カードを50音順で",      go:()=>openList()},
+ {id:"friend",icon:"friend", name:"だれかと",   desc:"フレンドマッチ",            go:()=>openFriend(), lock:()=>!isIntroDone(), lockDesc:"序章をクリアすると解放"}
 ];
 let wheelIdx=0;
 // 中央からの距離（-3〜+3）。輪なので端は反対側へつながる
@@ -2269,6 +2311,13 @@ const EVENTS=[
   theme:["#5b3a8f","#170a2e"],accent:"#f0c76a",
   start:"",end:"",
   desc:"どこからともなく現れた時間の神に挑む。勝つたびにプロモ券がもらえる。",
+  // イベントミッション（type：win＝勝利数 / fastWin＝turnsターン以内に勝利 / spellFinish＝呪文でとどめ）
+  missions:[
+   {id:"win1", label:"時の神に1回勝利する",               type:"win",goal:1, reward:100},
+   {id:"win5", label:"時の神に5回勝利する",               type:"win",goal:5, reward:200},
+   {id:"win10",label:"時の神に10回勝利する",              type:"win",goal:10,reward:500},
+   {id:"fast5",label:"5ターン以内に時の神に勝利する",     type:"fastWin",turns:5,goal:1,reward:500},
+   {id:"spell",label:"呪文でとどめを刺して時の神に勝利する",type:"spellFinish",goal:1,reward:500}],
   boss:{name:"時間の神 クロノガ",ico:"⏳",
    story:"「――遅かったな。いや、早すぎたか」\n時を司る神は、盤上でも時間を味方につける。倒しても、倒しても、彼は失った時間を代わりに差し出して立ち上がる。",
    aggro:1.0,
@@ -2344,22 +2393,33 @@ function renderEventDetail(){
  $("evdTitle").textContent=e.name;
  const got=ticketToday(),cap=(e.reward&&e.reward.dailyCap)||0;
  const capOver=cap&&got>=cap;
- $("evdBody").innerHTML=
-  '<div class="evHero">'
-  +'<div class="evHeroIco">'+e.boss.ico+'</div>'
-  +'<div class="evHeroName">'+e.boss.name+'</div>'
-  +'<div class="evHeroTx">'+e.boss.story.replace(/\n/g,"<br>")+'</div>'
+ const th=e.theme||["#1d5aa6","#0a1d3c"],ac=e.accent||"#f0c76a";
+ const misN=(e.missions||[]).length,misReady=(e.missions||[]).filter(m=>!evMisOf(e.id).got.includes(m.id)&&evMisProg(e,m)>=m.goal).length;
+ const misDone=(e.missions||[]).filter(m=>evMisOf(e.id).got.includes(m.id)).length;
+ const banner=e.banner
+  ?'<div class="gBanner" style="background:url('+TREE_BASE_URL+e.banner+') center/cover"><div class="gbPeriod">'+eventPeriodText(e)+'</div></div>'
+  :'<div class="gBanner"><div class="gbPeriod">'+eventPeriodText(e)+'</div><div class="evIco">'+(e.boss.ico||e.icon||"")+'</div>'
+   +'<div class="gbTitle">'+e.boss.name+'</div><div class="gbSub">'+(e.sub||e.tag||"")+'</div></div>';
+ $("evdBody").innerHTML='<div class="evList">'
+  +'<section class="gBlock evCard open" style="--g1:'+th[0]+';--g2:'+th[1]+';--ga:'+ac+'">'+banner
+  +'<div class="gBody">'
+  +'<div class="evStory">'+e.boss.story.replace(/\n/g,"<br>")+'</div>'
   +'<div class="evStat">'
   +'<div><div class="sK">持っている券</div><div class="sV" id="evdTicket">🎫 '+tickets()+'</div></div>'
   +'<div><div class="sK">今日もらった券</div><div class="sV">'+got+' / '+cap+'</div></div>'
   +'</div>'
-  +'<div style="margin-top:12px"><button class="gold" style="width:100%" onclick="startEventBattle()">挑戦する ▶</button></div>'
-  +'<div style="margin-top:8px"><button class="sec" style="width:100%" onclick="openPromoGacha()">🎫 プロモ弾を引く</button></div>'
-  +(capOver?'<div style="margin-top:8px;font-size:11px;color:#9fc0dd">今日の券はもらいきりました。挑戦はできますが、券は増えません。</div>':"")
-  +'</div>';
+  +(e.reward&&e.reward.ticket?'<div class="evRw">勝利で 🎫プロモ券 ×'+e.reward.ticket+(cap?'（1日'+cap+'枚まで）':"")+'</div>':"")
+  +'<button type="button" class="gold evGoBtn" onclick="startEventBattle()">挑戦する ▶</button>'
+  +(capOver?'<div class="evNote">今日の券はもらいきりました。挑戦はできますが、券は増えません。</div>':"")
+  +'</div></section>'
+  +'<div class="evSubBtns">'
+  +'<button type="button" class="evSubBtn" onclick="openPromoGacha()"><span class="esIco">🎫</span><span>プロモ弾ガチャ</span></button>'
+  +(misN?'<button type="button" class="evSubBtn" onclick="openTasksTab(\'event\')"><span class="esIco">🎯</span><span>イベントミッション<small>'+misDone+' / '+misN+'</small></span>'+(misReady?'<span class="pBadge">'+misReady+'</span>':"")+'</button>':"")
+  +'</div></div>';
 }
 // イベントの画面から、プロモ弾のガチャへ直接行く
-function openPromoGacha(){setGachaPack(90);openGacha()}
+function openPromoGacha(){setGachaPack(90);openGacha();
+ setTimeout(()=>{const el=document.getElementById("gb_promo");if(el)el.scrollIntoView({block:"start",behavior:"smooth"})},80)}
 function startEventBattle(){
  const e=curEvent;if(!e)return;
  const b=e.boss;
@@ -2368,11 +2428,31 @@ function startEventBattle(){
         deck:b.deck&&b.deck.length==30?[...b.deck]:[...PERSONALITIES[0].deck]});
 }
 let eventBattleId=null;
+/* ===== イベントミッション =====
+   保存 cmEvMis：{イベントID:{wins:勝利数, fast:1, spell:1, got:[受け取ったミッションID]}} */
+function evMisAll(){try{const v=JSON.parse(store.get("cmEvMis")||"{}");return (v&&typeof v=="object")?v:{}}catch(e){return{}}}
+function evMisOf(id){const a=evMisAll();return a[id]||{wins:0,fast:0,spell:0,got:[]}}
+function evMisSave(id,st){const a=evMisAll();a[id]=st;store.set("cmEvMis",JSON.stringify(a))}
+function evMisProg(e,m){const st=evMisOf(e.id);
+ if(m.type=="win")return st.wins||0;if(m.type=="fastWin")return st.fast?1:0;if(m.type=="spellFinish")return st.spell?1:0;return 0}
+function evMisReadyCount(){let n=0;eventsActive().forEach(e=>(e.missions||[]).forEach(m=>{if(!evMisOf(e.id).got.includes(m.id)&&evMisProg(e,m)>=m.goal)n++}));return n}
+function evMisOnWin(e){if(!e.missions)return;const before=evMisReadyCount();
+ const st=evMisOf(e.id);st.wins=(st.wins||0)+1;
+ const fastTurns=Math.min(...e.missions.filter(m=>m.type=="fastWin").map(m=>m.turns||99),99);
+ if(S&&pturn()<=fastTurns)st.fast=1;
+ if(S&&S.lastHitSpell)st.spell=1;
+ evMisSave(e.id,st);
+ if(evMisReadyCount()>before)setTimeout(()=>log2Toast("🎯 イベントミッション達成！"),1400)}
+function claimEvMission(eid,mid){const e=eventById(eid);if(!e)return;const m=(e.missions||[]).find(x=>x.id==mid);if(!m)return;
+ const st=evMisOf(eid);if(st.got.includes(mid)||evMisProg(e,m)<m.goal)return;
+ st.got.push(mid);evMisSave(eid,st);addCrystal(m.reward,m.label);renderTasks();renderMenuBadge()}
 // 勝ったら券を配る（上限あり）
 function onEventWin(){
  const e=eventById(eventBattleId);eventBattleId=null;
- if(!e||!e.reward||!e.reward.ticket)return;
+ if(!e)return;
  if(!eventInPeriod(e)){log2Toast("イベントの開催期間が終わりました");return}
+ evMisOnWin(e);
+ if(!e.reward||!e.reward.ticket)return;
  const cap=e.reward.dailyCap||0;
  if(cap&&ticketToday()>=cap){log2Toast("今日の券はもらいきりました");return}
  bumpTicketToday();addTicket(e.reward.ticket,e.name);
@@ -2688,7 +2768,7 @@ function claimTask(key,reward,label){
  saveTaskState();addCrystal(reward,label);renderTasks();renderMenuBadge();
 }
 // 受け取り待ちの件数（メニューの赤丸に使う）
-function taskReadyCount(){ensureTaskState();return taskReady().length+(taskState.loginDate===todayStr()?0:1)}
+function taskReadyCount(){ensureTaskState();return taskReady().length+(taskState.loginDate===todayStr()?0:1)+evMisReadyCount()}
 
 function completeWelcome(id){ensureTaskState();const task=WELCOME_TASKS.find(t=>t.id==id);if(!task)return;
  if(taskState.welcomeDone.includes(id))return;
@@ -2726,8 +2806,11 @@ function onGachaPull(){ensureTaskState();completeWelcome("gacha1");bumpWeekly("g
 const TASK_TABS=[
  {id:"daily",label:"デイリー",title:"デイリーミッション",sub:"毎日0時にリセット"},
  {id:"weekly",label:"ウィークリー",title:"ウィークリーミッション",sub:"毎週月曜0時にリセット"},
- {id:"welcome",label:"ウェルカム",title:"ウェルカムミッション",sub:"はじめての人向け・1回だけ"}
+ {id:"welcome",label:"ウェルカム",title:"ウェルカムミッション",sub:"はじめての人向け・1回だけ"},
+ {id:"event",label:"イベント",title:"イベントミッション",sub:"開催中のイベントだけ・1回だけ"}   // 開催中のイベントにミッションがあるときだけ出す
 ];
+function taskTabShown(t){return t.id!="event"||eventsActive().some(e=>e.missions&&e.missions.length)}
+function openTasksTab(id){openTasks();const i=TASK_TABS.findIndex(t=>t.id==id);if(i>=0&&taskTabShown(TASK_TABS[i])){taskTab=i;renderTasks()}}
 let taskTab=0,taskTimer=null;
 function openTasks(){hideAll();$("tasks").classList.remove("hide");$("app").scrollTop=0;ensureTaskState();taskTab=0;renderLevelDisplays();renderTasks();startTaskTimer()}
 function setTaskTab(i){taskTab=i;renderTasks()}
@@ -2735,6 +2818,8 @@ function setTaskTab(i){taskTab=i;renderTasks()}
 function taskResetLeft(cat,now){now=now||new Date();
  if(cat=="daily"){const n=new Date(now);n.setHours(24,0,0,0);return n-now}
  if(cat=="weekly"){const n=new Date(now);const day=(n.getDay()+6)%7;n.setDate(n.getDate()+(7-day));n.setHours(0,0,0,0);return n-now}
+ if(cat=="event"){const ends=eventsActive().filter(e=>e.missions).map(e=>e.end).filter(Boolean).sort();
+  if(!ends.length)return 0;const a=ends[0].split("-").map(Number);return new Date(a[0],a[1]-1,a[2]+1)-now}
  return 0}
 function fmtLeft(ms){const t=Math.max(0,Math.floor(ms/1000)),d=Math.floor(t/86400),h=Math.floor(t%86400/3600),m=Math.floor(t%3600/60),sec=t%60,z=n=>String(n).padStart(2,"0");
  return (d?d+"日 ":"")+z(h)+":"+z(m)+":"+z(sec)}
@@ -2747,6 +2832,12 @@ function startTaskTimer(){if(taskTimer)return;
 // 画面に並べる1件分 {key,label,prog,goal,reward,state:"ready"|"doing"|"taken",claim}
 function taskItems(cat){
  const L=[];
+ if(cat=="event"){
+  eventsActive().forEach(e=>(e.missions||[]).forEach(m=>{const got=evMisOf(e.id).got.includes(m.id),p=Math.min(m.goal,evMisProg(e,m));
+   L.push({key:"e:"+e.id+":"+m.id,label:m.label,prog:p,goal:m.goal,reward:m.reward,state:got?"taken":p>=m.goal?"ready":"doing",
+    claim:"claimEvMission('"+e.id+"','"+m.id+"')"})}));
+  const ord={ready:0,doing:1,taken:2};
+  return L.map((x,i)=>({x,i})).sort((a,b)=>ord[a.x.state]-ord[b.x.state]||a.i-b.i).map(o=>o.x)}
  if(cat=="daily"){
   const got=taskState.loginDate===todayStr();
   L.push({key:"login",label:"ログインしよう",prog:1,goal:1,reward:LOGIN_BONUS,state:got?"taken":"ready",claim:"claimLoginUI()"})}
@@ -2763,12 +2854,13 @@ function taskItems(cat){
  const ord={ready:0,doing:1,taken:2};
  return L.map((x,i)=>({x,i})).sort((a,b)=>ord[a.x.state]-ord[b.x.state]||a.i-b.i).map(o=>o.x)}
 function claimAllTasks(){const L=taskItems(TASK_TABS[taskTab].id).filter(x=>x.state=="ready");
- L.forEach(x=>{if(x.key=="login")claimLogin();else claimTask(x.key,x.reward,x.label)});
+ L.forEach(x=>{if(x.key=="login")claimLogin();else if(x.key.startsWith("e:")){const a=x.key.split(":");claimEvMission(a[1],a[2])}else claimTask(x.key,x.reward,x.label)});
  renderTasks();renderMenuBadge()}
 function renderTasks(){
  ensureTaskState();renderCrystalDisplays();
  const tabs=$("taskTabs");tabs.innerHTML="";
- TASK_TABS.forEach((t,i)=>{const b=document.createElement("button");
+ if(!taskTabShown(TASK_TABS[taskTab]))taskTab=0;
+ TASK_TABS.forEach((t,i)=>{if(!taskTabShown(t))return;const b=document.createElement("button");
   const n=taskItems(t.id).filter(x=>x.state=="ready").length;
   b.className="packTab"+(i==taskTab?" on":"");b.innerHTML=t.label+(n?'<span class="tabDot"></span>':"");b.onclick=()=>setTaskTab(i);tabs.appendChild(b)});
  const body=$("taskBody");body.innerHTML="";
@@ -2885,7 +2977,8 @@ function packLabel(p){return PACK_LABELS[p]||("第"+p+"弾")}
 let codexPackKeys=[];
 function codexPacks(){
  const map={};
- P.filter(c=>isVisible(c)).forEach(c=>{const p=c.pack??1;(map[p]=map[p]||[]).push(c)});
+ P.filter(c=>isVisible(c)).forEach(c=>{const p=codexTabOf(c);(map[p]=map[p]||[]).push(c)});
+ if(map[0])map[0].sort((a,b)=>((a.no||(by(a.baseId)||{}).no)||999)-((b.no||(by(b.baseId)||{}).no)||999)||(a.rarity=="CR")-(b.rarity=="CR"));   // プロモは番号順（CRは元カードの後ろ）
  codexPackKeys=Object.keys(map).map(Number).sort((a,b)=>a-b);
  return codexPackKeys.map(k=>map[k])
 }
@@ -2906,7 +2999,8 @@ function renderCodex(){
  const start=codexPage*CODEX_PAGE_SIZE,items=pack.slice(start,start+CODEX_PAGE_SIZE);
  const g=$("codexGrid");g.innerHTML="";
  // 非CRだけで通し番号を振る（CR解禁で他の番号がズレない）。CRは元カードの番号に -c を付ける
- let _pos=0;const _num={};pack.forEach(c=>{if(c.rarity!=="CR"){_pos++;_num[c.id]=_pos}});const _tot=_pos;
+ let _pos=0;const _num={};pack.forEach(c=>{if(c.rarity!=="CR"){_pos++;_num[c.id]=_pos}});let _tot=_pos;
+ if(codexPackKeys[codexPack]===0){pack.forEach(c=>{if(c.no&&c.rarity!=="CR")_num[c.id]=c.no});P.forEach(c=>{if(c.no)_num[c.id]=c.no});_tot=PROMO_TOTAL}   // プロモは決まった番号
  items.forEach((c,idx)=>{
   const n=ownedCount(c.id),seen=hasEncountered(c.id);
   const numLabel = c.rarity==="CR"
@@ -3270,7 +3364,7 @@ function renderGachaList(){
   const banner=G.banner
    ?'<div class="gBanner" style="background:url('+TREE_BASE_URL+G.banner+') center/cover"></div>'
    :'<div class="gBanner"><div class="gbPeriod">'+gachaPeriodText(G)+'</div><div class="gbTitle">'+G.title+'</div><div class="gbSub">'+G.sub+'</div></div>';
-  return '<section class="gBlock" style="--g1:'+G.theme[0]+';--g2:'+G.theme[1]+';--ga:'+G.accent+'">'+banner
+  return '<section class="gBlock" id="gb_'+G.id+'" style="--g1:'+G.theme[0]+';--g2:'+G.theme[1]+';--ga:'+G.accent+'">'+banner
    +'<div class="gBody">'+gachaBlockStep(G)
    +(G.limit?'<div class="gLeft">残り <b>'+gachaLeft(G)+'</b> 回</div>':"")
    +(G.pity?'<div class="gLeft">'+pityLabel(G)+'確定まで あと <b>'+pityLeft(G)+'</b> 回</div>':"")
@@ -3323,14 +3417,15 @@ function openGacha(){hideAll();$("gacha").classList.remove("hide");$("app").scro
    ]
    ・id は必ず別々にする（受け取り済みの判定に使う。同じidを使い回すと、受け取った人には届かない）
    ・type は crystal(💎) / shard(かけら) / ticket(🎫プロモ券) / card(カード。id にカードID)
-   ・start / end は省略可。省略すると期間なし。end を過ぎると受け取れなくなる */
+   ・start / end は省略可。省略すると期間なし。end を過ぎると受け取れなくなる
+   ・date（配った日）を入れると、その日より後にゲームを始めた人には出ない。date が無ければ start で判断。どちらも無ければ全員に出る */
 const PRESENT_URL="presents.json";
 let presentList=[],presentLoaded=false,presentErr=false;
 function presentGot(){try{const v=JSON.parse(store.get("cmPresentGot")||"[]");return Array.isArray(v)?v:[]}catch(e){return[]}}
 function setPresentGot(a){store.set("cmPresentGot",JSON.stringify(a))}
 function presentValid(p){return !!(p&&p.id&&Array.isArray(p.items)&&p.items.length)}
 function presentsActive(day){day=day||todayStr();const got=presentGot();
- return presentList.filter(p=>presentValid(p)&&(!p.start||day>=p.start)&&(!p.end||day<=p.end)&&!got.includes(p.id))}
+ return presentList.filter(p=>presentValid(p)&&(!p.start||day>=p.start)&&(!p.end||day<=p.end)&&!got.includes(p.id)&&!beforeStart(p.date||p.start))}
 function escH(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function presentItemText(it){const n=+it.n||1;
  if(it.type=="crystal")return "💎"+n;
@@ -3415,12 +3510,12 @@ function renderFriend(msg){const b=$("friendBody");if(!b)return;
   +'<div class="frBox"><h3>部屋に入る</h3><div class="frNote">相手から聞いた4桁のコードを入れてください。</div>'
   +'<input id="frCodeIn" class="frInput" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off">'
   +'<div class="frBtns"><button type="button" class="gold" onclick="friendJoin()">入る</button></div></div>'+err;return}
- const R=fr.room||{},h=R.host,g=R.guest,both=!!(h&&g);
+ const R=fr.room||{},h=R.host,g=R.guest,both=!!(h&&g&&h.online!==false&&g.online!==false);
  b.innerHTML='<div class="frBox">'
   +(fr.me=="host"?'<div class="frNote">部屋コード</div><div class="frCode">'+fr.code+'</div>':'<div class="frNote">部屋 '+fr.code+' に入りました</div>')
   +(both?'<div class="frNote frOk">✅ つながりました！</div>':'<div class="frNote">相手を待っています…</div>')
-  +'<div class="frWho"><div>ホスト<b>'+(h?escH(h.name):"—")+'</b>'+(h?'デッキ '+(h.deck||[]).length+'枚':"")+'</div>'
-  +'<div>ゲスト<b>'+(g?escH(g.name):"—")+'</b>'+(g?'デッキ '+(g.deck||[]).length+'枚':"")+'</div></div>'
+  +'<div class="frWho"><div>ホスト<b>'+(h?escH(h.name):"—")+'</b>'+(h?'デッキ '+(h.deck||[]).length+'枚':"")+(h&&h.online===false?'<br><span class="frErr">通信切れ</span>':"")+'</div>'
+  +'<div>ゲスト<b>'+(g?escH(g.name):"—")+'</b>'+(g?'デッキ '+(g.deck||[]).length+'枚':"")+(g&&g.online===false?'<br><span class="frErr">通信切れ</span>':"")+'</div></div>'
   +(both&&fr.me=="host"?'<div class="frBtns"><button type="button" class="gold" onclick="fmHostStart()">⚔️ 対戦開始</button></div>':"")
   +(both&&fr.me=="guest"?'<div class="frNote">ホストが「対戦開始」を押すと始まります</div>':"")
   +(both?'<div class="frBtns"><button type="button" onclick="friendPing()">👋 あいさつを送る</button></div>':"")
@@ -3435,9 +3530,8 @@ async function friendCreate(){renderFriend("接続中…");
    const ref=db.ref("cm_rooms/"+code);
    const cur=(await ref.once("value")).val();
    if(cur&&cur.host&&Date.now()-(cur.created||0)<3*3600e3)continue;   // 使用中（3時間以内）の番号は使わない
-   const room={created:Date.now(),host:frMe()};
+   const room={created:Date.now(),host:{...frMe(),online:true}};
    await ref.set(room);
-   ref.onDisconnect().remove();                                          // アプリを閉じたら部屋ごと消える
    fr={mode:"room",me:"host",code,ref,room,log:[]};
    frWatch();renderFriend();sfx("sel");return}
   renderFriend("部屋を作れませんでした。もう一度試してください")}
@@ -3448,26 +3542,35 @@ async function friendJoin(){const code=(($("frCodeIn")||{}).value||"").replace(/
  try{const db=await fbInit(),ref=db.ref("cm_rooms/"+code);
   const v=(await ref.once("value")).val();
   if(!v||!v.host){renderFriend("その部屋は見つかりませんでした");return}
-  if(v.guest){renderFriend("その部屋はもう満員です");return}
-  const me=frMe();
+  if(v.guest&&v.guest.online!==false){renderFriend("その部屋はもう満員です");return}
+  if(v.host.online===false){renderFriend("ホストの通信が切れているようです。部屋を作り直してもらってください");return}
+  const me={...frMe(),online:true};
   await ref.child("guest").set(me);
-  ref.child("guest").onDisconnect().remove();                           // アプリを閉じたら退室
   fr={mode:"room",me:"guest",code,ref,room:{...v,guest:me},log:[]};
   frWatch();renderFriend();sfx("sel")}
  catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
-function frWatch(){const ref=fr.ref;if(!ref)return;
+// 自分の接続状態を見張る。つながり直したら online:true に戻し、切れたときの印（online:false）も付け直す
+function frPresence(){if(!fbDb||!fr.ref)return;const me=fr.me,ref=fr.ref;
+ fr.connRef=fbDb.ref(".info/connected");
+ fr.connRef.on("value",snap=>{const ok=snap.val()!==false;fr.online=ok;fmNetBanner();
+  if(!ok||!fr.ref||fr.ref!==ref)return;
+  ref.child(me+"/online").onDisconnect().set(false);
+  ref.child(me).once("value").then(v=>{if(v.val())ref.child(me+"/online").set(true)})})}
+function frWatch(){const ref=fr.ref;if(!ref)return;frPresence();
  fr.onVal=ref.on("value",snap=>{const v=snap.val();
   if(!v){if(fr.me=="guest"){frStop();if(FM.on)fmEnd();fr={mode:"top"};hideP("resultov");hideAll();$("friend").classList.remove("hide");renderFriend("ホストが部屋を閉じました")}return}
   const hadG=!!(fr.room&&fr.room.guest);fr.room=v;
   if(fr.me=="guest"&&v.match&&!FM.on&&v.match.at!==fr.lastMatchAt)return fmGuestEnter(v);
   if(fr.me=="guest"&&!v.match&&FM.on)return fmLeaveGame("ホストが部屋に戻りました");
-  if(FM.on){ if(fr.me=="host"&&!v.guest)fmOppGone();return }
+  if(FM.on){ if(fr.me=="host"&&!v.guest)fmOppGone();
+   const opp=fr.me=="host"?v.guest:v.host;fmOppNet(!!opp&&opp.online!==false);return }
   renderFriend();
   if(!hadG&&v.guest&&fr.me=="host"){sfx("win");log2Toast(v.guest.name+"さんが入りました")}
   if(hadG&&!v.guest&&fr.me=="host")log2Toast("相手が部屋を出ました")});
  fr.onPing=ref.child("ping").on("value",snap=>{const p=snap.val();if(!p||p.from==fr.me)return;
   sfx("sel");log2Toast("👋 "+p.name+"さんからあいさつ");frLog("👋 "+p.name+"さんからあいさつが届きました")})}
-function frStop(){try{if(fr.ref){fr.ref.off();fr.ref.child("ping").off();fr.ref.child("state").off();fr.ref.child("acts").off()}}catch(e){}}
+function frStop(){try{if(fr.connRef){fr.connRef.off();fr.connRef=null}}catch(e){}
+ try{if(fr.ref){fr.ref.child((fr.me||"host")+"/online").onDisconnect().cancel();fr.ref.off();fr.ref.child("ping").off();fr.ref.child("state").off();fr.ref.child("acts").off()}}catch(e){}}
 function friendPing(){if(!fr.ref)return;fr.ref.child("ping").set({from:fr.me,name:frName(),at:Date.now()});frLog("👋 あいさつを送りました");sfx("sel")}
 async function friendLeave(toMenu){
  try{if(fr.ref){frStop();
@@ -3486,29 +3589,64 @@ const FM_SW=[["pb","cb"],["ph","ch"],["pd","cd"],["pg","cg"],["php","chp"],["pDe
 function fmMirror(h,oppName){const o={...h};
  FM_SW.forEach(([a,b])=>{o[a]=h[b];o[b]=h[a]});
  o.active=h.active=="p"?"c":"p";o.cost=h.ccost||0;o.pSecond=!h.pSecond;
- o.opp={id:"friend",name:oppName||"相手"};o.busy=false;return o}
+ o.opp={id:"friend",name:oppName||"相手"};o.busy=false;
+ o.atkSide=h.atkSide=="p"?"c":h.atkSide=="c"?"p":null;return o}
 // ---- ホスト
 async function fmHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
  const first=Math.random()<.5?"host":"guest";
  await fr.ref.child("acts").remove();await fr.ref.child("state").remove();
+ await fr.ref.child("ask").remove();await fr.ref.child("ans").remove();
  await fr.ref.child("match").set({first,at:Date.now()});
  FM={on:true,role:"host",ref:fr.ref,seq:0,queue:[],wait:null,oppName:R.guest.name};
+ fr.ref.child("ans").on("value",snap=>{const v=snap.val();if(!v||v.id!==FM.askId||!FM.askRes)return;
+  const r=FM.askRes;FM.askRes=null;r(v.v===undefined?null:v.v)});
  fr.ref.child("acts").on("child_added",snap=>{const a=snap.val();if(!a)return;
   if(a.t=="resign"){                                     // 降参はすぐ反映（自分のターン中でも）
    if(S&&!S.over){log(FM.oppName+"が降参しました");S.chp=0;render();chk()}
    if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}return}
   if(FM.wait){const f=FM.wait;FM.wait=null;f(a)}else FM.queue.push(a)});
  eventBattleId=null;storyContext=null;
- start({id:"friend",name:R.guest.name,tagline:"フレンドマッチ",aggro:1,deck:(R.guest.deck||[]).filter(id=>by(id))});
- log2Toast(first=="host"?"あなたが先攻です":"あなたは後攻です");
- if(first=="guest"&&S){S.pSecond=true;S.active="c";await endTurn()}
- fmPublishNow()}
+ const opp={id:"friend",name:R.guest.name,tagline:"フレンドマッチ",aggro:1,deck:(R.guest.deck||[]).filter(id=>by(id))};
+ fmRoulette(R.guest.name,first=="guest",async()=>{
+  if(!FM.on)return;
+  start(opp);fmPublishNow();
+  if(first=="guest"&&S){S.pSecond=true;S.active="c";await endTurn()}
+  fmPublishNow()})}
+// ゲストに選んでもらう。答え（なければnull）を返す
+function fmAsk(q){if(!FM.on||!FM.ref)return Promise.resolve(null);
+ const id="q"+Date.now()+Math.random().toString(36).slice(2,6);
+ fmPublishNow();
+ FM.askId=id;
+ const p=new Promise(res=>{FM.askRes=res});
+ FM.askP=p.then(()=>{FM.askP=null});
+ FM.ref.child("ask").set({...q,id});
+ return p}
+async function fmAskBlock(av,to,atkName,tgtName){const gs=guards(S.cb,-1);if(!gs.length)return -1;
+ const bi=await fmAsk({kind:"block",av,to,atk:atkName,tgt:tgtName});
+ return (Number.isInteger(bi)&&gs.includes(bi)&&S.cb[bi])?bi:-1}
 function fmNextAction(){return new Promise(res=>{if(FM.queue.length)return res(FM.queue.shift());FM.wait=res})}
 let _fmPubT=null;
 function fmSchedulePublish(){if(_fmPubT)return;_fmPubT=setTimeout(()=>{_fmPubT=null;fmPublishNow()},120)}
 function fmPublishNow(){if(!FM.on||FM.role!="host"||!FM.ref||!S)return;
  const slim=JSON.stringify(S,(k,v)=>(k=="lore"||k=="sortName"||k=="opp")?undefined:v);
- FM.ref.child("state").set({seq:++FM.seq,s:slim,log:logs.slice(-1)[0]||"",hostName:frName()}).catch(()=>{})}
+ FM.ref.child("state").set({seq:++FM.seq,s:slim,log:logs.slice(-1)[0]||"",hostName:frName(),
+  fx:(FM.fx||[]).slice(-30),lane:JSON.stringify(laneFx)}).catch(()=>{})}
+// ホストで起きた演出を記録して、ゲストでも再生する
+function fmFx(n,a){if(!FM.on||FM.role!="host")return;FM.fx=FM.fx||[];FM.fxN=(FM.fxN||0)+1;FM.fx.push({id:FM.fxN,n,a});if(FM.fx.length>40)FM.fx.shift()}
+(function fmHookFx(){
+ ["float","floatHero","boomFx","shield"].forEach(n=>{const o=window[n];if(typeof o!="function")return;
+  window[n]=function(...a){fmFx(n,a.map(x=>typeof x=="object"?null:x));return o.apply(this,a)}});
+ const oc=window.cutIn;if(typeof oc=="function")window.cutIn=function(c){if(c)fmFx("cutIn",[c.id]);return oc.apply(this,arguments)};
+})();
+const FM_FLIP=x=>x=="p"?"c":x=="c"?"p":x;
+function fmPlayFx(list){(list||[]).forEach(f=>{if(f.id<=(FM.fxSeen||0))return;FM.fxSeen=f.id;const a=f.a||[];
+ try{
+  if(f.n=="float"){float(FM_FLIP(a[0]),a[1],a[2],a[3]);if(a[3]=="red")sfx("hit")}
+  else if(f.n=="floatHero"){floatHero(FM_FLIP(a[0]),a[1],a[2]);sfx(a[2]=="green"?"heal":"hit")}
+  else if(f.n=="boomFx"){boomFx(FM_FLIP(a[0]),a[1]);sfx("boom")}
+  else if(f.n=="shield"){shield(FM_FLIP(a[0]),a[1]);sfx("shield")}
+  else if(f.n=="cutIn"){if(!(FM.myCast&&FM.myCast.id==a[0]&&Date.now()-FM.myCast.at<4000))cutIn(by(a[0]))}
+ }catch(e){}})}
 // 相手（ゲスト）のターン：届いた操作を順に実行する
 async function remoteTurn(){if(!S||S.over)return;
  S.active="c";S.cDef2=false;S.cDefBonus=0;S.cShield=false;S.pOnce=false;S.cOnce=false;
@@ -3536,12 +3674,33 @@ async function fmDoGuestAction(a){
   log(FM.oppName+"："+c.name+"を召喚");summonEff(m,"c");encounterCard(c.id);await sleep(500);return}
  if(a.t=="cast"){const c=S.ch[a.hand];if(!c||c.type!="spell"||S.cLock)return;
   const cost=ec(c,"c");if(cost>S.ccost)return;
-  S.ccost-=cost;castCpu({c,idx:a.hand,cost});await sleep(700);return}
+  S.ccost-=cost;castCpu({c,idx:a.hand,cost});await sleep(700);
+  while(FM.askP)await FM.askP;return}
  if(a.t=="attack"){const pos=a.from,t=a.to,m=S.cb[pos];
   if(!m||m.used||(m.attacks||0)<=0||m.cantAttack)return;
   if(!(pos==1||t==1||pos+t==2))return;
   if(!S.pb[t]&&!(t==1&&!S.pb[1]))return;
   await cpuDoAttack(pos,t);return}}
+// 対戦中、相手の通信が切れたら90秒待つ。戻らなければホストは勝ち・ゲストは部屋へ戻る
+const FM_WAIT_SEC=90;
+function fmOppNet(ok){if(!FM.on)return;
+ if(ok){if(FM.netT){clearInterval(FM.netT);FM.netT=null;FM.netLeft=0;log2Toast("相手の通信が戻りました")}fmNetBanner();return}
+ if(FM.netT||(S&&S.over))return;
+ FM.netLeft=FM_WAIT_SEC;
+ FM.netT=setInterval(()=>{if(!FM.on){clearInterval(FM.netT);return}
+  FM.netLeft--;fmNetBanner();
+  if(FM.netLeft>0)return;
+  clearInterval(FM.netT);FM.netT=null;
+  if(FM.role=="host"){if(S&&!S.over){log(FM.oppName+"の通信が切れたため勝利");S.chp=0;render();chk()}
+   if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}
+   if(FM.askRes){const r=FM.askRes;FM.askRes=null;r(null)}}
+  else fmLeaveGame("ホストとの通信が切れたため、対戦を終了しました");
+  fmNetBanner()},1000);
+ fmNetBanner()}
+function fmNetBanner(){const b=$("fmNet");if(!b)return;let t="";
+ if(fr&&fr.ref&&fr.online===false)t="📡 通信が切れました。つながり直すのを待っています…";
+ else if(FM.on&&FM.netT)t="📡 相手の通信が切れました（あと"+FM.netLeft+"秒待ちます）";
+ b.textContent=t;b.classList.toggle("show",!!t)}
 function fmOppGone(){if(!FM.on)return;log2Toast("相手が退出しました");
  if(S&&!S.over){S.chp=0;chk()}}
 // ---- ゲスト
@@ -3549,16 +3708,30 @@ function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
  FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",sent:false};
  hideAll();$("game").classList.remove("hide");logs=[];selH=selA=selE=null;pending=null;
  S=null;$("log").textContent="ホストが対戦を準備しています…";
+ fmRoulette(FM.oppName,room.match&&room.match.first=="host",()=>{});
  fr.ref.child("state").on("value",snap=>{const v=snap.val();if(!v||!FM.on)return;
   if(v.seq<=FM.seq&&v.seq>1)return;FM.seq=v.seq;
   let h;try{h=JSON.parse(v.s)}catch(e){return}
   const wasOver=S&&S.over;
   S=fmMirror(h,FM.oppName);FM.sent=false;
+  if(FM.fxSeen==null)FM.fxSeen=v.fx&&v.fx.length?v.fx[v.fx.length-1].id:0;   // 入った時点より前の演出は流さない
+  if(!blockAsk&&v.lane){try{const L=JSON.parse(v.lane);laneFx={atk:L.atk?{side:FM_FLIP(L.atk.side),i:L.atk.i}:null,tgt:L.tgt?{side:FM_FLIP(L.tgt.side),i:L.tgt.i}:null,guardSide:null,guards:[]}}catch(e){}}
   if(v.log){const me=frName(),l=v.log.replace(/^T\d+｜/,"").split(me).join("あなた").replace(/CPU/g,"あなた");   // ホストの記録では自分（ゲスト）が名前で出る
    if(logs[logs.length-1]!==l)logs.push(l);$("log").textContent=l}
   if(selH!=null&&!S.ph[selH])selH=null;
   render();
-  if(S.over&&!wasOver)fmGuestResult()})}
+  setTimeout(()=>fmPlayFx(v.fx),0);
+  if(S.over&&!wasOver)fmGuestResult()});
+ fr.ref.child("ask").on("value",snap=>{const q=snap.val();if(!q||!FM.on||q.id===FM.lastAsk)return;FM.lastAsk=q.id;fmGuestAsk(q)})}
+function fmAnswer(id,v){if(FM.ref)FM.ref.child("ans").set({id,v:v==null?null:v})}
+function fmGuestAsk(q){
+ if(q.kind=="block"){sfx("sel");askBlock(q.av,q.to,q.atk,q.tgt).then(bi=>fmAnswer(q.id,bi));return}
+ if(q.kind=="pick"){const u=q.uids||[];
+  pending={kind:q.k,valid:(m)=>u.includes(m.uid),cb:(sd,i)=>fmAnswer(q.id,{sd:sd=="p"?"c":"p",i}),fmId:q.id};
+  log("呪文の対象を選んでください");sfx("sel");render();return}
+ if(q.kind=="discard"){discardPick={sel:[],opt:q.opt,cb:null,fmId:q.id};
+  log(q.opt.need!=null?("手札を"+q.opt.need+"枚選んでください"):("手札を最大"+q.opt.max+"枚まで選べます"));
+  sfx("sel");renderDiscardBar();render();return}}
 function fmGuestResult(){const w=S.php<=0&&S.chp<=0?null:S.chp<=0?true:S.php<=0?false:null;
  const t=$("rTitle");
  if(w===true){t.textContent="WIN!";t.className="rtitle dot winc";sfx("win")}
@@ -3582,7 +3755,7 @@ function fmGuestSummon(pos){if(!fmCanAct()||selH==null)return;const c=S.ph[selH]
 function fmGuestCast(){if(!fmCanAct()||selH==null)return;const c=S.ph[selH];if(!c||c.type!="spell")return;
  if(S.pLock)return log("スペルロック中：このターンは呪文を唱えられません");
  if(ec(c,"p")>S.cost)return log("コストが足りません");
- fmSend({t:"cast",hand:selH});selH=null;log("呪文「"+c.name+"」を発動");cutIn(c)}
+ fmSend({t:"cast",hand:selH});selH=null;log("呪文「"+c.name+"」を発動");FM.myCast={id:c.id,at:Date.now()};cutIn(c)}
 function fmGuestAttack(to){if(!fmCanAct()||selA==null)return;const f=selA,a=S.pb[f];if(!a)return;
  if(a.cantAttack)return log("このモンスターは攻撃できません");
  if(a.used||(a.attacks||0)<=0)return log("行動済みです");
@@ -3597,7 +3770,12 @@ async function fmBackToRoom(){hideP("resultov");
 function fmLeaveGame(msg){fmEnd();hideP("resultov");hideAll();$("friend").classList.remove("hide");renderFriend();if(msg)log2Toast(msg)}
 function fmEnd(){try{if(FM.ref){FM.ref.child("state").off();FM.ref.child("acts").off()}}catch(e){}
  if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}
- FM={on:false};S=null}
+ if(FM.askRes){const r=FM.askRes;FM.askRes=null;r(null)}
+ if(FM.netT)clearInterval(FM.netT);
+ try{if(FM.ref){FM.ref.child("ask").off();FM.ref.child("ans").off()}}catch(e){}
+ blockAsk=null;discardPick=null;pending=null;
+ if(pmPending&&pmPending.go){pmPending=null;$("prematch").classList.remove("on")}
+ FM={on:false};S=null;setTimeout(fmNetBanner,0)}
 // 途中でやめる：ゲストは降参を送る（ホストの勝ち）。ホストは部屋に戻る（ゲストにも伝わる）
 function fmQuit(){if(FM.role=="guest"&&S&&!S.over&&FM.ref)FM.ref.child("acts").push({t:"resign",at:Date.now()});fmBackToRoom()}
 
@@ -3616,7 +3794,7 @@ let newsList=[],newsLoaded=false,newsErr=false,newsNewSet=null;   // newsNewSet�
 function newsIds(key){try{const v=JSON.parse(store.get(key)||"[]");return Array.isArray(v)?v:[]}catch(e){return[]}}
 function addNewsIds(key,ids){const a=newsIds(key);ids.forEach(i=>{if(!a.includes(i))a.push(i)});store.set(key,JSON.stringify(a))}
 function newsActive(day){day=day||todayStr();
- return newsList.filter(n=>n&&n.id&&n.title&&(!n.start||day>=n.start)&&(!n.end||day<=n.end))
+ return newsList.filter(n=>n&&n.id&&n.title&&(!n.start||day>=n.start)&&(!n.end||day<=n.end)&&!beforeStart(n.date||n.start))
   .slice().sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))}
 function newsUnread(){const seen=newsIds("cmNewsSeen");return newsActive().filter(n=>!seen.includes(n.id))}
 function renderNewsBadge(){const b=$("newsBadge");if(!b)return;const n=newsUnread().length;
@@ -3793,6 +3971,7 @@ function confirmPlayerSetup(){
  if(!name){$("setupMsg").textContent="名前を入力してください";return}
  if(name.length>8){$("setupMsg").textContent="名前は8文字までにしてください";return}
  player={name,sex:setupSex};savePlayer();
+ if(!playerStartDay())store.set("cmStart",todayStr());   // 始めた日を記録
  if(introMode){
   grantStarterDeck();
   log2Toast("🎴 スターターデッキ30枚を受け取った！");
@@ -3826,13 +4005,17 @@ function prematch(personality,fixed){
  $("pmName").textContent=name;
  $("pmTag").textContent=fillText(opp.tagline||"");
  $("pmBtn").classList.remove("show");
+ pmSpin(Math.random()<.5);
+}
+// 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
+function pmSpin(second){
  const box=$("pmFlip");
  box.classList.remove("on","hit");box.textContent="先攻";
  $("prematch").classList.add("on");
  // 札を高速で入れ替え、だんだん遅くして止める
- const second=Math.random()<.5;
  let i=0,wait=45;
  const step=()=>{
+  if(!pmPending)return;
   box.textContent=(i%2==0)?"先攻":"後攻";
   sfx("sel");i++;wait*=1.14;
   if(wait<340)setTimeout(step,wait);
@@ -3846,11 +4029,18 @@ function prematch(personality,fixed){
  };
  setTimeout(step,260);
 }
+// フレンドマッチ用：相手の名前を出してルーレット。止まったあとボタンで go() を呼ぶ
+function fmRoulette(name,second,go){
+ pmPending={go,second:false};
+ $("pmName").textContent=name;$("pmTag").textContent="フレンドマッチ";
+ $("pmBtn").classList.remove("show");
+ pmSpin(second)}
 async function prematchGo(){
  const p=pmPending;if(!p)return;
  pmPending=null;
  $("prematch").classList.remove("on");
  sfx("sel");
+ if(p.go){await p.go();return}
  start(p.personality,p.fixed);
  if(p.second&&S){                       // 後攻：相手のターンから始める
   S.pSecond=true;
@@ -3957,6 +4147,7 @@ function heroDmg(side,n,from){if(n<=0||S.over)return;
   if(side=="c"&&S.cShield){S.cShield=false;floatHero("c","無効化!","green");sfx("shield");log("CPUがダメージを無効化");return}
  }
  if(side=="p")S.php-=n;else S.chp-=n;
+ if(side=="c")S.lastHitSpell=!!S.castingSpell;   // イベントミッション「呪文でとどめ」用
  floatHero(side,"-"+n,"red");sfx("hit");
  const b=$(side=="p"?"phpBox":"chpBox");if(b){b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}
  render()}
@@ -4173,6 +4364,16 @@ let discardPick=null;
 function askDiscard(side,opt,cb){
  // opt: {need:2} ちょうど2枚 / {max:5} 最大5枚まで
  const H=side=="p"?S.ph:S.ch;
+ if(side=="c"&&FM.on&&FM.role=="host"){          // フレンドのゲストに選んでもらう
+  if(opt.need!=null&&H.length<opt.need)return cb(0);
+  fmAsk({kind:"discard",opt}).then(sel=>{if(!S)return;
+   const lim=opt.need!=null?opt.need:Math.min(opt.max,H.length);
+   let ok=Array.isArray(sel)&&new Set(sel).size==sel.length&&sel.every(i=>Number.isInteger(i)&&i>=0&&i<H.length)&&(opt.need!=null?sel.length==opt.need:sel.length<=lim);
+   if(!ok)sel=H.map((c,i)=>({i,v:c.cost*100+(c.atk||0)+(c.def||0)})).sort((a,b)=>a.v-b.v).slice(0,lim).map(o=>o.i);
+   const picked=[...sel].sort((a,b)=>b-a).map(i=>H.splice(i,1)[0]);picked.forEach(c=>S.cg.push(c));
+   log(FM.oppName+"：手札"+picked.length+"枚を捨てた");cb(picked.length);render();chk()});
+  return;
+ }
  if(side=="c"){                                  // CPUは自動で選ぶ
   const idx=H.map((c,i)=>({i,v:c.cost*100+(c.atk||0)+(c.def||0)}))
    .sort((a,b)=>a.v-b.v).slice(0,opt.need!=null?opt.need:Math.min(opt.max,H.length)).map(o=>o.i);
@@ -4209,6 +4410,7 @@ function discardConfirm(){
  if(!discardPick)return;
  const o=discardPick.opt,sel=discardPick.sel;
  if(o.need!=null&&sel.length!=o.need){log(o.need+"枚選んでください");return}
+ if(discardPick.fmId){const id=discardPick.fmId;discardPick=null;renderDiscardBar();fmAnswer(id,[...sel]);log("手札を捨てた");render();return}
  const cb=discardPick.cb;
  const idx=[...sel].sort((a,b)=>b-a);
  const cards=idx.map(i=>S.ph.splice(i,1)[0]);
@@ -4219,6 +4421,7 @@ function discardConfirm(){
 }
 function discardCancel(){
  if(!discardPick)return;
+ if(discardPick.fmId){const id=discardPick.fmId,o=discardPick.opt;discardPick=null;renderDiscardBar();fmAnswer(id,o.need!=null?null:[]);render();return}
  const cb=discardPick.cb;discardPick=null;renderDiscardBar();
  log("キャンセル");cb(0);render();
 }
@@ -4231,11 +4434,21 @@ function pick(side,kind,valid,score,cb,refund){
  const scan=(B,sd)=>{if(!B)return;B.forEach((m,i)=>{if(m&&(!valid||valid(m,sd))){const v=score?score(m,sd):at(m,sd)+df(m,sd);if(v>bs){bs=v;best=i;bSide=sd}}})};
  if(kind=="ally"||kind=="any")scan(S.cb,"c");
  if(kind=="enemy"||kind=="any")scan(S.pb,"p");
- if(best>=0)cb(bSide,best)}
+ if(best<0)return;
+ if(FM.on&&FM.role=="host"){                       // フレンドのゲストに選んでもらう（選ばなければ自動）
+  const uids=[];const add=(B,sd)=>{if(B)B.forEach(m=>{if(m&&(!valid||valid(m,sd)))uids.push(m.uid)})};
+  if(kind=="ally"||kind=="any")add(S.cb,"c");if(kind=="enemy"||kind=="any")add(S.pb,"p");
+  fmAsk({kind:"pick",k:kind,uids}).then(ans=>{if(!S||S.over)return;
+   let sd=bSide,i=best;
+   if(ans&&(ans.sd=="p"||ans.sd=="c")){const B=ans.sd=="p"?S.pb:S.cb,m=B[ans.i];if(m&&uids.includes(m.uid)){sd=ans.sd;i=ans.i}}
+   cb(sd,i);render();chk()});
+  return}
+ cb(bSide,best)}
 function resolvePending(side,i){const pd=pending;pending=null;
  if(pd.refund){S.pg.push(pd.refund.card);pd.refund=null}
  pd.cb(side,i);render();chk()}
 function cancelPending(){if(!pending)return;
+ if(pending.fmId){const id=pending.fmId;pending=null;fmAnswer(id,null);log("自動で選びます");render();return}
  if(pending.refund){S.cost+=pending.refund.cost;S.ph.push(pending.refund.card);log("キャンセルしました")}else log("キャンセル");
  pending=null;render()}
 function ownTap(i){if(S.over)return;const m=S.pb[i];if(!m)return;
@@ -4297,8 +4510,10 @@ function cast(){if(FM.on&&FM.role=="guest")return fmGuestCast();
  const err=castCheck(c);if(err)return log(err);
  S.cost-=cost;const _sp=c;S.ph.splice(selH,1);selH=null;sfxCard(_sp,"cast");
  log("呪文「"+c.name+"」を発動");encounterCard(c.id);cutIn(c);
- if(PICKFX[c.eff])spell(c,"p",{card:c,cost});
- else{S.pg.push(c);spell(c,"p")}
+ S.castingSpell=true;
+ try{if(PICKFX[c.eff])spell(c,"p",{card:c,cost});
+  else{S.pg.push(c);spell(c,"p")}}
+ finally{S.castingSpell=false}
  render();chk()}
 function discardRnd(side,n){const H=side=="p"?S.ph:S.ch,G=side=="p"?S.pg:S.cg;let k=0;
  for(let i=0;i<n&&H.length;i++){G.push(H.splice(Math.random()*H.length|0,1)[0]);k++}
@@ -4438,8 +4653,8 @@ async function playerAtk(f,to){let a=S.pb[f],d=S.cb[to];if(!a)return;
  const av=at(a,"p");
  setLaneFx({atk:{side:"p",i:f},tgt:{side:"c",i:to}});   // 赤＝攻撃元／青＝攻撃先
  await sleep(260);
- // 守護で止めるかは、守る側（CPU）が決める
- const bi=cpuBlockChoice(av,to);
+ // 守護で止めるかは、守る側が決める（CPUは自動・フレンドはゲストに聞く）
+ const bi=FM.on&&FM.role=="host"?await fmAskBlock(av,to,a.name,d?d.name:"直接攻撃"):cpuBlockChoice(av,to);
  if(bi>=0&&bi!=to){
   S.cb[bi].guardTurn=true;shield("c",bi);sfx("shield");
   log(S.cb[bi].name+"が守護で受け止めた！");
