@@ -1079,7 +1079,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.2</div>
+ <div class="tVer" id="tVer">ver.3.3</div>
 </div>
 
 <div id="app">
@@ -1173,12 +1173,12 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
    <button class="m4 sm" id="m4_tablet" onclick="menuGo(5)"><span class="m4em">🪨</span>石版</button>
    <button class="m4 sm" id="m4_tasks" onclick="menuGo(7)"><span class="m4em">✅</span>タスク</button>
   </div>
-  <button type="button" class="friendLink" onclick="openFriend()">👥 フレンドマッチ <small>（接続テスト中）</small></button>
+  <button type="button" class="friendLink" onclick="openFriend()">👥 フレンドマッチ <small>（テスト中）</small></button>
  </div>
 </div>
 
 <div id="friend" class="hide">
- <div class="editorHead"><h1>フレンドマッチ</h1><div class="sub">部屋コードで友だちとつながる（いまは接続テスト）</div></div>
+ <div class="editorHead"><h1>フレンドマッチ</h1><div class="sub">部屋コードで友だちと対戦（テスト中）</div></div>
  <div id="friendBody"></div>
  <div class="foot"><button type="button" class="sec" onclick="friendLeave(true)">戻る</button></div>
 </div>
@@ -1193,7 +1193,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div id="cb" class="board"></div>
  <div id="pb" class="board"></div>
  <div class="ctrlbar">
-  <div class="side" onclick="showGrave('c')"><div class="who">CPU</div><div class="dk">山<b id="cd">0</b></div><div class="dk">墓<b id="cgN">0</b></div></div>
+  <div class="side" onclick="showGrave('c')"><div class="who" id="cWho">CPU</div><div class="dk">山<b id="cd">0</b></div><div class="dk">墓<b id="cgN">0</b></div></div>
   <div class="cmid">
    <div class="cmtop"><button class="pauseBtn" onclick="openPause()" aria-label="ポーズ">⏸</button><button id="btnEnd" onclick="endTurn()">ターンエンド ▶</button></div>
    <div id="gems" class="gemrow"></div>
@@ -1475,7 +1475,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.2</div>
+  <div class="aboutVer" id="aboutVer">ver.3.3</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1527,7 +1527,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 <div id="resultov" class="pov"><div class="resultBox">
  <h2 id="rTitle" class="rtitle dot winc">WIN!</h2>
  <div id="rSub" class="rsub"></div>
- <div class="rbtns"><button onclick="hideP('resultov');rematchLast()">🔁 もう一度対戦</button><button class="sec" onclick="hideP('resultov');menu()">メニューへ</button></div>
+ <div class="rbtns"><button onclick="hideP('resultov');rematchLast()">🔁 もう一度対戦</button><button class="sec" onclick="hideP('resultov');if(FM.on)fmQuit();else menu()">メニューへ</button></div>
 </div></div>
 
 <script>
@@ -1925,6 +1925,7 @@ const GACHA_COST_1=100,GACHA_COST_10=900;
    ガチャの抽選・ステップアップの進行は弾ごとに独立。
    かけら・レベル・クリスタルは弾をまたいで共通。 */
 // リリース時はプロモ弾を出さないため、イベントとプロモ弾は一時的に閉じる（公開するときは false に戻す）
+let FM={on:false};   // フレンドマッチの状態（詳しくは「フレンドマッチ（ステップ2）」）
 const EVENTS_LOCKED=false;   // 9/29 公開
 const PACKS=[
  {id:1, name:"第1弾", sub:"始まりの100枚", open:true},
@@ -3409,9 +3410,9 @@ function openFriend(){hideAll();$("friend").classList.remove("hide");$("app").sc
 function renderFriend(msg){const b=$("friendBody");if(!b)return;
  const err=msg?'<div class="frNote frErr">'+escH(msg)+'</div>':"";
  if(fr.mode=="top"){b.innerHTML=
-  '<div class="frBox"><h3>部屋を作る</h3><div class="frNote">4けたの部屋コードが出るので、相手に伝えてください。</div>'
+  '<div class="frBox"><h3>部屋を作る</h3><div class="frNote">4桁の部屋コードが出るので、相手に伝えてください。</div>'
   +'<div class="frBtns"><button type="button" onclick="friendCreate()">部屋を作る</button></div></div>'
-  +'<div class="frBox"><h3>部屋に入る</h3><div class="frNote">相手から聞いた4けたのコードを入れてください。</div>'
+  +'<div class="frBox"><h3>部屋に入る</h3><div class="frNote">相手から聞いた4桁のコードを入れてください。</div>'
   +'<input id="frCodeIn" class="frInput" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off">'
   +'<div class="frBtns"><button type="button" class="gold" onclick="friendJoin()">入る</button></div></div>'+err;return}
  const R=fr.room||{},h=R.host,g=R.guest,both=!!(h&&g);
@@ -3420,6 +3421,8 @@ function renderFriend(msg){const b=$("friendBody");if(!b)return;
   +(both?'<div class="frNote frOk">✅ つながりました！</div>':'<div class="frNote">相手を待っています…</div>')
   +'<div class="frWho"><div>ホスト<b>'+(h?escH(h.name):"—")+'</b>'+(h?'デッキ '+(h.deck||[]).length+'枚':"")+'</div>'
   +'<div>ゲスト<b>'+(g?escH(g.name):"—")+'</b>'+(g?'デッキ '+(g.deck||[]).length+'枚':"")+'</div></div>'
+  +(both&&fr.me=="host"?'<div class="frBtns"><button type="button" class="gold" onclick="fmHostStart()">⚔️ 対戦開始</button></div>':"")
+  +(both&&fr.me=="guest"?'<div class="frNote">ホストが「対戦開始」を押すと始まります</div>':"")
   +(both?'<div class="frBtns"><button type="button" onclick="friendPing()">👋 あいさつを送る</button></div>':"")
   +'<div id="frLog" class="frLog"></div>'
   +'<div class="frBtns"><button type="button" class="sec" onclick="friendLeave(false)">部屋を出る</button></div>'
@@ -3440,7 +3443,7 @@ async function friendCreate(){renderFriend("接続中…");
   renderFriend("部屋を作れませんでした。もう一度試してください")}
  catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
 async function friendJoin(){const code=(($("frCodeIn")||{}).value||"").replace(/\D/g,"");
- if(code.length!=4){renderFriend("4けたの数字を入れてください");return}
+ if(code.length!=4){renderFriend("4桁の数字を入れてください");return}
  renderFriend("接続中…");
  try{const db=await fbInit(),ref=db.ref("cm_rooms/"+code);
   const v=(await ref.once("value")).val();
@@ -3454,13 +3457,17 @@ async function friendJoin(){const code=(($("frCodeIn")||{}).value||"").replace(/
  catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
 function frWatch(){const ref=fr.ref;if(!ref)return;
  fr.onVal=ref.on("value",snap=>{const v=snap.val();
-  if(!v){if(fr.me=="guest"){frStop();fr={mode:"top"};renderFriend("ホストが部屋を閉じました")}return}
-  const hadG=!!(fr.room&&fr.room.guest);fr.room=v;renderFriend();
+  if(!v){if(fr.me=="guest"){frStop();if(FM.on)fmEnd();fr={mode:"top"};hideP("resultov");hideAll();$("friend").classList.remove("hide");renderFriend("ホストが部屋を閉じました")}return}
+  const hadG=!!(fr.room&&fr.room.guest);fr.room=v;
+  if(fr.me=="guest"&&v.match&&!FM.on&&v.match.at!==fr.lastMatchAt)return fmGuestEnter(v);
+  if(fr.me=="guest"&&!v.match&&FM.on)return fmLeaveGame("ホストが部屋に戻りました");
+  if(FM.on){ if(fr.me=="host"&&!v.guest)fmOppGone();return }
+  renderFriend();
   if(!hadG&&v.guest&&fr.me=="host"){sfx("win");log2Toast(v.guest.name+"さんが入りました")}
   if(hadG&&!v.guest&&fr.me=="host")log2Toast("相手が部屋を出ました")});
  fr.onPing=ref.child("ping").on("value",snap=>{const p=snap.val();if(!p||p.from==fr.me)return;
   sfx("sel");log2Toast("👋 "+p.name+"さんからあいさつ");frLog("👋 "+p.name+"さんからあいさつが届きました")})}
-function frStop(){try{if(fr.ref){fr.ref.off();fr.ref.child("ping").off()}}catch(e){}}
+function frStop(){try{if(fr.ref){fr.ref.off();fr.ref.child("ping").off();fr.ref.child("state").off();fr.ref.child("acts").off()}}catch(e){}}
 function friendPing(){if(!fr.ref)return;fr.ref.child("ping").set({from:fr.me,name:frName(),at:Date.now()});frLog("👋 あいさつを送りました");sfx("sel")}
 async function friendLeave(toMenu){
  try{if(fr.ref){frStop();
@@ -3468,6 +3475,131 @@ async function friendLeave(toMenu){
   fr.ref.onDisconnect().cancel()}}catch(e){}
  fr={mode:"top"};
  if(toMenu)menu();else renderFriend()}
+
+/* ================= フレンドマッチ（ステップ2：対戦） =================
+   ホストのスマホがゲームを動かす。ゲスト＝ホストの画面の「相手（c）」側。
+   ゲストは操作（召喚・呪文・攻撃・ターン終了）を acts に送るだけで、盤面は state で受け取って左右ではなく上下を入れ替えて表示する。
+   報酬なし・CPUの思考は使わない。
+   まだ：ゲスト側の守護・対象選び・手札を捨てる（いまは自動）、切断の処理 */
+const FM_SW=[["pb","cb"],["ph","ch"],["pd","cd"],["pg","cg"],["php","chp"],["pDef2","cDef2"],["pDefBonus","cDefBonus"],
+ ["pLock","cLock"],["pShield","cShield"],["pOnce","cOnce"],["pFatigue","cFatigue"],["pMillUsed","cMillUsed"]];
+function fmMirror(h,oppName){const o={...h};
+ FM_SW.forEach(([a,b])=>{o[a]=h[b];o[b]=h[a]});
+ o.active=h.active=="p"?"c":"p";o.cost=h.ccost||0;o.pSecond=!h.pSecond;
+ o.opp={id:"friend",name:oppName||"相手"};o.busy=false;return o}
+// ---- ホスト
+async function fmHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
+ const first=Math.random()<.5?"host":"guest";
+ await fr.ref.child("acts").remove();await fr.ref.child("state").remove();
+ await fr.ref.child("match").set({first,at:Date.now()});
+ FM={on:true,role:"host",ref:fr.ref,seq:0,queue:[],wait:null,oppName:R.guest.name};
+ fr.ref.child("acts").on("child_added",snap=>{const a=snap.val();if(!a)return;
+  if(a.t=="resign"){                                     // 降参はすぐ反映（自分のターン中でも）
+   if(S&&!S.over){log(FM.oppName+"が降参しました");S.chp=0;render();chk()}
+   if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}return}
+  if(FM.wait){const f=FM.wait;FM.wait=null;f(a)}else FM.queue.push(a)});
+ eventBattleId=null;storyContext=null;
+ start({id:"friend",name:R.guest.name,tagline:"フレンドマッチ",aggro:1,deck:(R.guest.deck||[]).filter(id=>by(id))});
+ log2Toast(first=="host"?"あなたが先攻です":"あなたは後攻です");
+ if(first=="guest"&&S){S.pSecond=true;S.active="c";await endTurn()}
+ fmPublishNow()}
+function fmNextAction(){return new Promise(res=>{if(FM.queue.length)return res(FM.queue.shift());FM.wait=res})}
+let _fmPubT=null;
+function fmSchedulePublish(){if(_fmPubT)return;_fmPubT=setTimeout(()=>{_fmPubT=null;fmPublishNow()},120)}
+function fmPublishNow(){if(!FM.on||FM.role!="host"||!FM.ref||!S)return;
+ const slim=JSON.stringify(S,(k,v)=>(k=="lore"||k=="sortName"||k=="opp")?undefined:v);
+ FM.ref.child("state").set({seq:++FM.seq,s:slim,log:logs.slice(-1)[0]||"",hostName:frName()}).catch(()=>{})}
+// 相手（ゲスト）のターン：届いた操作を順に実行する
+async function remoteTurn(){if(!S||S.over)return;
+ S.active="c";S.cDef2=false;S.cDefBonus=0;S.cShield=false;S.pOnce=false;S.cOnce=false;
+ resetBoard("c");draw("c");log(FM.oppName+"のターン");S.ccost=S.max;render();
+ for(let k=0;k<200;k++){
+  if(!S||S.over||!FM.on)return;
+  const a=await fmNextAction();
+  if(!S||S.over||!FM.on)return;
+  if(a.t=="end")break;
+  if(a.t=="resign"){await fmDoGuestAction(a);render();chk();return}
+  try{await fmDoGuestAction(a)}catch(e){console.error(e)}
+  render();chk()}
+ if(S)S.cLock=false}
+async function fmDoGuestAction(a){
+ if(a.t=="resign"){log(FM.oppName+"が降参しました");S.chp=0;return}
+ if(a.t=="summon"){const c=S.ch[a.hand],pos=a.lane;if(!c||c.type!="monster"||S.cb[pos])return;
+  const cost=ec(c,"c");if(cost>S.ccost)return;
+  if(c.handLessThan3&&S.ch.length>=3)return;
+  if((c.centerOnly&&pos!=1)||(c.rightOnly&&pos!=2)||(c.leftOnly&&pos!=0))return;
+  S.ccost-=cost;
+  const m={...c,used:c.charge?false:true,attacks:c.double?2:(c.charge?1:0),buff:0,defBuff:0};
+  if(c.leftCharge&&pos==0){m.permCharge=1;grantCharge(m)}
+  if(c.rightGuard&&pos==2){m.permGuard=1;m.guard=1}
+  S.cb[pos]=m;S.ch.splice(a.hand,1);sfx("summon");
+  log(FM.oppName+"："+c.name+"を召喚");summonEff(m,"c");encounterCard(c.id);await sleep(500);return}
+ if(a.t=="cast"){const c=S.ch[a.hand];if(!c||c.type!="spell"||S.cLock)return;
+  const cost=ec(c,"c");if(cost>S.ccost)return;
+  S.ccost-=cost;castCpu({c,idx:a.hand,cost});await sleep(700);return}
+ if(a.t=="attack"){const pos=a.from,t=a.to,m=S.cb[pos];
+  if(!m||m.used||(m.attacks||0)<=0||m.cantAttack)return;
+  if(!(pos==1||t==1||pos+t==2))return;
+  if(!S.pb[t]&&!(t==1&&!S.pb[1]))return;
+  await cpuDoAttack(pos,t);return}}
+function fmOppGone(){if(!FM.on)return;log2Toast("相手が退出しました");
+ if(S&&!S.over){S.chp=0;chk()}}
+// ---- ゲスト
+function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
+ FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",sent:false};
+ hideAll();$("game").classList.remove("hide");logs=[];selH=selA=selE=null;pending=null;
+ S=null;$("log").textContent="ホストが対戦を準備しています…";
+ fr.ref.child("state").on("value",snap=>{const v=snap.val();if(!v||!FM.on)return;
+  if(v.seq<=FM.seq&&v.seq>1)return;FM.seq=v.seq;
+  let h;try{h=JSON.parse(v.s)}catch(e){return}
+  const wasOver=S&&S.over;
+  S=fmMirror(h,FM.oppName);FM.sent=false;
+  if(v.log){const me=frName(),l=v.log.replace(/^T\d+｜/,"").split(me).join("あなた").replace(/CPU/g,"あなた");   // ホストの記録では自分（ゲスト）が名前で出る
+   if(logs[logs.length-1]!==l)logs.push(l);$("log").textContent=l}
+  if(selH!=null&&!S.ph[selH])selH=null;
+  render();
+  if(S.over&&!wasOver)fmGuestResult()})}
+function fmGuestResult(){const w=S.php<=0&&S.chp<=0?null:S.chp<=0?true:S.php<=0?false:null;
+ const t=$("rTitle");
+ if(w===true){t.textContent="WIN!";t.className="rtitle dot winc";sfx("win")}
+ else if(w===false){t.textContent="LOSE...";t.className="rtitle dot losec";sfx("lose")}
+ else{t.textContent="DRAW";t.className="rtitle dot losec"}
+ $("rSub").textContent=(w===true?"勝利！ ":w===false?"敗北… ":"相打ち ")+pturn()+"ターンで決着";
+ setTimeout(()=>$("resultov").classList.add("show"),600)}
+function fmCanAct(){if(!S||S.over||!FM.on)return false;
+ if(S.active!="p"){log("相手のターンです");return false}
+ if(FM.sent){return false}
+ return true}
+function fmSend(a){FM.sent=true;FM.ref.child("acts").push({...a,at:Date.now()});setTimeout(()=>{FM.sent=false},4000)}
+function fmGuestSummon(pos){if(!fmCanAct()||selH==null)return;const c=S.ph[selH];if(!c)return;
+ if(c.type=="spell")return log("呪文は「発動」ボタンで使います");
+ if(S.pb[pos])return;
+ if(ec(c,"p")>S.cost)return log("コストが足りません");
+ if(c.centerOnly&&pos!=1)return log("中央レーンにのみ召喚できます");
+ if(c.rightOnly&&pos!=2)return log("右レーンにのみ召喚できます");
+ if(c.leftOnly&&pos!=0)return log("左レーンにのみ召喚できます");
+ fmSend({t:"summon",hand:selH,lane:pos});selH=null;log("召喚中…")}
+function fmGuestCast(){if(!fmCanAct()||selH==null)return;const c=S.ph[selH];if(!c||c.type!="spell")return;
+ if(S.pLock)return log("スペルロック中：このターンは呪文を唱えられません");
+ if(ec(c,"p")>S.cost)return log("コストが足りません");
+ fmSend({t:"cast",hand:selH});selH=null;log("呪文「"+c.name+"」を発動");cutIn(c)}
+function fmGuestAttack(to){if(!fmCanAct()||selA==null)return;const f=selA,a=S.pb[f];if(!a)return;
+ if(a.cantAttack)return log("このモンスターは攻撃できません");
+ if(a.used||(a.attacks||0)<=0)return log("行動済みです");
+ if(!(f==1||to==1||f+to==2))return log("正面か中央にしか届きません");
+ if(!S.cb[to]&&!(to==1&&!S.cb[1]))return log("そこは攻撃できません");
+ fmSend({t:"attack",from:f,to});selA=null;log("攻撃！")}
+function fmGuestEnd(){if(!fmCanAct())return;fmSend({t:"end"});selH=selA=null;log("ターン終了")}
+// ---- 終わったあと
+async function fmBackToRoom(){hideP("resultov");
+ if(FM.role=="host"&&fr.ref){try{await fr.ref.child("match").remove();await fr.ref.child("state").remove();await fr.ref.child("acts").remove()}catch(e){}}
+ fmEnd();hideAll();$("friend").classList.remove("hide");renderFriend()}
+function fmLeaveGame(msg){fmEnd();hideP("resultov");hideAll();$("friend").classList.remove("hide");renderFriend();if(msg)log2Toast(msg)}
+function fmEnd(){try{if(FM.ref){FM.ref.child("state").off();FM.ref.child("acts").off()}}catch(e){}
+ if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}
+ FM={on:false};S=null}
+// 途中でやめる：ゲストは降参を送る（ホストの勝ち）。ホストは部屋に戻る（ゲストにも伝わる）
+function fmQuit(){if(FM.role=="guest"&&S&&!S.over&&FM.ref)FM.ref.child("acts").push({t:"resign",at:Date.now()});fmBackToRoom()}
 
 /* ================= お知らせ =================
    GitHub のルートに置いた news.json を書き換えるだけで配信できる（index.html の更新は不要）。
@@ -3670,14 +3802,14 @@ function confirmPlayerSetup(){
  openStory();
 }
 function quitGame(){if(TUT.on)return tutSkip();if(!S||S.over)return menu();$("quitConfirm").classList.add("show")}
-function confirmQuit(){hideP("quitConfirm");S=null;menu()}
+function confirmQuit(){hideP("quitConfirm");if(FM.on)return fmQuit();S=null;menu()}
 function openPause(){if(!S||S.over)return;if(TUT.on)return;$("pausePop").classList.add("show");sfx("sel")}
 function closePause(){$("pausePop").classList.remove("show")}
 function pauseHome(){closePause();quitGame()}
 function pauseHelp(){closePause();$("helpPop").classList.add("show")}
 function closeHelp(){$("helpPop").classList.remove("show")}
 // 同じ相手ともう一度（イベントのボス・ストーリーの敵も、そのままの相手と条件で）
-function rematchLast(){if(!lastMatch){prematch();return}eventBattleId=lastMatch.event||null;storyContext=lastMatch.story?{...lastMatch.story}:null;prematch(lastMatch.personality,lastMatch.fixed)}
+function rematchLast(){if(FM.on)return fmBackToRoom();if(!lastMatch){prematch();return}eventBattleId=lastMatch.event||null;storyContext=lastMatch.story?{...lastMatch.story}:null;prematch(lastMatch.personality,lastMatch.fixed)}
 function pauseRestart(){closePause();if(!lastMatch)return;rematchLast()}
 
 /* ================= ゲーム開始 ================= */
@@ -3745,7 +3877,8 @@ function start(personality,fixed){
  for(let i=0;i<5;i++){draw("p",true);draw("c",true)}
  log(`対戦相手：${opp.name}「${fillText(opp.tagline||"")}」`);render()
 }
-function log(t){logs.push(`T${S?S.turn:"?"}｜${t}`);if($("log"))$("log").textContent=t}
+function log(t){if(FM.on&&FM.role=="host")t=String(t).replace(/CPU/g,FM.oppName);
+ logs.push(`T${S?S.turn:"?"}｜${t}`);if($("log"))$("log").textContent=t}
 // プレイヤーに見せるターン番号（後攻でも自分の1手目=ターン1になるよう見た目だけ調整。内部のS.turnはコスト/偶奇効果用にそのまま）
 function pturn(){return S?Math.max(1,S.turn-(S.pSecond?1:0)):1}
 let _logRe=null;
@@ -3919,6 +4052,7 @@ function htmlCard(c,side){
   ?`<div class=stats><span class=a>${at(c,side)}</span><span class=sep>/</span><span class=d>${df(c,side)}</span></div>`
   :`<div class=spelltag>呪文</div>`}`}
 function render(){if(!S)return;
+ if(FM.on&&FM.role=="host")fmSchedulePublish();
  try{
   $("php").textContent=Math.max(0,S.php);$("chp").textContent=Math.max(0,S.chp);
   const pb=$("phpBar"),cb=$("chpBar");
@@ -3926,9 +4060,10 @@ function render(){if(!S)return;
   pb.classList.toggle("low",S.php<=3000);cb.classList.toggle("low",S.chp<=3000);
   $("pd").textContent=S.pd.length;$("cd").textContent=S.cd.length;
   $("pgN").textContent=S.pg.length;$("cgN").textContent=S.cg.length;
-  $("cpuHandInfo").textContent="CPU手札："+S.ch.length+"枚";
+  $("cpuHandInfo").textContent=(FM.on?"相手の手札：":"CPU手札：")+S.ch.length+"枚";
+  if($("cWho"))$("cWho").textContent=FM.on?"相手":"CPU";
   if($("chpLabel")&&S.opp)$("chpLabel").textContent=S.opp.name;
-  $("turnN").textContent=pturn();$("whose").textContent=S.active=="p"?"YOU":"CPU";
+  $("turnN").textContent=pturn();$("whose").textContent=S.active=="p"?"YOU":(FM.on?"相手":"CPU");
  }catch(e){}
  gems();rBoard("cb",S.cb,false);rBoard("pb",S.pb,true);
  const h=$("hand");h.innerHTML="";
@@ -4112,7 +4247,8 @@ function ownTap(i){if(S.over)return;const m=S.pb[i];if(!m)return;
 
 /* ================= 召喚 ================= */
 function grantCharge(m){m.charge=1;if(m.used&&(m.attacks||0)<=0){m.used=false;m.attacks=m.double?2:1}else{m.used=false;m.attacks=Math.max(1,m.attacks||0)}}
-function summon(pos){if(!S||S.busy||S.over||pending||selH==null)return;
+function summon(pos){if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
+ if(!S||S.busy||S.over||pending||selH==null)return;
  const c=S.ph[selH];if(!c)return;
  if(c.type=="spell")return log("呪文は「発動」ボタンで使います");
  if(S.pb[pos])return;
@@ -4152,7 +4288,8 @@ function castCheck(c){const E=c.eff;
  if(E=="finish"&&S.chp>2000)return"相手のHPが2000以下の時のみ使えます";
  if(E=="lowHpHeal5000"&&S.php>3000)return"自分のHPが3000以下の時のみ使えます";
  return null}
-function cast(){if(!S||S.busy||S.over||pending||selH==null)return;
+function cast(){if(FM.on&&FM.role=="guest")return fmGuestCast();
+ if(!S||S.busy||S.over||pending||selH==null)return;
  const c=S.ph[selH];if(!c||c.type!="spell")return;
  if(!tutGate("cast",c.id))return;
  if(S.pLock)return log("スペルロック中：このターンは呪文を唱えられません");
@@ -4241,7 +4378,8 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
 /* ================= 戦闘 ================= */
 // 守護持ちの位置を返す。1体につき1ターンに1回だけかばえる
 function guards(B,ex){const r=[];B.forEach((m,i)=>{if(i!=ex&&m&&m.guard&&!m.guardTurn)r.push(i)});return r}
-function enemyTarget(to){if(!S||S.over||S.busy)return;
+function enemyTarget(to){if(FM.on&&FM.role=="guest")return fmGuestAttack(to);
+ if(!S||S.over||S.busy)return;
  if(pending)return;
  if(selA==null)return;
  const f=selA,a=S.pb[f];if(!a)return;
@@ -4374,10 +4512,11 @@ function resetBoard(side){
   m.used=false;m.attacks=m.double?2:1;m.buff=0;m.defBuff=0;
   m.charge=(b.charge||m.permCharge)?1:0;
   m.guard=(b.guard||m.permGuard)?1:0})}
-async function endTurn(){if(!S||S.busy||S.over)return;
+async function endTurn(){if(FM.on&&FM.role=="guest")return fmGuestEnd();
+ if(!S||S.busy||S.over)return;
  if(!tutGate("end"))return;
  S.busy=true;selH=selA=selE=null;pending=null;S.pLock=false;render();
- await (TUT.on?tutCpuTurn():cpuTurn());
+ await (TUT.on?tutCpuTurn():FM.on&&FM.role=="host"?remoteTurn():cpuTurn());
  if(S&&!S.over){
   S.turn++;S.max=Math.min(10,S.max+1);S.cost=S.max;S.active="p";
   S.pDef2=false;S.pDefBonus=0;S.pShield=false;S.pOnce=false;S.cOnce=false;
@@ -4542,7 +4681,9 @@ async function cpuAttacks(){
     const v=attackGain(pos,t)+Math.random()*20;
     if(v>bs){bs=v;best={pos,t}}}}
   if(!best)return;                                       // 得になる攻撃がもうない
-  const pos=best.pos,tgt=best.t,m=S.cb[pos],av=at(m,"c");
+  await cpuDoAttack(best.pos,best.t)}}
+// 相手側（c）のモンスターで攻撃する。守るかどうかはプレイヤー（p）に聞く
+async function cpuDoAttack(pos,tgt){const m=S.cb[pos];if(!m)return;const av=at(m,"c");
   setLaneFx({atk:{side:"c",i:pos},tgt:{side:"p",i:tgt}});   // 赤＝相手／青＝狙われている場所
   await sleep(600);
   const bi=await askBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなた（直接）"));
@@ -4551,12 +4692,12 @@ async function cpuAttacks(){
   if(bi>=0&&bi!=tgt){
    S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");
    log(S.pb[bi].name+"が守護で受け止めた！");
-   await mark("c",pos);await battle("c",pos,"p",bi);await sleep(450);continue}
+   await mark("c",pos);await battle("c",pos,"p",bi);await sleep(450);return}
   if(S.pb[tgt]&&S.pb[tgt].guard&&!S.pb[tgt].guardTurn)S.pb[tgt].guardTurn=true;   // 守護そのものを殴った
   if(tgt==1&&!S.pb[1]){
    await mark("c",pos);heroDmg("p",av,"c");
-   if(m.lifesteal)healHero("c",av);afterAtk(m,"c");render();chk();await sleep(450);continue}
-  await mark("c",pos);await battle("c",pos,"p",tgt);await sleep(450)}}
+   if(m.lifesteal)healHero("c",av);afterAtk(m,"c");render();chk();await sleep(450);return}
+  await mark("c",pos);await battle("c",pos,"p",tgt);await sleep(450)}
 // 手札から「今のコストで一番たくさん使える組み合わせ」を選ぶ（呪文は使う条件を満たすものだけ）
 function cpuPlan(cc){
  const free=[0,1,2].filter(i=>!S.cb[i]).length;
@@ -4604,6 +4745,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  else if(w===false){t.textContent="LOSE...";t.className="rtitle dot losec";sfx("lose")}
  else{t.textContent="DRAW";t.className="rtitle dot losec"}
  $("rSub").textContent=(w===true?"勝利！ ":w===false?"敗北… ":"相打ち ")+pturn()+"ターンで決着";
+ if(FM.on){fmPublishNow();setTimeout(()=>$("resultov").classList.add("show"),600);return}   // フレンドマッチは報酬なし
  onBattleEnd(w===true,S.opp&&S.opp.id);
  // ストーリー戦: 勝てば対戦後パートへ、負ければ再挑戦できるようにする
  if(storyContext){
