@@ -1,8 +1,14 @@
 [
  {
-  "id": "test_idolwink",
-  "title": "配布テスト",
-  "msg": "プレゼントBOXの動作確認用です",
-  "items": [{"type": "card", "id": "idolwinkp"}]
+  "id": "release_gift",
+  "date": "2026-09-30",
+  "title": "リリース記念プレゼント",
+  "msg": "CORE MONSTERSを遊んでくれてありがとう！ れちさば先行公開の記念です。",
+  "items": [
+   {
+    "type": "crystal",
+    "n": 900
+   }
+  ]
  }
 ]

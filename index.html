@@ -1103,7 +1103,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.12</div>
+ <div class="tVer" id="tVer">ver.3.13</div>
 </div>
 
 <div id="app">
@@ -1306,7 +1306,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 </div>
 
 <div id="gacha" class="hide gList">
- <div class="editorHead"><h1>ガチャ</h1><div class="sub">ベータ版（排出保存は未実装／所持クリスタルは端末に保存）</div><div id="gachaTicketBadge" class="ticketBadge hide">🎫 <span id="gachaTicket">0</span></div><div id="gachaShard" class="shardBadge">🔹 0</div><div id="gachaCrystal" class="crystalBadge">💎 0</div></div>
+ <div class="editorHead"><h1>ガチャ</h1><div class="sub">引いたカードはすぐ所持に入ります（データは端末に保存）</div><div id="gachaTicketBadge" class="ticketBadge hide">🎫 <span id="gachaTicket">0</span></div><div id="gachaShard" class="shardBadge">🔹 0</div><div id="gachaCrystal" class="crystalBadge">💎 0</div></div>
  <div id="gachaPackTabs" class="packPick hide"></div>
  <div id="gachaList" class="gachaList lOnly"></div>
  <div class="gachaStage rOnly">
@@ -1510,7 +1510,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.12</div>
+  <div class="aboutVer" id="aboutVer">ver.3.13</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3045,7 +3045,7 @@ function renderCodex(){
 
 /* ================= ガチャ(ベータ演出) ================= */
 const GACHA_TABLE=[{r:"N",w:55},{r:"R",w:30},{r:"SR",w:11},{r:"UR",w:3.5},{r:"CR",w:0.5}];
-let gachaBusy=false,gachaBatch=[],gachaOpened=[],gachaNew=[],gachaShard=[],gachaAnimStart=0,gachaFly=false;
+let gachaBusy=false,gachaBatch=[],gachaOpened=[],gachaNew=[],gachaShard=[],gachaSaved=[],gachaAnimStart=0,gachaFly=false;
 // ◆点滅を全カードで同期させる（めくった時刻に依らず共通の位相にする）
 function gachaShardDelay(){return (-(((Date.now()-gachaAnimStart)%1800)/1000))+"s"}
 function stepList(pack){return STEP_GACHA_BY_PACK[pack==null?curPack:pack]||STEP_GACHA}
@@ -3174,7 +3174,7 @@ function rollRarityMin(min){
  for(const x of t){if(roll<x.w)return x.r;roll-=x.w}
  return t[t.length-1].r}
 function rollGachaMin(min){return pickFromPool(rollRarityMin(min))}
-function gachaResetView(){gachaBatch=[];gachaOpened=[];gachaNew=[];gachaShard=[];gachaRareQueue=null;
+function gachaResetView(){gachaBatch=[];gachaOpened=[];gachaNew=[];gachaShard=[];gachaSaved=[];gachaRareQueue=null;
  try{renderStepGacha()}catch(e){}
  $("gachaGrid").classList.add("hide");$("gachaGrid").innerHTML="";$("gachaGrid").classList.remove("single");
  $("gachaCapsule").classList.add("hide");$("gachaHint").classList.remove("hide");
@@ -3204,7 +3204,11 @@ async function pullGacha(){if(gachaBusy)return;
  gachaBusy=false;$("gachaBtn").disabled=false;$("gacha10Btn").disabled=false;
 }
 // 砕けたあと、裏向きカードを並べる（1連=1枚中央／10連=5列）。タップでめくる。
+// 引いた瞬間に全部を所持に入れる（めくらずに一覧へ戻ったり、アプリを閉じたりしても消えないように）
+function saveGachaBatch(){gachaBatch.forEach((c,i)=>{if(gachaSaved[i])return;
+ gachaShard[i]=ownedCount(c.id)>=CARD_MAX;gachaNew[i]=unlockCard(c.id);onGachaPull();gachaSaved[i]=true})}
 function showGachaResults(){
+ saveGachaBatch();
  gachaMode("result");
  gachaAnimStart=Date.now();
  gachaFly=true;
@@ -3249,9 +3253,8 @@ function renderGachaGrid(){
   g.appendChild(d)})}
 function flipGachaCard(i){const c=gachaBatch[i];
  if(!gachaOpened[i]){gachaOpened[i]=true;
-  const gaveShard=ownedCount(c.id)>=CARD_MAX;gachaShard[i]=gaveShard;
-  const isNew=unlockCard(c.id);gachaNew[i]=isNew;
-  onGachaPull();
+  if(!gachaSaved[i]){gachaShard[i]=ownedCount(c.id)>=CARD_MAX;gachaNew[i]=unlockCard(c.id);onGachaPull();gachaSaved[i]=true}
+  const gaveShard=gachaShard[i];
   const el=$("gachaGrid").children[i];
   if(el){el.classList.add("flipped");
    if(gaveShard){el.classList.add("shard");
@@ -3287,9 +3290,8 @@ function advanceRareQueue(){
  showRareCard(gachaRareQueue.cards[gachaRareQueue.index])}
 function openAllGacha(){let any=false;const rareReveals=[];
  gachaBatch.forEach((c,i)=>{if(!gachaOpened[i]){gachaOpened[i]=true;any=true;
-  gachaShard[i]=ownedCount(c.id)>=CARD_MAX;
-  const isNew=unlockCard(c.id);gachaNew[i]=isNew;
-  onGachaPull();
+  if(!gachaSaved[i]){gachaShard[i]=ownedCount(c.id)>=CARD_MAX;gachaNew[i]=unlockCard(c.id);onGachaPull();gachaSaved[i]=true}
+  const isNew=gachaNew[i];
   if(isNew||c.rarity=="SR"||c.rarity=="UR"||c.rarity=="CR")rareReveals.push({card:c,isNew})}});
  if(any)sfx("win");
  renderGachaGrid();
