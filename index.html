@@ -1122,7 +1122,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.21</div>
+ <div class="tVer" id="tVer">ver.3.23</div>
 </div>
 
 <div id="app">
@@ -1533,7 +1533,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.21</div>
+  <div class="aboutVer" id="aboutVer">ver.3.23</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2975,6 +2975,11 @@ function renderEditInfo(){const over=deck.length>30,el=$("info");
  try{renderSlotBar()}catch(e){}}
 function ownedMap(){try{return JSON.parse(store.get("cmOwned")||"{}")||{}}catch(e){return{}}}
 function ownedCount(id){return ownedMap()[id]||0}
+// defer=true：カードの所持だけすぐ保存し、かけら・経験値は「めくったとき」に渡す（中身が先にバレないように）
+function unlockCardDeferred(id){const m=ownedMap(),c=by(id);
+ const had=m[id]||0,wasZero=!had;m[id]=had+1;store.set("cmOwned",JSON.stringify(m));
+ const rw={s:had>=CARD_MAX?(SHARD_RATE[c?c.rarity:"N"]||10):0,why:(c?c.name:"")+"の重複",xp:wasZero&&!(c&&c.promo)};
+ return {isNew:wasZero,shard:had>=CARD_MAX,rw}}
 function unlockCard(id){const m=ownedMap(),c=by(id);
  const had=m[id]||0;
  if(had>=CARD_MAX)addShard(SHARD_RATE[c?c.rarity:"N"]||10,c?c.name+"の重複":"重複"); // 3枚目以降：カードは所持したまま、かけらも貰える（将来のトレード用）
@@ -3224,7 +3229,8 @@ function rollRarityMin(min){
  for(const x of t){if(roll<x.w)return x.r;roll-=x.w}
  return t[t.length-1].r}
 function rollGachaMin(min){return pickFromPool(rollRarityMin(min))}
-function gachaResetView(){gachaBatch=[];gachaOpened=[];gachaNew=[];gachaShard=[];gachaSaved=[];gachaRareQueue=null;
+function gachaResetView(){gachaRw.forEach((r,i)=>giveGachaRw(i));gachaRw=[];   // めくらずに戻った分もここで渡す
+ gachaBatch=[];gachaOpened=[];gachaNew=[];gachaShard=[];gachaSaved=[];gachaRareQueue=null;
  try{renderStepGacha()}catch(e){}
  $("gachaGrid").classList.add("hide");$("gachaGrid").innerHTML="";$("gachaGrid").classList.remove("single");
  $("gachaCapsule").classList.add("hide");$("gachaHint").classList.remove("hide");
@@ -3255,8 +3261,22 @@ async function pullGacha(){if(gachaBusy)return;
 }
 // 砕けたあと、裏向きカードを並べる（1連=1枚中央／10連=5列）。タップでめくる。
 // 引いた瞬間に全部を所持に入れる（めくらずに一覧へ戻ったり、アプリを閉じたりしても消えないように）
-function saveGachaBatch(){gachaBatch.forEach((c,i)=>{if(gachaSaved[i])return;
- gachaShard[i]=ownedCount(c.id)>=CARD_MAX;gachaNew[i]=unlockCard(c.id);onGachaPull();gachaSaved[i]=true})}
+let gachaRw=[];
+function gachaPend(){try{const v=JSON.parse(store.get("cmGachaPend")||"[]");return Array.isArray(v)?v:[]}catch(e){return[]}}
+function saveGachaBatch(){const pend=gachaPend();
+ gachaBatch.forEach((c,i)=>{if(gachaSaved[i])return;
+  const r=unlockCardDeferred(c.id);gachaShard[i]=r.shard;gachaNew[i]=r.isNew;
+  r.rw.k=Date.now()+"_"+i+"_"+Math.random().toString(36).slice(2,6);gachaRw[i]=r.rw;
+  if(r.rw.s||r.rw.xp)pend.push(r.rw);            // アプリを閉じても、次に開いたときに渡す
+  onGachaPull();gachaSaved[i]=true});
+ store.set("cmGachaPend",JSON.stringify(pend))}
+// めくったカードのかけら・経験値を渡す
+function giveGachaRw(i){const r=gachaRw[i];if(!r||r.done)return;r.done=true;
+ if(r.s)addShard(r.s,r.why);if(r.xp)addXp(XP_NEWCARD,"新しいカード");
+ store.set("cmGachaPend",JSON.stringify(gachaPend().filter(x=>x.k!==r.k)))}
+// 前回めくらずに閉じた分（起動時に呼ぶ）
+function flushGachaPend(){const L=gachaPend();if(!L.length)return;store.set("cmGachaPend","[]");
+ let sh=0;L.forEach(r=>{sh+=r.s||0;if(r.xp)addXp(XP_NEWCARD,"新しいカード")});if(sh)addShard(sh,"前回のガチャ")}
 function showGachaResults(){
  saveGachaBatch();
  gachaMode("result");
@@ -3304,6 +3324,7 @@ function renderGachaGrid(){
 function flipGachaCard(i){const c=gachaBatch[i];
  if(!gachaOpened[i]){gachaOpened[i]=true;
   if(!gachaSaved[i]){gachaShard[i]=ownedCount(c.id)>=CARD_MAX;gachaNew[i]=unlockCard(c.id);onGachaPull();gachaSaved[i]=true}
+  giveGachaRw(i);
   const gaveShard=gachaShard[i];
   const el=$("gachaGrid").children[i];
   if(el){
@@ -3344,6 +3365,7 @@ function advanceRareQueue(){
 function openAllGacha(){let any=false;const rareReveals=[];
  gachaBatch.forEach((c,i)=>{if(!gachaOpened[i]){gachaOpened[i]=true;any=true;
   if(!gachaSaved[i]){gachaShard[i]=ownedCount(c.id)>=CARD_MAX;gachaNew[i]=unlockCard(c.id);onGachaPull();gachaSaved[i]=true}
+  giveGachaRw(i);
   const isNew=gachaNew[i];
   if(isNew||c.rarity=="SR"||c.rarity=="UR"||c.rarity=="CR")rareReveals.push({card:c,isNew})}});
  if(any)sfx("win");
@@ -5122,6 +5144,15 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
 /* ================= 起動 ================= */
 try{renderSndLabels()}catch(e){}
 renderCrystalDisplays();
+// 下に固定した「戻る」などの帯（.foot）の高さぶん、その画面の下に余白をとる。
+// 帯の高さは画面ごとに違う（ボタン2段など）ので、実際の高さを測って合わせる
+(function fitFootPads(){try{
+ document.querySelectorAll(".foot").forEach(f=>{
+  const sc=f.closest("#app > div")||f.parentElement;if(!sc)return;
+  const set=()=>{const h=f.offsetHeight;if(h>0)sc.style.paddingBottom=(h+18)+"px"};
+  if(typeof ResizeObserver=="function")new ResizeObserver(set).observe(f);
+  set()})}catch(e){}})();
+try{flushGachaPend()}catch(e){}
 try{loadPresents()}catch(e){}
 try{loadNews()}catch(e){}
 /* ===== タイトル画面 =====
