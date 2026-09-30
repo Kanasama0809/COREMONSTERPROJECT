@@ -217,6 +217,19 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  align-items:center;justify-content:center;gap:0;padding:24px;text-align:center;
  background:radial-gradient(120% 80% at 50% 30%,#0d2144,#050b18 72%)}
 #prematch.on{display:flex!important}
+/* ボス戦：ボスのカードを大きく出してからルーレット */
+#prematch.boss{background:radial-gradient(ellipse at 50% 32%,#3a2708 0%,#120818 52%,#020409 100%)}
+#prematch.boss .pmGap{height:14px}
+.pmBoss{display:flex;flex-direction:column;align-items:center;margin-bottom:12px}
+.pmBossCard{width:min(56vw,210px,calc(36vh * .72));aspect-ratio:.72;border-radius:14px;overflow:hidden;border:3px solid #f0c76a;cursor:pointer;
+ animation:pmBossIn 1.1s cubic-bezier(.2,.8,.2,1) both,pmBossGlow 2.4s 1.1s ease-in-out infinite}
+.pmBossCard img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes pmBossIn{0%{opacity:0;transform:scale(.55) translateY(24px);filter:brightness(3) blur(6px)}
+ 60%{opacity:1;filter:brightness(1.5) blur(0)}100%{opacity:1;transform:none;filter:none}}
+@keyframes pmBossGlow{0%,100%{box-shadow:0 0 22px #f0c76aaa,0 0 60px #ff9ad833}50%{box-shadow:0 0 40px #ffd97aee,0 0 110px #ff9ad877}}
+.pmBossLine{margin-top:10px;max-width:86vw;font-size:13px;font-weight:800;color:#f3e2b0;text-align:center;text-shadow:0 2px 6px #000;opacity:0;animation:pmFadeIn .7s .9s forwards}
+@keyframes pmFadeIn{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.pmBossCard{animation:none}.pmBossLine{animation:none;opacity:1}}
 .pmVs{font-size:11px;letter-spacing:6px;color:#8fb8dc;text-indent:6px}
 .pmName{margin-top:6px;font-size:clamp(19px,6vw,26px);font-weight:900;color:#eaf6ff;text-align:center;
  line-height:1.3;text-shadow:0 0 16px #2ab6ff66}
@@ -1103,7 +1116,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.14</div>
+ <div class="tVer" id="tVer">ver.3.17</div>
 </div>
 
 <div id="app">
@@ -1416,6 +1429,10 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 <button id="cast" class="popbtn castb" onclick="cast()">✨ 発動</button>
 <button id="detail" class="popbtn detailb" onclick="detailSel()">🔍 詳細を見る</button>
 <div id="prematch">
+ <div id="pmBoss" class="pmBoss hide">
+  <div class="pmBossCard" onclick="if(pmBossId)showDById(pmBossId)"><img id="pmBossImg" alt=""></div>
+  <div id="pmBossLine" class="pmBossLine"></div>
+ </div>
  <div class="pmVs">VS</div>
  <div id="pmName" class="pmName"></div>
  <div id="pmTag" class="pmTag"></div>
@@ -1510,7 +1527,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.14</div>
+  <div class="aboutVer" id="aboutVer">ver.3.17</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1766,7 +1783,10 @@ const STORY_ENEMIES={
  goro:{id:"goro",name:"木こりのゴロウ",tagline:"森は、奪う者には応えん",aggro:0.9,deck:PERSONALITIES[5].deck},
  seri:{id:"seri",name:"湖の巫女セリ",tagline:"波を立てぬように",aggro:0.6,deck:PERSONALITIES[2].deck},
  utsuro:{id:"utsuro",name:"祠守のウツロ",tagline:"わたしは、ずっとここにいる",aggro:0.8,deck:PERSONALITIES[4].deck},
- komoku:{id:"komoku",name:"木の勇者コモク",tagline:"勇者の名にかけて",aggro:1.0,deck:PERSONALITIES[2].deck}
+ // 章のラスト（ボス）：ルーレットの前にCRのカードを大きく出す。デッキのコモクもCR版に
+ komoku:{id:"komoku",name:"木の勇者コモク",tagline:"勇者の名にかけて",aggro:1.0,
+  bossCard:"komoku_cr",bossLine:"「勇者の名にかけて、相手をしよう！」",
+  deck:PERSONALITIES[2].deck.map(id=>id=="komoku"?"komoku_cr":id)}
 };
 function enemyByStory(id){return STORY_ENEMIES[id]||PERSONALITIES.find(p=>p.id==id)||PERSONALITIES[0]}
 
@@ -2339,7 +2359,7 @@ const EVENTS=[
    {id:"win10",label:"時の神に10回勝利する",              type:"win",goal:10,reward:500},
    {id:"fast5",label:"5ターン以内に時の神に勝利する",     type:"fastWin",turns:5,goal:1,reward:500},
    {id:"spell",label:"呪文でとどめを刺して時の神に勝利する",type:"spellFinish",goal:1,reward:500}],
-  boss:{name:"時間の神 クロノガ",ico:"⏳",
+  boss:{card:"b_chronoga",line:"「——遅かったな。いや、早すぎたか」",name:"時間の神 クロノガ",ico:"⏳",
    story:"「――遅かったな。いや、早すぎたか」\n時を司る神は、盤上でも時間を味方につける。倒しても、倒しても、彼は失った時間を代わりに差し出して立ち上がる。",
    aggro:1.0,
    // 時の神のデッキ（9/29 強化）。ボス専用の「覚醒」刻ノカード（BOSS_CARDS）が主体。
@@ -2446,6 +2466,7 @@ function startEventBattle(){
  const b=e.boss;
  eventBattleId=e.id;
  prematch({id:"ev_"+e.id,name:b.name,tagline:"時は我が味方",aggro:b.aggro,
+        bossCard:b.card||null,bossLine:b.line||"",       // ルーレットの前にボスのカードを大きく出す
         deck:b.deck&&b.deck.length==30?[...b.deck]:[...PERSONALITIES[0].deck]});
 }
 let eventBattleId=null;
@@ -3256,7 +3277,10 @@ function flipGachaCard(i){const c=gachaBatch[i];
   if(!gachaSaved[i]){gachaShard[i]=ownedCount(c.id)>=CARD_MAX;gachaNew[i]=unlockCard(c.id);onGachaPull();gachaSaved[i]=true}
   const gaveShard=gachaShard[i];
   const el=$("gachaGrid").children[i];
-  if(el){el.classList.add("flipped");
+  if(el){
+   // ◆は引いた時点で付いているので、めくる瞬間に点滅の位相を合わせ直す（ほかのカードとそろえる）
+   const sm0=el.querySelector&&el.querySelector(".gCardShard");if(sm0)sm0.style.animationDelay=gachaShardDelay();
+   el.classList.add("flipped");
    if(gaveShard){el.classList.add("shard");
     const fr=el.querySelector&&el.querySelector(".gCardFront");
     if(fr&&!(fr.querySelector&&fr.querySelector(".gCardShard"))){
@@ -4045,7 +4069,9 @@ function pauseHome(){closePause();quitGame()}
 function pauseHelp(){closePause();$("helpPop").classList.add("show")}
 function closeHelp(){$("helpPop").classList.remove("show")}
 // 同じ相手ともう一度（イベントのボス・ストーリーの敵も、そのままの相手と条件で）
-function rematchLast(){if(FM.on)return fmBackToRoom();if(!lastMatch){prematch();return}eventBattleId=lastMatch.event||null;storyContext=lastMatch.story?{...lastMatch.story}:null;prematch(lastMatch.personality,lastMatch.fixed)}
+function rematchLast(){if(FM.on)return fmBackToRoom();if(!lastMatch){prematch();return}
+ if(lastMatch.random&&!lastMatch.event&&!lastMatch.story){eventBattleId=null;storyContext=null;prematch();return}   // ランダム対戦は相手も選び直す
+ eventBattleId=lastMatch.event||null;storyContext=lastMatch.story?{...lastMatch.story}:null;prematch(lastMatch.personality,lastMatch.fixed)}
 function pauseRestart(){closePause();if(!lastMatch)return;rematchLast()}
 
 /* ================= ゲーム開始 ================= */
@@ -4055,14 +4081,31 @@ let lastMatch=null;    // 再戦用に直近の対戦設定を保持
    相手を見せてから、先攻・後攻をその場で決める。
    決まってから start() を呼ぶので、対戦の中身には手を入れていない。 */
 let pmPending=null;
+let pmBossId=null;
+function pmBossShow(id,line){const box=$("pmBoss"),pm=$("prematch");
+ pmBossId=id||null;
+ const img=id&&CARD_IMAGES[id];
+ if(!id||!img){box.classList.add("hide");pm.classList.remove("boss");return false}
+ $("pmBossImg").src=img;$("pmBossLine").textContent=line||"";
+ // アニメーションを毎回最初から
+ const cd=box.querySelector(".pmBossCard");box.classList.add("hide");void box.offsetWidth;box.classList.remove("hide");
+ if(cd){cd.style.animation="none";void cd.offsetWidth;cd.style.animation=""}
+ const ln=$("pmBossLine");ln.style.animation="none";void ln.offsetWidth;ln.style.animation="";
+ pm.classList.add("boss");return true}
 function prematch(personality,fixed){
  const opp=personality||PERSONALITIES[Math.random()*PERSONALITIES.length|0];
  const name=(opp.name&&opp.name.includes("{"))?fillText(opp.name):opp.name;
- pmPending={personality:opp,fixed,second:false};
- $("pmName").textContent=name;
+ pmPending={personality:opp,fixed,second:false,random:!personality};   // random：ランダム対戦（もう一度も相手を選び直す）
+ const boss=pmBossShow(opp.bossCard,opp.bossLine);
+ $("pmName").textContent=boss&&by(opp.bossCard)?by(opp.bossCard).name:name;
  $("pmTag").textContent=fillText(opp.tagline||"");
  $("pmBtn").classList.remove("show");
- pmSpin(Math.random()<.5);
+ const second=Math.random()<.5;
+ if(boss){                                        // ボスのカードが出きってからルーレット
+  const box=$("pmFlip");box.classList.remove("on","hit");box.textContent="先攻";
+  $("prematch").classList.add("on");sfx("summon");
+  const p=pmPending;setTimeout(()=>{if(pmPending===p)pmSpin(second)},1500)}
+ else pmSpin(second);
 }
 // 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
 function pmSpin(second){
@@ -4088,7 +4131,7 @@ function pmSpin(second){
 }
 // フレンドマッチ用：相手の名前を出してルーレット。止まったあとボタンで go() を呼ぶ
 function fmRoulette(name,second,go){
- pmPending={go,second:false};
+ pmPending={go,second:false};pmBossShow(null);
  $("pmName").textContent=name;$("pmTag").textContent="フレンドマッチ";
  $("pmBtn").classList.remove("show");
  pmSpin(second)}
@@ -4099,6 +4142,7 @@ async function prematchGo(){
  sfx("sel");
  if(p.go){await p.go();return}
  start(p.personality,p.fixed);
+ if(lastMatch)lastMatch.random=!!p.random;
  if(p.second&&S){                       // 後攻：相手のターンから始める
   S.pSecond=true;S.tn={p:0,c:0};
   S.active="c";
