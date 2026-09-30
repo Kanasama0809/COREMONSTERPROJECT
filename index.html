@@ -1116,7 +1116,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.17</div>
+ <div class="tVer" id="tVer">ver.3.18</div>
 </div>
 
 <div id="app">
@@ -1527,7 +1527,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.17</div>
+  <div class="aboutVer" id="aboutVer">ver.3.18</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1774,11 +1774,11 @@ const PERSONALITIES=[
 const STORY_ENEMIES={
  // 序章の敵は、はじまりシリーズ中心のデッキ（新しく始めた人も同じはじまりデッキなので、ここで釣り合う）
  // sim（はじまりデッキで挑んだ勝率）：双子 約60% → 村人 約54% → 船乗り 約39%
- villager:{id:"villager",name:"村人",tagline:"最近カードを覚えたんだ",aggro:0.5,deck:[...STARTER_DECK]},
+ villager:{id:"villager",name:"村人",tagline:"最近カードを覚えたんだ",aggro:0.5,naive:true,deck:[...STARTER_DECK]},
  sailor:{id:"sailor",name:"船乗り",tagline:"船賃がわりに一勝負",aggro:0.9,
   deck:(()=>{const d=STARTER_DECK.map(x=>({p07:"aquaknight",p05:"wolfket",p04:"mucha",p08:"kucha"})[x]||x);d[d.indexOf("p09")]="babygolem";return d})()},
  rival:{id:"rival",name:"{rival}",tagline:"いい宝石は全部もらう",aggro:1.2,deck:PERSONALITIES[1].deck},
- rival_tw:{id:"rival_tw",name:"{rival}",tagline:"双子の{rk}",aggro:0.8,deck:[...STARTER_DECK]},
+ rival_tw:{id:"rival_tw",name:"{rival}",tagline:"双子の{rk}",aggro:0.8,naive:true,deck:[...STARTER_DECK]},
  kaya:{id:"kaya",name:"門番のカヤ",tagline:"よそ者は、まず私を抜いてから",aggro:1.3,deck:PERSONALITIES[1].deck},
  goro:{id:"goro",name:"木こりのゴロウ",tagline:"森は、奪う者には応えん",aggro:0.9,deck:PERSONALITIES[5].deck},
  seri:{id:"seri",name:"湖の巫女セリ",tagline:"波を立てぬように",aggro:0.6,deck:PERSONALITIES[2].deck},
@@ -4956,6 +4956,8 @@ function attackGain(pos,t){const m=S.cb[pos];if(!m)return -1e9;
  if(!d){if(t!=1)return -1e9;base=faceVal(av)}
  else base=clashGain(av,A,d,t);
  // プレイヤーの受け方：守護で止める（相手にとって一番得なもの）か、通すか
+ // naive（序章の手慣らし相手）は守護を気にせず殴ってくる＝守護の使い方を覚えてもらう
+ if(S.opp&&S.opp.naive)return base;
  let worst=base;
  guards(S.pb,-1).forEach(g=>{if(g===t&&d)return;const v=clashGain(av,A,S.pb[g],g);if(v<worst)worst=v});
  return worst}
