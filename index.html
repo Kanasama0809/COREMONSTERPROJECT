@@ -274,6 +274,12 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .evSubBtn small{display:block;font-size:10px;color:#9fc0dd;font-weight:700}
 .evSubBtn .pBadge{top:-7px;right:-7px}
 .evCard .gbTitle{padding-right:70px;font-size:clamp(20px,6.6vw,28px)}
+.evStage .gbTitle{padding-right:96px;font-size:clamp(15px,5vw,22px);white-space:nowrap}
+.evStage .gbSub{padding-right:96px;font-size:12px;line-height:1.4}
+.evList>.evStat{margin:0}
+.evList>.evStory{margin:0}
+.evStageImg{position:absolute;right:14px;top:12px;bottom:12px;aspect-ratio:.72;border-radius:10px;background:center/cover no-repeat;
+ border:2px solid var(--ga);box-shadow:0 0 16px #0009}
 #taskTabs{display:flex;gap:6px}
 #taskTabs .packTab{flex:1 1 0;min-width:0;padding-left:4px;padding-right:4px;white-space:nowrap}
 #events{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
@@ -1116,7 +1122,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.3.20</div>
+ <div class="tVer" id="tVer">ver.3.21</div>
 </div>
 
 <div id="app">
@@ -1527,11 +1533,12 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.3.20</div>
+  <div class="aboutVer" id="aboutVer">ver.3.21</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
  <div class="aboutSnd"><span>サウンド</span><button type="button" class="sec mini" id="sndA" onclick="toggleSound()">🔊 オン</button></div>
+ <div class="aboutSnd"><span>プレイヤーID</span><button type="button" class="sec mini" id="pidBtn" onclick="copyPlayerId()">------</button></div>
  <div class="aboutSnd"><span>父の説明</span><button type="button" class="sec mini" onclick="guideReset()">もう一度見る</button></div>
  <div class="saveLinks"><button class="sec mini" onclick="openSaveExport()">データを書き出す</button><button class="sec mini" onclick="openSaveImport()">データを読み込む</button></div>
  <div class="confirmBtns" style="margin-top:12px"><button class="sec" onclick="closeAbout()">閉じる</button></div>
@@ -2062,7 +2069,8 @@ const WELCOME_TASKS=[
  {id:"battle1",label:"初めて対戦する",reward:900},
  {id:"win1",label:"初めて勝利する",reward:900},
  {id:"codex",label:"図鑑を開く",reward:900},
- {id:"gacha1",label:"ガチャを1回引く",reward:900}
+ {id:"gacha1",label:"ガチャを1回引く",reward:900},
+ {id:"friend1",label:"フレンドマッチをする",reward:900}
 ];
 const DAILY_TASKS=[
  {id:"battle",label:"対戦を1回する",goal:1,reward:100},
@@ -2086,6 +2094,14 @@ function savePlayer(){store.set("cmPlayer",JSON.stringify(player))}
    お知らせ・プレゼントは、この日より前の日付のものを出さない（あとから始めた人が過去の配布を受け取れないように）。
    この仕組みを入れる前から遊んでいた人は日付がわからないので、全部受け取れる扱い（2000-01-01）にする。 */
 function playerStartDay(){return store.get("cmStart")||""}
+/* ===== プレイヤーID =====
+   個別にプレゼントを送るための6文字のID（ⓘに表示）。データの書き出し・読み込みで一緒に引き継がれる。
+   presents.json で "to":["ABC123"] と書くと、そのIDの人にだけ届く */
+function playerId(){let id=store.get("cmPid");
+ if(!id){const A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";id="";for(let i=0;i<6;i++)id+=A[Math.random()*A.length|0];store.set("cmPid",id)}
+ return id}
+function copyPlayerId(){const id=playerId();
+ try{navigator.clipboard.writeText(id).then(()=>log2Toast("IDをコピーしました：" + id),()=>log2Toast("ID：" + id))}catch(e){log2Toast("ID：" + id)}}
 if(player&&!playerStartDay())store.set("cmStart","2000-01-01");
 function beforeStart(day){const st=playerStartDay();return !!(day&&st&&String(day)<st)}
 // 差し込み: {name}=名前 {i}=一人称 {rival}=ライバル名 {ri}=ライバル一人称
@@ -2368,7 +2384,13 @@ const EVENTS=[
          "b_pv04","b_pv04","b_pv08","b_pv08","b_pv10","b_pv10",
          "nekura","nekura","gaikotsu","gaikotsu","katatsumura","katatsumura",
          "batto","batto","shokei","shokei","firecurve","firecurve","allcharge","allcharge","daichi","daichi"]},
-  reward:{ticket:1,dailyCap:5}},
+  // 挑戦の種類。ふつう＝普通の刻ノカード（プレイヤー側の勝率 約64%）／覚醒＝今のボス専用デッキ（約24%）
+  stages:[
+   {id:"normal",label:"ふつう",name:"時間の神 クロノガ",card:"chronoga",ticket:1,theme:["#3d4f8f","#111a3a"],accent:"#9fd8ff",
+    sub:"普通の刻ノカードで挑んでくる",deckFrom:"boss",plain:true},
+   {id:"awake",label:"覚醒",name:"覚醒 時間の神 クロノガ",card:"b_chronoga",ticket:2,theme:["#5b3a8f","#170a2e"],accent:"#f0c76a",
+    sub:"ボス専用の覚醒カードで挑んでくる・手ごわい",deckFrom:"boss"}],
+  reward:{ticket:1,dailyCap:10}},
  // 例: {id:"welcome",kind:"login",open:false,icon:"🎁",tag:"はじめての方へ",name:"ウェルカムイベント",desc:"準備中",...}
 ];
 function eventById(id){return EVENTS.find(e=>e.id==id)}
@@ -2416,8 +2438,8 @@ function ticketToday(){
  let o={};try{o=JSON.parse(store.get("cmTicketDay")||"{}")}catch(e){}
  return (o.d==todayStr())?(o.n||0):0;
 }
-function bumpTicketToday(){
- store.set("cmTicketDay",JSON.stringify({d:todayStr(),n:ticketToday()+1}));
+function bumpTicketToday(n){
+ store.set("cmTicketDay",JSON.stringify({d:todayStr(),n:ticketToday()+(n||1)}));
 }
 
 /* ===== 挑戦画面 ===== */
@@ -2434,25 +2456,25 @@ function renderEventDetail(){
  $("evdTitle").textContent=e.name;
  const got=ticketToday(),cap=(e.reward&&e.reward.dailyCap)||0;
  const capOver=cap&&got>=cap;
- const th=e.theme||["#1d5aa6","#0a1d3c"],ac=e.accent||"#f0c76a";
  const misN=(e.missions||[]).length,misReady=(e.missions||[]).filter(m=>!evMisOf(e.id).got.includes(m.id)&&evMisProg(e,m)>=m.goal).length;
  const misDone=(e.missions||[]).filter(m=>evMisOf(e.id).got.includes(m.id)).length;
- const banner=e.banner
-  ?'<div class="gBanner" style="background:url('+TREE_BASE_URL+e.banner+') center/cover"><div class="gbPeriod">'+eventPeriodText(e)+'</div></div>'
-  :'<div class="gBanner"><div class="gbPeriod">'+eventPeriodText(e)+'</div><div class="evIco">'+(e.boss.ico||e.icon||"")+'</div>'
-   +'<div class="gbTitle">'+e.boss.name+'</div><div class="gbSub">'+(e.sub||e.tag||"")+'</div></div>';
+ const stageHtml=eventStages(e).map(st=>{
+  const th=st.theme||e.theme||["#1d5aa6","#0a1d3c"],ac=st.accent||e.accent||"#f0c76a";
+  const img=st.card&&CARD_IMAGES[st.card];
+  return '<section class="gBlock evCard open evStage" style="--g1:'+th[0]+';--g2:'+th[1]+';--ga:'+ac+'">'
+   +'<div class="gBanner">'+(img?'<div class="evStageImg" style="background-image:url('+img+')"></div>':'<div class="evIco">'+(e.boss.ico||e.icon||"")+'</div>')
+   +'<div class="gbPeriod">'+(st.label||"挑戦")+'</div>'
+   +'<div class="gbTitle">'+st.name+'</div><div class="gbSub">'+(st.sub||"")+'</div></div>'
+   +'<div class="gBody"><div class="evRw">勝利で 🎫プロモ券 ×'+(st.ticket||1)+'</div>'
+   +'<button type="button" class="gold evGoBtn" onclick="startEventBattle(\''+st.id+'\')">挑戦する ▶</button></div></section>'}).join("");
  $("evdBody").innerHTML='<div class="evList">'
-  +'<section class="gBlock evCard open" style="--g1:'+th[0]+';--g2:'+th[1]+';--ga:'+ac+'">'+banner
-  +'<div class="gBody">'
   +'<div class="evStory">'+e.boss.story.replace(/\n/g,"<br>")+'</div>'
   +'<div class="evStat">'
   +'<div><div class="sK">持っている券</div><div class="sV" id="evdTicket">🎫 '+tickets()+'</div></div>'
   +'<div><div class="sK">今日もらった券</div><div class="sV">'+got+' / '+cap+'</div></div>'
   +'</div>'
-  +(e.reward&&e.reward.ticket?'<div class="evRw">勝利で 🎫プロモ券 ×'+e.reward.ticket+(cap?'（1日'+cap+'枚まで）':"")+'</div>':"")
-  +'<button type="button" class="gold evGoBtn" onclick="startEventBattle()">挑戦する ▶</button>'
   +(capOver?'<div class="evNote">今日の券はもらいきりました。挑戦はできますが、券は増えません。</div>':"")
-  +'</div></section>'
+  +stageHtml
   +'<div class="evSubBtns">'
   +'<button type="button" class="evSubBtn" onclick="openPromoGacha()"><span class="esIco">🎫</span><span>プロモ弾ガチャ</span></button>'
   +(misN?'<button type="button" class="evSubBtn" onclick="openTasksTab(\'event\')"><span class="esIco">🎯</span><span>イベントミッション<small>'+misDone+' / '+misN+'</small></span>'+(misReady?'<span class="pBadge">'+misReady+'</span>':"")+'</button>':"")
@@ -2461,15 +2483,20 @@ function renderEventDetail(){
 // イベントの画面から、プロモ弾のガチャへ直接行く
 function openPromoGacha(){setGachaPack(90);openGacha();
  setTimeout(()=>{const el=document.getElementById("gb_promo");if(el)el.scrollIntoView({block:"start",behavior:"smooth"})},80)}
-function startEventBattle(){
+// 挑戦の種類（ふつう／覚醒）。stages が無いイベントは1種類だけ
+function eventStages(e){return e&&e.stages&&e.stages.length?e.stages:[{id:"main",name:e.boss.name,card:e.boss.card,ticket:(e.reward&&e.reward.ticket)||1}]}
+function eventStage(e,sid){const L=eventStages(e);return L.find(x=>x.id==sid)||L[0]}
+function stageDeck(e,st){const d=e.boss.deck&&e.boss.deck.length==30?[...e.boss.deck]:[...PERSONALITIES[0].deck];
+ return st.plain?d.map(id=>id.startsWith("b_")?id.slice(2):id):d}   // ふつう＝覚醒カードを普通の刻ノカードに置き換える
+function startEventBattle(sid){
  const e=curEvent;if(!e)return;
- const b=e.boss;
- eventBattleId=e.id;
- prematch({id:"ev_"+e.id,name:b.name,tagline:"時は我が味方",aggro:b.aggro,
-        bossCard:b.card||null,bossLine:b.line||"",       // ルーレットの前にボスのカードを大きく出す
-        deck:b.deck&&b.deck.length==30?[...b.deck]:[...PERSONALITIES[0].deck]});
+ const b=e.boss,st=eventStage(e,sid);
+ eventBattleId=e.id;eventStageId=st.id;
+ prematch({id:"ev_"+e.id+"_"+st.id,name:st.name||b.name,tagline:"時は我が味方",aggro:b.aggro,
+        bossCard:st.card||b.card||null,bossLine:b.line||"",       // ルーレットの前にボスのカードを大きく出す
+        deck:stageDeck(e,st)});
 }
-let eventBattleId=null;
+let eventBattleId=null,eventStageId=null;
 /* ===== イベントミッション =====
    保存 cmEvMis：{イベントID:{wins:勝利数, fast:1, spell:1, got:[受け取ったミッションID]}} */
 function evMisAll(){try{const v=JSON.parse(store.get("cmEvMis")||"{}");return (v&&typeof v=="object")?v:{}}catch(e){return{}}}
@@ -2494,10 +2521,12 @@ function onEventWin(){
  if(!e)return;
  if(!eventInPeriod(e)){log2Toast("イベントの開催期間が終わりました");return}
  evMisOnWin(e);
- if(!e.reward||!e.reward.ticket)return;
- const cap=e.reward.dailyCap||0;
- if(cap&&ticketToday()>=cap){log2Toast("今日の券はもらいきりました");return}
- bumpTicketToday();addTicket(e.reward.ticket,e.name);
+ const st=eventStage(e,eventStageId);
+ const want=st.ticket||(e.reward&&e.reward.ticket)||0;if(!want)return;
+ const cap=(e.reward&&e.reward.dailyCap)||0;
+ const give=cap?Math.min(want,Math.max(0,cap-ticketToday())):want;   // 上限の残りまで
+ if(give<=0){log2Toast("今日の券はもらいきりました");return}
+ bumpTicketToday(give);addTicket(give,st.name||e.name);
 }
 
 function tryRandomBattle(){
@@ -3380,7 +3409,7 @@ function saveMain(){const t=$("saveCode");
  askYesNo("今のデータを上書きして読み込みますか？",()=>{
   if(importSaveCode(t.value)){log2Toast("読み込みました。再起動します");setTimeout(()=>location.reload(),800)}
   else log2Toast("読み込めませんでした")})}
-function openAbout(){$("aboutPop").classList.add("show");sfx("sel")}
+function openAbout(){if($("pidBtn"))$("pidBtn").textContent=playerId()+" 📋";$("aboutPop").classList.add("show");sfx("sel")}
 function closeAbout(){$("aboutPop").classList.remove("show")}
 // 一覧／結果の切り替え（CSSで lOnly・rOnly を出し分ける）
 function gachaMode(m){const g=$("gacha");if(!g)return;
@@ -3465,6 +3494,7 @@ function openGacha(){hideAll();$("gacha").classList.remove("hide");$("app").scro
    ・id は必ず別々にする（受け取り済みの判定に使う。同じidを使い回すと、受け取った人には届かない）
    ・type は crystal(💎) / shard(かけら) / ticket(🎫プロモ券) / card(カード。id にカードID)
    ・start / end は省略可。省略すると期間なし。end を過ぎると受け取れなくなる
+   ・"to":["ABC123","XYZ789"] を入れると、そのプレイヤーIDの人にだけ届く（IDは各自のⓘに出ている）
    ・date（配った日）を入れると、その日より後にゲームを始めた人には出ない。date が無ければ start で判断。どちらも無ければ全員に出る */
 const PRESENT_URL="presents.json";
 let presentList=[],presentLoaded=false,presentErr=false;
@@ -3472,7 +3502,9 @@ function presentGot(){try{const v=JSON.parse(store.get("cmPresentGot")||"[]");re
 function setPresentGot(a){store.set("cmPresentGot",JSON.stringify(a))}
 function presentValid(p){return !!(p&&p.id&&Array.isArray(p.items)&&p.items.length)}
 function presentsActive(day){day=day||todayStr();const got=presentGot();
- return presentList.filter(p=>presentValid(p)&&(!p.start||day>=p.start)&&(!p.end||day<=p.end)&&!got.includes(p.id)&&!beforeStart(p.date||p.start))}
+ const me=playerId();
+ return presentList.filter(p=>presentValid(p)&&(!p.start||day>=p.start)&&(!p.end||day<=p.end)&&!got.includes(p.id)&&!beforeStart(p.date||p.start)
+  &&(!p.to||(Array.isArray(p.to)&&p.to.map(x=>String(x).toUpperCase()).includes(me))))}   // to：個別に送る相手のID
 function escH(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function presentItemText(it){const n=+it.n||1;
  if(it.type=="crystal")return "💎"+n;
@@ -3657,7 +3689,7 @@ async function fmHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
  const opp={id:"friend",name:R.guest.name,tagline:"フレンドマッチ",aggro:1,deck:(R.guest.deck||[]).filter(id=>by(id))};
  fmRoulette(R.guest.name,first=="guest",async()=>{
   if(!FM.on)return;
-  start(opp);fmPublishNow();
+  start(opp);fmPublishNow();completeWelcome("friend1");
   if(first=="guest"&&S){S.pSecond=true;S.tn={p:0,c:0};S.active="c";await endTurn()}
   fmPublishNow()})}
 // ゲストに選んでもらう。答え（なければnull）を返す
@@ -3754,7 +3786,7 @@ function fmNetBanner(){const b=$("fmNet");if(!b)return;let t="";
 function fmOppGone(){if(!FM.on)return;log2Toast("相手が退出しました");
  if(S&&!S.over){S.chp=0;chk()}}
 // ---- ゲスト
-function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
+function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;completeWelcome("friend1");
  FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",sent:false};
  hideAll();$("game").classList.remove("hide");logs=[];selH=selA=selE=null;pending=null;
  S=null;$("log").textContent="ホストが対戦を準備しています…";
@@ -4073,7 +4105,7 @@ function closeHelp(){$("helpPop").classList.remove("show")}
 // 同じ相手ともう一度（イベントのボス・ストーリーの敵も、そのままの相手と条件で）
 function rematchLast(){if(FM.on)return fmBackToRoom();if(!lastMatch){prematch();return}
  if(lastMatch.random&&!lastMatch.event&&!lastMatch.story){eventBattleId=null;storyContext=null;prematch();return}   // ランダム対戦は相手も選び直す
- eventBattleId=lastMatch.event||null;storyContext=lastMatch.story?{...lastMatch.story}:null;prematch(lastMatch.personality,lastMatch.fixed)}
+ eventBattleId=lastMatch.event||null;eventStageId=lastMatch.stage||null;storyContext=lastMatch.story?{...lastMatch.story}:null;prematch(lastMatch.personality,lastMatch.fixed)}
 function pauseRestart(){closePause();if(!lastMatch)return;rematchLast()}
 
 /* ================= ゲーム開始 ================= */
@@ -4158,7 +4190,7 @@ function start(personality,fixed){
  let opp=personality||PERSONALITIES[Math.random()*PERSONALITIES.length|0];
  // ストーリー敵の名前差し込み(ライバル等)
  if(opp.name&&opp.name.includes("{"))opp={...opp,name:fillText(opp.name)};
- lastMatch={personality:opp,fixed,event:eventBattleId,story:storyContext};
+ lastMatch={personality:opp,fixed,event:eventBattleId,stage:eventStageId,story:storyContext};
  hideAll();$("game").classList.remove("hide");logs=[];
  const mk=(ids,keep)=>{const a=ids.map(id=>cp(by(id))).filter(Boolean).map(c=>({...c,uid:Math.random()}));return keep?a:shuf(a)};
  S={turn:1,tn:{p:1,c:0},active:"p",cost:1,max:1,php:10000,chp:10000,opp:opp,
