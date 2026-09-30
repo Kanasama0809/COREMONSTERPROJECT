@@ -1,6 +1,6 @@
 {
   "name": "CORE MONSTERS",
-  "short_name": "CORE MONSTERS",
+  "short_name": "コアモン",
   "description": "3レーン制のカードバトル。コアでモンスターを召喚し、呪文を放ち、相手のHPを削りきれ。",
   "lang": "ja",
   "start_url": "./index.html",
