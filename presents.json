@@ -1,9 +1,9 @@
 [
  {
   "id": "release_gift",
-  "date": "2026-09-30",
+  "end": "2026-10-31",
   "title": "リリース記念プレゼント",
-  "msg": "CORE MONSTERSを遊んでくれてありがとう！ れちさば先行公開の記念です。",
+  "msg": "CORE MONSTERSを遊んでくれてありがとう！ 正式リリースの記念です（10月31日まで）。",
   "items": [
    {
     "type": "crystal",
