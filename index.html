@@ -1168,7 +1168,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.4.5</div>
+ <div class="tVer" id="tVer">ver.4.6</div>
 </div>
 
 <div id="app">
@@ -1372,7 +1372,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 </div>
 
 <div id="gacha" class="hide gList">
- <div class="editorHead"><h1>ガチャ</h1><div class="sub">引いたカードはすぐ所持に入ります（データは端末に保存）</div><div id="gachaTicketBadge" class="ticketBadge hide">🎫 <span id="gachaTicket">0</span></div><div id="gachaShard" class="shardBadge">🔹 0</div><div id="gachaCrystal" class="crystalBadge">💎 0</div></div>
+ <div class="editorHead"><h1>ガチャ</h1><div class="sub">引いたカードはすぐ所持に入ります（データは端末に保存）</div><div id="gachaTicketBadge" class="ticketBadge hide">🎫 0</div><div id="gachaShard" class="shardBadge">🔹 0</div><div id="gachaCrystal" class="crystalBadge">💎 0</div></div>
  <div id="gachaPackTabs" class="packPick hide"></div>
  <div id="gachaList" class="gachaList lOnly"></div>
  <div class="gachaStage rOnly">
@@ -1580,7 +1580,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.4.5</div>
+  <div class="aboutVer" id="aboutVer">ver.4.6</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2090,8 +2090,8 @@ let FM={on:false};   // フレンドマッチの状態（詳しくは「フレ�
 const EVENTS_LOCKED=false;   // 9/29 公開
 const PACKS=[
  {id:1, name:"第1弾", sub:"始まりの100枚", open:true},
- {id:90,name:"プロモ弾",sub:"イベントの記念カード",open:!EVENTS_LOCKED,cost:"ticket",noStep:true},
- {id:91,name:"ハロウィン弾",sub:"ハロウィンの記念カード",open:!EVENTS_LOCKED,cost:"ticket",noStep:true}
+ {id:90,name:"プロモ弾",sub:"イベントの記念カード",open:!EVENTS_LOCKED,cost:"ticket",ticket:"promo",noStep:true},
+ {id:91,name:"ハロウィン弾",sub:"ハロウィンの記念カード",open:!EVENTS_LOCKED,cost:"ticket",ticket:"hw",noStep:true}
 ];
 function openPacks(){return PACKS.filter(p=>p.open)}
 function packById(id){return PACKS.find(p=>p.id==id)||PACKS[0]}
@@ -2468,11 +2468,11 @@ function renderMenuLock(){renderWheel();renderTreeGlow();renderContinue()}
      period を書くとその文字を出す。省略すると「〜10/31まで」か「常設」を自動で出す */
 const EVENTS=[
  // ===== ハロウィン（10月）=====
- {id:"halloween",kind:"boss",open:true,icon:"🎃",tag:"ハロウィン",
+ {id:"halloween",kind:"boss",open:true,icon:"🎃",tag:"ハロウィン",ticket:"hw",gachaPack:91,
   name:"パンプキングの城",title:"パンプキングの城",sub:"ハロウィン・ボスバトル",
   theme:["#c2561a","#2a0c2a"],accent:"#ffb347",
   start:"",end:"",
-  desc:"ハロウィンの夜だけ現れる古城の王に挑む。勝つとプロモ券がもらえる。",
+  desc:"ハロウィンの夜だけ現れる古城の王に挑む。勝つとハロウィン券がもらえる（ハロウィン弾ガチャ専用）。",
   missions:[
    {id:"win1", label:"パンプキングに1回勝利する",                 type:"win",goal:1, reward:100},
    {id:"win5", label:"パンプキングに5回勝利する",                 type:"win",goal:5, reward:200},
@@ -2492,7 +2492,7 @@ const EVENTS=[
    {id:"awake",label:"覚醒",name:"覚醒 パンプキング",card:"b_hw01",ticket:2,theme:["#c2561a","#2a0c2a"],accent:"#ffb347",
     sub:"ボス専用の覚醒カードで挑んでくる・手ごわい",deckFrom:"boss"}],
   reward:{ticket:1,dailyCap:10}},
- {id:"chronoga",kind:"boss",open:true,icon:"⏳",tag:"リリース記念",
+ {id:"chronoga",kind:"boss",open:true,icon:"⏳",tag:"リリース記念",ticket:"promo",gachaPack:90,
   name:"時の神への挑戦",title:"時の神への挑戦",sub:"リリース記念・ボスバトル",
   theme:["#5b3a8f","#170a2e"],accent:"#f0c76a",
   start:"",end:"",
@@ -2544,7 +2544,7 @@ function renderEvents(){
    ?'<div class="gBanner hasImg" style="background-image:url('+TREE_BASE_URL+e.banner+')"><div class="gbPeriod">'+eventPeriodText(e)+'</div></div>'
    :'<div class="gBanner'+(e.art?' hasArt" style="background-image:url('+TREE_BASE_URL+e.art+')"':'"')+'><div class="gbPeriod">'+eventPeriodText(e)+'</div>'+(e.art?'':'<div class="evIco">'+(e.icon||"")+'</div>')
     +'<div class="gbTitle">'+(e.title||e.name)+'</div><div class="gbSub">'+(e.sub||e.tag||"")+'</div></div>';
-  const rw=e.open&&e.reward&&e.reward.ticket?'<div class="evRw">勝利で 🎫プロモ券 ×'+e.reward.ticket+(e.reward.dailyCap?'（1日'+e.reward.dailyCap+'枚まで）':"")+'</div>':"";
+  const rw=e.open&&e.reward&&e.reward.ticket?'<div class="evRw">勝利で '+tkLabel(eventTicket(e))+' ×'+e.reward.ticket+(e.reward.dailyCap?'（1日'+e.reward.dailyCap+'枚まで）':"")+'</div>':"";
   return '<section class="gBlock evCard '+(e.open?"open":"closed")+'" style="--g1:'+th[0]+';--g2:'+th[1]+';--ga:'+ac+'">'+banner
    +'<div class="gBody"><div class="evDesc">'+(e.open?e.desc:"準備中です。お楽しみに。")+'</div>'+rw
    +(e.open?'<button type="button" class="gold evGoBtn" onclick="openEventDetail(\''+e.id+'\')">挑戦する ▶</button>'
@@ -2553,22 +2553,32 @@ function renderEvents(){
   :'<div class="pEmpty">現在ひらいているイベントはありません</div>';
 }
 
-/* ===== 券 ===== */
-function tickets(){return parseInt(store.get("cmTicket")||"0",10)||0}
-function setTickets(v){store.set("cmTicket",String(Math.max(0,v)));renderTicketDisplays()}
-function addTicket(v,why){setTickets(tickets()+v);log2Toast("🎫 プロモ券 +"+v+(why?"（"+why+"）":""))}
-function useTicket(v){if(tickets()<v)return false;setTickets(tickets()-v);return true}
+/* ===== 券 =====
+   イベントごとに別の券。その券はそのイベントのガチャでしか使えない。1日にもらえる上限も券ごと。
+   promo＝🎫プロモ券（時の神・プロモ弾）／hw＝🎃ハロウィン券（パンプキングの城・ハロウィン弾） */
+const TICKETS={
+ promo:{name:"プロモ券",icon:"🎫",key:"cmTicket",day:"cmTicketDay"},
+ hw:{name:"ハロウィン券",icon:"🎃",key:"cmTicketHw",day:"cmTicketDayHw"}};
+function tkOf(k){return TICKETS[k]||TICKETS.promo}
+function tkLabel(k){const t=tkOf(k);return t.icon+t.name}
+function tickets(k){return parseInt(store.get(tkOf(k).key)||"0",10)||0}
+function setTickets(v,k){store.set(tkOf(k).key,String(Math.max(0,v)));renderTicketDisplays()}
+function addTicket(v,why,k){setTickets(tickets(k)+v,k);log2Toast(tkOf(k).icon+" "+tkOf(k).name+" +"+v+(why?"（"+why+"）":""))}
+function useTicket(v,k){if(tickets(k)<v)return false;setTickets(tickets(k)-v,k);return true}
+function packTicket(id){const p=packById(id==null?curPack:id);return (p&&p.ticket)||"promo"}
+function eventTicket(e){return (e&&e.ticket)||"promo"}
 function renderTicketDisplays(){
- const a=$("evdTicket");if(a)a.textContent="🎫 "+tickets();
- const b=$("gachaTicket");if(b)b.textContent=String(tickets());
+ const a=$("evdTicket");if(a){const k=eventTicket(curEvent);a.textContent=tkOf(k).icon+" "+tickets(k)}
+ const b=$("gachaTicketBadge");
+ if(b)b.innerHTML=Object.keys(TICKETS).filter(k=>visibleGachas().some(G=>isTicketPack(G.pack)&&packTicket(G.pack)==k)).map(k=>tkOf(k).icon+" "+tickets(k)).join("　");
 }
-// その日にもらった券の数（上限の管理）
-function ticketToday(){
- let o={};try{o=JSON.parse(store.get("cmTicketDay")||"{}")}catch(e){}
+// その日にもらった券の数（上限の管理・券ごと）
+function ticketToday(k){
+ let o={};try{o=JSON.parse(store.get(tkOf(k).day)||"{}")}catch(e){}
  return (o.d==todayStr())?(o.n||0):0;
 }
-function bumpTicketToday(n){
- store.set("cmTicketDay",JSON.stringify({d:todayStr(),n:ticketToday()+(n||1)}));
+function bumpTicketToday(n,k){
+ store.set(tkOf(k).day,JSON.stringify({d:todayStr(),n:ticketToday(k)+(n||1)}));
 }
 
 /* ===== 挑戦画面 ===== */
@@ -2583,7 +2593,7 @@ function openEventDetail(id){
 function renderEventDetail(){
  const e=curEvent;if(!e)return;
  $("evdTitle").textContent=e.name;
- const got=ticketToday(),cap=(e.reward&&e.reward.dailyCap)||0;
+ const tk=eventTicket(e),got=ticketToday(tk),cap=(e.reward&&e.reward.dailyCap)||0;
  const capOver=cap&&got>=cap;
  const misN=(e.missions||[]).length,misReady=(e.missions||[]).filter(m=>!evMisOf(e.id).got.includes(m.id)&&evMisProg(e,m)>=m.goal).length;
  const misDone=(e.missions||[]).filter(m=>evMisOf(e.id).got.includes(m.id)).length;
@@ -2594,24 +2604,25 @@ function renderEventDetail(){
    +'<div class="gBanner">'+(img?'<div class="evStageImg" style="background-image:url('+img+')"></div>':'<div class="evIco">'+(e.boss.ico||e.icon||"")+'</div>')
    +'<div class="gbPeriod">'+(st.label||"挑戦")+'</div>'
    +'<div class="gbTitle">'+st.name+'</div><div class="gbSub">'+(st.sub||"")+'</div></div>'
-   +'<div class="gBody"><div class="evRw">勝利で 🎫プロモ券 ×'+(st.ticket||1)+'</div>'
+   +'<div class="gBody"><div class="evRw">勝利で '+tkLabel(tk)+' ×'+(st.ticket||1)+'</div>'
    +'<button type="button" class="gold evGoBtn" onclick="startEventBattle(\''+st.id+'\')">挑戦する ▶</button></div></section>'}).join("");
  $("evdBody").innerHTML='<div class="evList">'
   +'<div class="evStory">'+e.boss.story.replace(/\n/g,"<br>")+'</div>'
   +'<div class="evStat">'
-  +'<div><div class="sK">持っている券</div><div class="sV" id="evdTicket">🎫 '+tickets()+'</div></div>'
+  +'<div><div class="sK">持っている券</div><div class="sV" id="evdTicket">'+tkOf(tk).icon+' '+tickets(tk)+'</div></div>'
   +'<div><div class="sK">今日もらった券</div><div class="sV">'+got+' / '+cap+'</div></div>'
   +'</div>'
   +(capOver?'<div class="evNote">今日の券はもらいきりました。挑戦はできますが、券は増えません。</div>':"")
   +stageHtml
   +'<div class="evSubBtns">'
-  +'<button type="button" class="evSubBtn" onclick="openPromoGacha()"><span class="esIco">🎫</span><span>プロモ弾ガチャ</span></button>'
+  +'<button type="button" class="evSubBtn" onclick="openPromoGacha('+(e.gachaPack||90)+')"><span class="esIco">'+tkOf(tk).icon+'</span><span>'+((packById(e.gachaPack||90)||{}).name||"プロモ弾")+'ガチャ</span></button>'
   +(misN?'<button type="button" class="evSubBtn" onclick="openTasksTab(\'event\')"><span class="esIco">🎯</span><span>イベントミッション<small>'+misDone+' / '+misN+'</small></span>'+(misReady?'<span class="pBadge">'+misReady+'</span>':"")+'</button>':"")
   +'</div></div>';
 }
 // イベントの画面から、プロモ弾のガチャへ直接行く
-function openPromoGacha(){setGachaPack(90);openGacha();
- setTimeout(()=>{const el=document.getElementById("gb_promo");if(el)el.scrollIntoView({block:"start",behavior:"smooth"})},80)}
+function openPromoGacha(pack){pack=pack||90;setGachaPack(pack);openGacha();
+ const G=GACHAS.find(x=>x.pack==pack);
+ setTimeout(()=>{const el=G&&document.getElementById("gb_"+G.id);if(el)el.scrollIntoView({block:"start",behavior:"smooth"})},80)}
 // 挑戦の種類（ふつう／覚醒）。stages が無いイベントは1種類だけ
 function eventStages(e){return e&&e.stages&&e.stages.length?e.stages:[{id:"main",name:e.boss.name,card:e.boss.card,ticket:(e.reward&&e.reward.ticket)||1}]}
 function eventStage(e,sid){const L=eventStages(e);return L.find(x=>x.id==sid)||L[0]}
@@ -2655,9 +2666,10 @@ function onEventWin(){
  const st=eventStage(e,eventStageId);
  const want=st.ticket||(e.reward&&e.reward.ticket)||0;if(!want)return;
  const cap=(e.reward&&e.reward.dailyCap)||0;
- const give=cap?Math.min(want,Math.max(0,cap-ticketToday())):want;   // 上限の残りまで
+ const tk=eventTicket(e);
+ const give=cap?Math.min(want,Math.max(0,cap-ticketToday(tk))):want;   // 上限の残りまで（券ごと）
  if(give<=0){log2Toast("今日の券はもらいきりました");return}
- bumpTicketToday(give);addTicket(give,st.name||e.name);
+ bumpTicketToday(give,tk);addTicket(give,st.name||e.name,tk);
 }
 
 function tryRandomBattle(){
@@ -3252,9 +3264,10 @@ function stepCur(pack){const L=stepList(pack),i=stepDone(pack);return i<L.length
 function renderGachaButtons(){
  const t=isTicketPack();
  const b1=$("gachaBtn"),b10=$("gacha10Btn"),tk=$("gachaTicketBadge");
- if(b1)b1.innerHTML=t?'<span class="pl">🎫 1回引く</span><span class="pc">券1枚</span>':'<span class="pl">1回引く</span><span class="pc">💎'+GACHA_COST_1+'</span>';
- if(b10)b10.innerHTML=t?'<span class="pl">🎫 10回引く</span><span class="pc">券10枚</span>':'<span class="pl">10回引く</span><span class="pc">💎'+GACHA_COST_10+'</span>';
- if(tk)tk.classList.toggle("hide",!t);
+ const ti=tkOf(packTicket()).icon;
+ if(b1)b1.innerHTML=t?'<span class="pl">'+ti+' 1回引く</span><span class="pc">券1枚</span>':'<span class="pl">1回引く</span><span class="pc">💎'+GACHA_COST_1+'</span>';
+ if(b10)b10.innerHTML=t?'<span class="pl">'+ti+' 10回引く</span><span class="pc">券10枚</span>':'<span class="pl">10回引く</span><span class="pc">💎'+GACHA_COST_10+'</span>';
+ if(tk)tk.classList.toggle("hide",!visibleGachas().some(G=>isTicketPack(G.pack)));
  renderTicketDisplays();
 }
 function renderPackTabs(){
@@ -3379,7 +3392,7 @@ const CORE_COL={n:"#ffffff",r:"#4ea8ff",sr:"#b56bff",ur:"#f0c76a",cr:"#4ee3ff"};
 function topRarity(cards){let best="N";cards.forEach(c=>{if((RARITY_ORDER[c.rarity]||0)>(RARITY_ORDER[best]||0))best=c.rarity});return best}
 async function pullGacha(){if(gachaBusy)return;
  if(isTicketPack()){
-  if(!useTicket(1)){gachaMsg("🎫プロモ券が足りません");sfx("hit");return}
+  if(!useTicket(1,packTicket())){gachaMsg(tkLabel(packTicket())+"が足りません");sfx("hit");return}
  }else if(!spendCrystal(GACHA_COST_1)){gachaMsg("💎が足りません（"+GACHA_COST_1+"必要）");sfx("hit");return}
  gachaBusy=true;
  gachaResetView();
@@ -3426,7 +3439,7 @@ function showGachaResults(){
 }
 async function pull10Gacha(){if(gachaBusy)return;
  if(isTicketPack()){
-  if(!useTicket(10)){gachaMsg("🎫プロモ券が足りません（10枚必要）");sfx("hit");return}
+  if(!useTicket(10,packTicket())){gachaMsg(tkLabel(packTicket())+"が足りません（10枚必要）");sfx("hit");return}
  }else if(!spendCrystal(GACHA_COST_10)){gachaMsg("💎が足りません（"+GACHA_COST_10+"必要）");sfx("hit");return}
  gachaBusy=true;
  gachaResetView();
@@ -3577,11 +3590,11 @@ function isGachaList(){const g=$("gacha");return !!(g&&g.classList.contains("gLi
 function gachaBlockBtns(G){
  if(G.pulls)return G.pulls.map((b,k)=>{const tk=b.cur=="ticket";
   return '<button class="pullBtn '+(b.cls||"gold")+'" onclick="pullFrom(\''+G.id+'\',\'c'+k+'\')"><span class="pl">'+(tk?"🎫 ":"")+b.label+'</span><span class="pc">'+(tk?"券"+b.cost+"枚":"💎"+b.cost)+'</span></button>'}).join("");
- const t=isTicketPack(G.pack),s=packById(G.pack).noStep?null:stepCur(G.pack),i=stepDone(G.pack);
- const one=t?'<span class="pl">🎫 1回引く</span><span class="pc">券1枚</span>':'<span class="pl">1回引く</span><span class="pc">💎'+GACHA_COST_1+'</span>';
+ const t=isTicketPack(G.pack),s=packById(G.pack).noStep?null:stepCur(G.pack),i=stepDone(G.pack),ti=tkOf(packTicket(G.pack)).icon;
+ const one=t?'<span class="pl">'+ti+' 1回引く</span><span class="pc">券1枚</span>':'<span class="pl">1回引く</span><span class="pc">💎'+GACHA_COST_1+'</span>';
  const second=s
   ?'<button class="pullBtn gold" onclick="pullFrom(\''+G.id+'\',\'step\')"><span class="pl">'+((i+1)*10)+'連目を引く</span><span class="pc">💎'+s.cost+'</span></button>'
-  :'<button class="pullBtn ten" onclick="pullFrom(\''+G.id+'\',10)">'+(t?'<span class="pl">🎫 10回引く</span><span class="pc">券10枚</span>':'<span class="pl">10回引く</span><span class="pc">💎'+GACHA_COST_10+'</span>')+'</button>';
+  :'<button class="pullBtn ten" onclick="pullFrom(\''+G.id+'\',10)">'+(t?'<span class="pl">'+ti+' 10回引く</span><span class="pc">券10枚</span>':'<span class="pl">10回引く</span><span class="pc">💎'+GACHA_COST_10+'</span>')+'</button>';
  return '<button class="pullBtn" onclick="pullFrom(\''+G.id+'\',1)">'+one+'</button>'+second}
 // ステップアップのすごろく（ブロック内に出す版）
 function gachaBlockStep(G){
@@ -3621,7 +3634,7 @@ function openRatesFor(id){const G=gachaById(id);curGacha=G.id;if(curPack!=G.pack
 // 専用ボタンのガチャを引く（回数制限・確定枠・通貨はガチャの設定に従う）
 async function pullCustom(G,b){if(gachaBusy||!b)return;
  if(gachaLeft(G)<=0){gachaMsg("このガチャはもう引けません");sfx("hit");return}
- if(b.cur=="ticket"){if(!useTicket(b.cost)){gachaMsg("🎫プロモ券が足りません（"+b.cost+"枚必要）");sfx("hit");return}}
+ if(b.cur=="ticket"){const k=packTicket(G.pack);if(!useTicket(b.cost,k)){gachaMsg(tkLabel(k)+"が足りません（"+b.cost+"枚必要）");sfx("hit");return}}
  else if(!spendCrystal(b.cost)){gachaMsg("💎が足りません（"+b.cost+"必要）");sfx("hit");return}
  gachaBusy=true;gachaResetView();
  $("gachaHint").classList.add("hide");
@@ -3667,14 +3680,14 @@ function escH(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;"
 function presentItemText(it){const n=+it.n||1;
  if(it.type=="crystal")return "💎"+n;
  if(it.type=="shard")return "🔹かけら"+n;
- if(it.type=="ticket")return "🎫プロモ券"+n+"枚";
+ if(it.type=="ticket")return tkLabel(it.kind)+n+"枚";
  if(it.type=="card"){const c=by(it.id);return "🃏"+(c?c.name:"？")+(n>1?"×"+n:"")}
  return ""}
 function presentIcon(p){const t=p.items[0].type;return t=="crystal"?"💎":t=="shard"?"🔹":t=="ticket"?"🎫":t=="card"?"🃏":"🎁"}
 function grantPresentItem(it){const n=Math.max(1,+it.n||1);
  if(it.type=="crystal"){crystal+=n;saveCrystal()}
  else if(it.type=="shard"){shard+=n;saveShard()}
- else if(it.type=="ticket"){setTickets(tickets()+n)}
+ else if(it.type=="ticket"){setTickets(tickets(it.kind)+n,it.kind)}
  else if(it.type=="card"&&by(it.id)){for(let k=0;k<n;k++)unlockCard(it.id)}}
 function receivePresent(p){p.items.forEach(grantPresentItem);const g=presentGot();g.push(p.id);setPresentGot(g)}
 function claimPresent(id){const p=presentsActive().find(x=>x.id==id);if(!p)return;
