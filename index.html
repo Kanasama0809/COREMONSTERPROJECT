@@ -1233,7 +1233,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.0.0</div>
+ <div class="tVer" id="tVer">ver.5.0.1</div>
 </div>
 
 <div id="app">
@@ -1680,7 +1680,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.0.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.0.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -4207,7 +4207,7 @@ function guideReset(){store.set("cmGuide","[]");closeAbout();log2Toast("父の�
 
 /* ================= シーズンパス =================
    ・ゲージは1本。100ptで1段（対戦 勝ち20・負け10、タスク・ログインの受け取り10）
-   ・カードのない段（クリスタル・券）は誰でも無料。カードの段は、解放したパスの分だけもらえる
+   ・報酬はパスごとに別々。光と闇は同じ並び（クリスタル・券・カード）で、解放したパスの分だけ、それぞれ受け取れる
    ・パスは「光のシーズンパス」「闇のシーズンパス」。1つ1500クリスタルで解放（両方も可）
      キャンペーン中（freeFirst）は、はじめの1つを無料で解放できる。あとから解放しても、過ぎた段のカードをさかのぼってもらえる
    ★次のシーズンは SEASONS に足すだけ。start/end は開催期間（end の日まで） */
@@ -4238,11 +4238,10 @@ function addPassPt(n,why){const se=passSeason(),st=passState();if(!se||!st||!n)r
  renderPassBanner();if($("pass")&&!$("pass").classList.contains("hide"))renderPass()}
 function passCount(se,L,i){return L.rw[i]?1:0}
 function passNth(L,i){const cid=L.rw[i];return Object.entries(L.rw).filter(([j,x])=>x===cid&&+j<=i).length}
-// カードのない段の報酬（両パス共通）：カードのない段だけを数えて、順番にくり返す
+// カードのない段の報酬（光も闇も同じ並び。受け取りはパスごと）：カードのない段だけを数えて、順番にくり返す
 function passNormal(se,L,i){let k=0;for(let j=1;j<i;j++)if(!L.rw[j])k++;return se.normal[k%se.normal.length]}
-function passReady(st){const se=passSeason();if(!se||!st)return 0;const t=passTierN(st),L0=Object.values(se.lanes)[0];let n=0;
- for(let i=1;i<=t;i++){if(!L0.rw[i]&&!st.got.common.includes(i))n++;
-  Object.keys(se.lanes).forEach(k=>{if(st.open[k]&&se.lanes[k].rw[i]&&!st.got[k].includes(i))n++})}
+function passReady(st){const se=passSeason();if(!se||!st)return 0;const t=passTierN(st);let n=0;
+ Object.keys(se.lanes).forEach(k=>{if(!st.open[k])return;for(let i=1;i<=t;i++)if(!st.got[k].includes(i))n++});
  return n}
 function passFreeLeft(se,st){return !!(se.freeFirst&&!st.freeUsed)}
 function renderPassBanner(){const b=$("passBanner");if(!b)return;const se=passSeason(),st=passState();
@@ -4283,7 +4282,7 @@ function renderPass(){const se=passSeason(),st=passState();if(!se||!st)return;
   let got,can,tag,lbl,lock=false;
   if(cid){got=st.got[k].includes(i);lock=!opened;can=reach&&!got&&opened;
    const isFinal=cid===L.rw[se.tiers];tag=(isFinal?(i==se.tiers?"さいごの報酬":"目玉"):(c.baseId?"絵違い":"新プロモ"))+" "+passNth(L,i)+"枚目";lbl=c.name}
-  else{got=st.got.common.includes(i);can=reach&&!got;tag=i+"段の報酬（共通）";lbl=passNormal(se,L,i).label}
+  else{got=st.got[k].includes(i);lock=!opened;can=reach&&!got&&opened;tag=i+"段の報酬";lbl=passNormal(se,L,i).label}
   h+='<div class="prRow"><div class="prDot'+(got?" done":"")+(i==t+1?" now":"")+'">'+i+'</div>'
    +'<button type="button" class="prCard'+(cid?" big":"")+(i==se.tiers?" last":"")+(can?" can":"")+(lock?" lock":"")+'" '+(can?'onclick="passClaim('+i+')"':"disabled")+'>'
    +(cid?'<span class="prImg" style="background-image:url('+(CARD_IMAGES[cid]||"")+')"></span>':"")
@@ -4299,8 +4298,8 @@ function passClaim(i){const se=passSeason(),st=passState();if(!se||!st)return;co
   $("srImg").innerHTML=CARD_IMAGES[cid]?'<img src="'+CARD_IMAGES[cid]+'" alt="">':"";
   $("srName").textContent=c.name+"（"+passNth(L,i)+"枚目）";$("srText").textContent=L.name+" "+i+"段の報酬"+(c.baseId?"（絵違い）":"");
   $("srPop").classList.add("show");sfx("win");renderPass();return}
- if(st.got.common.includes(i))return;
- const r=passNormal(se,L,i);st.got.common.push(i);passSave(st);
+ if(!st.open[k]||st.got[k].includes(i))return;
+ const r=passNormal(se,L,i);st.got[k].push(i);passSave(st);
  if(r.type=="crystal")addCrystal(r.n,"シーズンパス "+i+"段");else if(r.type=="ticket")addTicket(r.n,"シーズンパス "+i+"段",r.kind);
  sfx("sel");renderPass()}
 
