@@ -1091,6 +1091,9 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 .nPopBody{margin-top:8px;max-height:45vh;overflow:auto;text-align:left;font-size:13px;line-height:1.7;color:#cfe0f0;word-break:break-word}
 /* フレンドマッチ */
 /* フェイズのカットイン（画面中央の帯） */
+.battleTip{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:150;padding:10px 14px;border-radius:14px;background:#0d1f3aee;border:2px solid #f0c76a;color:#eaf2ff;font-size:13px;line-height:1.6;box-shadow:0 8px 24px #000a;opacity:0;transform:translateY(-8px);transition:opacity .3s,transform .3s;pointer-events:none}
+.battleTip.show{opacity:1;transform:none}
+.battleTip b{color:#f0c76a;margin-right:4px}
 .phaseCut{position:fixed;left:0;right:0;top:40%;z-index:140;pointer-events:none;opacity:0;text-align:center;padding:10px 0 12px}
 .phaseCut.go{animation:pcIn 1.15s ease-out forwards}
 .phaseCut.stb{background:linear-gradient(90deg,#0000,#0a2a4ae6 18%,#0a2a4ae6 82%,#0000);border-top:2px solid #4ee3ff;border-bottom:2px solid #4ee3ff}
@@ -1291,7 +1294,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.2.2</div>
+ <div class="tVer" id="tVer">ver.5.3.0</div>
 </div>
 
 <div id="app">
@@ -1441,6 +1444,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 </div>
 
 <div id="fmNet" class="fmNet"></div>
+<div id="battleTip" class="battleTip"></div>
 <div id="phaseCut" class="phaseCut"></div>
 <div id="game" class="hide">
  <div class="top">
@@ -1748,7 +1752,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.2.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.3.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1817,6 +1821,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 <div id="resultov" class="pov"><div class="resultBox">
  <h2 id="rTitle" class="rtitle dot winc">WIN!</h2>
  <div id="rSub" class="rsub"></div>
+ <button type="button" id="rStoryGo" class="gold hide" style="width:100%;margin-bottom:8px" onclick="storyGoOnAfterLose()">▶ 先に進む</button>
  <div class="rbtns"><button onclick="hideP('resultov');rematchLast()">🔁 もう一度対戦</button><button class="sec" onclick="hideP('resultov');if(FM.on)fmQuit();else menu()">メニューへ</button></div>
 </div></div>
 
@@ -2035,11 +2040,17 @@ const STORY_ENEMIES={
  // sim（はじまりデッキで挑んだ勝率）：双子 約60% → 村人 約54% → 船乗り 約39%
  villager:{id:"villager",name:"村人",tagline:"最近カードを覚えたんだ",aggro:0.9,
   deck:STARTER_DECK.map(x=>({p05:"wolfket",p04:"mucha",p07:"sonobashinobi"})[x]||x)},   // 2話のテーマ：突撃（出したターンに殴ってくる）
+ hunter:{id:"hunter",name:"狩人",tagline:"森の狩人",aggro:0.9,
+  deck:(()=>{const d=STARTER_DECK.map(x=>({p08:"sakanakushun"})[x]||x);d[d.indexOf("p04")]="heavylancer";d[d.indexOf("p05")]="ippanA";return d})()},   // 序章3話：貫通・貫通されない
+ bouncer:{id:"bouncer",name:"用心棒",tagline:"市場の用心棒",aggro:1.0,
+  deck:STARTER_DECK.map(x=>({p04:"kamakamakiri",p05:"fontni",p07:"baikingu",p09:"ippanA"})[x]||x)},   // 序章4話：二回攻撃・吸収
+ gravekeeper:{id:"gravekeeper",name:"墓守",tagline:"港の外れの墓守",aggro:0.8,
+  deck:(()=>{const d=STARTER_DECK.map(x=>({p04:"gaikotsu",p05:"jujika",p07:"daichi"})[x]||x);d[d.indexOf("p09")]="nekura";return d})()},   // 序章5話：墓地・山札切れ
  sailor:{id:"sailor",name:"船乗り",tagline:"船賃がわりに一勝負",aggro:0.9,
   deck:STARTER_DECK.map(x=>({p07:"aquaknight",p05:"kaendan",p04:"batto",p08:"kucha"})[x]||x)},   // 3話のテーマ：呪文（除去・直接ダメージ）
  rival:{id:"rival",name:"{rival}",tagline:"いい宝石は全部もらう",aggro:1.2,deck:PERSONALITIES[1].deck},
  rival_tw:{id:"rival_tw",name:"{rival}",tagline:"双子の{rk}",aggro:0.8,naive:true,
-  deck:(()=>{const d=[...STARTER_DECK];d[d.indexOf("p08")]="kucha";return d})()},   // 1話のテーマ：守護（盾持ち2枚＋苦茶）
+  deck:(()=>{const d=[...STARTER_DECK];d[d.indexOf("p08")]="kucha";d[d.indexOf("p07")]="boseki";return d})()},   // 1話のテーマ：守護（盾持ち2枚＋苦茶）・攻撃できない（墓石）
  kaya:{id:"kaya",name:"門番のカヤ",tagline:"よそ者は、まず私を抜いてから",aggro:1.3,deck:PERSONALITIES[1].deck},
  goro:{id:"goro",name:"木こりのゴロウ",tagline:"森は、奪う者には応えん",aggro:0.9,deck:PERSONALITIES[5].deck},
  seri:{id:"seri",name:"湖の巫女セリ",tagline:"波を立てぬように",aggro:0.6,deck:PERSONALITIES[2].deck},
@@ -2057,8 +2068,10 @@ const STORY=[
   {title:"はじめての実戦",pre:[
    {t:"s",who:"{rival}",text:"やるからには全力で行くからね！{name}！！　初めてのバトルだ！！"},
    {t:"s",who:"父",text:"いいか、条件は五分だ。同じデッキ、同じ枚数。差が出るのは選び方だけだぞ"},
+   {t:"s",who:"父",text:"今日覚えるのは【守護】と【攻撃できない】だ。守護のモンスターは、仲間への攻撃を代わりに受け止められる"},
+   {t:"s",who:"父",text:"攻撃できないモンスターは、そのかわり守りが固い。壁として前に置くんだ"},
    {t:"s",who:"{name}",text:"……やってみる"}
-  ],enemy:"rival_tw",post:[
+  ],terms:["守護","攻撃できない"],enemy:"rival_tw",post:[
    {t:"s",who:"{rival}",text:"……ふぅん。初めてにしては、やるじゃん"},
    {t:"s",who:"父",text:"筋は悪くない。そのデッキはやる。持っていけ"},
    {t:"s",who:"{name}",text:"ありがとう、父さん"},
@@ -2071,18 +2084,50 @@ const STORY=[
    {t:"s",who:"村人",text:"よう、{name}。とうとう旅に出るんだってな"},
    {t:"s",who:"{name}",text:"うん。この{i}の目で、世界一の宝石を見つけたいんだ"},
    {t:"s",who:"村人",text:"また\"CORE\"の話かい？ 夢見がちだねえ"},
-   {t:"s",who:"村人",text:"……そうだ、餞別がわりに一勝負どうだい。最近カードを覚えたんだ"}
-  ],enemy:"villager",post:[
+   {t:"s",who:"村人",text:"……そうだ、餞別がわりに一勝負どうだい。最近カードを覚えたんだ"},
+   {t:"s",who:"父",text:"（見送りに来た父が、小声で言う）村人のデッキは【突撃】だ。出したそのターンに殴ってくるぞ。守りを先に固めておけ"}
+  ],terms:["突撃"],enemy:"villager",post:[
    {t:"s",who:"村人",text:"いやあ、強いね。さすが宝石商、目利きだけじゃないってわけだ"},
    {t:"s",who:"村人",text:"気をつけて行けよ。外は{rk}さんみたいに優しい相手ばかりじゃないからな"},
    {t:"s",who:"{name}",text:"（……行こう）"}
+  ]},
+  {title:"森の狩人",pre:[
+   {t:"n",text:"村を出て半日。港へ続く森の道で、弓を背負った狩人が待ち構えていた。"},
+   {t:"s",who:"狩人",text:"おっと、そこの旅人。この森を抜けたいなら、腕前を見せてもらおうか"},
+   {t:"s",who:"{name}",text:"（父さんの言ってたこと、思い出そう……）"},
+   {t:"s",who:"父",text:"（記憶の中の父の声）大きなATKで倒したとき、余った分は相手に抜ける。それが【貫通】だ"},
+   {t:"s",who:"父",text:"（記憶の中の父の声）ただし【貫通されない】モンスターは、負けても余りを通さない。よく見て選べ"}
+  ],terms:["貫通","貫通されない"],enemy:"hunter",post:[
+   {t:"s",who:"狩人",text:"……見事だ。狙いのいい戦い方をする"},
+   {t:"s",who:"狩人",text:"港町まではもうすぐだ。ただ、市場には荒っぽいのが多い。気をつけな"}
+  ]},
+  {title:"市場の用心棒",pre:[
+   {t:"n",text:"港町の市場。にぎやかな屋台の奥で、腕組みをした大男が道をふさいでいる。"},
+   {t:"s",who:"用心棒",text:"この先は宝石の店だ。冷やかしはお断り。……通りたけりゃ、勝負で示しな"},
+   {t:"s",who:"{name}",text:"（宝石の店……！ 負けられない）"},
+   {t:"s",who:"父",text:"（記憶の中の父の声）【二回攻撃】のモンスターは、1ターンに2回殴ってくる。放っておくと痛いぞ"},
+   {t:"s",who:"父",text:"（記憶の中の父の声）【吸収】は、与えたダメージの分だけHPを回復する。長引くほど相手が有利になる"}
+  ],terms:["二回攻撃","吸収"],enemy:"bouncer",post:[
+   {t:"s",who:"用心棒",text:"ちっ、やるじゃねえか。……通りな。店の親父は、港の外れの墓守とも知り合いだ"},
+   {t:"s",who:"{name}",text:"（墓守……？）"}
+  ]},
+  {title:"墓守の問い",pre:[
+   {t:"n",text:"港の外れ、海の見える古い墓地。ランタンを提げた老人が、静かにこちらを見ていた。"},
+   {t:"s",who:"墓守",text:"COREを探す若者か。……昔も、そんな者がいた。皆、志半ばで眠っておる"},
+   {t:"s",who:"墓守",text:"覚悟を見せてもらおう"},
+   {t:"s",who:"父",text:"（記憶の中の父の声）倒されたカードや使った呪文は【墓地】へ行く。墓地の枚数で強くなるカードもある"},
+   {t:"s",who:"父",text:"（記憶の中の父の声）山札がなくなると【山札切れ】だ。引くたびにダメージが重くなる。長期戦は山札の残りを見ておけ"}
+  ],terms:["山札切れ"],enemy:"gravekeeper",post:[
+   {t:"s",who:"墓守",text:"……よかろう。その目なら、海の向こうでも迷うまい"},
+   {t:"s",who:"墓守",text:"港の船乗りに、わしの名を出すといい。木ノ國へ渡してくれるじゃろう"}
   ]},
   {title:"港へ",pre:[
    {t:"n",text:"村の外れ、船着き場。最初の目的地は、森に囲まれた国——木ノ國。"},
    {t:"s",who:"船乗り",text:"おや、木ノ國へ渡るのかい。あそこは良いところだ。緑と、静けさと……そうそう、\"COREペリドット\"なんて噂もあるな"},
    {t:"s",who:"{name}",text:"（COREペリドット……！）"},
-   {t:"s",who:"船乗り",text:"おっと、その顔。宝石狙いかい。だが甘くないぜ。……どれ、船賃がわりに一勝負といくか"}
-  ],enemy:"sailor",post:[
+   {t:"s",who:"船乗り",text:"おっと、その顔。宝石狙いかい。だが甘くないぜ。……どれ、船賃がわりに一勝負といくか"},
+   {t:"s",who:"{name}",text:"（最後は【呪文】だ。倒す呪文、強くする呪文……使うタイミングが大事だって、父さんが言ってた）"}
+  ],terms:["呪文"],enemy:"sailor",post:[
    {t:"s",who:"船乗り",text:"はっはっは、参った！ 見どころのある旅人さんだ。さあ、乗んな。木ノ國まで送ってやるよ"},
    {t:"n",text:"船は静かに港を離れる。{name}の、宝石をめぐる旅が——今、始まった。"}
   ]}
@@ -2391,17 +2436,25 @@ function markStoryClear(ch,ep){const p=storyProgress();const k=ch+"-"+ep;
 const STORY_REWARDS={
  "0-0":{card:"fukurou",swap:"p08",why:"守護で攻撃を受け止める"},
  "0-1":{card:"wolfket",swap:"p07",why:"出したターンにすぐ攻撃できる（突撃）"},
- "0-2":{card:"batto",swap:"p05",why:"相手のモンスターを呪文で倒す"}};
+ "0-2":{card:"ippanA",swap:"p05",why:"ATKが高く、貫通で相手に届く"},
+ "0-3":{card:"fontni",swap:"p04",why:"殴ったぶんHPを取り戻す（吸収）"},
+ "0-4":{card:"jujika",swap:"p09",why:"墓地をうまく使う"},
+ "0-5":{card:"batto",swap:"p06",why:"相手のモンスターを呪文で倒す"}};
+// 序章を何話か足したので、前の版で序章を最後（船乗り＝前の3話目）までクリアしていた人は、全部クリア扱いにする
+(function migrateStoryV2(){try{if(store.get("cmStoryV")=="2")return;
+ const p=JSON.parse(store.get("cmStoryProg")||"[]");
+ if(p.includes("0-2")&&!p.includes("0-3")){["0-3","0-4","0-5"].forEach(k=>{if(!p.includes(k))p.push(k)});store.set("cmStoryProg",JSON.stringify(p))}
+ store.set("cmStoryV","2")}catch(e){}})();
 let storyRewardPending=null;
 function storyReward(k){const r=STORY_REWARDS[k];if(!r||!by(r.card))return;
- unlockCard(r.card);unlockCard(r.card);
+ unlockCard(r.card);   // 1枚だけ（2枚目はガチャで）
  let swapped=0;const a=deckSlots(),i=curSlot();
- if(a[i]&&a[i].cards){a[i].cards=a[i].cards.map(id=>{if(swapped<2&&id==r.swap){swapped++;return r.card}return id});
+ if(a[i]&&a[i].cards){a[i].cards=a[i].cards.map(id=>{if(swapped<1&&id==r.swap){swapped++;return r.card}return id});
   if(swapped){saveSlots(a);if(validDeck(a[i].cards)){deck=[...a[i].cards];store.set("cmdeck100",JSON.stringify(deck))}}}
  storyRewardPending={...r,swapped}}
 function showStoryReward(){const r=storyRewardPending;storyRewardPending=null;if(!r)return;const c=by(r.card),o=by(r.swap);
  $("srImg").innerHTML=CARD_IMAGES[r.card]?'<img src="'+CARD_IMAGES[r.card]+'" alt="">':"";
- $("srName").textContent=c.name+" ×2";
+ $("srName").textContent=c.name;
  $("srText").textContent="父「"+r.why+"カードだ。"+(r.swapped?"デッキの"+o.name+"と入れ替えておいたぞ」":"デッキに入れて使ってみろ」");
  $("srPop").classList.add("show");sfx("win")}
 function isStoryClear(ch,ep){return storyProgress().includes(ch+"-"+ep)}
@@ -4851,6 +4904,7 @@ function start(personality,fixed){
   busy:false,over:false,pDef2:false,cDef2:false,pDefBonus:0,cDefBonus:0,
   pLock:false,cLock:false,pShield:false,cShield:false,pOnce:false,cOnce:false,
   pFatigue:0,cFatigue:0,atkSide:null,atkI:null};
+ S.storyTerms=storyContext?(((STORY[storyContext.chIdx]||{}).episodes||[])[storyContext.epIdx]||{}).terms||null:null;S.tipShown={};
  selH=selA=selE=null;pending=null;clearLaneFx();
  for(let i=0;i<5;i++){draw("p",true);draw("c",true)}
  log(`対戦相手：${opp.name}「${fillText(opp.tagline||"")}」`);render()
@@ -4887,6 +4941,7 @@ function draw(side,quiet){let D=side=="p"?S.pd:S.cd,H=side=="p"?S.ph:S.ch;
   const k=side=="p"?"pFatigue":"cFatigue";
   S[k]=(S[k]||0)+1;
   const dmg=FATIGUE_STEP*S[k];
+  try{storyTip("山札切れ")}catch(e){}
   heroDmg(side,dmg,side);
   log((side=="p"?"自分":"CPU")+"：山札切れで"+dmg+"ダメージ（"+S[k]+"回目）");
  }}
@@ -5319,7 +5374,16 @@ function summon(pos){if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
    ・スパイダーネット：網を張られた側が召喚したモンスターは、そのターン攻撃できない（突撃も）
    ・おおかみおかみ：相手が召喚するたび、相手に宿代ダメージ
    ・マウーっす：相手が突撃を持つモンスターを召喚するたび、1枚引く */
+// 序章：その話で覚える用語が、対戦で初めて出てきたときに説明を出す
+const STORY_TIP_EXTRA={"呪文":"呪文は、使うとすぐに効果が出て、墓地へ行くカードです。倒す・強くする・回復するなど、使うタイミングが大事！"};
+function storyTip(term){if(!S||!S.storyTerms||!S.storyTerms.includes(term))return;S.tipShown=S.tipShown||{};if(S.tipShown[term])return;S.tipShown[term]=1;
+ const t=TERMS[term],txt=(t?t.text:STORY_TIP_EXTRA[term])||"";const el=$("battleTip");if(!el)return;
+ el.innerHTML='<b>📖【'+term+'】</b>'+txt;el.classList.add("show");log("📖【"+term+"】"+txt);
+ clearTimeout(window._tipT);window._tipT=setTimeout(()=>el.classList.remove("show"),5200);try{markTermSeen(term)}catch(e){}}
+function storyTipMon(m){if(!m)return;if(m.guard)storyTip("守護");if(m.cantAttack)storyTip("攻撃できない");if(m.charge||m.permCharge)storyTip("突撃");
+ if(m.double)storyTip("二回攻撃");if(m.lifesteal)storyTip("吸収");if(m.noPierce)storyTip("貫通されない")}
 function afterSummon(m,side){if(!S||!m)return;
+ try{storyTipMon(m)}catch(e){}
  if(S.sumTax&&S.sumTax[side])S.sumTax[side]=0;   // ノクスの+1は1回だけ
  const os=side=="p"?"c":"p",OB=os=="p"?S.pb:S.cb;
  if(S.web===side){m.used=true;m.attacks=0;m.webbed=1;log("スパイダーネット："+m.name+"は動けない")}
@@ -5364,7 +5428,7 @@ function cast(){if(FM.on&&FM.role=="guest")return fmGuestCast();
  const cost=ec(c,"p");if(cost>S.cost)return log("コストが足りません");
  const err=castCheck(c);if(err)return log(err);
  S.cost-=cost;const _sp=c;S.ph.splice(selH,1);selH=null;sfxCard(_sp,"cast");S.curSrc=c.id;if(c.id=="maketakunai")S.usedMake=1;
- log("呪文「"+c.name+"」を発動");encounterCard(c.id);cutIn(c);
+ log("呪文「"+c.name+"」を発動");encounterCard(c.id);cutIn(c);try{storyTip("呪文")}catch(e){}
  S.castingSpell=true;
  try{if(PICKFX[c.eff])spell(c,"p",{card:c,cost});
   else{S.pg.push(c);spell(c,"p")}}
@@ -5537,7 +5601,7 @@ async function battle(as,ai,ds,di){const AB=as=="p"?S.pb:S.cb,DB=ds=="p"?S.pb:S.
  if(av>dv){float(ds,di,av,"red");await sleep(380);
   const over=d.noPierce?0:av-dv;
   await boomKill(ds,di);   // 肩代わりされた場合は生き残るが、貫通の計算はそのまま通る
-  if((di==1||RULES.pierceAll)&&over>0){heroDmg(ds,over,as);log("貫通"+over+"ダメージ");if(a.lifesteal)healHero(as,over)}
+  if((di==1||RULES.pierceAll)&&over>0){try{storyTip("貫通")}catch(e){}heroDmg(ds,over,as);log("貫通"+over+"ダメージ");if(a.lifesteal)healHero(as,over)}
  }else if(dv>av){float(ds,di,dv,"blue");await sleep(380);
   if(d.defSelf){await boomKill(ds,di);await boomKill(as,ai)}
   else if(RULES.bounce){log(a.name+"の攻撃ははね返された")}   // 攻撃側は倒れない
@@ -5688,7 +5752,7 @@ function cpuPickSpell(cc,buffPhase){if(S.cLock)return null;let best=null,bs=-1;
   const v=cost*100+Math.random()*50;
   if(v>bs){bs=v;best={c,idx,cost}}});
  return best}
-function castCpu(sp){S.ch.splice(sp.idx,1);S.cg.push(sp.c);sfxCard(sp.c,"cast");log("CPU：呪文「"+sp.c.name+"」を発動");encounterCard(sp.c.id);cutIn(sp.c);spell(sp.c,"c");chk()}
+function castCpu(sp){S.ch.splice(sp.idx,1);S.cg.push(sp.c);sfxCard(sp.c,"cast");log("CPU：呪文「"+sp.c.name+"」を発動");encounterCard(sp.c.id);cutIn(sp.c);try{storyTip("呪文")}catch(e){}spell(sp.c,"c");chk()}
 function cpuPickSummon(cc){let best=null,bs=-1;
  S.ch.forEach((c,idx)=>{if(c.type!="monster")return;
   const cost=ec(c,"c");if(cost>cc)return;
@@ -5852,17 +5916,32 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  if(FM.on){fmPublishNow();addPassPt(w===true?PASS_PT.win:PASS_PT.lose,"フレンド");try{titleOnBattleEnd(w===true,"",true)}catch(e){}setTimeout(()=>$("resultov").classList.add("show"),600);return}   // フレンドマッチは報酬なし（パスのptだけ）
  onBattleEnd(w===true,S.opp&&S.opp.id);
  // ストーリー戦: 勝てば対戦後パートへ、負ければ再挑戦できるようにする
+ $("rStoryGo").classList.add("hide");
  if(storyContext){
   const ctx=storyContext;
   if(w===true){
+   // 序章は、はじめて勝ったら💎のおまけ
+   if(STORY[ctx.chIdx].ch===0){const k="0-"+ctx.epIdx,wb=(()=>{try{return JSON.parse(store.get("cmStoryWin")||"[]")}catch(e){return[]}})();
+    if(!wb.includes(k)){wb.push(k);store.set("cmStoryWin",JSON.stringify(wb));setTimeout(()=>addCrystal(100,"序章の勝利ボーナス"),400)}}
    markStoryClear(STORY[ctx.chIdx].ch,ctx.epIdx);
    setTimeout(()=>{$("resultov").classList.remove("show");playStoryPhase(ctx.chIdx,ctx.epIdx,"post")},900);
    return;
+  }else if(STORY[ctx.chIdx].ch===0){
+   // 序章は負けても先に進める（もう一度挑戦も選べる）
+   storyLoseCtx=ctx;$("rStoryGo").classList.remove("hide");
+   $("rSub").textContent="敗北… でも大丈夫。先に進むこともできます";
   }else{
    storyContext=null; // 負けたら通常の結果画面(再挑戦はストーリー画面から)
   }
  }
  setTimeout(()=>$("resultov").classList.add("show"),600)}
+let storyLoseCtx=null;
+function storyGoOnAfterLose(){const ctx=storyLoseCtx;storyLoseCtx=null;if(!ctx)return;hideP("resultov");storyContext=null;
+ markStoryClear(STORY[ctx.chIdx].ch,ctx.epIdx);
+ const ep=STORY[ctx.chIdx].episodes[ctx.epIdx],terms=(ep.terms||[]).map(t=>"【"+t+"】").join("と");
+ const line={t:"s",who:"父",text:"（記憶の中の父の声）惜しかったな。だが今日の勝負で"+(terms||"大事なこと")+"は覚えたはずだ。前へ進め"};
+ storyLine=[line].concat(ep.post||[]);storyLineIdx=0;storyAfter=()=>{renderStoryList();openStory();setTimeout(showStoryReward,300)};
+ hideAll();$("storyTalk").classList.remove("hide");$("app").scrollTop=0;renderStoryLine()}
 
 /* ================= 起動 ================= */
 try{renderSndLabels()}catch(e){}
