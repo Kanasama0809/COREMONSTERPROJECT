@@ -84,7 +84,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .m4grid8 .m4 .m4nm{font-size:11px;white-space:nowrap}
 /* ホームのバナー */
 .homeBanner{position:relative;z-index:2;margin:8px 8px 0;flex:0 0 auto}
-.hbTrack{position:relative;height:132px}
+.hbTrack{position:relative;height:clamp(104px,15vh,132px)}
 .hbSlide{position:absolute;inset:0;border-radius:16px;overflow:hidden;border:2px solid var(--hba);background:var(--hb1);color:#fff;font-family:inherit;text-align:left;padding:0;opacity:0;pointer-events:none;transition:opacity .5s;cursor:pointer}
 .hbSlide.on{opacity:1;pointer-events:auto}
 .hbImg{position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:50% 22%}
@@ -966,6 +966,39 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 .pItems{margin-top:4px;font-size:12px;font-weight:800;color:var(--gold2)}
 .pEnd{margin-top:2px;font-size:10px;color:#7f9bb8}
 .pRow .taskClaimBtn{flex:0 0 auto;white-space:nowrap}
+/* ===== 称号 ===== */
+.tName{font-weight:900}
+.tn-none,.tn-white{color:#eaf2ff}.tn-green{color:#7ee0a1}.tn-blue{color:#6bc8ff}.tn-purple{color:#c29bff}.tn-red{color:#ff8a7a}
+.tn-bronze{color:#e3a56c}.tn-silver{color:#d9e2ee}.tn-gold{color:#f6cf6b;text-shadow:0 0 12px #f0c76a88}
+.tn-jet{color:#2a1640;text-shadow:0 0 2px #e7d6ff,0 0 10px #b48cff}
+.tn-rainbow{background:linear-gradient(90deg,#ff7a7a,#ffc46b,#7ef0a1,#6bc8ff,#c29bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tTag{display:inline-block;padding:1px 10px;border-radius:99px;border:1px solid #9fb6d6;background:#0d1830;font-size:11px;font-weight:900;line-height:1.5;color:#eaf2ff;white-space:nowrap}
+.tt-green{border-color:#4fbf7c;color:#7ee0a1}.tt-blue{border-color:#3f9fe0;color:#6bc8ff}.tt-purple{border-color:#9a6de0;color:#c29bff}.tt-red{border-color:#e0604f;color:#ff8a7a}
+.tt-bronze{border-color:#c98450;color:#e3a56c}.tt-silver{border-color:#b7c4d6;color:#d9e2ee}.tt-gold{border-color:#f0c76a;color:#f6cf6b}
+.tt-jet{border-color:#b48cff;color:#e7d6ff;background:#1a0d2b}
+.tt-rainbow{border-color:#d79cff;color:#1a1030;background:linear-gradient(90deg,#ff7a7a,#ffc46b,#7ef0a1,#6bc8ff,#c29bff)}
+.homeName{display:flex;align-items:center;justify-content:center;gap:8px;margin:-2px auto 6px;min-height:22px;background:none;border:0;padding:0;font-family:inherit;font-size:15px;color:#eaf2ff;cursor:pointer}
+#homeName{background:none!important;box-shadow:none!important;border:0!important;width:auto;min-height:24px;padding:0 6px;margin:0 auto 6px}
+#menu .menuTitle{margin-bottom:2px}
+.pmTitleTag{min-height:4px;margin-bottom:4px}
+#prematch .pmVs{margin:12px 0 2px}
+.pmMe{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:6px}
+.pmMe .tName{font-family:'Dela Gothic One',sans-serif;font-size:26px;letter-spacing:2px}
+#pmName .tName{font:inherit}
+#titles{padding-bottom:110px}
+.titleNow{margin:10px 14px;padding:12px;border-radius:14px;background:#13233c;border:1px solid #f0c76a;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tnLbl{font-size:11px;color:#9fb6d6}.tNone{font-size:12px;color:#9fb6d6}
+.tnName .tName{font-family:'Dela Gothic One',sans-serif;font-size:24px}
+.titleList{padding:0 14px;display:flex;flex-direction:column;gap:8px}
+.tRow{display:flex;align-items:center;gap:10px;min-height:58px;box-sizing:border-box;padding:8px 12px;border-radius:12px;background:#11203a;border:1px solid #22375a;color:#eaf2ff;font-family:inherit;text-align:left;width:100%}
+.tRow:disabled{opacity:.6}
+.tRow.on{background:#1d2b48;border:2px solid #f0c76a}
+.tRx{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tRn{font-size:15px;font-weight:900}
+.tRc{font-size:11px;color:#9fb6d6}
+.tRs{font-size:11px;font-weight:900;white-space:nowrap;color:#9fb6d6}
+.tRs.st-got{color:#7ee0a1}.tRs.st-on{color:#f0c76a}
+.tRw{font-size:11px;font-weight:900;white-space:nowrap;color:#fff;background:#d84a4a;padding:4px 8px;border-radius:99px}
 /* ===== シーズンパス ===== */
 .passBanner{margin-top:10px}
 .passBanner .pBadge{top:-6px;right:-6px}
@@ -1233,7 +1266,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.0.1</div>
+ <div class="tVer" id="tVer">ver.5.1.0</div>
 </div>
 
 <div id="app">
@@ -1296,7 +1329,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
   </g>
  </svg>
  <div class="menuTop">
-  <h1 class="menuTitle dot">CORE MONSTERS<small>— TRADING CARD BATTLE —</small></h1>
+  <h1 class="menuTitle dot">CORE MONSTERS</h1>
+  <button type="button" id="homeName" class="homeName" onclick="if(isIntroDone())openTitles()" aria-label="称号"></button>
   <div class="menuTools">
    <button type="button" id="menuLevel" class="lvBadge" onclick="openLevelInfo()">Lv.1</button>
    <div id="menuShard" class="shardBadge">🔹 0</div>
@@ -1340,6 +1374,13 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
    <button class="m4" id="m4_title" onclick="menuGo(10)"><span class="m4em">🏅</span><span class="m4nm">称号</span></button>
   </div>
  </div>
+</div>
+
+<div id="titles" class="hide">
+ <div class="lhead"><h2>称号</h2><div class="lsub" id="titleCount"></div></div>
+ <div id="titleNow" class="titleNow"></div>
+ <div id="titleList" class="titleList"></div>
+ <div class="foot"><button type="button" class="sec" onclick="menu()">戻る</button></div>
 </div>
 
 <div id="pass" class="hide">
@@ -1586,9 +1627,11 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
   <div class="pmBossCard" onclick="if(pmBossId)showDById(pmBossId)"><img id="pmBossImg" alt=""></div>
   <div id="pmBossLine" class="pmBossLine"></div>
  </div>
- <div class="pmVs">VS</div>
+ <div id="pmOppTitle" class="pmTitleTag"></div>
  <div id="pmName" class="pmName"></div>
  <div id="pmTag" class="pmTag"></div>
+ <div class="pmVs">VS</div>
+ <div id="pmMe" class="pmMe"></div>
  <div class="pmGap"></div>
  <div id="pmFlip" class="pmFlip">先攻</div>
  <button type="button" id="pmBtn" class="gold pmBtn" onclick="prematchGo()">対戦開始 ▶</button>
@@ -1680,7 +1723,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.0.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.1.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2128,7 +2171,7 @@ function writeCurSlot(){
 }
 function saveDeck(){
  if(deck.length>30)return log2Toast("30枚以下にしてください（現在"+deck.length+"枚）");
- writeCurSlot();renderEdit();sfx("sel");
+ writeCurSlot();renderEdit();sfx("sel");ttSet("deckSaved",1);
  const a=deckSlots(),i=curSlot(),nm=(a[i]&&a[i].name)||("デッキ"+(i+1));
  if(deck.length<30){log2Toast("「"+nm+"」を途中で保存しました（あと"+(30-deck.length)+"枚で完成）");return}   // 未完成でも保存できる。対戦には30枚のデッキを使う
  log2Toast("「"+nm+"」に保存しました");
@@ -2435,7 +2478,7 @@ const WHEEL=[
  {id:"tasks", icon:"tasks",  name:"タスク",     desc:"報酬を受け取る",          go:()=>openTasks()},
  {id:"list",  icon:"list",   name:"カード一覧", desc:"全カードを50音順で",      go:()=>openList()},
  {id:"friend",icon:"friend", name:"だれかと",   desc:"フレンドマッチ",            go:()=>openFriend(), lock:()=>!isIntroDone(), lockDesc:"序章をクリアすると解放"},
- {id:"title", icon:"tasks",  name:"称号",       desc:"準備中",                    go:()=>{}, lock:()=>true, lockDesc:"称号は準備中です。お楽しみに！"}
+ {id:"title", icon:"tasks",  name:"称号",       desc:"称号を集めて装着",          go:()=>openTitles(), lock:()=>!isIntroDone(), lockDesc:"序章をクリアすると解放"}
 ];
 let wheelIdx=0;
 // 中央からの距離（-3〜+3）。輪なので端は反対側へつながる
@@ -2455,6 +2498,7 @@ function buildWheel(){
 // 輪の項目に出す「受け取り待ち」の件数。0なら何も出さない
 function wheelBadge(w){
  if(w.id=="tasks"){try{return taskReadyCount()}catch(e){return 0}}
+ if(w.id=="title"){try{return titleReadyN()}catch(e){return 0}}
  if(w.id=="events"){try{return evMisReadyCount()}catch(e){return 0}}
  return 0;
 }
@@ -2590,7 +2634,7 @@ function continueStory(){
  if(nx)startStoryEpisode(nx.ci,nx.ei);else openStory();
 }
 
-function renderMenuLock(){renderWheel();renderTreeGlow();renderContinue();try{renderPassBanner()}catch(e){}try{renderHomeBanner()}catch(e){}}
+function renderMenuLock(){try{titleCheck(!isIntroDone())}catch(e){}renderWheel();renderTreeGlow();renderContinue();try{renderPassBanner()}catch(e){}try{renderHomeBanner()}catch(e){}try{renderHomeName()}catch(e){}}
 /* ===== イベント =====
    ★イベントを増やすときは EVENTS に1つ足すだけ★
    open:false にすると「準備中」として並びだけ出る。
@@ -3116,7 +3160,7 @@ function claimTask(key,reward,label){
  if(!isTaskReady(key))return;
  taskTaken().push(key);
  const r=taskReady();const i=r.indexOf(key);if(i>=0)r.splice(i,1);
- saveTaskState();addCrystal(reward,label);addPassPt(PASS_PT.task,"タスク");renderTasks();renderMenuBadge();
+ saveTaskState();addCrystal(reward,label);addPassPt(PASS_PT.task,"タスク");ttAdd("tasks");renderTasks();renderMenuBadge();
 }
 // 受け取り待ちの件数（メニューの赤丸に使う）
 function taskReadyCount(){ensureTaskState();return taskReady().length+(taskState.loginDate===todayStr()?0:1)+evMisReadyCount()}
@@ -3145,15 +3189,16 @@ function bumpWeeklyPersona(personaId){ensureTaskState();
  if(taskState.weeklyProgress.allPersona>=task.goal){taskState.weeklyClaimed.push("allPersona");markTaskReady("k:"+taskState.weekKey+":allPersona",task.label)}
  saveTaskState();renderTasks()}
 function claimLogin(){ensureTaskState();if(taskState.loginDate===todayStr())return false;
- taskState.loginDate=todayStr();addCrystal(LOGIN_BONUS,"ログインボーナス");addPassPt(PASS_PT.task,"ログイン");saveTaskState();renderTasks();return true}
+ taskState.loginDate=todayStr();addCrystal(LOGIN_BONUS,"ログインボーナス");addPassPt(PASS_PT.task,"ログイン");ttAdd("login");saveTaskState();renderTasks();return true}
 
 function onBattleEnd(won,oppId){ensureTaskState();addXp(won?XP_WIN:XP_LOSE,won?"勝利":"対戦");
+ try{titleOnBattleEnd(won,oppId,false)}catch(e){}
  addPassPt(won?PASS_PT.win:PASS_PT.lose,"対戦");
  if(eventBattleId){if(won)onEventWin();else eventBattleId=null}
  completeWelcome("battle1");bumpDaily("battle",1);
  if(oppId)bumpWeeklyPersona(oppId);
  if(won){completeWelcome("win1");bumpDaily("win",1);bumpWeekly("win10",1)}}
-function onGachaPull(){ensureTaskState();completeWelcome("gacha1");bumpWeekly("gacha5",1);addXp(XP_GACHA,"ガチャ")}
+function onGachaPull(){ensureTaskState();ttAdd("gacha");completeWelcome("gacha1");bumpWeekly("gacha5",1);addXp(XP_GACHA,"ガチャ")}
 
 const TASK_TABS=[
  {id:"daily",label:"デイリー",title:"デイリーミッション",sub:"毎日0時にリセット"},
@@ -3245,7 +3290,7 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
@@ -3911,7 +3956,7 @@ function renderFriend(msg){const b=$("friendBody");if(!b)return;
   +'<div class="frBtns"><button type="button" class="sec" onclick="friendLeave(false)">部屋を出る</button></div>'
   +'</div>'+err;
  frLog([])}
-function frMe(){return {name:frName(),deck:frDeck(),at:Date.now()}}
+function frMe(){const t=titleEquipped();return {name:frName(),deck:frDeck(),title:t?t.id:"",at:Date.now()}}
 async function friendCreate(){renderFriend("接続中…");
  try{const db=await fbInit();
   for(let k=0;k<8;k++){const code=String(Math.floor(Math.random()*10000)).padStart(4,"0");
@@ -3986,7 +4031,7 @@ async function fmHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
  await fr.ref.child("acts").remove();await fr.ref.child("state").remove();
  await fr.ref.child("ask").remove();await fr.ref.child("ans").remove();
  await fr.ref.child("match").set({first,at:Date.now()});
- FM={on:true,role:"host",ref:fr.ref,seq:0,queue:[],wait:null,oppName:R.guest.name};
+ FM={on:true,role:"host",ref:fr.ref,seq:0,queue:[],wait:null,oppName:R.guest.name,oppTitle:R.guest.title||""};
  fr.ref.child("ans").on("value",snap=>{const v=snap.val();if(!v||v.id!==FM.askId||!FM.askRes)return;
   const r=FM.askRes;FM.askRes=null;r(v.v===undefined?null:v.v)});
  fr.ref.child("acts").on("child_added",snap=>{const a=snap.val();if(!a)return;
@@ -4102,7 +4147,7 @@ function fmOppGone(){if(!FM.on)return;log2Toast("相手が退出しました");
  if(S&&!S.over){S.chp=0;chk()}}
 // ---- ゲスト
 function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;completeWelcome("friend1");
- FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",sent:false};
+ FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",oppTitle:(room.host&&room.host.title)||"",sent:false};
  hideAll();$("game").classList.remove("hide");logs=[];selH=selA=selE=null;pending=null;
  S=null;$("log").textContent="ホストが対戦を準備しています…";
  fmRoulette(FM.oppName,room.match&&room.match.first=="host",()=>{});
@@ -4204,6 +4249,155 @@ function guideNext(){const q=guideQ;if(!q)return;q.i++;
  if(q.i>=q.lines.length){guideQ=null;$("guidePop").classList.remove("show");return}
  guideShow()}
 function guideReset(){store.set("cmGuide","[]");closeAbout();log2Toast("父の説明を、次に画面を開いたときにもう一度出します")}
+
+/* ================= 称号 =================
+   条件を満たすと解放 → 称号の画面で報酬（クリスタル）を受け取る → 1つ装着すると名前の色が変わる
+   色：テーマ色（白・緑・青・紫・赤）＝ふだんの目標、銅・銀・金＝がんばる順、漆黒＝覚醒ボス、虹＝期間限定
+   ★称号を増やすときは TITLES に足すだけ。条件は TT（記録）や今の状態を見る関数で書く */
+const TITLE_COLOR={white:"#eaf2ff",green:"#7ee0a1",blue:"#6bc8ff",purple:"#c29bff",red:"#ff8a7a",bronze:"#e3a56c",silver:"#d9e2ee",gold:"#f6cf6b",jet:"#2a1640",rainbow:"#ffffff"};
+const TITLE_REWARD={white:100,green:100,blue:100,purple:100,red:100,bronze:200,silver:300,gold:500,jet:1000,rainbow:1000};
+// 記録（勝ち数など）。称号を入れた日から数える
+function ttStats(){try{return JSON.parse(store.get("cmStats")||"{}")||{}}catch(e){return{}}}
+function ttSave(o){store.set("cmStats",JSON.stringify(o))}
+function ttAdd(k,n){const o=ttStats();o[k]=(o[k]||0)+(n||1);ttSave(o);return o[k]}
+function ttSet(k,v){const o=ttStats();o[k]=v;ttSave(o)}
+function ttFin(id){const o=ttStats();return ((o.fin||{})[id])||0}
+function ttOwnedPct(){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased);return L.length?L.filter(c=>m[c.id]>0).length/L.length:0}
+function ttOwnedR(r){const m=ownedMap();return P.filter(c=>!c.bossOnly&&c.rarity==r&&m[c.id]>0).length}
+function ttAll(f){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased&&f(c));return L.length>0&&L.every(c=>m[c.id]>0)}
+function ttPassDone(k){try{const se=SEASONS.find(x=>x.id=="s1"),st=JSON.parse(store.get("cmPass")||"null");return !!(st&&st.sid=="s1"&&st.open&&st.open[k]&&(st.pts||0)>=se.tiers*se.ptPer)}catch(e){return false}}
+const T=ttStats;
+const TITLES=[
+ // はじめて
+ {id:"t_firstwin",name:"駆け出しの勇者",c:"white",cond:"対戦で初めて勝つ",ok:()=>(T().wins||0)>=1},
+ {id:"t_firstgacha",name:"はじめの一枚",c:"white",cond:"初めてガチャを引く",ok:()=>(T().gacha||0)>=1},
+ {id:"t_firstdeck",name:"デッキ職人見習い",c:"white",cond:"初めてデッキを保存する",ok:()=>!!T().deckSaved},
+ {id:"t_firstfriend",name:"友だちと一緒",c:"white",cond:"初めてフレンドマッチをする",ok:()=>(T().fGames||0)>=1},
+ {id:"t_lose10",name:"七転び八起き",c:"white",cond:"対戦で10回負ける",ok:()=>(T().losses||0)>=10},
+ {id:"t_tablet",name:"石版を読む者",c:"white",cond:"石版を開く",ok:()=>!!T().tablet},
+ // ストーリー・毎日
+ {id:"t_intro",name:"旅立ちの勇者",c:"green",cond:"序章をクリアする",ok:()=>isIntroDone()},
+ {id:"t_ch1",name:"木ノ國の英雄",c:"green",cond:"第1章をクリアする",ok:()=>STORY[1]&&STORY[1].episodes.every((e,i)=>storyProgress().includes("1-"+i))},
+ {id:"t_login7",name:"コツコツ派",c:"green",cond:"7日ログインする",ok:()=>(T().login||0)>=7},
+ {id:"t_login30",name:"皆勤賞",c:"green",cond:"30日ログインする",ok:()=>(T().login||0)>=30},
+ {id:"t_task50",name:"働き者",c:"green",cond:"タスクの報酬を50回受け取る",ok:()=>(T().tasks||0)>=50},
+ {id:"t_rich",name:"大富豪",c:"green",cond:"クリスタルを10000持つ",ok:()=>crystal>=10000},
+ // 対戦
+ {id:"t_win10",name:"腕試し",c:"red",cond:"対戦で10勝する",ok:()=>(T().wins||0)>=10},
+ {id:"t_win30",name:"歴戦の勇者",c:"bronze",cond:"対戦で30勝する",ok:()=>(T().wins||0)>=30},
+ {id:"t_win100",name:"百戦錬磨",c:"silver",cond:"対戦で100勝する",ok:()=>(T().wins||0)>=100},
+ {id:"t_win300",name:"伝説の勇者",c:"gold",cond:"対戦で300勝する",ok:()=>(T().wins||0)>=300},
+ {id:"t_fast5",name:"速攻の鬼",c:"red",cond:"自分の5ターン目までに勝つ",ok:()=>!!T().fast5},
+ {id:"t_fast3",name:"電光石火",c:"silver",cond:"自分の3ターン目までに勝つ",ok:()=>!!T().fast3},
+ {id:"t_perfect",name:"完封勝利",c:"silver",cond:"HPが一度も減らずに勝つ",ok:()=>!!T().perfect},
+ {id:"t_comeback",name:"九死に一生",c:"silver",cond:"HP1000以下から逆転して勝つ",ok:()=>!!T().comeback},
+ {id:"t_long",name:"長期戦の覇者",c:"bronze",cond:"20ターン以上かかって勝つ",ok:()=>!!T().long},
+ {id:"t_mill",name:"時間切れの策士",c:"purple",cond:"相手の山札切れで勝つ",ok:()=>!!T().mill},
+ {id:"t_streak5",name:"連勝街道",c:"bronze",cond:"5連勝する",ok:()=>(T().best||0)>=5},
+ {id:"t_streak20",name:"無敗の王",c:"gold",cond:"20連勝する",ok:()=>(T().best||0)>=20},
+ // フレンド
+ {id:"t_f1",name:"好敵手",c:"red",cond:"フレンドマッチで1勝する",ok:()=>(T().fWins||0)>=1},
+ {id:"t_f10",name:"好敵手を越えて",c:"bronze",cond:"フレンドマッチで10勝する",ok:()=>(T().fWins||0)>=10},
+ {id:"t_f30",name:"宿命のライバル",c:"silver",cond:"フレンドマッチで30勝する",ok:()=>(T().fWins||0)>=30},
+ {id:"t_f100",name:"頂点に立つ者",c:"gold",cond:"フレンドマッチで100勝する",ok:()=>(T().fWins||0)>=100},
+ {id:"t_f50g",name:"仲良しこよし",c:"green",cond:"フレンドマッチを50回する",ok:()=>(T().fGames||0)>=50},
+ // 戦い方
+ {id:"t_guard30",name:"鉄壁の守り手",c:"blue",cond:"守護で攻撃を30回受け止める",ok:()=>(T().guard||0)>=30},
+ {id:"t_guard300",name:"難攻不落",c:"silver",cond:"守護で攻撃を300回受け止める",ok:()=>(T().guard||0)>=300},
+ {id:"t_charge10",name:"突撃隊長",c:"red",cond:"突撃のモンスターでとどめを10回刺す",ok:()=>(T().chargeKO||0)>=10},
+ {id:"t_charge100",name:"一番槍",c:"silver",cond:"突撃のモンスターでとどめを100回刺す",ok:()=>(T().chargeKO||0)>=100},
+ {id:"t_spell10",name:"呪文使い",c:"purple",cond:"呪文でとどめを10回刺す",ok:()=>(T().spellKO||0)>=10},
+ {id:"t_spell100",name:"大魔導士",c:"silver",cond:"呪文でとどめを100回刺す",ok:()=>(T().spellKO||0)>=100},
+ {id:"t_summon500",name:"召喚士",c:"blue",cond:"モンスターを500回召喚する",ok:()=>(T().summons||0)>=500},
+ {id:"t_grave",name:"墓守",c:"purple",cond:"自分の墓地が20枚以上ある状態で勝つ",ok:()=>!!T().grave},
+ {id:"t_full",name:"満員御礼",c:"red",cond:"自分の場が3体うまった状態で勝つ",ok:()=>!!T().full},
+ // ガチャ・集める
+ {id:"t_gacha100",name:"ガチャ好き",c:"white",cond:"ガチャを100回引く",ok:()=>(T().gacha||0)>=100},
+ {id:"t_gacha500",name:"ガチャ廃人",c:"bronze",cond:"ガチャを500回引く",ok:()=>(T().gacha||0)>=500},
+ {id:"t_sr10",name:"SRハンター",c:"bronze",cond:"SRを10種類集める",ok:()=>ttOwnedR("SR")>=10},
+ {id:"t_ur5",name:"UR使い",c:"silver",cond:"URを5種類集める",ok:()=>ttOwnedR("UR")>=5},
+ {id:"t_cr1",name:"CRに選ばれし者",c:"silver",cond:"CRを手に入れる",ok:()=>ttOwnedR("CR")>=1},
+ {id:"t_crall",name:"CRマスター",c:"gold",cond:"CRを全部集める",ok:()=>ttAll(c=>c.rarity=="CR")},
+ {id:"t_shard",name:"かけら収集家",c:"bronze",cond:"かけらを1000ためる",ok:()=>shard>=1000},
+ {id:"t_codex50",name:"コレクター",c:"silver",cond:"図鑑を50%うめる",ok:()=>ttOwnedPct()>=.5},
+ {id:"t_codex100",name:"カード博士",c:"gold",cond:"図鑑を100%うめる",ok:()=>ttOwnedPct()>=1},
+ {id:"t_promoall",name:"プロモコレクター",c:"silver",cond:"プロモを全部集める",ok:()=>ttAll(c=>c.promo&&!c.passS)},
+ // おもしろ（このカードでとどめ）
+ {id:"t_suiso",name:"水素の音ォ",c:"blue",cond:"「水素の音ォ！！」でとどめを刺す",fin:"suiso"},
+ {id:"t_uradora",name:"裏ドラ乗った",c:"purple",cond:"「裏ドラキュラ」でとどめを刺す",fin:"uradracula"},
+ {id:"t_ippan",name:"一般人の意地",c:"white",cond:"「一般男性A」でとどめを刺す",fin:"ippanA"},
+ {id:"t_moratta",name:"もらった！",c:"red",cond:"「もらった！」でとどめを刺す",fin:"moratta"},
+ {id:"t_tarakong",name:"ウホウホ",c:"green",cond:"「たらコング」でとどめを刺す",fin:"tarakong"},
+ {id:"t_shinobi",name:"忍ぶれど",c:"purple",cond:"「ソノバシノビ」でとどめを刺す",fin:"sonobashinobi"},
+ {id:"t_mimi",name:"聞こえたか？",c:"red",cond:"「耳に刻め！！」でとどめを刺す",fin:"mimi"},
+ {id:"t_hontou",name:"証明終了",c:"purple",cond:"「本当だからだ！」でとどめを刺す",fin:"hontou"},
+ {id:"t_haiku",name:"五七五",c:"green",cond:"「ここで1句」でとどめを刺す",fin:"kokoikku"},
+ {id:"t_make",name:"負けず嫌い",c:"red",cond:"「負けたくない」を使って勝つ",ok:()=>!!T().make},
+ {id:"t_choinomi",name:"一杯だけ",c:"purple",cond:"「ちょい呑み」でとどめを刺す",fin:"choi"},
+ {id:"t_straight",name:"ど真ん中",c:"red",cond:"「火の玉ストレート」でとどめを刺す",fin:"firestraight"},
+ {id:"t_kanpou",name:"砲撃用意",c:"red",cond:"「艦砲射撃」でとどめを刺す",fin:"kanpou"},
+ // ボス・イベント
+ {id:"t_chronoga",name:"時を越えし者",c:"jet",cond:"覚醒 時間の神 クロノガに勝つ",ok:()=>(T().awake_chronoga||0)>=1},
+ {id:"t_chronoga10",name:"時の支配者",c:"jet",cond:"覚醒 時間の神 クロノガに10勝する",ok:()=>(T().awake_chronoga||0)>=10},
+ {id:"t_pumpking",name:"古城の王を退けし者",c:"jet",cond:"覚醒 パンプキングに勝つ",ok:()=>(T().awake_halloween||0)>=1},
+ {id:"t_pumpking10",name:"ハロウィンの覇者",c:"jet",cond:"覚醒 パンプキングに10勝する",ok:()=>(T().awake_halloween||0)>=10},
+ {id:"t_awake30",name:"深淵をのぞく者",c:"jet",cond:"覚醒ボスに合計30勝する",ok:()=>(T().awake_chronoga||0)+(T().awake_halloween||0)>=30},
+ // シーズン限定
+ {id:"t_s1light",name:"光の継承者",c:"rainbow",cond:"光のシーズンパスを30段まで進める（シーズン1）",ok:()=>ttPassDone("light"),limited:1},
+ {id:"t_s1dark",name:"闇の継承者",c:"rainbow",cond:"闇のシーズンパスを30段まで進める（シーズン1）",ok:()=>ttPassDone("dark"),limited:1},
+ {id:"t_s1both",name:"光と闇の狭間",c:"rainbow",cond:"両方のシーズンパスを30段まで進める（シーズン1）",ok:()=>ttPassDone("light")&&ttPassDone("dark"),limited:1},
+ {id:"t_hwall",name:"ハロウィン・ナイト",c:"rainbow",cond:"ハロウィンのイベントミッションを全部達成する",ok:()=>{try{const e=eventById("halloween");return evMisOf("halloween").got.length>=(e.missions||[]).length}catch(x){return false}},limited:1},
+ // レベル
+ {id:"t_lv10",name:"一人前",c:"white",cond:"レベル10になる",ok:()=>playerLevel()>=10},
+ {id:"t_lv20",name:"熟練の勇者",c:"bronze",cond:"レベル20になる",ok:()=>playerLevel()>=20},
+ {id:"t_lv30",name:"歴戦の猛者",c:"silver",cond:"レベル30になる",ok:()=>playerLevel()>=30},
+ {id:"t_lv50",name:"生ける伝説",c:"gold",cond:"レベル50になる",ok:()=>playerLevel()>=50}];
+TITLES.forEach(t=>{if(t.fin&&!t.ok)t.ok=()=>ttFin(t.fin)>=1});
+function titleById(id){return TITLES.find(t=>t.id==id)||null}
+function tState(){try{const o=JSON.parse(store.get("cmTitles")||"{}")||{};o.got=o.got||{};o.claimed=o.claimed||{};return o}catch(e){return{got:{},claimed:{}}}}
+function tSave(o){store.set("cmTitles",JSON.stringify(o))}
+// 条件を見て、新しく満たした称号を解放する（通知つき）
+function titleCheck(quiet){const o=tState();const fresh=[];
+ TITLES.forEach(t=>{if(o.got[t.id])return;let ok=false;try{ok=!!t.ok()}catch(e){}if(ok){o.got[t.id]=Date.now();fresh.push(t)}});
+ if(fresh.length){tSave(o);if(!quiet)fresh.slice(0,3).forEach((t,i)=>setTimeout(()=>log2Toast("🏅 称号「"+t.name+"」を解放！"),i*900))}
+ try{renderMenuBadge()}catch(e){}
+ return fresh}
+function titleReadyN(){const o=tState();return TITLES.filter(t=>o.got[t.id]&&!o.claimed[t.id]).length}
+function titleEquipped(){const o=tState();return o.eq&&o.got[o.eq]?titleById(o.eq):null}
+// 名前を称号の色で（HTML）。t が無ければ白
+function titleNameHtml(name,t){return '<span class="tName tn-'+(t?t.c:"none")+'">'+escH(name||"")+'</span>'}
+function titleTagHtml(t){return t?'<span class="tTag tt-'+t.c+'">'+escH(t.name)+'</span>':""}
+function openTitles(){titleCheck(true);hideAll();$("titles").classList.remove("hide");$("app").scrollTop=0;sfx("sel");renderTitles()}
+function renderTitles(){const o=tState(),eq=titleEquipped();
+ $("titleNow").innerHTML='<div class="tnLbl">いま装着している称号</div>'+(eq?titleTagHtml(eq):'<span class="tNone">なし</span>')+'<div class="tnName">'+titleNameHtml((player&&player.name)||"",eq)+'</div>';
+ $("titleCount").textContent=Object.keys(o.got).filter(id=>titleById(id)).length+" / "+TITLES.length;
+ $("titleList").innerHTML=TITLES.map(t=>{const got=!!o.got[t.id],rw=got&&!o.claimed[t.id],on=eq&&eq.id==t.id;
+  const st=on?"装着中":(got?"解放済":"未解放");
+  return '<button type="button" class="tRow'+(got?" got":"")+(on?" on":"")+'" '+(got?'onclick="titleTap(\''+t.id+'\')"':"disabled")+'>'
+   +'<span class="tRx"><span class="tRn '+(got?"tn-"+t.c:"")+'">'+(got?escH(t.name):"？？？")+'</span><span class="tRc">'+escH(t.cond)+(t.limited?"　期間限定":"")+'</span></span>'
+   +(rw?'<span class="tRw">💎'+TITLE_REWARD[t.c]+' 受け取る</span>':'<span class="tRs st-'+(on?"on":got?"got":"no")+'">'+st+'</span>')+'</button>'}).join("")}
+function titleTap(id){const o=tState(),t=titleById(id);if(!t||!o.got[id])return;
+ if(!o.claimed[id]){o.claimed[id]=Date.now();tSave(o);addCrystal(TITLE_REWARD[t.c],"称号「"+t.name+"」");sfx("win");renderTitles();renderMenuBadge();return}
+ o.eq=o.eq==id?null:id;tSave(o);sfx("sel");log2Toast(o.eq?"称号「"+t.name+"」を装着しました":"称号を外しました");renderTitles();renderHomeName()}
+function renderHomeName(){const el=$("homeName");if(!el)return;if(!player){el.innerHTML="";return}
+ const t=titleEquipped();el.innerHTML=titleTagHtml(t)+titleNameHtml(player.name,t)}
+// 対戦の結果を記録する（勝ち負け・とどめ・ボスなど）
+function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
+ if(friend){o.fGames=(o.fGames||0)+1;if(won)o.fWins=(o.fWins||0)+1}
+ else{if(won){o.wins=(o.wins||0)+1;o.streak=(o.streak||0)+1;o.best=Math.max(o.best||0,o.streak)}else{o.losses=(o.losses||0)+1;o.streak=0}}
+ if(won){
+  const tn=(typeof pturn=="function")?pturn():9;
+  if(tn<=5)o.fast5=1;if(tn<=3)o.fast3=1;
+  if(!S.pHurt)o.perfect=1;if(S.pLow)o.comeback=1;
+  if(typeof turnTotal=="function"&&turnTotal()>=20)o.long=1;
+  if(S.cd&&S.cd.length===0&&(S.cFatigue||0)>0)o.mill=1;
+  if(S.pg&&S.pg.length>=20)o.grave=1;
+  if(S.pb&&S.pb.every(Boolean))o.full=1;
+  if(S.usedMake)o.make=1;
+  const f=S.lastHitId;if(f){o.fin=o.fin||{};o.fin[f]=(o.fin[f]||0)+1;const c=by(f);
+   if(c&&c.type=="spell")o.spellKO=(o.spellKO||0)+1;else if(c&&(c.charge||c.permCharge))o.chargeKO=(o.chargeKO||0)+1}
+  const m=/^ev_(\w+?)_awake$/.exec(oppId||"");if(m)o["awake_"+m[1]]=(o["awake_"+m[1]]||0)+1}
+ ttSave(o);titleCheck()}
 
 /* ================= シーズンパス =================
    ・ゲージは1本。100ptで1段（対戦 勝ち20・負け10、タスク・ログインの受け取り10）
@@ -4548,6 +4742,7 @@ function prematch(personality,fixed){
  const boss=pmBossShow(opp.bossCard,opp.bossLine);
  $("pmName").textContent=boss&&by(opp.bossCard)?by(opp.bossCard).name:name;
  $("pmTag").textContent=fillText(opp.tagline||"");
+ $("pmOppTitle").innerHTML="";renderPmMe();
  $("pmBtn").classList.remove("show");
  const second=Math.random()<.5;
  if(boss){                                        // ボスのカードが出きってからルーレット
@@ -4557,6 +4752,7 @@ function prematch(personality,fixed){
  else pmSpin(second);
 }
 // 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
+function renderPmMe(){const t=titleEquipped();$("pmMe").innerHTML=titleTagHtml(t)+titleNameHtml((player&&player.name)||"あなた",t)}
 function pmSpin(second){
  const box=$("pmFlip");
  box.classList.remove("on","hit");box.textContent="先攻";
@@ -4581,7 +4777,8 @@ function pmSpin(second){
 // フレンドマッチ用：相手の名前を出してルーレット。止まったあとボタンで go() を呼ぶ
 function fmRoulette(name,second,go){
  pmPending={go,second:false};pmBossShow(null);
- $("pmName").textContent=name;$("pmTag").textContent="フレンドマッチ";
+ $("pmName").innerHTML=titleNameHtml(name,FM.oppTitle?titleById(FM.oppTitle):null);$("pmTag").textContent="フレンドマッチ";
+ $("pmOppTitle").innerHTML=titleTagHtml(FM.oppTitle?titleById(FM.oppTitle):null);renderPmMe();
  $("pmBtn").classList.remove("show");
  pmSpin(second)}
 async function prematchGo(){
@@ -4708,6 +4905,8 @@ function heroDmg(side,n,from){if(n<=0||S.over)return;
  }
  if(side=="p")S.php-=n;else S.chp-=n;
  if(side=="c")S.lastHitSpell=!!S.castingSpell;   // イベントミッション「呪文でとどめ」用
+ if(side=="c")S.lastHitId=S.curSrc||null;          // 称号「〇〇でとどめ」用
+ if(side=="p"){S.pHurt=1;if(S.php<=1000&&S.php>0)S.pLow=1}
  floatHero(side,"-"+n,"red");sfx("hit");
  const b=$(side=="p"?"phpBox":"chpBox");if(b){b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}
  render()}
@@ -4721,7 +4920,7 @@ function float(side,i,v,cl){try{const r=slot(side,i).getBoundingClientRect();mkF
    まだ見ていない用語は「？？？」で伏せる（集める楽しみのため）。 */
 function tabletSeen(){try{return new Set(JSON.parse(store.get("cmTablet")||"[]"))}catch(e){return new Set()}}
 function markTermSeen(k){const s=tabletSeen();if(!s.has(k)){s.add(k);store.set("cmTablet",JSON.stringify([...s]))}}
-function openTablet(){hideAll();$("tablet").classList.remove("hide");$("app").scrollTop=0;renderTablet();guideOnce("tablet")}
+function openTablet(){ttSet("tablet",1);hideAll();$("tablet").classList.remove("hide");$("app").scrollTop=0;renderTablet();guideOnce("tablet")}
 function renderTablet(){
  const keys=Object.keys(TERMS),seen=new Set(keys);   // 用語集：最初から全部読める
  $("tabletInfo").textContent="全"+keys.length+"語";
@@ -5078,7 +5277,7 @@ function summon(pos){if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
  if(c.leftCharge&&pos==0){m.permCharge=1;grantCharge(m)}
  if(c.rightGuard&&pos==2){m.permGuard=1;m.guard=1}
  S.pb[pos]=m;S.ph.splice(selH,1);selH=null;sfxCard(m,"summon");
- log(m.name+"を召喚");summonEff(m,"p");afterSummon(m,"p");if(!TUT.on)bumpDaily("summon",1);encounterCard(c.id);render();chk()}
+ log(m.name+"を召喚");S.curSrc=m.id;summonEff(m,"p");afterSummon(m,"p");ttAdd("summons");if(!TUT.on)bumpDaily("summon",1);encounterCard(c.id);render();chk()}
 /* ===== 召喚したあとの共通処理（ハロウィン）=====
    ・スパイダーネット：網を張られた側が召喚したモンスターは、そのターン攻撃できない（突撃も）
    ・おおかみおかみ：相手が召喚するたび、相手に宿代ダメージ
@@ -5127,7 +5326,7 @@ function cast(){if(FM.on&&FM.role=="guest")return fmGuestCast();
  if(S.pLock)return log("スペルロック中：このターンは呪文を唱えられません");
  const cost=ec(c,"p");if(cost>S.cost)return log("コストが足りません");
  const err=castCheck(c);if(err)return log(err);
- S.cost-=cost;const _sp=c;S.ph.splice(selH,1);selH=null;sfxCard(_sp,"cast");
+ S.cost-=cost;const _sp=c;S.ph.splice(selH,1);selH=null;sfxCard(_sp,"cast");S.curSrc=c.id;if(c.id=="maketakunai")S.usedMake=1;
  log("呪文「"+c.name+"」を発動");encounterCard(c.id);cutIn(c);
  S.castingSpell=true;
  try{if(PICKFX[c.eff])spell(c,"p",{card:c,cost});
@@ -5291,10 +5490,11 @@ async function playerAtk(f,to){let a=S.pb[f],d=S.cb[to];if(!a)return;
  }
  clearLaneFx();
  await mark("p",f);
- if(!d){const dmg=at(a,"p");heroDmg("c",dmg,"p");if(a.lifesteal)healHero("p",dmg);afterAtk(a,"p");render();chk();return}
+ if(!d){const dmg=at(a,"p");S.curSrc=a.id;heroDmg("c",dmg,"p");if(a.lifesteal)healHero("p",dmg);afterAtk(a,"p");render();chk();return}
  await battle("p",f,"c",to)}
 async function battle(as,ai,ds,di){const AB=as=="p"?S.pb:S.cb,DB=ds=="p"?S.pb:S.cb;
  const a=AB[ai],d=DB[di];if(!a||!d)return;
+ if(as=="p")S.curSrc=a.id;
  sfxCard(a,"atk","hit");
  const av=at(a,as),dv=df(d,ds)+(d.vsCharge&&(a.charge||a.permCharge)?d.vsCharge:0);   // フランケンドーシュタイン：突撃の相手には固い
  if(av>dv){float(ds,di,av,"red");await sleep(380);
@@ -5550,7 +5750,7 @@ async function cpuDoAttack(pos,tgt){const m=S.cb[pos];if(!m)return;const av=at(m
   clearLaneFx();
   if(!S||S.over)return;
   if(bi>=0&&bi!=tgt){
-   S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");
+   S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");if(!FM.on)ttAdd("guard");
    log(S.pb[bi].name+"が守護で受け止めた！");
    if(S.pb[bi].blockBurn){heroDmg("c",S.pb[bi].blockBurn,"p");log(S.pb[bi].name+"："+S.pb[bi].blockBurn+"ダメージ")}
    await mark("c",pos);await battle("c",pos,"p",bi);await sleep(450);return}
@@ -5607,7 +5807,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  else if(w===false){t.textContent="LOSE...";t.className="rtitle dot losec";sfx("lose")}
  else{t.textContent="DRAW";t.className="rtitle dot losec"}
  $("rSub").textContent=(w===true?"勝利！ ":w===false?"敗北… ":"相打ち ")+pturn()+"ターンで決着";
- if(FM.on){fmPublishNow();addPassPt(w===true?PASS_PT.win:PASS_PT.lose,"フレンド");setTimeout(()=>$("resultov").classList.add("show"),600);return}   // フレンドマッチは報酬なし（パスのptだけ）
+ if(FM.on){fmPublishNow();addPassPt(w===true?PASS_PT.win:PASS_PT.lose,"フレンド");try{titleOnBattleEnd(w===true,"",true)}catch(e){}setTimeout(()=>$("resultov").classList.add("show"),600);return}   // フレンドマッチは報酬なし（パスのptだけ）
  onBattleEnd(w===true,S.opp&&S.opp.id);
  // ストーリー戦: 勝てば対戦後パートへ、負ければ再挑戦できるようにする
  if(storyContext){
