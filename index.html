@@ -194,6 +194,7 @@ body.calm .tCard{animation:none}
 #title>.tTitle,#title>.tSub,#title>.tSpacer,#title>#titleStart,#title>#titleSave{position:relative;z-index:5}
 #title>.tVer{z-index:5}
 #title>.tTitle{text-shadow:0 0 22px #050b18,0 0 40px #050b18,0 4px 0 #0008}
+#title>.tTitle{margin-top:max(36px,calc(15vh - 46px))}   /* カードの間（画面のまん中あたり）にロゴが来るように */
 #title:before{content:"";position:absolute;inset:0;
  background:linear-gradient(#050b18cc 0%,#050b1855 35%,#050b1866 70%,#050b18ee 100%)}
 .tTitle{position:relative;text-align:center;line-height:1.02;letter-spacing:2px;color:#eaf6ff;
@@ -1290,7 +1291,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.2.1</div>
+ <div class="tVer" id="tVer">ver.5.2.2</div>
 </div>
 
 <div id="app">
@@ -1747,7 +1748,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.2.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.2.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -5913,7 +5914,7 @@ function titleGo(){
    まだカードが少ない人は、はじまりのカードなどで埋める。真ん中（ロゴのところ）は空けておく */
 const TITLE_SLOTS=[
  {x:6,y:3,w:20,d:2},{x:60,y:2,w:22,d:2},{x:33,y:11,w:24,d:1},{x:-6,y:17,w:34,d:0},{x:66,y:15,w:34,d:0},
- {x:84,y:36,w:20,d:2},{x:-8,y:40,w:20,d:2},{x:-2,y:71,w:32,d:0},{x:66,y:70,w:34,d:0},{x:38,y:79,w:22,d:1},
+ {x:84,y:36,w:20,d:2},{x:-8,y:40,w:20,d:2},{x:-2,y:76,w:32,d:0},{x:66,y:75,w:34,d:0},{x:38,y:83,w:22,d:1},
  {x:80,y:91,w:22,d:1},{x:8,y:92,w:20,d:2},{x:50,y:95,w:16,d:2},{x:28,y:-4,w:16,d:2}];
 function renderTitleCards(){const box=$("titleCards");if(!box)return;
  const RK={CR:5,UR:4,SR:3,R:2,N:1},m=ownedMap();
