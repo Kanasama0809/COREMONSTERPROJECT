@@ -1298,7 +1298,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.3.2</div>
+ <div class="tVer" id="tVer">ver.5.3.4</div>
 </div>
 
 <div id="app">
@@ -1756,7 +1756,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.3.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.3.4</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -4412,17 +4412,17 @@ const TITLES=[
  {id:"t_codex100",name:"カード博士",c:"gold",cond:"図鑑を100%うめる",ok:()=>ttOwnedPct()>=1},
  {id:"t_promoall",name:"プロモコレクター",c:"silver",cond:"プロモを全部集める",ok:()=>ttAll(c=>c.promo&&!c.passS)},
  // おもしろ（このカードでとどめ）
- {id:"t_suiso",name:"水素の音ォ",c:"blue",cond:"「水素の音ォ！！」でとどめを刺す",fin:"suiso"},
+ {id:"t_suiso",name:"水素の音ォ",c:"blue",cond:"1試合で「水素の音ォ！！」を2回使う",ok:()=>!!T().suiso2},
  {id:"t_uradora",name:"裏ドラ乗った",c:"purple",cond:"「裏ドラキュラ」でとどめを刺す",fin:"uradracula"},
  {id:"t_ippan",name:"一般人の意地",c:"white",cond:"「一般男性A」でとどめを刺す",fin:"ippanA"},
  {id:"t_moratta",name:"もらった！",c:"red",cond:"「もらった！」でとどめを刺す",fin:"moratta"},
  {id:"t_tarakong",name:"ウホウホ",c:"green",cond:"「たらコング」でとどめを刺す",fin:"tarakong"},
  {id:"t_shinobi",name:"忍ぶれど",c:"purple",cond:"「ソノバシノビ」でとどめを刺す",fin:"sonobashinobi"},
- {id:"t_mimi",name:"聞こえたか？",c:"red",cond:"「耳に刻め！！」でとどめを刺す",fin:"mimi"},
- {id:"t_hontou",name:"証明終了",c:"purple",cond:"「本当だからだ！」でとどめを刺す",fin:"hontou"},
- {id:"t_haiku",name:"五七五",c:"green",cond:"「ここで1句」でとどめを刺す",fin:"kokoikku"},
+ {id:"t_mimi",name:"聞こえたか？",c:"red",cond:"「耳に刻め！！」で相手のモンスターを2体以上まとめて破壊する",ok:()=>!!T().mimi2},
+ {id:"t_hontou",name:"証明終了",c:"purple",cond:"「本当だからだ！」を使った試合で勝つ",ok:()=>!!T().hontouWin},
+ {id:"t_haiku",name:"五七五",c:"green",cond:"「ここで1句」を使った試合で勝つ",ok:()=>!!T().haikuWin},
  {id:"t_make",name:"負けず嫌い",c:"red",cond:"「負けたくない」を使って勝つ",ok:()=>!!T().make},
- {id:"t_choinomi",name:"一杯だけ",c:"purple",cond:"「ちょい呑み」でとどめを刺す",fin:"choi"},
+ {id:"t_choinomi",name:"一杯だけ",c:"purple",cond:"「ちょい呑み」で強くしたモンスターでとどめを刺す",ok:()=>!!T().choiKO},
  {id:"t_straight",name:"ど真ん中",c:"red",cond:"「火の玉ストレート」でとどめを刺す",fin:"firestraight"},
  {id:"t_kanpou",name:"砲撃用意",c:"red",cond:"「艦砲射撃」でとどめを刺す",fin:"kanpou"},
  // ボス・イベント
@@ -4483,6 +4483,8 @@ function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
   if(S.pg&&S.pg.length>=20)o.grave=1;
   if(S.pb&&S.pb.every(Boolean))o.full=1;
   if(S.usedMake)o.make=1;
+  if(S.used){if(S.used.hontou)o.hontouWin=1;if(S.used.kokoikku)o.haikuWin=1}
+  if(S.lastHitChoi)o.choiKO=1;
   const f=S.lastHitId;if(f){o.fin=o.fin||{};o.fin[f]=(o.fin[f]||0)+1;const c=by(f);
    if(c&&c.type=="spell")o.spellKO=(o.spellKO||0)+1;else if(c&&(c.charge||c.permCharge))o.chargeKO=(o.chargeKO||0)+1}
   const m=/^ev_(\w+?)_awake$/.exec(oppId||"");if(m)o["awake_"+m[1]]=(o["awake_"+m[1]]||0)+1}
@@ -5003,6 +5005,7 @@ function heroDmg(side,n,from){if(n<=0||S.over)return;
  if(side=="p")S.php-=n;else S.chp-=n;
  if(side=="c")S.lastHitSpell=!!S.castingSpell;   // イベントミッション「呪文でとどめ」用
  if(side=="c")S.lastHitId=S.curSrc||null;          // 称号「〇〇でとどめ」用
+ if(side=="c"){const src=S.pb.find(m=>m&&m.id==S.curSrc);S.lastHitChoi=!!(src&&src.choiDie)}
  if(side=="p"){S.pHurt=1;if(S.php<=1000&&S.php>0)S.pLow=1}
  floatHero(side,"-"+n,"red");sfx("hit");
  const b=$(side=="p"?"phpBox":"chpBox");if(b){b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}
@@ -5441,7 +5444,7 @@ function cast(){if(FM.on&&FM.role=="guest")return fmGuestCast();
  if(S.pLock)return log("スペルロック中：このターンは呪文を唱えられません");
  const cost=ec(c,"p");if(cost>S.cost)return log("コストが足りません");
  const err=castCheck(c);if(err)return log(err);
- S.cost-=cost;const _sp=c;S.ph.splice(selH,1);selH=null;sfxCard(_sp,"cast");S.curSrc=c.id;if(c.id=="maketakunai")S.usedMake=1;
+ S.cost-=cost;const _sp=c;S.ph.splice(selH,1);selH=null;sfxCard(_sp,"cast");S.curSrc=c.id;if(c.id=="maketakunai")S.usedMake=1;S.used=S.used||{};S.used[c.id]=1;
  log("呪文「"+c.name+"」を発動");encounterCard(c.id);cutIn(c);try{storyTip("呪文")}catch(e){}
  S.castingSpell=true;
  try{if(PICKFX[c.eff])spell(c,"p",{card:c,cost});
@@ -5477,7 +5480,7 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
    if(!idx.length)break;myH.push(myD.splice(idx[Math.random()*idx.length|0],1)[0]);got++}
   log("呪文を"+got+"枚手札に加えた")}
  if(E=="discard2")discardRnd(ES,2);
- if(E=="discard3")discardRnd(ES,3);
+ if(E=="discard3"){discardRnd(ES,3);if(side=="p"&&!FM.on){S.suisoN=(S.suisoN||0)+1;if(S.suisoN>=2)ttSet("suiso2",1)}}   // 称号：1試合で2回使う
  if(E=="discard2draw2"){discardRnd(ES,2);draw(side);draw(side)}
  if(E=="spelllock"){if(p)S.cLock=true;else S.pLock=true;log((p?"CPU":"あなた")+"は次のターン呪文を唱えられない")}
  if(E=="def2"){if(p)S.pDef2=true;else S.cDef2=true;log("味方全体のDEFを2倍化")}
@@ -5504,7 +5507,7 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
  if(E=="enemyCenterKill"){const t=EB[1];if(t){const d=(t.cost||0)*500;boomKill(ES,1);if(d>0){oDmg(d);log(t.name+"を破壊し"+d+"ダメージ")}}}
  if(E=="bothCenterKill"){if(MB[1])boomKill(MS,1);if(EB[1])boomKill(ES,1)}
  if(E=="enemySidesKill"){if(EB[0])boomKill(ES,0);if(EB[2])boomKill(ES,2)}
- if(E=="cost3AllKill"){killAll(S.pb,"p",m=>m.cost<=3);killAll(S.cb,"c",m=>m.cost<=3);log("コスト3以下を全破壊")}
+ if(E=="cost3AllKill"){const eb=(side=="p"?S.cb:S.pb).filter(m=>m&&m.cost<=3).length;killAll(S.pb,"p",m=>m.cost<=3);killAll(S.cb,"c",m=>m.cost<=3);log("コスト3以下を全破壊");if(side=="p"&&!FM.on&&eb>=2)ttSet("mimi2",1)}
  if(E=="def2000"){EB.forEach((m,i)=>{if(m&&df(m,ES)<=2000)boomKill(ES,i)});log("相手のDEF2000以下を破壊")}
  if(E=="def1500"){EB.forEach((m,i)=>{if(m&&df(m,ES)<=1500)boomKill(ES,i)});log("相手のDEF1500以下を破壊")}
  if(E=="finish")oDmg(2000);
