@@ -1094,6 +1094,9 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 /* フェイズのカットイン（画面中央の帯） */
 .battleTip{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:150;padding:10px 14px;border-radius:14px;background:#0d1f3aee;border:2px solid #f0c76a;color:#eaf2ff;font-size:13px;line-height:1.6;box-shadow:0 8px 24px #000a;opacity:0;transform:translateY(-8px);transition:opacity .3s,transform .3s;pointer-events:none}
 .battleTip.show{opacity:1;transform:none}
+.battleTip.tap{pointer-events:auto;cursor:pointer}
+.btRow{margin-top:6px}
+.btHint{margin-top:8px;font-size:11px;color:#9fb6d6;text-align:right}
 .battleTip b{color:#f0c76a;margin-right:4px}
 .phaseCut{position:fixed;left:0;right:0;top:40%;z-index:140;pointer-events:none;opacity:0;text-align:center;padding:10px 0 12px}
 .phaseCut.go{animation:pcIn 1.15s ease-out forwards}
@@ -1295,7 +1298,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.3.1</div>
+ <div class="tVer" id="tVer">ver.5.3.2</div>
 </div>
 
 <div id="app">
@@ -1753,7 +1756,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.3.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.3.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -4880,6 +4883,7 @@ async function prematchGo(){
  if(p.go){await p.go();return}
  start(p.personality,p.fixed);
  if(lastMatch)lastMatch.random=!!p.random;
+ try{storyIntroTip()}catch(e){}
  if(S&&!p.second)setTimeout(()=>{if(S&&S.active=="p"&&S.tn&&S.tn.p==1)phaseCutIn("main1","p")},250);
  if(p.second&&S){                       // 後攻：相手のターンから始める
   S.pSecond=true;S.tn={p:0,c:0};
@@ -5381,6 +5385,15 @@ function storyTip(term){if(!S||!S.storyTerms||!S.storyTerms.includes(term))retur
  const t=TERMS[term],txt=(t?t.text:STORY_TIP_EXTRA[term])||"";const el=$("battleTip");if(!el)return;
  el.innerHTML='<b>📖【'+term+'】</b>'+txt;el.classList.add("show");log("📖【"+term+"】"+txt);
  clearTimeout(window._tipT);window._tipT=setTimeout(()=>el.classList.remove("show"),5200);try{markTermSeen(term)}catch(e){}}
+// 序章：対戦の始めに「この試合で覚えること」をまとめて出す（タップで閉じる）
+function storyIntroTip(){if(!S||!S.storyTerms||!S.storyTerms.length)return;const el=$("battleTip");if(!el)return;
+ el.innerHTML='<b>📖 この試合で覚えること</b>'+S.storyTerms.map(t=>'<div class="btRow"><b>【'+t+'】</b>'+((TERMS[t]?TERMS[t].text:STORY_TIP_EXTRA[t])||"")+'</div>').join("")
+  +'<div class="btHint">カードが出てきたら、また教えるぞ。タップで閉じる</div>';
+ el.classList.add("show","tap");clearTimeout(window._tipT);
+ el.onclick=()=>{el.classList.remove("show","tap");el.onclick=null};
+ window._tipT=setTimeout(()=>{el.classList.remove("show","tap");el.onclick=null},12000);
+ // 自分の手札に、この試合の用語のカードがあれば、あとで出したときに教える
+ log("📖 この試合で覚えること："+S.storyTerms.map(t=>"【"+t+"】").join(""))}
 function storyTipMon(m){if(!m)return;if(m.guard)storyTip("守護");if(m.cantAttack)storyTip("攻撃できない");if(m.charge||m.permCharge)storyTip("突撃");
  if(m.double)storyTip("二回攻撃");if(m.lifesteal)storyTip("吸収");if(m.noPierce)storyTip("貫通されない")}
 function afterSummon(m,side){if(!S||!m)return;
