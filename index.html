@@ -1290,7 +1290,9 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  .box{padding:4px 6px}.zt{margin:3px 0;font-size:11px}.mid{margin:5px 0;gap:6px}.midbtns{margin:4px 0}.midbtns button{padding:6px;font-size:12px}
  .log{padding:5px;min-height:24px;font-size:11px}.hint{padding:3px;font-size:9.5px;margin-top:3px}.gemrow{padding:4px 6px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style></head><body>
+</style>
+<!-- 遊ばれている回数を数える（GoatCounter：個人情報・クッキーなし） -->
+<script data-goatcounter="https://coremon.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
 <div id="title">
  <div id="titleCards" class="titleCards" aria-hidden="true"></div>
  <div class="tTitle dot">CORE<br>MONSTERS</div>
@@ -1298,7 +1300,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.3.4</div>
+ <div class="tVer" id="tVer">ver.5.4.0</div>
 </div>
 
 <div id="app">
@@ -1756,7 +1758,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.3.4</div>
+  <div class="aboutVer" id="aboutVer">ver.5.4.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2433,7 +2435,7 @@ function fillText(s){
 // ストーリー進行: クリア済みの "章-話" を記録
 function storyProgress(){try{return JSON.parse(store.get("cmStoryProg")||"[]")}catch(e){return[]}}
 function markStoryClear(ch,ep){const p=storyProgress();const k=ch+"-"+ep;
- if(!p.includes(k)){p.push(k);store.set("cmStoryProg",JSON.stringify(p));addXp(XP_STORY,"ストーリー初クリア");storyReward(k)}}
+ if(!p.includes(k)){gcEvent("story-clear-"+k);p.push(k);store.set("cmStoryProg",JSON.stringify(p));addXp(XP_STORY,"ストーリー初クリア");storyReward(k)}}
 /* ===== 序章のごほうび =====
    1話ごとに、その話で相手が使ってきた戦い方のカードを2枚もらえる。
    デッキにはじまりシリーズの入れ替え先が入っていれば、自動で入れ替える（すぐ次の話で使える） */
@@ -3280,6 +3282,7 @@ function claimLogin(){ensureTaskState();if(taskState.loginDate===todayStr())retu
  taskState.loginDate=todayStr();addCrystal(LOGIN_BONUS,"ログインボーナス");addPassPt(PASS_PT.task,"ログイン");ttAdd("login");saveTaskState();renderTasks();return true}
 
 function onBattleEnd(won,oppId){ensureTaskState();addXp(won?XP_WIN:XP_LOSE,won?"勝利":"対戦");
+ gcEvent(won?"battle-win":"battle-lose");if(/^ev_/.test(oppId||""))gcEvent((won?"boss-win-":"boss-lose-")+String(oppId).slice(3));
  try{titleOnBattleEnd(won,oppId,false)}catch(e){}
  addPassPt(won?PASS_PT.win:PASS_PT.lose,"対戦");
  if(eventBattleId){if(won)onEventWin();else eventBattleId=null}
@@ -3680,7 +3683,7 @@ async function pullGacha(){if(gachaBusy)return;
 // 引いた瞬間に全部を所持に入れる（めくらずに一覧へ戻ったり、アプリを閉じたりしても消えないように）
 let gachaRw=[];
 function gachaPend(){try{const v=JSON.parse(store.get("cmGachaPend")||"[]");return Array.isArray(v)?v:[]}catch(e){return[]}}
-function saveGachaBatch(){const pend=gachaPend();
+function saveGachaBatch(){const pend=gachaPend();if(gachaBatch.some((c,i)=>!gachaSaved[i]))gcEvent("gacha-pull-"+gachaBatch.length+"-pack"+(curPack||1));
  gachaBatch.forEach((c,i)=>{if(gachaSaved[i])return;
   const r=unlockCardDeferred(c.id);gachaShard[i]=r.shard;gachaNew[i]=r.isNew;
   r.rw.k=Date.now()+"_"+i+"_"+Math.random().toString(36).slice(2,6);gachaRw[i]=r.rw;
@@ -4131,7 +4134,7 @@ async function fmHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
  const opp={id:"friend",name:R.guest.name,tagline:"フレンドマッチ",aggro:1,deck:(R.guest.deck||[]).filter(id=>by(id))};
  fmRoulette(R.guest.name,first=="guest",async()=>{
   if(!FM.on)return;
-  start(opp);fmPublishNow();completeWelcome("friend1");
+  start(opp);fmPublishNow();completeWelcome("friend1");gcEvent("friend-match");
   if(first=="host")setTimeout(()=>{if(S&&S.active=="p")phaseCutIn("main1","p")},250);
   if(first=="guest"&&S){S.pSecond=true;S.tn={p:0,c:0};S.active="c";await endTurn()}
   fmPublishNow()})}
@@ -4235,7 +4238,7 @@ function fmNetBanner(){const b=$("fmNet");if(!b)return;let t="";
 function fmOppGone(){if(!FM.on)return;log2Toast("相手が退出しました");
  if(S&&!S.over){S.chp=0;chk()}}
 // ---- ゲスト
-function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;completeWelcome("friend1");
+function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;completeWelcome("friend1");gcEvent("friend-match");
  FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",oppTitle:(room.host&&room.host.title)||"",sent:false};
  hideAll();$("game").classList.remove("hide");logs=[];selH=selA=selE=null;pending=null;
  S=null;$("log").textContent="ホストが対戦を準備しています…";
@@ -4338,6 +4341,11 @@ function guideNext(){const q=guideQ;if(!q)return;q.i++;
  if(q.i>=q.lines.length){guideQ=null;$("guidePop").classList.remove("show");return}
  guideShow()}
 function guideReset(){store.set("cmGuide","[]");closeAbout();log2Toast("父の説明を、次に画面を開いたときにもう一度出します")}
+
+/* ================= 計測（GoatCounter のイベント） =================
+   ゲームの中で何が起きたかの回数だけ送る（名前などは送らない）。読み込めていないときは何もしない */
+function gcEvent(name){try{if(window.goatcounter&&window.goatcounter.count&&location.protocol.startsWith("http"))
+ window.goatcounter.count({path:name,title:name,event:true})}catch(e){}}
 
 /* ================= 称号 =================
    条件を満たすと解放 → 称号の画面で報酬（クリスタル）を受け取る → 1つ装着すると名前の色が変わる
@@ -4448,7 +4456,7 @@ function tSave(o){store.set("cmTitles",JSON.stringify(o))}
 // 条件を見て、新しく満たした称号を解放する（通知つき）
 function titleCheck(quiet){const o=tState();const fresh=[];
  TITLES.forEach(t=>{if(o.got[t.id])return;let ok=false;try{ok=!!t.ok()}catch(e){}if(ok){o.got[t.id]=Date.now();fresh.push(t)}});
- if(fresh.length){tSave(o);if(!quiet)fresh.slice(0,3).forEach((t,i)=>setTimeout(()=>log2Toast("🏅 称号「"+t.name+"」を解放！"),i*900))}
+ if(fresh.length){tSave(o);fresh.forEach(t=>gcEvent("title-"+t.id));if(!quiet)fresh.slice(0,3).forEach((t,i)=>setTimeout(()=>log2Toast("🏅 称号「"+t.name+"」を解放！"),i*900))}
  try{renderMenuBadge()}catch(e){}
  return fresh}
 function titleReadyN(){const o=tState();return TITLES.filter(t=>o.got[t.id]&&!o.claimed[t.id]).length}
@@ -4546,7 +4554,7 @@ function passUnlock(k){const se=passSeason(),st=passState();if(!se||!st||st.open
  if(!free){if(crystal<se.unlockCost){log2Toast("クリスタルが足りません（💎"+se.unlockCost+"必要）");sfx("hit");return}
   crystal-=se.unlockCost;saveCrystal();renderCrystalDisplays()}
  else st.freeUsed=true;
- st.open[k]=true;st.view=k;passSave(st);$("passUnlockPop").classList.remove("show");sfx("win");
+ st.open[k]=true;st.view=k;passSave(st);$("passUnlockPop").classList.remove("show");sfx("win");gcEvent("pass-unlock-"+k+(free?"-free":""));
  log2Toast("🎟 "+se.lanes[k].name+"を解放しました");renderPass()}
 function passDaysLeft(se){const a=se.end.split("-").map(Number);const end=new Date(a[0],a[1]-1,a[2]+1);return Math.max(0,Math.ceil((end-new Date())/864e5))}
 function renderPass(){const se=passSeason(),st=passState();if(!se||!st)return;
@@ -5953,7 +5961,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  }
  setTimeout(()=>$("resultov").classList.add("show"),600)}
 let storyLoseCtx=null;
-function storyGoOnAfterLose(){const ctx=storyLoseCtx;storyLoseCtx=null;if(!ctx)return;hideP("resultov");storyContext=null;
+function storyGoOnAfterLose(){const ctx=storyLoseCtx;storyLoseCtx=null;if(!ctx)return;gcEvent("story-skip-"+STORY[ctx.chIdx].ch+"-"+ctx.epIdx);hideP("resultov");storyContext=null;
  markStoryClear(STORY[ctx.chIdx].ch,ctx.epIdx);
  const ep=STORY[ctx.chIdx].episodes[ctx.epIdx],terms=(ep.terms||[]).map(t=>"【"+t+"】").join("と");
  const line={t:"s",who:"父",text:"（記憶の中の父の声）惜しかったな。だが今日の勝負で"+(terms||"大事なこと")+"は覚えたはずだ。前へ進め"};
@@ -5999,7 +6007,7 @@ function titleShowReady(){
 }
 function titleGo(){
  if(!titleReady||titleGone)return;
- titleGone=true;
+ titleGone=true;gcEvent("start");
  try{sfx("sel");preloadSfx()}catch(e){}   // ここで音を有効にし、ファイルの先読みも始める
  const t=$("title");
  t.classList.add("fade");
