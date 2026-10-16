@@ -77,6 +77,52 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .m4pair .m4.big .m4em{font-size:34px}
 .m4pair .m4.big .m4nm{font-size:19px;letter-spacing:1px}
 .m4.big.friendT{border-color:#6fd3ff;background:linear-gradient(#10304a,#0a1522);color:#d8f3ff;box-shadow:0 4px 0 #0a3a5a,0 8px 20px #0007}
+/* ===== 下のタブ ===== */
+:root{--tabH:calc(62px + env(safe-area-inset-bottom,0px))}
+.tabBar{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100vw,560px);height:var(--tabH);box-sizing:border-box;padding:6px 4px env(safe-area-inset-bottom,0px);background:#0b1426f7;border-top:1px solid #22375a;display:grid;grid-template-columns:repeat(5,1fr);z-index:95}
+.tabBar.hide{display:none}
+.tabBtn{position:relative;border:0;background:transparent;box-shadow:none;color:#8193b0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;font-size:11px;font-weight:800;padding:0;min-height:48px}
+.tabBtn.on{color:#5ee2b8}
+.tabBadge{position:absolute;top:2px;left:calc(50% + 8px);min-width:18px;height:18px;border-radius:99px;background:#e0454f;color:#fff;font-size:10px;line-height:18px;padding:0 4px;box-sizing:border-box}
+.tabBadge.hide{display:none}
+body.hasTab .foot{bottom:var(--tabH);padding-bottom:8px}
+body.hasTab .foot button[onclick="menu()"]{display:none}
+body.hasTab .foot:has(> button[onclick="menu()"]:only-child){display:none}
+body.hasTab #app{padding-bottom:calc(var(--tabH) + 8px)}
+body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
+/* ホーム：3つのボタン */
+.m4grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:0 0 auto}
+.m4grid3 .m4{padding:10px 2px;gap:4px;border-radius:14px;min-height:64px}
+.m4grid3 .m4 .m4em{font-size:22px}.m4grid3 .m4 .m4nm{font-size:12px}
+/* 対戦タブ */
+.btList{padding:4px 14px;display:flex;flex-direction:column;gap:10px}
+.btCard{position:relative;overflow:hidden;min-height:92px;border-radius:16px;border:2px solid var(--bc);background:#10203a;color:#eaf2ff;font:inherit;text-align:left;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.bt-cpu{--bc:#f0c76a}.bt-fr{--bc:#6bc8ff}.bt-ev{--bc:#ffb347}.bt-st{--bc:#7ee0a1}
+.btTtl{position:relative;font-family:'Dela Gothic One',sans-serif;font-size:22px;text-shadow:0 2px 6px #000a}
+.btSub{position:relative;font-size:12px;font-weight:800;color:#c9d6ea;text-shadow:0 1px 4px #000a}
+.btImg{position:absolute;right:0;top:0;width:52%;height:100%;object-fit:cover;object-position:50% 22%;opacity:.6}
+.btImg.hide{display:none}
+.btCard .pBadge{top:8px;right:8px}
+.deckLine{display:flex;align-items:center;gap:10px;margin:14px;width:calc(100% - 28px);min-height:52px;box-sizing:border-box;padding:0 14px;border-radius:14px;border:1px solid #2c4568;background:#13233c;color:#eaf2ff;font:inherit;text-align:left}
+.dlLbl{font-size:11px;color:#9fb6d6;font-weight:800}.dlName{flex:1;font-size:14px;font-weight:900}.dlGo{font-size:12px;color:#f0c76a;font-weight:900}
+/* メニュータブ */
+.mtGrid{padding:4px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mtBtn{position:relative;min-height:88px;border-radius:16px;border:1px solid #2c4568;background:#13233c;color:#eaf2ff;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.mtT{font-size:15px;font-weight:900}.mtS{font-size:11px;color:#9fb6d6}
+.mtBtn .pBadge{top:6px;right:6px}
+.mtFoot{margin:14px;padding:12px 14px;border-radius:14px;background:#10203a;border:1px solid #22375a;display:flex;justify-content:space-between;font-size:12px;color:#9fb6d6}
+.mtFoot b{color:#eaf2ff}
+/* デッキを選ぶ */
+.dpBox{max-width:420px;width:100%}
+.dpList{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.dpRow{display:flex;align-items:center;gap:10px;min-height:60px;padding:8px 10px;border-radius:12px;border:1px solid #2c4568;background:#10203a;color:#eaf2ff;font:inherit;text-align:left;width:100%}
+.dpRow.on{border:2px solid #f0c76a}.dpRow:disabled{opacity:.5}
+.dpImg{width:44px;height:44px;flex:0 0 auto;border-radius:8px;background:#22375a center/cover no-repeat}
+.dpTx{flex:1;display:flex;flex-direction:column;gap:2px}.dpN{font-size:14px;font-weight:900}.dpS{font-size:11px;color:#9fb6d6}
+.dpSt{font-size:11px;font-weight:900;color:#f0c76a}
+#deckPickPop{z-index:200}
+.pmDeck{margin:8px auto 0;min-height:40px;padding:6px 14px;border-radius:99px;border:1px solid #2c4568;background:#0d1830cc;color:#c9d6ea;font:inherit;font-size:12px}
+.pmDeck b{color:#eaf2ff}.pmDeck.hide{display:none}
 /* ホーム：8つのボタン（4×2） */
 .m4grid8{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;flex:0 0 auto}
 .m4grid8 .m4{padding:10px 2px;gap:4px;border-radius:14px;min-height:64px}
@@ -1300,7 +1346,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.4.1</div>
+ <div class="tVer" id="tVer">ver.5.5.0</div>
 </div>
 
 <div id="app">
@@ -1397,15 +1443,10 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
    <button class="m4 big" id="m4_battle" onclick="menuGo(1)"><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">CPUと対戦</span></button>
    <button class="m4 big friendT" id="m4_friend" onclick="menuGo(9)"><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンドマッチ</span></button>
   </div>
-  <div class="m4grid8">
-   <button class="m4" id="m4_story" onclick="menuGo(0)"><span class="m4em">📖</span><span class="m4nm">ストーリー</span></button>
+  <div class="m4grid3">
    <button class="m4" id="m4_events" onclick="menuGo(2)"><span class="m4em">⏳</span><span class="m4nm">イベント</span></button>
-   <button class="m4" id="m4_gacha" onclick="menuGo(6)"><span class="m4em">💎</span><span class="m4nm">ガチャ</span></button>
-   <button class="m4" id="m4_deck" onclick="menuGo(3)"><span class="m4em">🃏</span><span class="m4nm">デッキ</span></button>
-   <button class="m4" id="m4_codex" onclick="menuGo(4)"><span class="m4em">📚</span><span class="m4nm">図鑑</span></button>
    <button class="m4" id="m4_tasks" onclick="menuGo(7)"><span class="m4em">✅</span><span class="m4nm">タスク</span></button>
-   <button class="m4" id="m4_tablet" onclick="menuGo(5)"><span class="m4em">🪨</span><span class="m4nm">石版</span></button>
-   <button class="m4" id="m4_title" onclick="menuGo(10)"><span class="m4em">🏅</span><span class="m4nm">称号</span></button>
+   <button class="m4" id="m4_deck" onclick="menuGo(3)"><span class="m4em">🃏</span><span class="m4nm">デッキ</span></button>
   </div>
  </div>
 </div>
@@ -1445,10 +1486,45 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 
 <div id="friend" class="hide">
  <div class="editorHead"><h1>フレンドマッチ</h1><div class="sub">部屋コードで友だちと対戦</div></div>
+ <button type="button" class="deckLine" id="frDeckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="frDeckName"></span><span class="dlGo">変える ▶</span></button>
  <div id="friendBody"></div>
  <div class="foot"><button type="button" class="sec" onclick="friendLeave(true)">戻る</button></div>
 </div>
 
+<div id="battleTab" class="hide">
+ <div class="editorHead"><h1>対戦</h1><div class="sub">どこで戦うか選ぼう</div></div>
+ <div class="btList">
+  <button type="button" class="btCard bt-cpu" onclick="menuGo(1)"><span class="btTtl">ひとりで</span><span class="btSub">CPUと対戦</span></button>
+  <button type="button" class="btCard bt-fr" onclick="menuGo(9)"><span class="btTtl">だれかと</span><span class="btSub">部屋コードでフレンドマッチ</span></button>
+  <button type="button" class="btCard bt-ev" onclick="menuGo(2)"><img id="btEvImg" class="btImg" alt=""><span class="btTtl">イベント</span><span class="btSub" id="btEvSub">ボスバトル</span><span id="btEvBadge" class="pBadge hide">!</span></button>
+  <button type="button" class="btCard bt-st" onclick="continueStory()"><span class="btTtl">ストーリー</span><span class="btSub" id="btStSub">つづきから</span></button>
+ </div>
+ <button type="button" class="deckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="btDeckName"></span><span class="dlGo">変える ▶</span></button>
+</div>
+
+<div id="menuTab" class="hide">
+ <div class="editorHead"><h1>メニュー</h1></div>
+ <div class="mtGrid">
+  <button type="button" class="mtBtn" onclick="menuGo(7)"><span class="mtT">タスク</span><span class="mtS" id="mtTasks">毎日・毎週</span><span class="pBadge hide" id="mtTasksB"></span></button>
+  <button type="button" class="mtBtn" onclick="menuGo(10)"><span class="mtT">称号</span><span class="mtS" id="mtTitles"></span><span class="pBadge hide" id="mtTitlesB"></span></button>
+  <button type="button" class="mtBtn" onclick="menuGo(4)"><span class="mtT">図鑑</span><span class="mtS" id="mtCodex"></span></button>
+  <button type="button" class="mtBtn" onclick="menuGo(5)"><span class="mtT">石版</span><span class="mtS">用語集</span></button>
+  <button type="button" class="mtBtn" onclick="menuGo(3)"><span class="mtT">デッキ</span><span class="mtS" id="mtDeck"></span></button>
+  <button type="button" class="mtBtn" onclick="sfx('sel');openExchange()"><span class="mtT">交換所</span><span class="mtS">かけら</span></button>
+  <button type="button" class="mtBtn" onclick="sfx('sel');openPresents()"><span class="mtT">プレゼント</span><span class="mtS">受け取り</span></button>
+  <button type="button" class="mtBtn" onclick="sfx('sel');openNews()"><span class="mtT">お知らせ</span><span class="mtS">運営から</span></button>
+  <button type="button" class="mtBtn" onclick="openAbout()"><span class="mtT">設定</span><span class="mtS">演出・データ</span></button>
+ </div>
+ <div class="mtFoot"><span>プレイヤーID　<b id="mtPid"></b></span><span id="mtVer"></span></div>
+</div>
+
+<div id="deckPickPop" class="pov"><div class="confirmBox dpBox" onclick="event.stopPropagation()">
+ <div class="srTag">使うデッキをえらぶ</div>
+ <div id="deckPickList" class="dpList"></div>
+ <div class="confirmBtns" style="margin-top:10px"><button class="sec" onclick="sfx('sel');openEdit();hideP('deckPickPop')">デッキを編集</button><button class="sec" onclick="hideP('deckPickPop')">閉じる</button></div>
+</div></div>
+
+<nav id="tabBar" class="tabBar hide" aria-label="メイン"><button type="button" id="tab_home" class="tabBtn" onclick="tabGo('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 11 L12 4 L20 11 V20 H14 V14 H10 V20 H4 Z"/></svg><span>ホーム</span><span class="tabBadge hide"></span></button><button type="button" id="tab_story" class="tabBtn" onclick="tabGo('story')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 5 H10 a2 2 0 0 1 2 2 V20 a2 2 0 0 0 -2 -2 H4 Z"/><path d="M20 5 H14 a2 2 0 0 0 -2 2 V20 a2 2 0 0 1 2 -2 H20 Z"/></svg><span>ストーリー</span><span class="tabBadge hide"></span></button><button type="button" id="tab_battle" class="tabBtn" onclick="tabGo('battle')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5 19 L15 9"/><path d="M15 9 L19 5 L19 9 Z"/><path d="M19 19 L9 9"/><path d="M9 9 L5 5 L5 9 Z"/></svg><span>対戦</span><span class="tabBadge hide"></span></button><button type="button" id="tab_gacha" class="tabBtn" onclick="tabGo('gacha')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4 H17 L21 9 L12 20 L3 9 Z"/><path d="M3 9 H21"/><path d="M12 20 L8 9 L10 4"/><path d="M12 20 L16 9 L14 4"/></svg><span>ガチャ</span><span class="tabBadge hide"></span></button><button type="button" id="tab_more" class="tabBtn" onclick="tabGo('more')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg><span>メニュー</span><span class="tabBadge hide"></span></button></nav>
 <div id="fmNet" class="fmNet"></div>
 <div id="battleTip" class="battleTip"></div>
 <div id="phaseCut" class="phaseCut"></div>
@@ -1667,6 +1743,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div id="pmTag" class="pmTag"></div>
  <div class="pmVs">VS</div>
  <div id="pmMe" class="pmMe"></div>
+ <button type="button" id="pmDeck" class="pmDeck" onclick="openDeckPick()"></button>
  <div class="pmGap"></div>
  <div id="pmFlip" class="pmFlip">先攻</div>
  <button type="button" id="pmBtn" class="gold pmBtn" onclick="prematchGo()">対戦開始 ▶</button>
@@ -1758,7 +1835,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.4.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.5.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2662,6 +2739,50 @@ function treeBurst(){
  setTimeout(()=>el.classList.remove("burst"),1000);
 }
 
+/* ===== 下のタブ（ホーム・ストーリー・対戦・ガチャ・メニュー） =====
+   タブの画面と、そこから開く画面で出す。対戦中・会話・チュートリアル・序章クリア前は隠す */
+const TAB_OF={menu:"home",story:"story",battleTab:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
+ gacha:"gacha",exchange:"gacha",menuTab:"more",tasks:"more",titles:"more",codex:"more",tablet:"more",presents:"more",news:"more",edit:"more",pass:"home"};
+function tabGo(k){if(!isIntroDone())return;sfx("sel");
+ if(k=="home")menu();else if(k=="story")menuGo(0);else if(k=="battle")openBattleTab();else if(k=="gacha")menuGo(6);else if(k=="more")openMenuTab();syncTab()}
+function curScreen(){for(const id of Object.keys(TAB_OF)){const el=$(id);if(el&&!el.classList.contains("hide"))return id}return null}
+function syncTab(){const bar=$("tabBar");if(!bar)return;const sc=curScreen();
+ const show=!!(sc&&player&&isIntroDone()&&!introMode&&!(typeof TUT!="undefined"&&TUT.on)&&!($("prematch")&&$("prematch").classList.contains("on"))&&$("game").classList.contains("hide")&&$("storyTalk").classList.contains("hide"));
+ bar.classList.toggle("hide",!show);document.body.classList.toggle("hasTab",show);if(!show)return;
+ const act=TAB_OF[sc];["home","story","battle","gacha","more"].forEach(k=>$("tab_"+k).classList.toggle("on",k==act));
+ const badge=(k,n)=>{const b=$("tab_"+k).querySelector(".tabBadge");b.classList.toggle("hide",!n);b.textContent=n>9?"9+":String(n)};
+ let more=0;try{more+=taskReadyCount()}catch(e){}try{more+=titleReadyN()}catch(e){}
+ let ev=0;try{ev=evMisReadyCount()}catch(e){}
+ badge("more",more);badge("battle",ev)}
+setInterval(()=>{try{syncTab()}catch(e){}},300);
+function openBattleTab(){hideAll();$("battleTab").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
+function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());
+ try{const ev=eventsActive()[0];if(ev){const im=eventArtImg(ev);$("btEvImg").src=im||"";$("btEvImg").classList.toggle("hide",!im);$("btEvSub").textContent=(ev.title||ev.name)+(eventsActive().length>1?" ほか":"")}
+  else{$("btEvImg").classList.add("hide");$("btEvSub").textContent="開催中のイベントはありません"}}catch(e){}
+ try{const n=evMisReadyCount();$("btEvBadge").classList.toggle("hide",!n)}catch(e){}
+ try{renderContinue();const t=($("contSub").textContent+" "+$("contTtl").textContent).replace(/\s+/g," ").trim();$("btStSub").textContent=t||"つづきから"}catch(e){$("btStSub").textContent="つづきから"}}
+function openMenuTab(){hideAll();$("menuTab").classList.remove("hide");$("app").scrollTop=0;renderMenuTab();syncTab()}
+function renderMenuTab(){
+ try{const n=taskReadyCount();$("mtTasksB").textContent=n;$("mtTasksB").classList.toggle("hide",!n)}catch(e){}
+ try{const o=tState();$("mtTitles").textContent=Object.keys(o.got).filter(id=>titleById(id)).length+" / "+TITLES.length;const n=titleReadyN();$("mtTitlesB").textContent=n;$("mtTitlesB").classList.toggle("hide",!n)}catch(e){}
+ try{$("mtCodex").textContent=Math.round(ttOwnedPct()*100)+"%"}catch(e){}
+ $("mtDeck").textContent=deckSlotName(curSlot());
+ $("mtPid").textContent=playerId();$("mtVer").textContent=($("aboutVer")||{}).textContent||""}
+/* ===== 使うデッキを選ぶ（対戦タブ・対戦前・フレンドマッチ） ===== */
+function deckSlotName(i){const s=deckSlots()[i];return (s&&s.name)||("デッキ"+(i+1))}
+function openDeckPick(){const a=deckSlots(),cur=curSlot();
+ $("deckPickList").innerHTML=a.map((s,i)=>{const cards=(s&&s.cards)||[],ok=validDeck(cards);
+  const mons=cards.map(by).filter(c=>c&&c.type=="monster"),spl=cards.map(by).filter(c=>c&&c.type=="spell").length;
+  const key=[...mons].sort((x,y)=>(y.cost||0)-(x.cost||0)).find(c=>CARD_IMAGES[c.id]);
+  return '<button type="button" class="dpRow'+(i==cur?" on":"")+'" '+(ok?'onclick="pickDeckSlot('+i+')"':"disabled")+'>'
+   +'<span class="dpImg"'+(key?' style="background-image:url('+CARD_IMAGES[key.id]+')"':"")+'></span>'
+   +'<span class="dpTx"><span class="dpN">'+escH(deckSlotName(i))+'</span><span class="dpS">'+(ok?"モンスター"+mons.length+"・呪文"+spl:"未完成（"+cards.length+"/30枚）")+'</span></span>'
+   +'<span class="dpSt">'+(i==cur?"使用中":(ok?"選ぶ":""))+'</span></button>'}).join("");
+ $("deckPickPop").classList.add("show");sfx("sel")}
+function pickDeckSlot(i){const s=deckSlots()[i];if(!s||!validDeck(s.cards))return;setCurSlot(i);deck=[...s.cards];
+ hideP("deckPickPop");sfx("sel");log2Toast("「"+deckSlotName(i)+"」で戦います");
+ try{renderBattleTab()}catch(e){}try{if($("prematch").classList.contains("on"))renderPmDeck(true)}catch(e){}try{$("frDeckName").textContent=deckSlotName(i)}catch(e){}}
+
 /* ===== ホームのバナー（イベント・シーズンパス・ガチャを自動でめくる） ===== */
 let hbIdx=0,hbTimer=null,hbList=[];
 function homeSlides(){const L=[];if(!isIntroDone())return L;
@@ -3381,7 +3502,7 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
@@ -4025,7 +4146,7 @@ let fr={mode:"top"};
 function frName(){return (player&&player.name)||"ななし"}
 function frDeck(){try{return loadDeck().filter(id=>by(id))}catch(e){return[]}}
 function frLog(t){fr.log=(fr.log||[]).concat(t).slice(-20);const el=$("frLog");if(el){el.innerHTML=fr.log.map(escH).join("<br>");el.scrollTop=99999}}
-function openFriend(){hideAll();$("friend").classList.remove("hide");$("app").scrollTop=0;sfx("sel");fr={mode:"top"};renderFriend();guideOnce("friend")}
+function openFriend(){try{$("frDeckName").textContent=deckSlotName(curSlot())}catch(e){}hideAll();$("friend").classList.remove("hide");$("app").scrollTop=0;sfx("sel");fr={mode:"top"};renderFriend();guideOnce("friend")}
 function renderFriend(msg){const b=$("friendBody");if(!b)return;
  const err=msg?'<div class="frNote frErr">'+escH(msg)+'</div>':"";
  if(fr.mode=="top"){b.innerHTML=
@@ -4846,7 +4967,7 @@ function prematch(personality,fixed){
  const boss=pmBossShow(opp.bossCard,opp.bossLine);
  $("pmName").textContent=boss&&by(opp.bossCard)?by(opp.bossCard).name:name;
  $("pmTag").textContent=fillText(opp.tagline||"");
- $("pmOppTitle").innerHTML="";renderPmMe();
+ $("pmOppTitle").innerHTML="";renderPmMe();renderPmDeck(true);
  $("pmBtn").classList.remove("show");
  const second=Math.random()<.5;
  if(boss){                                        // ボスのカードが出きってからルーレット
@@ -4856,6 +4977,7 @@ function prematch(personality,fixed){
  else pmSpin(second);
 }
 // 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
+function renderPmDeck(show){const b=$("pmDeck");if(!b)return;b.classList.toggle("hide",!show);if(show)b.innerHTML='使うデッキ：<b>'+escH(deckSlotName(curSlot()))+'</b>　変える ▶'}
 function renderPmMe(){const t=titleEquipped();$("pmMe").innerHTML=titleTagHtml(t)+titleNameHtml((player&&player.name)||"あなた",t)}
 function pmSpin(second){
  const box=$("pmFlip");
@@ -4882,7 +5004,7 @@ function pmSpin(second){
 function fmRoulette(name,second,go){
  pmPending={go,second:false};pmBossShow(null);
  $("pmName").innerHTML=titleNameHtml(name,FM.oppTitle?titleById(FM.oppTitle):null);$("pmTag").textContent="フレンドマッチ";
- $("pmOppTitle").innerHTML=titleTagHtml(FM.oppTitle?titleById(FM.oppTitle):null);renderPmMe();
+ $("pmOppTitle").innerHTML=titleTagHtml(FM.oppTitle?titleById(FM.oppTitle):null);renderPmMe();renderPmDeck(false);
  $("pmBtn").classList.remove("show");
  pmSpin(second)}
 async function prematchGo(){
