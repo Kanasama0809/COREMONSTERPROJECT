@@ -77,6 +77,25 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 .m4pair .m4.big .m4em{font-size:34px}
 .m4pair .m4.big .m4nm{font-size:19px;letter-spacing:1px}
 .m4.big.friendT{border-color:#6fd3ff;background:linear-gradient(#10304a,#0a1522);color:#d8f3ff;box-shadow:0 4px 0 #0a3a5a,0 8px 20px #0007}
+/* ===== 図鑑：第2弾の陣営見出し ===== */
+.codexGroups{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0}
+.codexGroups.hide{display:none}
+.cgBtn{display:flex;flex-direction:column;align-items:center;gap:1px;min-height:44px;padding:4px 2px;border-radius:10px;border:1px solid var(--cg);background:#10203a;color:#eaf2ff;font:inherit;font-size:11px}
+.cgBtn b{font-size:12px}.cgBtn span{color:#9fb6d6;font-size:11px}
+.cgBtn.on{background:var(--cg);color:#10203a}.cgBtn.on span{color:#10203a}
+.cg-c{--cg:#b8c4d6}.cg-v{--cg:#ffd84a}.cg-f{--cg:#9fdcff}
+.cgPacks{grid-column:1/-1;text-align:center;font-size:11px;color:#9fb6d6}
+/* ===== 第2弾：凍結・感電の札 ===== */
+.b2st{position:absolute;top:3px;right:3px;display:flex;gap:2px;z-index:4;pointer-events:none}
+.stF{background:#d6f1ff;border-radius:6px;padding:0 3px;font-size:11px;line-height:16px;box-shadow:0 0 6px #9fd8ff}
+.stS{background:#ffd84a;color:#2a1d05;border-radius:6px;padding:0 4px;font-size:10px;font-weight:900;line-height:16px;box-shadow:0 0 6px #ffd84a}
+.card.frozenC{filter:saturate(.6) brightness(1.05)}
+.card.frozenC::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(160deg,#e6f7ff66,#9fd8ff33 60%,#e6f7ff55);box-shadow:inset 0 0 12px #bfe9ff;pointer-events:none;z-index:3}
+.card.shockC{animation:shockZap 2.2s infinite}
+@keyframes shockZap{0%,86%,100%{box-shadow:none}88%{box-shadow:0 0 0 2px #ffd84a,0 0 14px #ffd84a}92%{box-shadow:none}95%{box-shadow:0 0 0 2px #fff6b0}}
+body.calm .card.shockC{animation:none}
+.slot.fxFreeze{box-shadow:0 0 0 3px #bfe9ff,0 0 18px #9fd8ff}
+.slot.fxShock{box-shadow:0 0 0 3px #ffd84a,0 0 18px #ffd84a}
 /* ===== 下のタブ ===== */
 :root{--tabH:calc(62px + env(safe-area-inset-bottom,0px))}
 .tabBar{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100vw,560px);height:var(--tabH);box-sizing:border-box;padding:6px 4px env(safe-area-inset-bottom,0px);background:#0b1426f7;border-top:1px solid #22375a;display:grid;grid-template-columns:repeat(5,1fr);z-index:95}
@@ -130,6 +149,22 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .m4grid8 .m4 .m4nm{font-size:11px;white-space:nowrap}
 /* ホームのバナー */
 .homeBanner{position:relative;z-index:2;margin:8px 8px 0;flex:0 0 auto}
+/* ガチャのバナー：SR以上のカード3枚 */
+.gBanner.showBn{background-size:cover;background-position:center}
+.gBanner.showBn>.gbTitle,.gBanner.showBn>.gbSub{position:relative;z-index:2;text-shadow:0 2px 8px #000c}
+.gBanner.showBn>.gbPeriod{z-index:3}
+.gBanner.showBn>.gbTitle{max-width:56%;font-size:clamp(16px,4.6vw,22px);line-height:1.25;white-space:nowrap}
+.gBanner.showBn>.gbSub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px}
+.gbShade{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#0009 0%,#0006 40%,#0000 70%);pointer-events:none}
+.gBanner.showBn>.gbSub{max-width:56%}
+.gbCards{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:44%;height:86%;z-index:2;pointer-events:none}
+.gbC{position:absolute;top:50%;width:46%;aspect-ratio:.72;border-radius:8px;padding:3px;box-sizing:border-box;background:#c29bff;box-shadow:0 8px 18px #000a}
+.gbC img{width:100%;height:100%;object-fit:cover;border-radius:5px;display:block}
+.gbC.r-UR{background:#f6cf6b}.gbC.r-CR{background:linear-gradient(135deg,#ff7a7a,#ffc46b,#7ef0a1,#6bc8ff,#c29bff)}
+.gbC0{left:0;transform:translateY(-46%) rotate(-12deg);z-index:1}
+.gbC2{right:0;transform:translateY(-46%) rotate(12deg);z-index:1}
+.gbC1{left:50%;width:52%;transform:translate(-50%,-52%);z-index:2}
+.gBanner.showBn::before,.gBanner.showBn::after{opacity:.35}
 .gBanner.evArtBn:before{display:block;clip-path:none;inset:0;right:0;top:0;width:auto;height:auto;opacity:1;z-index:1;background:linear-gradient(90deg,var(--g1) 36%,#0000 72%)}
 .gBanner.evArtBn:after{display:none}
 .evArtImg{position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:50% 22%}
@@ -1346,7 +1381,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.5.0</div>
+ <div class="tVer" id="tVer">ver.5.9.0</div>
 </div>
 
 <div id="app">
@@ -1613,6 +1648,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 <div id="codex" class="hide">
  <div class="editorHead"><h1>図鑑</h1><div id="codexInfo" class="sub"></div>
   <div id="packTabs" class="packTabs"></div>
+  <div id="codexGroups" class="codexGroups hide"></div>
  </div>
  <div id="codexGrid" class="codexGrid"></div>
  <div class="pageNav">
@@ -1835,7 +1871,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.5.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.9.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1909,7 +1945,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 </div></div>
 
 <script>
-const CARD_IMAGES={"lumi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1lumi.webp","nocto":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1nox.webp","nekura_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1nekura.webp","uradracula_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1ura.webp","deathhero_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1death.webp","mikaera_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1mika.webp","ikiru_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1ikiru.webp","gabriel_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1gabu.webp","kou_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/koups.webp","an_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/anps.webp","hw01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw01.webp","hw02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw02.webp","hw03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw03.webp","hw04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw04.webp","hw05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw05.webp","hw06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw06.webp","hw07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw07.webp","hw08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw08.webp","hw09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw09.webp","hw10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw10.webp","hw01cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw01cr.webp","b_hw01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw01cr.webp","chronoga_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronogacr.webp","b_chronoga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronogacr.webp","pv08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv08.webp","pv10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv10.webp","chronoga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronoga.webp","pv01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv01.webp","pv02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv02.webp","pv03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv03.webp","pv04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv04.webp","pv06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv06.webp","p01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p01.webp","p02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p02.webp","p03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p03.webp","p04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p04.webp","p05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p05.webp","p06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p06.webp","p07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p07.webp","p08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p08.webp","p09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p09.webp","p10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p10.webp","p11":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p11.webp","p12":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p12.webp","p13":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p13.webp","p14":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p14.webp","p15":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p15.webp","idolwinkp":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwinkp.webp","armor":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/armor.webp","suiso":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suiso.webp","jirasanaide":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jirasanaide.webp","deathmark":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathmark.webp","gomen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gomen.webp","kokoikku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kokoikku.webp","kinkyu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kinkyu.webp","kami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kami.webp","gabriel":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gabriel.webp","kaendan":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaendan.webp","kaijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaijou.webp","ousei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ousei.webp","daichi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/daichi.webp","uriega":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uriega.webp","idolwink":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwink.webp","mrk":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mrk.webp","makijack":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/makijack.webp","hotdog":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hotdog.webp","fontni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fontni.webp","boobybar":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boobybar.webp","nekura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/nekura.webp","suhada":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suhada.webp","jujika":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jujika.webp","solo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/solo.webp","saralion":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/saralion.webp","koutei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/koutei.webp","oomawari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/oomawari.webp","uradracula":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uradracula.webp","ippanA":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ippanA.webp","sokougeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sokougeki.webp","udon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/udon.webp","sakanakushun":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sakanakushun.webp","kanpou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kanpou.webp","shoukyuukei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shoukyuukei.webp","library":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/library.webp","lastpower":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lastpower.webp","battlepose":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/battlepose.webp","batto":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/batto.webp","boseki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boseki.webp","ami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ami.webp","an":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an.webp","ikiru":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru.webp","deathhero":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero.webp","kou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou.webp","misuzui":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui.webp","komoku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku.webp","hien":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien.webp","baikingu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/baikingu.webp","yoshiyoshi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/yoshiyoshi.webp","shokei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shokei.webp","quickorder":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/quickorder.webp","aichu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aichu.webp","muffin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/muffin.webp","allcharge":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/allcharge.webp","firecurve":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firecurve.webp","firestraight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firestraight.webp","gaikotsu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gaikotsu.webp","slime":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/slime.webp","boen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boen.webp","mucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mucha.webp","kucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kucha.webp","katatsumura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/katatsumura.webp","balloon5":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/balloon5.webp","ladyga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ladyga.webp","fukurou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fukurou.webp","magnetmin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/magnetmin.webp","tarakong":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tarakong.webp","pentagon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pentagon.webp","aquaknight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aquaknight.webp", "babydragon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babydragon.webp", "babygolem":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babygolem.webp", "dashpanther":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dashpanther.webp", "fairy":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fairy.webp", "goblingo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/goblingo.webp", "heavylancer":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heavylancer.webp", "kamakamakiri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kamakamakiri.webp", "majician":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/majician.webp", "sonobashinobi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sonobashinobi.webp", "wolfket":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wolfket.webp","spelllock":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/spelllock.webp","wsurprise":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wsurprise.webp","choi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/choi.webp","tsubame":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tsubame.webp","teppeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/teppeki.webp","hibashira":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hibashira.webp","hontou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hontou.webp","mikaera":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mikaera.webp","mimi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mimi.webp","minnano":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/minnano.webp","mottai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mottai.webp","rafaeri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/rafaeri.webp","ramen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ramen.webp","moratta":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/moratta.webp","tomoni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tomoni.webp","suki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suki.webp","chantprep":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chantprep.webp","dokubari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dokubari.webp","maketakunai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/maketakunai.webp","michizure":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/michizure.webp","heijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heijou.webp","ikiru_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru_cr.webp","deathhero_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero_cr.webp","an_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an_cr.webp","kou_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou_cr.webp","hien_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien_cr.webp","misuzui_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui_cr.webp","komoku_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku_cr.webp"}; // 本番: GitHub raw URL参照方式
+const CARD_IMAGES={"b2c14_crp":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c14_crp.webp","b2c02_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c02_cr.webp","b2c01_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c01_cr.webp","b2f03_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f03_cr.webp","b2f02_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f02_cr.webp","b2v03_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v03_cr.webp","b2v02_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v02_cr.webp","b2f44":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f44.webp","b2c01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c01.webp","b2c02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c02.webp","b2c03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c03.webp","b2c04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c04.webp","b2c05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c05.webp","b2c06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c06.webp","b2c07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c07.webp","b2c08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c08.webp","b2c09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c09.webp","b2c10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c10.webp","b2c11":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c11.webp","b2c12":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c12.webp","b2c13":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c13.webp","b2c14":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c14.webp","b2c15":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c15.webp","b2c16":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c16.webp","b2c17":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c17.webp","b2c18":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c18.webp","b2c19":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c19.webp","b2c20":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c20.webp","b2c21":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c21.webp","b2c22":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c22.webp","b2c23":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c23.webp","b2c24":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c24.webp","b2c26":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c26.webp","b2c27":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c27.webp","b2c28":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c28.webp","b2c29":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c29.webp","b2c30":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c30.webp","b2c31":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c31.webp","b2c32":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c32.webp","b2c33":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c33.webp","b2c34":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c34.webp","b2c35":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c35.webp","b2c36":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c36.webp","b2c37":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c37.webp","b2c38":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c38.webp","b2c39":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c39.webp","b2c40":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c40.webp","b2c41":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c41.webp","b2c42":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c42.webp","b2c43":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c43.webp","b2c44":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c44.webp","b2c45":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c45.webp","b2c46":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c46.webp","b2c47":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c47.webp","b2c48":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c48.webp","b2c49":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c49.webp","b2c50":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c50.webp","b2c_kosame":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2c_kosame.webp","b2f02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f02.webp","b2f03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f03.webp","b2f04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f04.webp","b2f05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f05.webp","b2f06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f06.webp","b2f07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f07.webp","b2f08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f08.webp","b2f09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f09.webp","b2f10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f10.webp","b2f11":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f11.webp","b2f12":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f12.webp","b2f13":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f13.webp","b2f14":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f14.webp","b2f15":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f15.webp","b2f16":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f16.webp","b2f17":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f17.webp","b2f18":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f18.webp","b2f19":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f19.webp","b2f20":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f20.webp","b2f21":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f21.webp","b2f22":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f22.webp","b2f23":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f23.webp","b2f24":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f24.webp","b2f25":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f25.webp","b2f26":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f26.webp","b2f27":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f27.webp","b2f28":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f28.webp","b2f29":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f29.webp","b2f30":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f30.webp","b2f31":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f31.webp","b2f32":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f32.webp","b2f33":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f33.webp","b2f34":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f34.webp","b2f35":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f35.webp","b2f36":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f36.webp","b2f37":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f37.webp","b2f38":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f38.webp","b2f39":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f39.webp","b2f40":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f40.webp","b2f41":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f41.webp","b2f42":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f42.webp","b2f43":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f43.webp","b2f45":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f45.webp","b2f46":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f46.webp","b2f47":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f47.webp","b2f48":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f48.webp","b2f49":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f49.webp","b2f50":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2f50.webp","b2v02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v02.webp","b2v03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v03.webp","b2v04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v04.webp","b2v05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v05.webp","b2v06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v06.webp","b2v07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v07.webp","b2v10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v10.webp","b2v11":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v11.webp","b2v12":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v12.webp","b2v13":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v13.webp","b2v14":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v14.webp","b2v15":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v15.webp","b2v16":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v16.webp","b2v17":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v17.webp","b2v18":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v18.webp","b2v19":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v19.webp","b2v20":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v20.webp","b2v21":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v21.webp","b2v22":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v22.webp","b2v23":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v23.webp","b2v24":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v24.webp","b2v25":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v25.webp","b2v26":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v26.webp","b2v27":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v27.webp","b2v28":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v28.webp","b2v29":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v29.webp","b2v30":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v30.webp","b2v31":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v31.webp","b2v32":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v32.webp","b2v33":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v33.webp","b2v34":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v34.webp","b2v35":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v35.webp","b2v36":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v36.webp","b2v37":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v37.webp","b2v38":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v38.webp","b2v39":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v39.webp","b2v40":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v40.webp","b2v41":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v41.webp","b2v42":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v42.webp","b2v43":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v43.webp","b2v44":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v44.webp","b2v45":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v45.webp","b2v46":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v46.webp","b2v47":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v47.webp","b2v48":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v48.webp","b2v49":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v49.webp","b2v50":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v50.webp","b2v_minus":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v_minus.webp","b2v_plasy":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/b2v_plasy.webp","b2v_raika":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/raika.webp","b2v_raika_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/raika_cr.webp","b2f_setsu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/setsu.webp","b2f_setsu_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/setsu_cr.webp","lumi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1lumi.webp","nocto":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1nox.webp","nekura_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1nekura.webp","uradracula_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1ura.webp","deathhero_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1death.webp","mikaera_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1mika.webp","ikiru_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1ikiru.webp","gabriel_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/s1gabu.webp","kou_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/koups.webp","an_s1":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/anps.webp","hw01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw01.webp","hw02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw02.webp","hw03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw03.webp","hw04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw04.webp","hw05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw05.webp","hw06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw06.webp","hw07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw07.webp","hw08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw08.webp","hw09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw09.webp","hw10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw10.webp","hw01cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw01cr.webp","b_hw01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hw01cr.webp","chronoga_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronogacr.webp","b_chronoga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronogacr.webp","pv08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv08.webp","pv10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv10.webp","chronoga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chronoga.webp","pv01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv01.webp","pv02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv02.webp","pv03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv03.webp","pv04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv04.webp","pv06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pv06.webp","p01":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p01.webp","p02":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p02.webp","p03":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p03.webp","p04":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p04.webp","p05":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p05.webp","p06":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p06.webp","p07":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p07.webp","p08":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p08.webp","p09":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p09.webp","p10":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p10.webp","p11":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p11.webp","p12":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p12.webp","p13":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p13.webp","p14":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p14.webp","p15":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/p15.webp","idolwinkp":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwinkp.webp","armor":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/armor.webp","suiso":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suiso.webp","jirasanaide":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jirasanaide.webp","deathmark":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathmark.webp","gomen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gomen.webp","kokoikku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kokoikku.webp","kinkyu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kinkyu.webp","kami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kami.webp","gabriel":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gabriel.webp","kaendan":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaendan.webp","kaijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kaijou.webp","ousei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ousei.webp","daichi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/daichi.webp","uriega":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uriega.webp","idolwink":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/idolwink.webp","mrk":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mrk.webp","makijack":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/makijack.webp","hotdog":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hotdog.webp","fontni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fontni.webp","boobybar":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boobybar.webp","nekura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/nekura.webp","suhada":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suhada.webp","jujika":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/jujika.webp","solo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/solo.webp","saralion":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/saralion.webp","koutei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/koutei.webp","oomawari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/oomawari.webp","uradracula":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/uradracula.webp","ippanA":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ippanA.webp","sokougeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sokougeki.webp","udon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/udon.webp","sakanakushun":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sakanakushun.webp","kanpou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kanpou.webp","shoukyuukei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shoukyuukei.webp","library":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/library.webp","lastpower":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lastpower.webp","battlepose":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/battlepose.webp","batto":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/batto.webp","boseki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boseki.webp","ami":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ami.webp","an":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an.webp","ikiru":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru.webp","deathhero":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero.webp","kou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou.webp","misuzui":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui.webp","komoku":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku.webp","hien":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien.webp","baikingu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/baikingu.webp","yoshiyoshi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/yoshiyoshi.webp","shokei":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/shokei.webp","quickorder":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/quickorder.webp","aichu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aichu.webp","muffin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/muffin.webp","allcharge":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/allcharge.webp","firecurve":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firecurve.webp","firestraight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/firestraight.webp","gaikotsu":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/gaikotsu.webp","slime":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/slime.webp","boen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/boen.webp","mucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mucha.webp","kucha":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kucha.webp","katatsumura":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/katatsumura.webp","balloon5":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/balloon5.webp","ladyga":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ladyga.webp","fukurou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fukurou.webp","magnetmin":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/magnetmin.webp","tarakong":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tarakong.webp","pentagon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/pentagon.webp","aquaknight":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/aquaknight.webp", "babydragon":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babydragon.webp", "babygolem":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/babygolem.webp", "dashpanther":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dashpanther.webp", "fairy":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/fairy.webp", "goblingo":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/goblingo.webp", "heavylancer":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heavylancer.webp", "kamakamakiri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kamakamakiri.webp", "majician":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/majician.webp", "sonobashinobi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/sonobashinobi.webp", "wolfket":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wolfket.webp","spelllock":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/spelllock.webp","wsurprise":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/wsurprise.webp","choi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/choi.webp","tsubame":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tsubame.webp","teppeki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/teppeki.webp","hibashira":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hibashira.webp","hontou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hontou.webp","mikaera":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mikaera.webp","mimi":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mimi.webp","minnano":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/minnano.webp","mottai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/mottai.webp","rafaeri":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/rafaeri.webp","ramen":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ramen.webp","moratta":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/moratta.webp","tomoni":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/tomoni.webp","suki":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/suki.webp","chantprep":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/chantprep.webp","dokubari":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/dokubari.webp","maketakunai":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/maketakunai.webp","michizure":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/michizure.webp","heijou":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/heijou.webp","ikiru_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/ikiru_cr.webp","deathhero_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/deathhero_cr.webp","an_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/an_cr.webp","kou_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/kou_cr.webp","hien_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/hien_cr.webp","misuzui_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/misuzui_cr.webp","komoku_cr":"https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/komoku_cr.webp"}; // 本番: GitHub raw URL参照方式
 const TREE_BASE_URL="https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/";
 const TREE_IMAGES={base:TREE_BASE_URL+"tree_base.webp",N:TREE_BASE_URL+"tree_n.webp",R:TREE_BASE_URL+"tree_r.webp",SR:TREE_BASE_URL+"tree_sr.webp",UR:TREE_BASE_URL+"tree_ur.webp",CR:TREE_BASE_URL+"tree_cr.webp"};
 function kanaSort(a,b){return (a.sortName||a.name).localeCompare((b.sortName||b.name),'ja')}
@@ -1955,6 +1991,166 @@ const P=[{"id":"aichu","name":"アイチュ","sortName":"あいちゅ","type":"m
 {"id": "uradracula_s1", "name": "裏ドラキュラ", "sortName": "うらどらきゅら", "type": "monster", "cost": 8, "atk": 6000, "def": 6000, "text": "墓地のカードが10枚以上なら、このモンスターのコストを-3する。守護", "graveDiscount": 3, "graveDiscountNeed": 10, "guard": 1, "rarity": "UR", "pack": 0, "baseId": "uradracula", "promo": 1, "event": 1, "passS": "s1", "imgOf": "uradracula"},
 {"id": "kou_s1", "name": "光の勇者 コウ", "sortName": "ひかりのゆうしゃこう", "type": "monster", "cost": 8, "atk": 6000, "def": 3500, "text": "自分の偶数回目のターンなら、このモンスターのコストを-2する。登場時、相手のDEF2000以下のモンスター全てを破壊する", "even": 2, "on": "def2000", "rarity": "UR", "pack": 0, "baseId": "kou", "promo": 1, "event": 1, "passS": "s1"},
 {"id": "an_s1", "name": "闇の勇者 アン", "sortName": "やみのゆうしゃあん", "type": "monster", "cost": 9, "atk": 4000, "def": 6000, "text": "自分の奇数回目のターンなら、このモンスターのコストを-2する。相手のモンスターの召喚コストを+1する", "odd": 2, "aura": "monsterCost", "rarity": "UR", "pack": 0, "baseId": "an", "promo": 1, "event": 1, "passS": "s1"},
+/* ===== 第2弾「荒天大陸ブリザルト」150枚＋CR2枚（共通＝packs[92,93]・ボルテア92・フロスティア93。発売日 rel まで非公開）===== */
+{"id": "b2c01", "type": "monster", "cost": 8, "name": "ボルブリザ", "rarity": "UR", "atk": 5500, "def": 5500, "text": "登場時、相手のモンスターすべてを【凍結】", "onActs": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c02", "type": "monster", "cost": 6, "name": "秘境の歌姫 メロディエ", "rarity": "UR", "atk": 2500, "def": 4000, "text": "自分のターンの終わりに、自分のHP+1000", "endActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c03", "type": "monster", "cost": 7, "name": "トルネードラゴン", "rarity": "UR", "atk": 5000, "def": 3000, "text": "突撃。登場時、相手のコスト4以下のモンスター1体を破壊", "charge": 1, "onActs": [{"a": "kill", "maxCost": 4}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c04", "type": "monster", "cost": 7, "name": "ウンカイクジラ", "rarity": "UR", "atk": 3000, "def": 6000, "text": "守護。攻撃を受け止めるたび、1枚引く", "guard": 1, "drawOnBlock": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c05", "type": "monster", "cost": 5, "name": "オーローラ", "rarity": "SR", "atk": 3000, "def": 3000, "text": "登場時、自分のモンスター全体のATK+1000（このターン）", "onActs": [{"a": "buffAll", "atk": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c06", "type": "monster", "cost": 4, "name": "アラシカ", "rarity": "SR", "atk": 2500, "def": 2000, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c07", "type": "monster", "cost": 4, "name": "キリキリン", "rarity": "SR", "atk": 2000, "def": 3500, "text": "登場時、相手のモンスター1体を【凍結】", "onActs": [{"a": "freeze", "t": "one"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c08", "type": "monster", "cost": 5, "name": "ニジマスター", "rarity": "SR", "atk": 3500, "def": 3500, "text": "登場時、1枚引く", "onActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c09", "type": "monster", "cost": 3, "name": "つむじぃ", "rarity": "SR", "atk": 1500, "def": 2500, "text": "登場時、相手のモンスター1体に【感電1000】", "onActs": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c10", "type": "monster", "cost": 3, "name": "かまいたち", "rarity": "SR", "atk": 2500, "def": 1000, "text": "突撃。相手のモンスターを倒したとき、相手に500ダメージ", "charge": 1, "killDmg": 500, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c11", "type": "monster", "cost": 5, "name": "おおざめ", "rarity": "R", "atk": 3500, "def": 3000, "text": "自分の墓地に「こさめ」があれば、コスト-2", "graveCheap": "b2c_kosame", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c12", "type": "monster", "cost": 3, "name": "そらタロー", "rarity": "R", "atk": 2000, "def": 2000, "text": "登場時、自分のHP+1000", "onActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c13", "type": "monster", "cost": 3, "name": "もくもくも", "rarity": "R", "atk": 1000, "def": 3000, "text": "守護。このモンスターを攻撃したモンスターを【凍結】", "guard": 1, "freezeAttacker": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c14", "type": "monster", "cost": 4, "name": "ハリー･ケン", "rarity": "R", "atk": 3000, "def": 2000, "text": "登場時、相手のDEF1000以下のモンスターをすべて破壊", "onActs": [{"a": "killAll", "maxDef": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c15", "type": "monster", "cost": 2, "name": "タルタルボウズ", "rarity": "R", "atk": 1000, "def": 2000, "text": "守護。破壊されたとき、自分のHP+1000", "guard": 1, "deathActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c16", "type": "monster", "cost": 4, "name": "レインコート地蔵", "rarity": "R", "atk": 1500, "def": 4000, "text": "守護・貫通されない", "guard": 1, "noPierce": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c17", "type": "monster", "cost": 2, "name": "かざみどりーむ", "rarity": "R", "atk": 1000, "def": 1000, "text": "破壊されたとき、1枚引く", "deathActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c18", "type": "monster", "cost": 5, "name": "豚に珍獣", "rarity": "R", "atk": 3000, "def": 3500, "text": "守護", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c19", "type": "monster", "cost": 3, "name": "じゅーず", "rarity": "R", "atk": 1500, "def": 1500, "text": "破壊されたとき、自分のHP+1500", "deathActs": [{"a": "heal", "x": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c20", "type": "monster", "cost": 4, "name": "うわキング", "rarity": "R", "atk": 2000, "def": 2000, "text": "二回攻撃（二股だから）", "double": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c21", "type": "monster", "cost": 3, "name": "ほうちょうちょう", "rarity": "N", "atk": 2500, "def": 1000, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c22", "type": "monster", "cost": 1, "name": "ポチ", "rarity": "N", "atk": 1000, "def": 500, "text": "「ワン」", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c23", "type": "monster", "cost": 1, "name": "タマ", "rarity": "N", "atk": 500, "def": 1000, "text": "守護。「ニャー」", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c24", "type": "monster", "cost": 2, "name": "ただの馬", "rarity": "N", "atk": 1500, "def": 1500, "text": "ただの馬です", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c_kosame", "type": "monster", "cost": 2, "name": "こさめ", "rarity": "N", "atk": 1000, "def": 1000, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c26", "type": "monster", "cost": 2, "name": "もぐもぐら", "rarity": "N", "atk": 1000, "def": 1500, "text": "登場時、自分のHP+500", "onActs": [{"a": "heal", "x": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c27", "type": "monster", "cost": 3, "name": "アルマジロジロ", "rarity": "N", "atk": 1000, "def": 3000, "text": "守護", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c28", "type": "monster", "cost": 2, "name": "オウムガイ", "rarity": "N", "atk": 1500, "def": 1000, "text": "破壊されたとき、1枚引く", "deathActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c29", "type": "monster", "cost": 3, "name": "にゃがぐつ", "rarity": "N", "atk": 1500, "def": 1500, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c30", "type": "monster", "cost": 3, "name": "じとじとうもろこし", "rarity": "N", "atk": 2000, "def": 2500, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c31", "type": "spell", "cost": 7, "name": "絶対零度", "rarity": "UR", "text": "相手のモンスターすべてを【凍結】し、DEF2000以下を破壊", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}, {"a": "killAll", "maxDef": 2000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c32", "type": "spell", "cost": 4, "name": "晴天の霹靂", "rarity": "SR", "text": "相手のモンスター1体を破壊。相手の場が1体だけなら、さらに1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1000, "if": "enemyOne"}, {"a": "kill"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c33", "type": "spell", "cost": 5, "name": "ホワイトアウト", "rarity": "SR", "text": "相手のモンスターすべてを【凍結】", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c34", "type": "spell", "cost": 3, "name": "ダイヤモンドダスト", "rarity": "SR", "text": "相手のモンスター1体を【凍結】し、1枚引く", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}, {"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c35", "type": "spell", "cost": 5, "name": "サンダーラッシュ", "rarity": "SR", "text": "自分のモンスター全体に突撃とATK+500（このターン）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 500, "charge": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c36", "type": "spell", "cost": 4, "name": "吹雪", "rarity": "R", "text": "相手のモンスター全体のATK-1000（次の相手のターンの終わりまで）", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c37", "type": "spell", "cost": 4, "name": "白銀の世界", "rarity": "R", "text": "自分のモンスター全体のDEF+1500（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffAll", "def": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c38", "type": "spell", "cost": 3, "name": "虹の架け橋", "rarity": "R", "text": "自分の墓地のモンスター1体を手札に戻す", "eff": "acts", "acts": [{"a": "returnMon"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c39", "type": "spell", "cost": 5, "name": "竜巻注意報", "rarity": "R", "text": "お互いの場のコスト2以下のモンスターをすべて破壊", "eff": "acts", "acts": [{"a": "killAll", "maxCost": 2, "both": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c40", "type": "spell", "cost": 3, "name": "一寸先は霧", "rarity": "R", "text": "相手のモンスター全体のATK-500（次の相手のターンの終わりまで）。1枚引く", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 500}, {"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c41", "type": "spell", "cost": 4, "name": "晴れ時々雷", "rarity": "R", "text": "相手に1500ダメージ。自分のHPが相手より少なければ、さらに1000", "eff": "acts", "acts": [{"a": "dmg", "x": 1500}, {"a": "dmg", "x": 1000, "if": "hpLower"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c42", "type": "spell", "cost": 2, "name": "雪解け水", "rarity": "N", "text": "自分のHP+1500", "eff": "acts", "acts": [{"a": "heal", "x": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c43", "type": "spell", "cost": 2, "name": "つるつるゾーン", "rarity": "N", "text": "相手のモンスター1体を【凍結】", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c44", "type": "spell", "cost": 1, "name": "スリップステップ", "rarity": "N", "text": "自分のモンスター1体に突撃", "eff": "acts", "acts": [{"a": "buffOne", "charge": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c45", "type": "spell", "cost": 3, "name": "つららミサイル", "rarity": "N", "text": "相手のDEF2000以下のモンスター1体を破壊", "eff": "acts", "acts": [{"a": "kill", "maxDef": 2000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c46", "type": "spell", "cost": 1, "name": "白い息", "rarity": "N", "text": "1枚引く", "eff": "acts", "acts": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c47", "type": "spell", "cost": 2, "name": "雲行きが怪しい", "rarity": "N", "text": "相手の手札をランダムに1枚捨てさせる", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c48", "type": "spell", "cost": 2, "name": "てるてるダンス", "rarity": "N", "text": "自分のHP+1000。相手のモンスター1体のATK-500（次の相手のターンの終わりまで）", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "debuffOne", "atk": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c49", "type": "spell", "cost": 1, "name": "嵐の予感", "rarity": "N", "text": "1枚引き、相手に500ダメージ", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "dmg", "x": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2c50", "type": "spell", "cost": 3, "name": "風にまかせて", "rarity": "N", "text": "手札をランダムに2枚捨てて、3枚引く", "eff": "acts", "acts": [{"a": "discardSelfDraw", "d": 2, "n": 3}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
+{"id": "b2v_raika", "type": "monster", "cost": 7, "name": "雷の勇者 ライカ", "rarity": "UR", "atk": 3500, "def": 2500, "text": "突撃・二回攻撃。登場時、相手のDEF1500以下のモンスター1体を破壊", "charge": 1, "double": 1, "onActs": [{"a": "kill", "maxDef": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v02", "type": "monster", "cost": 7, "name": "サンダードラゴン", "rarity": "UR", "atk": 5000, "def": 4000, "text": "バトルした相手に【感電2000】。登場時、相手のモンスター全体に【感電1000】", "shockHit": 2000, "onActs": [{"a": "shock", "t": "all", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v03", "type": "monster", "cost": 6, "name": "地震･雷･火事･親父", "rarity": "UR", "atk": 4000, "def": 4000, "text": "登場時、ランダムで1つ：地震＝相手全体のDEF-1000／雷＝相手1体を破壊／火事＝相手に2000ダメージ／親父＝相手の手札を1枚捨てさせる", "onActs": [{"a": "random", "list": [{"a": "defDownAll", "def": 1000}, {"a": "kill"}, {"a": "dmg", "x": 2000}, {"a": "discardEnemy", "n": 1}]}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v04", "type": "monster", "cost": 8, "name": "マウント･FUJI", "rarity": "UR", "atk": 2000, "def": 7000, "text": "守護・攻撃できない。場にいる間、相手のモンスターのATK-500。破壊されたとき、相手に3000ダメージ", "guard": 1, "cantAttack": 1, "auraEnemyAtk": 500, "deathActs": [{"a": "dmg", "x": 3000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v05", "type": "monster", "cost": 6, "name": "雷鳴の大鷲", "rarity": "UR", "atk": 3500, "def": 2500, "text": "突撃。バトルした相手に【感電1500】", "charge": 1, "shockHit": 1500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v06", "type": "monster", "cost": 5, "name": "ライメイオン", "rarity": "SR", "atk": 3500, "def": 2500, "text": "突撃。バトルした相手に【感電1000】", "charge": 1, "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v07", "type": "monster", "cost": 4, "name": "雷の使者ゴロウ", "rarity": "SR", "atk": 2500, "def": 2500, "text": "登場時、山札から「雷の勇者 ライカ」を1枚手札に加える", "onActs": [{"a": "search", "id": "b2v_raika"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v_plasy", "type": "monster", "cost": 3, "name": "正のプラシィ", "rarity": "SR", "atk": 1500, "def": 2000, "text": "場に「負のマイナ」がいれば、自分のモンスター全体のATK+1000", "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v_minus", "type": "monster", "cost": 3, "name": "負のマイナ", "rarity": "SR", "atk": 2000, "def": 1500, "text": "場に「正のプラシィ」がいれば、相手のモンスター全体のATK-1000", "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v10", "type": "monster", "cost": 4, "name": "ヒライジン", "rarity": "SR", "atk": 1000, "def": 4000, "text": "守護。自分が受ける呪文のダメージを半分にする", "guard": 1, "spellHalf": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v11", "type": "monster", "cost": 5, "name": "電子レンジジイ", "rarity": "SR", "atk": 2500, "def": 3000, "text": "登場時、自分の墓地の呪文1枚を手札に戻す（チンして温め直し）", "onActs": [{"a": "returnSpell"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v12", "type": "monster", "cost": 4, "name": "磁場ばばあ", "rarity": "SR", "atk": 2000, "def": 3000, "text": "登場時、相手のモンスター1体の守護をなくす", "onActs": [{"a": "stripGuard"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v13", "type": "monster", "cost": 2, "name": "ゴロニャン", "rarity": "R", "atk": 1500, "def": 1000, "text": "バトルした相手に【感電500】", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v14", "type": "monster", "cost": 3, "name": "カマカマキリ･雷", "rarity": "R", "atk": 1500, "def": 1000, "text": "二回攻撃。バトルした相手に【感電500】", "double": 1, "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v15", "type": "monster", "cost": 2, "name": "サンダーマウス", "rarity": "R", "atk": 1000, "def": 500, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v16", "type": "monster", "cost": 3, "name": "カンデンチュウ", "rarity": "R", "atk": 2000, "def": 1500, "text": "破壊されたとき、相手のモンスター1体に【感電1000】", "deathActs": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v17", "type": "monster", "cost": 4, "name": "雷の剣士", "rarity": "R", "atk": 3000, "def": 2500, "text": "バトルした相手に【感電1000】", "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v18", "type": "monster", "cost": 3, "name": "まぁ坊", "rarity": "R", "atk": 2000, "def": 2000, "text": "破壊されたとき、相手に1000ダメージ（辛さが爆発）", "deathActs": [{"a": "dmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v19", "type": "monster", "cost": 2, "name": "ショートケーキ", "rarity": "R", "atk": 1000, "def": 1000, "text": "登場時、お互いのプレイヤーに1000ダメージ（漏電）", "onActs": [{"a": "bothDmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v20", "type": "monster", "cost": 4, "name": "ゴロゴロック", "rarity": "R", "atk": 1500, "def": 4500, "text": "守護", "guard": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v21", "type": "monster", "cost": 5, "name": "ライゾウ", "rarity": "R", "atk": 4000, "def": 3500, "text": "バトルした相手に【感電1500】", "shockHit": 1500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v22", "type": "monster", "cost": 3, "name": "エレキうなぎ", "rarity": "R", "atk": 1000, "def": 2500, "text": "守護。バトルした相手に【感電1000】", "guard": 1, "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v23", "type": "monster", "cost": 4, "name": "まぐまぐろ", "rarity": "R", "atk": 2500, "def": 1500, "text": "突撃。破壊されたとき、相手に500ダメージ", "charge": 1, "deathActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v24", "type": "monster", "cost": 1, "name": "サンダーバッタ", "rarity": "N", "atk": 500, "def": 500, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v25", "type": "monster", "cost": 2, "name": "でんきひつじ", "rarity": "N", "atk": 1000, "def": 2000, "text": "バトルした相手に【感電500】", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v26", "type": "monster", "cost": 2, "name": "まっかっか", "rarity": "N", "atk": 1000, "def": 1000, "text": "登場時、相手に500ダメージ（刺された）", "onActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v27", "type": "monster", "cost": 1, "name": "ビリビリスライム", "rarity": "N", "atk": 500, "def": 1000, "text": "バトルした相手に【感電500】", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v28", "type": "monster", "cost": 3, "name": "サンダースネーク", "rarity": "N", "atk": 2000, "def": 1000, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v29", "type": "monster", "cost": 2, "name": "かみなりえび", "rarity": "N", "atk": 1500, "def": 1000, "text": "破壊されたとき、相手に500ダメージ", "deathActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v30", "type": "monster", "cost": 2, "name": "でんQちゃん", "rarity": "N", "atk": 1000, "def": 1000, "text": "登場時、1枚引く（ひらめいた）", "onActs": [{"a": "draw", "n": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v31", "type": "spell", "cost": 9, "name": "大噴火", "rarity": "UR", "text": "相手のモンスターすべてを破壊し、相手に2000ダメージ", "eff": "acts", "acts": [{"a": "killAll"}, {"a": "dmg", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v32", "type": "spell", "cost": 4, "name": "逆転サンダー！", "rarity": "SR", "text": "自分のHPが相手より少なければ、相手のモンスター1体を破壊して2000ダメージ。そうでなければ1000ダメージ", "eff": "acts", "acts": [{"a": "kill", "if": "hpLower"}, {"a": "dmg", "x": 2000, "if": "hpLower"}, {"a": "dmg", "x": 1000, "if": "hpNotLower"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v33", "type": "spell", "cost": 5, "name": "MAXボルテージ", "rarity": "SR", "text": "自分のモンスター全体のATK+2000（このターン）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v34", "type": "spell", "cost": 6, "name": "火砕流注意報", "rarity": "SR", "text": "相手のモンスター全体に【感電1000】し、相手に1000ダメージ", "eff": "acts", "acts": [{"a": "shock", "t": "all", "x": 1000}, {"a": "dmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v35", "type": "spell", "cost": 3, "name": "カミナリオトシ", "rarity": "R", "text": "相手のコスト4以下のモンスター1体を破壊", "eff": "acts", "acts": [{"a": "kill", "maxCost": 4}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v36", "type": "spell", "cost": 2, "name": "電光石火", "rarity": "R", "text": "自分のモンスター1体に突撃とATK+1000（このターン）", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1000, "charge": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v37", "type": "spell", "cost": 3, "name": "しびれる展開", "rarity": "R", "text": "相手のモンスター全体に【感電500】", "eff": "acts", "acts": [{"a": "shock", "t": "all", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v38", "type": "spell", "cost": 4, "name": "火事場の馬鹿力", "rarity": "R", "text": "自分のHPが3000以下なら、自分のモンスター全体に突撃とATK+2000（このターン）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 2000, "charge": 1, "if": "hpLe3000"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v39", "type": "spell", "cost": 3, "name": "マグマショット", "rarity": "R", "text": "相手に2000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v40", "type": "spell", "cost": 5, "name": "激辛ラーメン", "rarity": "R", "text": "相手に3000ダメージ。自分にも1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 3000}, {"a": "selfDmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v41", "type": "spell", "cost": 1, "name": "バチッと静電気", "rarity": "N", "text": "相手のモンスター1体に【感電1000】", "eff": "acts", "acts": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v42", "type": "spell", "cost": 2, "name": "へそ取っちゃうぞ", "rarity": "N", "text": "相手の手札をランダムに1枚捨てさせる", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v43", "type": "spell", "cost": 3, "name": "閃いた！！", "rarity": "N", "text": "2枚引く", "eff": "acts", "acts": [{"a": "draw", "n": 2}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v44", "type": "spell", "cost": 2, "name": "充電中", "rarity": "N", "text": "1枚引き、自分のHP+500", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v45", "type": "spell", "cost": 1, "name": "雷鳴轟轟", "rarity": "N", "text": "相手に500ダメージ。自分のモンスター1体のATK+500（このターン）", "eff": "acts", "acts": [{"a": "dmg", "x": 500}, {"a": "buffOne", "atk": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v46", "type": "spell", "cost": 2, "name": "停電ドッキリ", "rarity": "N", "text": "次の相手のターン、相手は呪文を使えない", "eff": "acts", "acts": [{"a": "spellLock"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v47", "type": "spell", "cost": 2, "name": "ビリビリマッサージ", "rarity": "N", "text": "自分のHP+1000。自分のモンスター1体のDEF+1000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "buffOne", "def": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v48", "type": "spell", "cost": 1, "name": "火に油", "rarity": "N", "text": "自分のモンスター1体のATK+1500（このターン）", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v49", "type": "spell", "cost": 3, "name": "温泉でホッと一息", "rarity": "N", "text": "自分のHP+2000", "eff": "acts", "acts": [{"a": "heal", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2v50", "type": "spell", "cost": 2, "name": "静電気ハイタッチ", "rarity": "N", "text": "自分のモンスター2体のATK+1000（このターン）", "eff": "acts", "acts": [{"a": "buffTwo", "atk": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
+{"id": "b2f_setsu", "type": "monster", "cost": 7, "name": "雪の勇者 セツ", "rarity": "UR", "atk": 2500, "def": 5000, "text": "守護・貫通されない。登場時、相手のモンスター1体を【凍結】", "guard": 1, "noPierce": 1, "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f02", "type": "monster", "cost": 8, "name": "スノードラゴン", "rarity": "UR", "atk": 5000, "def": 5000, "text": "自分のターンの始めに、相手のモンスター1体を【凍結】。破壊されたとき、相手のモンスターすべてを【凍結】", "deathActs": [{"a": "freeze", "t": "all"}], "startActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f03", "type": "monster", "cost": 6, "name": "あの時の鶴です！", "rarity": "UR", "atk": 3000, "def": 3000, "text": "登場時、自分のHP+3000。自分の墓地のモンスター1体を手札に戻す（恩返し）", "onActs": [{"a": "heal", "x": 3000}, {"a": "returnMon"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f04", "type": "monster", "cost": 6, "name": "ホッキョクグマン", "rarity": "UR", "atk": 4000, "def": 4500, "text": "守護。自分のほかの守護モンスターのDEF+1000", "guard": 1, "guardDefAura": 1000, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f05", "type": "monster", "cost": 5, "name": "スワンダホー", "rarity": "UR", "atk": 2500, "def": 3500, "text": "登場時、相手のモンスター2体を【凍結】", "onActs": [{"a": "freeze", "t": "two"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f06", "type": "monster", "cost": 4, "name": "雪の使者シンシ", "rarity": "SR", "atk": 2000, "def": 3000, "text": "登場時、山札から「雪の勇者 セツ」を1枚手札に加える", "onActs": [{"a": "search", "id": "b2f_setsu"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f07", "type": "monster", "cost": 4, "name": "雪ダル魔", "rarity": "SR", "atk": 2000, "def": 2000, "text": "登場時、相手のモンスター1体を【凍結】。次の自分のターン、このモンスターは攻撃できない（ダルい）", "onActs": [{"a": "freeze", "t": "one"}, {"a": "freezeSelf"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f08", "type": "monster", "cost": 3, "name": "あられ姫", "rarity": "SR", "atk": 1500, "def": 2500, "text": "自分のターンの終わりに、相手のモンスター1体をランダムに【凍結】", "endActs": [{"a": "freeze", "t": "rand"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f09", "type": "monster", "cost": 5, "name": "吹雪姉妹", "rarity": "SR", "atk": 3000, "def": 3000, "text": "場にいる間、相手のモンスター全体のATK-500", "auraEnemyAtk": 500, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f10", "type": "monster", "cost": 5, "name": "★ロブスター★", "rarity": "SR", "atk": 3500, "def": 4000, "text": "守護・貫通されない（スターはしぶとい）", "guard": 1, "noPierce": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f11", "type": "monster", "cost": 4, "name": "ゆきおかま", "rarity": "SR", "atk": 2500, "def": 2500, "text": "登場時、相手のモンスター1体を【凍結】し、自分のHP+1000", "onActs": [{"a": "freeze", "t": "one"}, {"a": "heal", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f12", "type": "monster", "cost": 3, "name": "しょうがドクター", "rarity": "SR", "atk": 1000, "def": 2500, "text": "登場時、自分のHP+1000。自分のモンスターの【凍結】【感電】を治す", "onActs": [{"a": "heal", "x": 1000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f13", "type": "monster", "cost": 2, "name": "つららりら", "rarity": "R", "atk": 1500, "def": 1000, "text": "登場時、相手のモンスター1体を【凍結】", "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f14", "type": "monster", "cost": 4, "name": "スノーランサー", "rarity": "R", "atk": 3000, "def": 2000, "text": "【凍結】している相手を攻撃するとき、ATK+1500", "atkVsFrozen": 1500, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f15", "type": "monster", "cost": 3, "name": "フロスト･サーモン", "rarity": "R", "atk": 2000, "def": 2000, "text": "破壊されたとき、相手のモンスター1体を【凍結】", "deathActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f16", "type": "monster", "cost": 4, "name": "雪ラクダ", "rarity": "R", "atk": 1500, "def": 4000, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f17", "type": "monster", "cost": 3, "name": "好きーやー！", "rarity": "R", "atk": 2000, "def": 1500, "text": "突撃（スキーで滑ってくる）", "charge": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f18", "type": "monster", "cost": 5, "name": "スノーメンズ", "rarity": "R", "atk": 2500, "def": 2500, "text": "自分の場にモンスターが3体いるとき、ATK+2000", "fullBoardAtk": 2000, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f19", "type": "monster", "cost": 2, "name": "ゆきつね", "rarity": "R", "atk": 1000, "def": 2000, "text": "【凍結】している相手を攻撃するとき、ATK+1000", "atkVsFrozen": 1000, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f20", "type": "monster", "cost": 2, "name": "かまくらげ", "rarity": "R", "atk": 0, "def": 3000, "text": "守護・攻撃できない", "guard": 1, "cantAttack": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f21", "type": "monster", "cost": 3, "name": "湯たんぽんぽこ", "rarity": "R", "atk": 1500, "def": 2000, "text": "自分のターンの終わりに、自分のHP+500", "endActs": [{"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f22", "type": "monster", "cost": 4, "name": "こおりぱんだ", "rarity": "R", "atk": 2500, "def": 3500, "text": "守護。このモンスターを攻撃したモンスターを【凍結】", "guard": 1, "freezeAttacker": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f23", "type": "monster", "cost": 3, "name": "スノウマイマー", "rarity": "R", "atk": 1000, "def": 2500, "text": "守護・貫通されない（見えない壁）", "guard": 1, "noPierce": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f24", "type": "monster", "cost": 1, "name": "雪うさぎ", "rarity": "N", "atk": 500, "def": 1500, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f25", "type": "monster", "cost": 2, "name": "ふ豚", "rarity": "N", "atk": 1000, "def": 2500, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f26", "type": "monster", "cost": 2, "name": "スノーバタフライ", "rarity": "N", "atk": 1000, "def": 1000, "text": "破壊されたとき、1枚引く", "deathActs": [{"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f27", "type": "monster", "cost": 3, "name": "もちもちーたー", "rarity": "N", "atk": 2500, "def": 1500, "text": "突撃", "charge": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f28", "type": "monster", "cost": 3, "name": "さんまママ", "rarity": "N", "atk": 1500, "def": 2500, "text": "登場時、自分のHP+1000", "onActs": [{"a": "heal", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f29", "type": "monster", "cost": 2, "name": "へらへらジカ", "rarity": "N", "atk": 1500, "def": 1500, "text": "へらへらしている", "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f30", "type": "monster", "cost": 2, "name": "つめたい", "rarity": "N", "atk": 1000, "def": 2000, "text": "このモンスターとバトルした相手を【凍結】", "freezeHit": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f31", "type": "spell", "cost": 8, "name": "大ブリザード", "rarity": "UR", "text": "相手のモンスター全体を【凍結】し、ATK-1000（次の相手のターンの終わりまで）。1枚引く", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}, {"a": "debuffAll", "atk": 1000}, {"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f32", "type": "spell", "cost": 5, "name": "雪山で寝るな！", "rarity": "SR", "text": "自分のモンスター全体のDEF+2000（次の自分のターンの始めまで）。【凍結】を治す", "eff": "acts", "acts": [{"a": "buffAll", "def": 2000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f33", "type": "spell", "cost": 4, "name": "鍋パーティー", "rarity": "SR", "text": "自分のHP+2500。1枚引く", "eff": "acts", "acts": [{"a": "heal", "x": 2500}, {"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f34", "type": "spell", "cost": 6, "name": "闇鍋", "rarity": "SR", "text": "ランダムで1つ：相手全体を【凍結】／相手に2000ダメージ／自分のHP+3000／2枚引く", "eff": "acts", "acts": [{"a": "random", "list": [{"a": "freeze", "t": "all"}, {"a": "dmg", "x": 2000}, {"a": "heal", "x": 3000}, {"a": "draw", "n": 2}]}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f35", "type": "spell", "cost": 3, "name": "つららおとし", "rarity": "R", "text": "相手のDEF2500以下のモンスター1体を破壊", "eff": "acts", "acts": [{"a": "kill", "maxDef": 2500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f36", "type": "spell", "cost": 2, "name": "カチコチビーム", "rarity": "R", "text": "相手のモンスター1体を【凍結】", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f37", "type": "spell", "cost": 3, "name": "冷たい視線", "rarity": "R", "text": "相手のモンスター全体のATK-1000（次の相手のターンの終わりまで）", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f38", "type": "spell", "cost": 4, "name": "かまくらづくり", "rarity": "R", "text": "自分のモンスター1体に守護とDEF+2000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffOne", "def": 2000, "guard": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f39", "type": "spell", "cost": 3, "name": "雪玉ラッシュ", "rarity": "R", "text": "相手に1500ダメージ。【凍結】しているモンスターがいれば、さらに1000", "eff": "acts", "acts": [{"a": "dmg", "x": 1500}, {"a": "dmg", "x": 1000, "if": "frozenExists"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f40", "type": "spell", "cost": 4, "name": "雪だるま作戦", "rarity": "R", "text": "自分のモンスター全体のATK+500・DEF+1000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 500, "def": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f41", "type": "spell", "cost": 1, "name": "おやじギャグ", "rarity": "N", "text": "相手のモンスター1体を【凍結】（寒すぎて）", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f42", "type": "spell", "cost": 2, "name": "こたつタイム", "rarity": "N", "text": "自分のHP+1500", "eff": "acts", "acts": [{"a": "heal", "x": 1500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f43", "type": "spell", "cost": 2, "name": "あられ打ち", "rarity": "N", "text": "相手に1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f44", "type": "spell", "cost": 2, "name": "フローズンマンゴー", "rarity": "N", "text": "1枚引き、自分のHP+500", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f45", "type": "spell", "cost": 1, "name": "デカすぎる手袋", "rarity": "N", "text": "自分のモンスター1体のDEF+2000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffOne", "def": 2000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f46", "type": "spell", "cost": 2, "name": "アツアツの肉まん", "rarity": "N", "text": "自分のHP+1000。自分のモンスターの【凍結】を治す", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f47", "type": "spell", "cost": 2, "name": "寄り道おでん", "rarity": "N", "text": "1枚引き、自分のHP+500", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f48", "type": "spell", "cost": 1, "name": "熱燗どうすか", "rarity": "N", "text": "自分のモンスター1体のATK+1000（このターン）", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f49", "type": "spell", "cost": 3, "name": "冬眠します", "rarity": "N", "text": "自分のHP+2000し、1枚引く。このターン、自分のモンスターは攻撃できない", "eff": "acts", "acts": [{"a": "heal", "x": 2000}, {"a": "draw", "n": 1}, {"a": "noAttackSelf"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2f50", "type": "spell", "cost": 2, "name": "レッツゴー雪かき", "rarity": "N", "text": "お互いの場のコスト1のモンスターをすべて破壊", "eff": "acts", "acts": [{"a": "killAll", "maxCost": 1, "both": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
+{"id": "b2v_raika_cr", "type": "monster", "cost": 7, "name": "雷の勇者 ライカ", "rarity": "CR", "atk": 3500, "def": 2500, "text": "突撃・二回攻撃。登場時、相手のDEF1500以下のモンスター1体を破壊", "charge": 1, "double": 1, "onActs": [{"a": "kill", "maxDef": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v_raika"},
+{"id": "b2f_setsu_cr", "type": "monster", "cost": 7, "name": "雪の勇者 セツ", "rarity": "CR", "atk": 2500, "def": 5000, "text": "守護・貫通されない。登場時、相手のモンスター1体を【凍結】", "guard": 1, "noPierce": 1, "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f_setsu"},
+{"id": "b2v02_cr", "type": "monster", "cost": 7, "name": "サンダードラゴン", "rarity": "CR", "atk": 5000, "def": 4000, "text": "バトルした相手に【感電2000】。登場時、相手のモンスター全体に【感電1000】", "shockHit": 2000, "onActs": [{"a": "shock", "t": "all", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v02", "imgOf": "b2v02"},
+{"id": "b2v03_cr", "type": "monster", "cost": 6, "name": "地震･雷･火事･親父", "rarity": "CR", "atk": 4000, "def": 4000, "text": "登場時、ランダムで1つ：地震＝相手全体のDEF-1000／雷＝相手1体を破壊／火事＝相手に2000ダメージ／親父＝相手の手札を1枚捨てさせる", "onActs": [{"a": "random", "list": [{"a": "defDownAll", "def": 1000}, {"a": "kill"}, {"a": "dmg", "x": 2000}, {"a": "discardEnemy", "n": 1}]}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v03", "imgOf": "b2v03"},
+{"id": "b2f02_cr", "type": "monster", "cost": 8, "name": "スノードラゴン", "rarity": "CR", "atk": 5000, "def": 5000, "text": "自分のターンの始めに、相手のモンスター1体を【凍結】。破壊されたとき、相手のモンスターすべてを【凍結】", "deathActs": [{"a": "freeze", "t": "all"}], "startActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f02", "imgOf": "b2f02"},
+{"id": "b2f03_cr", "type": "monster", "cost": 6, "name": "あの時の鶴です！", "rarity": "CR", "atk": 3000, "def": 3000, "text": "登場時、自分のHP+3000。自分の墓地のモンスター1体を手札に戻す（恩返し）", "onActs": [{"a": "heal", "x": 3000}, {"a": "returnMon"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f03", "imgOf": "b2f03"},
+{"id": "b2c01_cr", "type": "monster", "cost": 8, "name": "ボルブリザ", "rarity": "CR", "atk": 5500, "def": 5500, "text": "登場時、相手のモンスターすべてを【凍結】", "onActs": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "baseId": "b2c01", "imgOf": "b2c01"},
+{"id": "b2c02_cr", "type": "monster", "cost": 6, "name": "秘境の歌姫 メロディエ", "rarity": "CR", "atk": 2500, "def": 4000, "text": "自分のターンの終わりに、自分のHP+1000", "endActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "baseId": "b2c02", "imgOf": "b2c02"},
+{"id": "b2c14_crp", "type": "monster", "cost": 4, "name": "ハリー･ケン", "rarity": "CR", "atk": 3000, "def": 2000, "text": "登場時、相手のDEF1000以下のモンスターをすべて破壊", "onActs": [{"a": "killAll", "maxDef": 1000}], "pack": 0, "rel": "2026-10-01", "baseId": "b2c14", "imgOf": "b2c14", "promo": 1, "event": 1},
 {"type":"monster","id":"chronoga_cr","name":"時間の神 クロノガ","sortName":"じかんのかみくろのが","cost":6,"atk":4000,"def":3000,"text":"破壊される時、自分の山札を5枚墓地へ置き、破壊を無効にする。この効果は自分のターンに1回しか使えない","millGuard":5,"rarity":"CR","pack":90,"promo":1,"event":1,"baseId":"chronoga","lore":"砂は落ちるものではなく、還るもの。神殿の砂時計が逆さに流れはじめたとき、時の神は長い眠りから目を覚ました。"},
 {"type":"monster","id":"pv01","name":"刻ノ民","sortName":"ときのたみ","cost":2,"atk":1000,"def":1000,"text":"登場時、自分の山札を2枚墓地へ置く","on":"selfMill2","rarity":"R","pack":90,"promo":1,"event":1},
 {"type":"monster","id":"pv02","name":"刻ノ守人","sortName":"ときのもりびと","cost":3,"atk":2000,"def":2000,"text":"【守護】。登場時、自分の山札を2枚墓地へ置く","guard":1,"on":"selfMill2","rarity":"R","pack":90,"promo":1,"event":1},
@@ -1992,11 +2188,11 @@ const PROMO_NO={p01:1,p02:2,p03:3,p04:4,p05:5,p06:6,p07:7,p08:8,p09:9,p10:10,p11
  idolwinkp:16,                                                        // 配布：アイドルのウィンク
  pv01:17,pv02:18,pv03:19,pv04:20,pv08:21,pv10:22,chronoga:23,       // 時の神への挑戦（クロノガシリーズ）
  hw01:24,hw02:25,hw03:26,hw04:27,hw05:28,hw06:29,hw07:30,hw08:31,hw09:32,hw10:33,   // ハロウィン（パンプキングCR＝024-c）
- lumi:34,nocto:35,ikiru_s1:36,mikaera_s1:37,gabriel_s1:38,deathhero_s1:39,nekura_s1:40,uradracula_s1:41,kou_s1:42,an_s1:43};   // シーズンパス1「光と闇」
+ b2c14_crp:44,lumi:34,nocto:35,ikiru_s1:36,mikaera_s1:37,gabriel_s1:38,deathhero_s1:39,nekura_s1:40,uradracula_s1:41,kou_s1:42,an_s1:43};   // シーズンパス1「光と闇」
 P.forEach(c=>{if(PROMO_NO[c.id])c.no=PROMO_NO[c.id]});
 const PROMO_TOTAL=Math.max(...Object.values(PROMO_NO));
 // 図鑑でどのタブに入れるか。イベントのカード（ガチャ上は pack 90）もプロモ枠へ
-function codexTabOf(c){return (c.event||c.pack===0)?0:(c.pack??1)}
+function codexTabOf(c){return (c.event||c.pack===0)?0:(c.b2?92:(c.pack??1))}   // 第2弾（共通・ボルテア・フロスティア）は1つのタブ
 BOSS_CARDS.forEach(c=>{if(!CARD_IMAGES[c.id]&&CARD_IMAGES[c.imgOf])CARD_IMAGES[c.id]=CARD_IMAGES[c.imgOf]});
 P.forEach(c=>{if(c.imgOf&&!CARD_IMAGES[c.id]&&CARD_IMAGES[c.imgOf])CARD_IMAGES[c.id]=CARD_IMAGES[c.imgOf]});   // 絵がまだのカードは元の絵を仮に使う
 
@@ -2113,8 +2309,16 @@ const PERSONALITIES=[
  {id:"grave",name:"亡霊のクロエ",tagline:"墓地こそが本当の戦場",aggro:0.65,
   deck:["slime","boseki","goblingo","kucha","fairy","ladyga","koutei","deathhero","gaikotsu","jujika","sakanakushun","fukurou","babygolem","fontni","majician","ami","komoku","ikiru","nekura","tarakong","uradracula","library","daichi","yoshiyoshi","kinkyu","muffin","ramen","ousei","shokei","firecurve"]},
  {id:"sacrifice",name:"生贄のファウナ",tagline:"犠牲の先にしか勝利はない",aggro:1.45,
-  deck:["slime","magnetmin","aichu","fairy","goblingo","kucha","ladyga","boseki","ami","majician","gaikotsu","wolfket","sonobashinobi","dashpanther","hien","heavylancer","baikingu","lastpower","gomen","michizure","choi","jirasanaide","kami","kanpou","uriega","quickorder","battlepose","allcharge","sokougeki","shoukyuukei"]}
+  deck:["slime","magnetmin","aichu","fairy","goblingo","kucha","ladyga","boseki","ami","majician","gaikotsu","wolfket","sonobashinobi","dashpanther","hien","heavylancer","baikingu","lastpower","gomen","michizure","choi","jirasanaide","kami","kanpou","uriega","quickorder","battlepose","allcharge","sokougeki","shoukyuukei"]},
+ /* ===== 第2弾のカードを使うCPU（11/1から、ランダム対戦に出てくる） ===== */
+ {id:"b2raiga",name:"迅雷のライガ",tagline:"痺れさせて、一気に削り切る",aggro:1.4,rel:"2026-10-01",deck:["b2v15", "b2v15", "b2v13", "b2v13", "b2v27", "b2v27", "b2v25", "b2v25", "b2v14", "b2v14", "b2v28", "b2v28", "b2v17", "b2v17", "b2v06", "b2v06", "b2v23", "b2v23", "b2v05", "b2v05", "b2c09", "b2c09", "b2v36", "b2v36", "b2v41", "b2v41", "b2v37", "b2v37", "b2v35", "b2v35"]},
+ {id:"b2yukina",name:"氷結のユキナ",tagline:"凍らせて、動きを止めてから",aggro:0.7,rel:"2026-10-01",deck:["b2f13", "b2f13", "b2c07", "b2c07", "b2f11", "b2f11", "b2f07", "b2f07", "b2f14", "b2f14", "b2f19", "b2f19", "b2f22", "b2f22", "b2f16", "b2f16", "b2f08", "b2f08", "b2f05", "b2f05", "b2f36", "b2f36", "b2f41", "b2f41", "b2f35", "b2f35", "b2f37", "b2f37", "b2f33", "b2f33"]},
+ {id:"b2tempe",name:"嵐呼びのテンペ",tagline:"天気は、気まぐれなのさ",aggro:1.0,rel:"2026-10-01",deck:["b2c06", "b2c06", "b2c10", "b2c10", "b2c07", "b2c07", "b2c13", "b2c13", "b2c09", "b2c09", "b2c14", "b2c14", "b2c08", "b2c08", "b2c05", "b2c05", "b2c11", "b2c11", "b2c_kosame", "b2c_kosame", "b2c16", "b2c16", "b2c32", "b2c32", "b2c34", "b2c34", "b2c40", "b2c40", "b2c35", "b2c35"]},
+ {id:"b2koharu",name:"湯けむりのコハル",tagline:"あったまって、ゆっくり勝つの",aggro:0.6,rel:"2026-10-01",deck:["b2f24", "b2f24", "b2f25", "b2f25", "b2f20", "b2f20", "b2f21", "b2f21", "b2f28", "b2f28", "b2f12", "b2f12", "b2f04", "b2f04", "b2f10", "b2f10", "b2f23", "b2f23", "b2c02", "b2c02", "b2f42", "b2f42", "b2f46", "b2f46", "b2f33", "b2f33", "b2f45", "b2f45", "b2f32", "b2f32"]},
+ {id:"b2bakugo",name:"火山のバクゴウ",tagline:"辛さも火力も、爆発だ！",aggro:1.1,rel:"2026-10-01",deck:["b2v26", "b2v26", "b2v19", "b2v19", "b2v18", "b2v18", "b2v29", "b2v29", "b2v10", "b2v10", "b2v20", "b2v20", "b2v04", "b2v04", "b2v03", "b2v03", "b2v11", "b2v11", "b2v39", "b2v39", "b2v40", "b2v40", "b2v34", "b2v34", "b2v31", "b2v31", "b2c41", "b2c41", "b2c49", "b2c49"]}
 ];
+// 第2弾の発売日までは、第2弾のCPUを対戦相手に出さない
+for(let i=PERSONALITIES.length-1;i>=0;i--){const p=PERSONALITIES[i];if(p.rel&&todayStr()<p.rel)PERSONALITIES.splice(i,1)}
 
 /* ================= ストーリーモード ================= */
 // ストーリー専用の敵(既存性格のデッキを流用して難易度調整)
@@ -2141,7 +2345,30 @@ const STORY_ENEMIES={
  // 章のラスト（ボス）：ルーレットの前にCRのカードを大きく出す。デッキのコモクもCR版に
  komoku:{id:"komoku",name:"木の勇者コモク",tagline:"勇者の名にかけて",aggro:1.0,
   bossCard:"komoku_cr",bossLine:"「勇者の名にかけて、相手をしよう！」",
-  deck:PERSONALITIES[2].deck.map(id=>id=="komoku"?"komoku_cr":id)}
+  deck:PERSONALITIES[2].deck.map(id=>id=="komoku"?"komoku_cr":id)},
+ // ===== 荒天大陸ブリザルト編の敵（hp があればボスのHP） =====
+ "b2_gou":{"id": "b2_gou", "name": "街の青年", "tagline": "挑戦者の顔をしてるぜ！", "aggro": 1.2, "deck": ["b2v15", "b2v15", "b2v13", "b2v13", "b2v25", "b2v25", "b2v26", "b2v26", "b2v28", "b2v28", "b2v14", "b2v14", "b2v17", "b2v17", "b2v23", "b2v23", "b2v06", "b2v06", "b2c06", "b2c06", "b2c29", "b2c29", "b2c_kosame", "b2c_kosame", "b2v39", "b2v39", "b2v36", "b2v36", "b2v35", "b2v35"]},
+ "b2_jiiya":{"id": "b2_jiiya", "name": "じいや", "tagline": "坊ちゃんのご命令とあらば", "aggro": 0.6, "deck": ["b2v22", "b2v22", "b2v20", "b2v20", "b2c23", "b2c23", "b2c15", "b2c15", "b2f25", "b2f25", "b2c27", "b2c27", "b2c22", "b2c22", "b2v25", "b2v25", "b2v27", "b2v27", "b2c24", "b2c24", "b2c42", "b2c42", "b2v37", "b2v37", "b2v49", "b2v49", "b2c46", "b2c46", "b2v41", "b2v41"]},
+ "b2_tetsu":{"id": "b2_tetsu", "name": "酔っ払いのテツ", "tagline": "熱燗パワーだぁ！", "aggro": 1.1, "deck": ["b2v13", "b2v13", "b2v19", "b2v19", "b2v18", "b2v18", "b2v29", "b2v29", "b2c20", "b2c20", "b2c24", "b2c24", "b2c26", "b2c26", "b2c19", "b2c19", "b2c22", "b2c22", "b2f29", "b2f29", "b2v48", "b2v48", "b2v50", "b2v50", "b2f48", "b2f48", "b2f43", "b2f43", "b2v49", "b2v49"]},
+ "b2_raika":{"id": "b2_raika", "name": "雷の勇者ライカ", "tagline": "ビリッと決めるぜ！", "aggro": 1.3, "deck": ["b2v_raika_cr", "b2v_raika", "b2v07", "b2v07", "b2v06", "b2v06", "b2v05", "b2v05", "b2v02", "b2v02", "b2v17", "b2v17", "b2v14", "b2v14", "b2v13", "b2v13", "b2v15", "b2v15", "b2v23", "b2v23", "b2v_plasy", "b2v_plasy", "b2v_minus", "b2v_minus", "b2v36", "b2v36", "b2v35", "b2v35", "b2v32", "b2v32"], "bossCard": "b2v_raika_cr", "bossLine": "「ビリッと決めるぜ！」"},
+ "b2_garo":{"id": "b2_garo", "name": "国境の門番ガロ", "tagline": "決まりは決まりだ！", "aggro": 0.9, "deck": ["b2v20", "b2v20", "b2v22", "b2v22", "b2f16", "b2f16", "b2f25", "b2f25", "b2c13", "b2c13", "b2f13", "b2f13", "b2v13", "b2v13", "b2f14", "b2f14", "b2c29", "b2c29", "b2c_kosame", "b2c_kosame", "b2c24", "b2c24", "b2f36", "b2f36", "b2v41", "b2v41", "b2c45", "b2c45", "b2c42", "b2c42"]},
+ "b2_mizore":{"id": "b2_mizore", "name": "雪の街のミゾレ", "tagline": "この寒さに勝てるかしら", "aggro": 0.9, "deck": ["b2f24", "b2f24", "b2f25", "b2f25", "b2f26", "b2f26", "b2f27", "b2f27", "b2f28", "b2f28", "b2f29", "b2f29", "b2f30", "b2f30", "b2f13", "b2f13", "b2f19", "b2f19", "b2f17", "b2f17", "b2c_kosame", "b2c_kosame", "b2c12", "b2c12", "b2f41", "b2f41", "b2f42", "b2f42", "b2f43", "b2f43"]},
+ "b2_hyoga":{"id": "b2_hyoga", "name": "氷の騎士ヒョウガ", "tagline": "覚悟をカードで示せ", "aggro": 1.0, "deck": ["b2f14", "b2f14", "b2f19", "b2f19", "b2f13", "b2f13", "b2c07", "b2c07", "b2f11", "b2f11", "b2f07", "b2f07", "b2f22", "b2f22", "b2f16", "b2f16", "b2f15", "b2f15", "b2f27", "b2f27", "b2f36", "b2f36", "b2f35", "b2f35", "b2f37", "b2f37", "b2f41", "b2f41", "b2c34", "b2c34"]},
+ "b2_setsu":{"id": "b2_setsu", "name": "雪の勇者セツ", "tagline": "雪は、すべてを静かにする", "aggro": 0.8, "deck": ["b2f_setsu_cr", "b2f_setsu", "b2f06", "b2f06", "b2f02", "b2f02", "b2f04", "b2f04", "b2f05", "b2f05", "b2f08", "b2f08", "b2f09", "b2f09", "b2f10", "b2f10", "b2f22", "b2f22", "b2f16", "b2f16", "b2f13", "b2f13", "b2f14", "b2f14", "b2f33", "b2f33", "b2f36", "b2f36", "b2f31", "b2f31"], "bossCard": "b2f_setsu_cr", "bossLine": "「雪は、すべてを静かにする」"},
+ "b2_ruin":{"id": "b2_ruin", "name": "遺跡の番人", "tagline": "タチサレ", "aggro": 0.6, "deck": ["b2c27", "b2c27", "b2c16", "b2c16", "b2v20", "b2v20", "b2c04", "b2c04", "b2c18", "b2c18", "b2f23", "b2f23", "b2f20", "b2f20", "b2c13", "b2c13", "b2f22", "b2f22", "b2c15", "b2c15", "b2c37", "b2c37", "b2f32", "b2f32", "b2c40", "b2c40", "b2c38", "b2c38", "b2c36", "b2c36"]},
+ "b2_seal":{"id": "b2_seal", "name": "封印の守り手", "tagline": "ジャマモノハ、コオラセル", "aggro": 0.8, "deck": ["b2c07", "b2c07", "b2f05", "b2f05", "b2f08", "b2f08", "b2f07", "b2f07", "b2f11", "b2f11", "b2f13", "b2f13", "b2c13", "b2c13", "b2f22", "b2f22", "b2f04", "b2f04", "b2f16", "b2f16", "b2c33", "b2c33", "b2c34", "b2c34", "b2c43", "b2c43", "b2f36", "b2f36", "b2c31", "b2c31"]},
+ "b2_volbriza1":{"id": "b2_volbriza1", "name": "禁断の龍ボルブリザ", "tagline": "グオオオオ……！", "aggro": 1.2, "deck": ["b2c01_cr", "b2c01", "b2v02", "b2v02", "b2f02", "b2f02", "b2c03", "b2c03", "b2v05", "b2v05", "b2c04", "b2c04", "b2c02", "b2c02", "b2v06", "b2v06", "b2f05", "b2f05", "b2c07", "b2c07", "b2c09", "b2c09", "b2c31", "b2c31", "b2v31", "b2v31", "b2f31", "b2f31", "b2c32", "b2c32"], "bossCard": "b2c01_cr", "bossLine": "「グオオオオ……！」", "hp": 22000},
+ "b2_beast":{"id": "b2_beast", "name": "暴走した雷雪獣", "tagline": "ガルルル……！", "aggro": 1.4, "deck": ["b2c06", "b2c06", "b2c10", "b2c10", "b2v06", "b2v06", "b2v15", "b2v15", "b2f17", "b2f17", "b2f27", "b2f27", "b2c29", "b2c29", "b2c_kosame", "b2c_kosame", "b2c11", "b2c11", "b2v28", "b2v28", "b2v14", "b2v14", "b2v23", "b2v23", "b2c35", "b2c35", "b2v36", "b2v36", "b2c44", "b2c44"]},
+ "b2_storm":{"id": "b2_storm", "name": "嵐の眷属", "tagline": "アラシハ、トマラナイ", "aggro": 1.1, "deck": ["b2c03", "b2c03", "b2c14", "b2c14", "b2c09", "b2c09", "b2c06", "b2c06", "b2c10", "b2c10", "b2c07", "b2c07", "b2c13", "b2c13", "b2c04", "b2c04", "b2c12", "b2c12", "b2c05", "b2c05", "b2c39", "b2c39", "b2c36", "b2c36", "b2c49", "b2c49", "b2c41", "b2c41", "b2c35", "b2c35"]},
+ "b2_pass":{"id": "b2_pass", "name": "峠の番人ゴウライ", "tagline": "ここは通さん", "aggro": 0.9, "deck": ["b2v03", "b2v03", "b2v04", "b2v04", "b2v20", "b2v20", "b2v21", "b2v21", "b2f16", "b2f16", "b2f04", "b2f04", "b2f22", "b2f22", "b2f10", "b2f10", "b2v17", "b2v17", "b2f14", "b2f14", "b2c32", "b2c32", "b2v35", "b2v35", "b2f35", "b2f35", "b2f37", "b2f37", "b2f33", "b2f33"]},
+ "b2_drakev":{"id": "b2_drakev", "name": "雷の眷属", "tagline": "バチバチバチ……", "aggro": 1.2, "deck": ["b2v02", "b2v02", "b2v05", "b2v05", "b2v06", "b2v06", "b2v21", "b2v21", "b2v17", "b2v17", "b2v22", "b2v22", "b2v13", "b2v13", "b2v27", "b2v27", "b2v16", "b2v16", "b2v14", "b2v14", "b2v34", "b2v34", "b2v37", "b2v37", "b2v33", "b2v33", "b2v35", "b2v35", "b2v31", "b2v31"]},
+ "b2_avatar":{"id": "b2_avatar", "name": "嵐の化身", "tagline": "ヒュオオオ……", "aggro": 0.9, "deck": ["b2f02", "b2f02", "b2f05", "b2f05", "b2f09", "b2f09", "b2f08", "b2f08", "b2f11", "b2f11", "b2f07", "b2f07", "b2f04", "b2f04", "b2f22", "b2f22", "b2f30", "b2f30", "b2f15", "b2f15", "b2f31", "b2f31", "b2c33", "b2c33", "b2f37", "b2f37", "b2f35", "b2f35", "b2f34", "b2f34"]},
+ "b2_general":{"id": "b2_general", "name": "嵐の将ゲイル", "tagline": "龍のために、道をふさぐ", "aggro": 1.1, "deck": ["b2c03", "b2c03", "b2v02", "b2v02", "b2f02", "b2f02", "b2v03", "b2v03", "b2f03", "b2f03", "b2f04", "b2f04", "b2v06", "b2v06", "b2f14", "b2f14", "b2v05", "b2v05", "b2c07", "b2c07", "b2c31", "b2c31", "b2c32", "b2c32", "b2v33", "b2v33", "b2f31", "b2f31", "b2f33", "b2f33"]},
+ "b2_road":{"id": "b2_road", "name": "遺跡への道の番人", "tagline": "龍の眠りを妨げさせはせぬ", "aggro": 0.8, "deck": ["b2c04", "b2c04", "b2c16", "b2c16", "b2v20", "b2v20", "b2c18", "b2c18", "b2f22", "b2f22", "b2f04", "b2f04", "b2f10", "b2f10", "b2c13", "b2c13", "b2c07", "b2c07", "b2f05", "b2f05", "b2c37", "b2c37", "b2c33", "b2c33", "b2c32", "b2c32", "b2f35", "b2f35", "b2v35", "b2v35"]},
+ "b2_volbriza2":{"id": "b2_volbriza2", "name": "禁断の龍ボルブリザ", "tagline": "グオオオオオ……！！", "aggro": 1.2, "deck": ["b2c01_cr", "b2c01", "b2v02", "b2v02", "b2f02", "b2f02", "b2c03", "b2c03", "b2v05", "b2v05", "b2c04", "b2c04", "b2c02", "b2c02", "b2v06", "b2v06", "b2f05", "b2f05", "b2c07", "b2c07", "b2c09", "b2c09", "b2c31", "b2c31", "b2v31", "b2v31", "b2f31", "b2f31", "b2c32", "b2c32"], "bossCard": "b2c01_cr", "bossLine": "「グオオオオオ……！！」", "hp": 25000},
+ "b2_atmos":{"id": "b2_atmos", "name": "アトモスの守護者", "tagline": "資格を示せ", "aggro": 0.8, "deck": ["b2c02", "b2c02", "b2c04", "b2c04", "b2c05", "b2c05", "b2c08", "b2c08", "b2c12", "b2c12", "b2c09", "b2c09", "b2c07", "b2c07", "b2c16", "b2c16", "b2c17", "b2c17", "b2c28", "b2c28", "b2c38", "b2c38", "b2c37", "b2c37", "b2c40", "b2c40", "b2c34", "b2c34", "b2c42", "b2c42"]},
+ "b2_twins":{"id": "b2_twins", "name": "ライカとセツ", "tagline": "二人まとめて相手だ！", "aggro": 1.1, "deck": ["b2v_raika_cr", "b2v_raika", "b2f_setsu_cr", "b2f_setsu", "b2v07", "b2v07", "b2f06", "b2f06", "b2v06", "b2v06", "b2f05", "b2f05", "b2v05", "b2v05", "b2f04", "b2f04", "b2v17", "b2v17", "b2f14", "b2f14", "b2v_plasy", "b2v_plasy", "b2v_minus", "b2v_minus", "b2v32", "b2v32", "b2f31", "b2f31", "b2v35", "b2v35"], "bossCard": "b2v_raika_cr", "bossLine": "「二人まとめて相手だ！」"},
+ "b2_volbriza3":{"id": "b2_volbriza3", "name": "禁断の龍ボルブリザ", "tagline": "グオオオオオオ……！！！", "aggro": 1.0, "deck": ["b2c01_cr", "b2c01", "b2v02", "b2v02", "b2f02", "b2f02", "b2c03", "b2c03", "b2v05", "b2v05", "b2c04", "b2c04", "b2c02", "b2c02", "b2v06", "b2v06", "b2f05", "b2f05", "b2c07", "b2c07", "b2c09", "b2c09", "b2c31", "b2c31", "b2v31", "b2v31", "b2f31", "b2f31", "b2c32", "b2c32"], "bossCard": "b2c01_cr", "bossLine": "「グオオオオオオ……！！！」", "hp": 12000}
 };
 function enemyByStory(id){return STORY_ENEMIES[id]||PERSONALITIES.find(p=>p.id==id)||PERSONALITIES[0]}
 
@@ -2270,7 +2497,12 @@ const STORY=[
    {t:"s",who:"{name}",text:"（一つ目のCORE……！ 世界一の宝石へ、また一歩）"},
    {t:"n",text:"緑の宝石が、{name}の手のなかで静かに輝く。旅は、次の国へ——"}
   ]}
- ]}
+ ]},
+ /* ===== 第2〜5章「荒天大陸ブリザルト編」（第2弾と同じ 11/1 から） ===== */
+{"ch": 2, "title": "第2章：雷の国ボルテア", "episodes": [{"title": "雷の国ボルテア", "pre": [{"t": "n", "text": "木の勇者コモクの紹介で、{name}は荒天大陸ブリザルト行きの船に乗った。……空はずっと、ゴロゴロと鳴っている。"}, {"t": "s", "who": "船頭", "text": "悪いが、ここらで失礼するよ"}, {"t": "s", "who": "{name}", "text": "ここは……？"}, {"t": "s", "who": "船頭", "text": "雷の国ボルテアの港町さ。これより北は海が荒れていてな。船で行けるのはここまでだ"}, {"t": "s", "who": "{name}", "text": "ここまでありがとうございました"}, {"t": "s", "who": "船頭", "text": "ああ、気をつけてな。この辺りは気性の荒い連中が多い。……長居はおすすめしないぜ"}, {"t": "n", "text": "船を降りて大通りへ。稲光が、石畳を白く照らす。"}, {"t": "n", "text": "フードを深くかぶった青年が、ひょいと{name}の前に飛び出した。"}, {"t": "s", "who": "街の青年", "text": "おっ、{anchan}！ 見ない顔だな！ ここの人間じゃないだろ？"}, {"t": "s", "who": "{name}", "text": "そうだけど、どうして？"}, {"t": "s", "who": "街の青年", "text": "その顔は挑戦者の顔だ！ 俺にはわかるんだよな。……なあ、ひと勝負やらないか？"}, {"t": "s", "who": "街の青年", "text": "遠慮はいらねぇぜ！ いざ勝負！"}], "enemy": "b2_gou", "post": [{"t": "s", "who": "街の青年", "text": "はぁ……強ぇな！ {anchan}なら、もしかしたらこの大陸を変えられるかもしれねぇ"}, {"t": "s", "who": "{name}", "text": "この大陸に、何か問題があるのか？"}, {"t": "s", "who": "街の青年", "text": "……COREのことさ。ちょっと長くなるぜ"}]}, {"title": "COREと大戦争", "pre": [{"t": "n", "text": "青年は、雷雲の向こうにそびえる山脈を指さした。"}, {"t": "s", "who": "街の青年", "text": "昔、この大陸では王家同士の大戦争があったんだ。原因は、空を司る宝石——COREアトモスの奪い合い"}, {"t": "s", "who": "街の青年", "text": "戦争の末に、アトモスは真っ二つに割れちまった"}, {"t": "s", "who": "{name}", "text": "COREが……割れた？"}, {"t": "s", "who": "街の青年", "text": "ああ。それから山脈を境に、北は一年中吹雪、南は一年中雷。割れた半分ずつを、南のボルテアと北のフロスティアが持ってる"}, {"t": "s", "who": "街の青年", "text": "二つを一つに戻せば、空も元に戻るんじゃないかって言われてる。でも、北と南の王様は代々仲が悪くてな"}, {"t": "s", "who": "{name}", "text": "（両方の王に会って、説得するしかない……）"}, {"t": "s", "who": "じいや", "text": "——坊ちゃん！ またそのような格好で、お城を抜け出されて！"}, {"t": "s", "who": "{name}", "text": "坊ちゃん！？"}, {"t": "s", "who": "街の青年", "text": "げっ、じいや……！ あちゃー、バレちゃった"}, {"t": "n", "text": "青年がフードを取ると、金色の髪がこぼれた。"}, {"t": "s", "who": "王子ルカ", "text": "ごめんね、だますつもりはなかったんだ。僕はルカ。姉ちゃんが、このボルテアの女王なんだ"}, {"t": "s", "who": "王子ルカ", "text": "街の人の声を聞くには、王子の格好じゃ目立ちすぎるからさ"}, {"t": "s", "who": "王子ルカ", "text": "……ねえ、じいや。この人、試してみる価値があると思わない？"}, {"t": "s", "who": "じいや", "text": "坊ちゃんがそうおっしゃるのでしたら。わたくしが見定めましょう"}], "enemy": "b2_jiiya", "post": [{"t": "s", "who": "じいや", "text": "ほう……なかなかの腕前ですな"}, {"t": "s", "who": "王子ルカ", "text": "だろ？ 姉ちゃんも、腕の立つ人を探してたんだよ！"}]}, {"title": "王子の約束と一夜の宿", "pre": [{"t": "s", "who": "じいや", "text": "ただ、女王様が話を聞いてくださるかどうかは、また別の話ですが……"}, {"t": "s", "who": "王子ルカ", "text": "まあまあ！ 物は試しってね！ 今日はもう遅いから、明日の朝に広場で待ち合わせな！ じゃあね！"}, {"t": "n", "text": "二人と別れ、{name}は今夜の宿を探して歩く。すると、酒瓶を片手にした男が近づいてきた。"}, {"t": "s", "who": "酔っ払いのテツ", "text": "よお、{anchan}！ 宿を探してんのか？"}, {"t": "s", "who": "{name}", "text": "ああ、今夜はもう休もうと思って……"}, {"t": "s", "who": "酔っ払いのテツ", "text": "ならちょうどいい店があるぜ！ 二階が宿で、一階が酒場だ！ 俺の飲みにも付き合えるぞ！"}, {"t": "s", "who": "{name}", "text": "いや、飲みはちょっと……"}, {"t": "s", "who": "酔っ払いのテツ", "text": "なんだと！？ 文句があるならバトルで決めようじゃねぇか！"}, {"t": "s", "who": "{name}", "text": "どうしてそうなるんだ……"}, {"t": "s", "who": "酔っ払いのテツ", "text": "いくぞぉ！ 熱燗パワーだぁ！"}], "enemy": "b2_tetsu", "post": [{"t": "s", "who": "酔っ払いのテツ", "text": "かぁーっ！ 強ぇな、{anchan}！ 気に入ったぜ！ 宿代も飯代も俺が奢ってやる！"}, {"t": "s", "who": "{name}", "text": "えっ、いいんですか？"}, {"t": "s", "who": "酔っ払いのテツ", "text": "勝ったやつへのお祝いだ！ 遠慮すんな！"}, {"t": "n", "text": "その夜、{name}は雷の音を子守歌に、ぐっすりと眠った。"}]}, {"title": "雷の勇者ライカ", "boss": true, "pre": [{"t": "n", "text": "翌朝。広場で、ルカとじいやが待っていた。"}, {"t": "s", "who": "王子ルカ", "text": "いたいた！ おーい！ 昨日はちゃんと眠れた？"}, {"t": "s", "who": "{name}", "text": "おかげさまで"}, {"t": "s", "who": "じいや", "text": "それは何より。では、お城へ参りましょう"}, {"t": "n", "text": "雷獣の引く車に揺られて、{name}はボルテアの城へ。ルカが勢いよく扉を開けた。"}, {"t": "s", "who": "王子ルカ", "text": "ねぇちゃーん！ 強いヤツ、連れてきたぞ！"}, {"t": "s", "who": "雷の勇者ライカ", "text": "本当か！？ そいつは楽しみだ！ さあ、勝負だ！！"}, {"t": "s", "who": "{name}", "text": "えっ、いきなり！？"}, {"t": "s", "who": "雷の勇者ライカ", "text": "俺はライカ。雷の勇者で、この国の女王だ！ 話はあとだ、ビリッと決めるぜ！"}], "enemy": "b2_raika", "post": [{"t": "s", "who": "雷の勇者ライカ", "text": "お前、強いなぁ！ 久々に痺れる勝負だったぜ！"}, {"t": "s", "who": "{name}", "text": "ありがとうございます"}, {"t": "s", "who": "雷の勇者ライカ", "text": "で？ 今日は何の用だ？"}]}, {"title": "北の国フロスティアへ", "pre": [{"t": "s", "who": "王子ルカ", "text": "じいや、説明を頼むよ！"}, {"t": "n", "text": "じいやは、割れたCOREアトモスを一つに戻せば、大陸の空が晴れるかもしれないことを話した。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "えぇ……セツと話し合うのか？ やだよ、あいつの顔なんか見たくない！"}, {"t": "s", "who": "王子ルカ", "text": "姉ちゃん！ 晴れわたったこの国を見たくないの？"}, {"t": "s", "who": "雷の勇者ライカ", "text": "いいじゃん、毎日雷が鳴ってて痺れるだろ？"}, {"t": "s", "who": "{name}", "text": "この国の未来のためにも、COREは一つに戻すべきです"}, {"t": "s", "who": "雷の勇者ライカ", "text": "よそ者に何を言われようと、俺は動かねぇよ！"}, {"t": "s", "who": "王子ルカ", "text": "……{name}さん。北の国フロスティアへ行って、雪の勇者セツを説得してきてくれないかな。姉ちゃんがこの調子じゃ、話が進まないからさ"}, {"t": "s", "who": "じいや", "text": "国境まで、わたくしがお送りいたします"}, {"t": "n", "text": "山脈のふもと、雷と雪が混ざり合う国境の門。"}, {"t": "s", "who": "国境の門番ガロ", "text": "おおっ、じいや！ 久しぶりじゃねぇか！"}, {"t": "s", "who": "じいや", "text": "ご無沙汰しております。今日は、この方をフロスティアへお連れしたくて"}, {"t": "s", "who": "国境の門番ガロ", "text": "じいやの頼みでも、決まりは決まりだ！ この門を通りたきゃ、俺と勝負してもらうぜ！"}], "enemy": "b2_garo", "post": [{"t": "s", "who": "国境の門番ガロ", "text": "……通っていいぜ。北は寒いぞ、気をつけてな"}, {"t": "n", "text": "門の向こうは、一面の吹雪。{name}は、極寒の国フロスティアへ足を踏み入れた。"}]}], "rel": "2026-10-01"},
+{"ch": 3, "title": "第3章：氷の国フロスティア", "episodes": [{"title": "氷の国フロスティア", "pre": [{"t": "n", "text": "雪と氷に覆われた、美しい街。けれど人々は、年々ひどくなる吹雪に肩をすくめていた。"}, {"t": "s", "who": "雪の街のミゾレ", "text": "あなた、南から来たの？ その服じゃ凍えちゃうわよ"}, {"t": "s", "who": "{name}", "text": "お城へ行きたいんだ。王に話がある"}, {"t": "s", "who": "雪の街のミゾレ", "text": "セツ様に？ ……ふうん。じゃあ、この街の寒さに勝てるか、まずは私と勝負ね"}], "enemy": "b2_mizore", "post": [{"t": "s", "who": "雪の街のミゾレ", "text": "やるじゃない。……お城は、あの凍った湖の向こうよ"}, {"t": "s", "who": "雪の街のミゾレ", "text": "でも気をつけて。セツ様の騎士は、南の人間を信じないから"}]}, {"title": "氷の騎士", "pre": [{"t": "n", "text": "凍った湖のほとり。氷の槍を持った騎士が、{name}の行く手をふさいだ。"}, {"t": "s", "who": "氷の騎士ヒョウガ", "text": "止まれ。南の匂いがするな。ボルテアの手の者か"}, {"t": "s", "who": "{name}", "text": "争いに来たんじゃない。大陸を救いたいんだ"}, {"t": "s", "who": "氷の騎士ヒョウガ", "text": "言葉だけなら誰でも言える。その覚悟、カードで示してみろ"}], "enemy": "b2_hyoga", "post": [{"t": "s", "who": "氷の騎士ヒョウガ", "text": "……見事だ。陛下への謁見を許そう"}, {"t": "s", "who": "氷の騎士ヒョウガ", "text": "ただし、ひとつ忠告しておく。陛下の前で、ライカの名は出すな"}]}, {"title": "凍てつく王", "boss": true, "pre": [{"t": "n", "text": "氷の城の玉座。銀白の髪の青年が、静かにこちらを見ていた。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……雪の勇者、セツだ。南から来た客人だと聞いた"}, {"t": "s", "who": "{name}", "text": "二つのCOREを一つに戻せば、大陸の空は晴れる。だから、ボルテアと——"}, {"t": "s", "who": "雪の勇者セツ", "text": "断る"}, {"t": "s", "who": "{name}", "text": "どうして！？"}, {"t": "s", "who": "雪の勇者セツ", "text": "……急ぐ必要はない。アトモスは、半分のままがいい。それ以上は話せない"}, {"t": "s", "who": "{name}", "text": "言葉で届かないなら……カードで話をさせてくれ"}, {"t": "s", "who": "雪の勇者セツ", "text": "……そうか。なら、雪の静けさを教えてやる"}], "enemy": "b2_setsu", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……強いな。ライカが気に入りそうだ"}, {"t": "s", "who": "雪の勇者セツ", "text": "雪山の奥に、古代の遺跡がある。そこに、なぜ俺が首をたてに振れないのかが書いてある"}, {"t": "s", "who": "雪の勇者セツ", "text": "知りたければ、自分の目で見てこい"}]}, {"title": "古代遺跡の記録", "pre": [{"t": "n", "text": "雪山の奥。氷に閉ざされた古代遺跡の入り口に、石の巨人が立ちはだかる。"}, {"t": "s", "who": "遺跡の番人", "text": "……タチサレ。ココハ、フウインノ、ミチ"}, {"t": "s", "who": "{name}", "text": "通してもらう！"}], "enemy": "b2_ruin", "post": [{"t": "n", "text": "番人が崩れ落ち、奥の壁に古い文字が浮かび上がった。"}, {"t": "n", "text": "——かつて、この大陸を守る龍がいた。名は、ボルブリザ。雷と雪をまとい、空を穏やかに保つ龍。"}, {"t": "n", "text": "——人は龍の力を奪い合い、龍は怒り、空は荒れた。王たちは龍に勝てぬと知り、討つのではなく、封じることを選んだ。"}, {"t": "n", "text": "記録の最後には、こう刻まれていた。「真のCOREは、封印の奥に眠る」"}]}, {"title": "COREの正体", "pre": [{"t": "s", "who": "雪の勇者セツ", "text": "……読んだか"}, {"t": "s", "who": "{name}", "text": "セツ！ ついてきてたのか"}, {"t": "s", "who": "雪の勇者セツ", "text": "南と北が持っている二つのCORE。あれはアトモスの半分なんかじゃない。……封じた龍、ボルブリザの心臓を、二つに分けたものだ"}, {"t": "s", "who": "{name}", "text": "龍の、心臓……！？"}, {"t": "s", "who": "雪の勇者セツ", "text": "二つが合わされば、龍は目を覚ます。だから王家は、南と北で別々に持ち、決して近づかないようにしてきた"}, {"t": "s", "who": "雪の勇者セツ", "text": "本当のCOREアトモスは、龍を封じる力として、この遺跡の奥で眠っている"}, {"t": "s", "who": "{name}", "text": "じゃあ、{i}がやろうとしていたことは……"}, {"t": "s", "who": "雪の勇者セツ", "text": "……封印を解く鍵になる。それが、俺が首をたてに振れなかった理由だ"}], "post": [{"t": "s", "who": "{name}", "text": "……知らなかった。ごめん"}, {"t": "s", "who": "雪の勇者セツ", "text": "いい。知らずに動く者はいつか現れる。それが、お前でよかったのかもしれない"}]}, {"title": "崩れゆく封印", "pre": [{"t": "n", "text": "そのとき、遺跡全体が大きく揺れた。奥から、雷と冷気が同時に吹き出す。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……封印がゆるんでいる。南のCOREが、こちらへ近づいたせいだ"}, {"t": "s", "who": "{name}", "text": "南の……？ まさか、ボルテアの誰かが！"}, {"t": "s", "who": "雪の勇者セツ", "text": "話はあとだ。封印を守る守り手が暴れている。止めるぞ"}, {"t": "s", "who": "封印の守り手", "text": "フウインヲ……マモレ……ジャマモノハ……コオラセル"}], "enemy": "b2_seal", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……遅かった。封印は、もう半分以上崩れている"}, {"t": "s", "who": "雪の勇者セツ", "text": "責めたい気持ちはある。でも今は、災いを止めるのが先だ"}, {"t": "n", "text": "遺跡の最奥で、巨大な影がゆっくりと身を起こした。"}]}, {"title": "禁断の龍", "boss": true, "loseOk": true, "pre": [{"t": "n", "text": "青白い氷と、黄金の雷。二つの光が空を覆う。"}, {"t": "n", "text": "禁断の龍——ボルブリザが、目を覚ました。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……下がれ、と言っても聞かないだろうな"}, {"t": "s", "who": "{name}", "text": "ここで止めなきゃ、大陸が！"}, {"t": "s", "who": "禁断の龍ボルブリザ", "text": "グオオオオ……！"}], "enemy": "b2_volbriza1", "post": [{"t": "n", "text": "どれだけ攻撃を重ねても、龍はびくともしない。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……だめだ、今の俺たちでは届かない！ 退くぞ！"}, {"t": "n", "text": "セツに腕を引かれ、{name}は崩れる遺跡を駆け抜けた。龍は大きく翼を広げ、空のかなたへ飛び去っていく。"}]}], "rel": "2026-10-01"},
+{"ch": 4, "title": "第4章：禁断の龍", "episodes": [{"title": "龍、目覚める", "pre": [{"t": "n", "text": "龍の目覚めとともに、北の吹雪も南の雷も、いっそう激しくなった。"}, {"t": "s", "who": "雪の勇者セツ", "text": "龍の力に当てられて、魔物たちが暴れている。街へ下りるぞ"}, {"t": "s", "who": "{name}", "text": "ああ！"}], "enemy": "b2_beast", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……これで、ひとまず街の入り口は守れた"}, {"t": "s", "who": "雪の勇者セツ", "text": "龍は大陸の中心へ向かった。あそこには、南と北の境目がある"}]}, {"title": "崩壊する大陸", "pre": [{"t": "n", "text": "吹雪と雷が大陸じゅうに広がり、街も村も、嵐に飲み込まれていく。"}, {"t": "s", "who": "{name}", "text": "（{i}のせいだ……{i}が、COREを一つにしようなんて言わなければ……）"}, {"t": "s", "who": "嵐の眷属", "text": "ヒュオオオ……アラシハ、トマラナイ……"}, {"t": "s", "who": "雪の勇者セツ", "text": "考えるのはあとだ。目の前の人を守れ、{name}"}], "enemy": "b2_storm", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……龍を止めるには、俺一人の力では足りない"}, {"t": "s", "who": "雪の勇者セツ", "text": "南の王家——ライカの力が、どうしても要る"}]}, {"title": "南へ", "pre": [{"t": "s", "who": "{name}", "text": "{i}がボルテアへ戻って、ライカを連れてくる"}, {"t": "s", "who": "雪の勇者セツ", "text": "……危険だ。山脈の道は、嵐で一番荒れている"}, {"t": "s", "who": "{name}", "text": "それでも行く。これは、{i}が始めてしまったことだから"}, {"t": "s", "who": "雪の勇者セツ", "text": "……そうか。なら、俺も後から必ず行く。約束だ"}, {"t": "n", "text": "嵐の山道。岩のような巨体が、道をふさいでいた。"}, {"t": "s", "who": "峠の番人ゴウライ", "text": "ここは通さん……！ 嵐の中を進む者は、みな飲み込まれる"}], "enemy": "b2_pass", "post": [{"t": "n", "text": "番人を退け、{name}は南へ——雷の国ボルテアへと急いだ。"}]}, {"title": "ライカの決断", "pre": [{"t": "n", "text": "ボルテアの城。雷鳴の中、ライカが仁王立ちで待っていた。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "お前！ 北で何があった！？ 空がおかしいぞ！"}, {"t": "s", "who": "{name}", "text": "……全部話す。{i}のせいで、龍の封印が解けたんだ"}, {"t": "n", "text": "{name}は、COREの正体と、遺跡で見たすべてをライカに伝えた。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……そっか。やっちまったことは仕方ねぇ"}, {"t": "s", "who": "雷の勇者ライカ", "text": "だったら今度は、大陸を救うために戦うだけだろ！ 一人で背負ってんじゃねぇよ！"}, {"t": "s", "who": "王子ルカ", "text": "姉ちゃん！ 街の外に、龍の眷属が！"}, {"t": "s", "who": "雷の勇者ライカ", "text": "ちょうどいい。{name}、俺の力を貸してやる。ビリッと決めるぜ！"}], "ally": ["b2v_raika"], "enemy": "b2_drakev", "post": [{"t": "s", "who": "雷の勇者ライカ", "text": "へへっ、いい連携だったな！"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……セツのやつにも、会わなきゃな"}, {"t": "n", "text": "ライカの手札には、いつの間にか一枚のカードが残っていた。雷の勇者の、力のかけら。"}]}, {"title": "二人の勇者", "pre": [{"t": "n", "text": "吹雪をまとった青年が、ボルテアの城門をくぐった。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……約束どおり来た"}, {"t": "s", "who": "雷の勇者ライカ", "text": "セツ……！ 何年ぶりだよ、まったく"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前の先祖も、俺の先祖も、守ろうとしたのは同じものだった。……大陸だ"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……知ってるよ。今、聞いた"}, {"t": "s", "who": "雷の勇者ライカ", "text": "ケンカはもうやめだ。龍を止めるぞ、セツ"}, {"t": "s", "who": "雪の勇者セツ", "text": "……ああ。本当のCOREアトモスの力を使えば、龍に届くかもしれない"}, {"t": "n", "text": "そのとき、城の上空に、雪と雷をまとった嵐の化身が現れた。"}, {"t": "s", "who": "雪の勇者セツ", "text": "{name}。今度は、俺の力を使え"}], "ally": ["b2f_setsu"], "enemy": "b2_avatar", "post": [{"t": "s", "who": "雷の勇者ライカ", "text": "……やるじゃん、セツ"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前の大声も、たまには役に立つ"}, {"t": "s", "who": "{name}", "text": "（二人とも、本当は仲がいいんだな……）"}]}, {"title": "反撃の準備", "pre": [{"t": "n", "text": "南と北の兵士たちが、同じ旗の下に集まりはじめる。目指すは、大陸の中心の遺跡。"}, {"t": "s", "who": "王子ルカ", "text": "大変だ！ 龍が大陸の中心で、とんでもない嵐を起こしてる！"}, {"t": "s", "who": "じいや", "text": "その手前に、龍に魅入られた嵐の将が陣取っております"}, {"t": "s", "who": "雷の勇者ライカ", "text": "上等だ！ {name}、先陣はお前に任せた！"}], "enemy": "b2_general", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……道は開いた"}, {"t": "s", "who": "雷の勇者ライカ", "text": "行くぞ！ 決戦だ！"}]}], "rel": "2026-10-01"},
+{"ch": 5, "title": "第5章：二つの国の力", "episodes": [{"title": "決戦の地へ", "pre": [{"t": "n", "text": "大陸の中心。雷雲と雪雲が渦を巻く、その真下に古い遺跡があった。"}, {"t": "s", "who": "遺跡への道の番人", "text": "……龍の眠りを、二度と妨げさせはせぬ"}, {"t": "s", "who": "雪の勇者セツ", "text": "龍の力で目覚めた番人だ。気を抜くな"}], "enemy": "b2_road", "post": [{"t": "n", "text": "遺跡の上空。雷と吹雪を同時にまとった巨大な龍が、こちらを見下ろしていた。"}]}, {"title": "禁断の龍との戦い", "boss": true, "loseOk": true, "pre": [{"t": "s", "who": "雷の勇者ライカ", "text": "でけぇ……！"}, {"t": "s", "who": "雪の勇者セツ", "text": "二人で行く。{name}、俺たちの力を使え"}, {"t": "s", "who": "禁断の龍ボルブリザ", "text": "グオオオオオ……！！"}], "ally": ["b2v_raika", "b2f_setsu"], "enemy": "b2_volbriza2", "post": [{"t": "n", "text": "二人の勇者の力を合わせても、龍の嵐はやまない。遺跡が、音を立てて崩れはじめる。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "くそっ……まだ足りねぇのか！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……遺跡の最深部だ。本当のCOREを使うしかない！"}]}, {"title": "本当のCORE", "pre": [{"t": "n", "text": "崩れる遺跡の最深部。澄んだ空色の光が、静かに脈打っていた。"}, {"t": "s", "who": "{name}", "text": "これが……本当のCOREアトモス"}, {"t": "s", "who": "アトモスの守護者", "text": "……この光は、南と北が手を取り合ったときにだけ応える。お前たちに、その資格はあるか"}], "enemy": "b2_atmos", "post": [{"t": "s", "who": "アトモスの守護者", "text": "……よかろう"}, {"t": "s", "who": "雷の勇者ライカ", "text": "セツ、いくぞ！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……ああ"}, {"t": "n", "text": "ライカの雷と、セツの雪。二つの力が、アトモスへと注ぎこまれていく。"}]}, {"title": "二つの国の力", "boss": true, "pre": [{"t": "n", "text": "アトモスが輝く。けれど、その光はまだ揺らいでいた。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……力が、合わさりきらない"}, {"t": "s", "who": "雷の勇者ライカ", "text": "{name}！ 最後に、お前の力を見せてくれ。俺たち二人と、本気でやり合え！"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前が、南と北をつなぐ橋になれ"}], "enemy": "b2_twins", "post": [{"t": "s", "who": "雷の勇者ライカ", "text": "……へへっ。やっぱ、お前は強ぇな"}, {"t": "s", "who": "雪の勇者セツ", "text": "……今なら、届く"}, {"t": "n", "text": "三人の想いが重なったとき、アトモスはまぶしい空色の光を放った。"}]}, {"title": "最後のバトル", "boss": true, "pre": [{"t": "n", "text": "空色の光をまとい、{name}たちは再び龍の前に立つ。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "今度こそ決めるぞ！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……雪は、すべてを静かにする"}, {"t": "s", "who": "{name}", "text": "ボルブリザ……もう、戦わなくていいんだ！"}, {"t": "s", "who": "禁断の龍ボルブリザ", "text": "グオオオオオオ……！！！"}], "ally": ["b2v_raika", "b2f_setsu"], "enemy": "b2_volbriza3", "post": [{"t": "n", "text": "最後の一撃が、龍の胸に届いた。"}, {"t": "n", "text": "ボルブリザは大きく一声鳴くと、雷と雪の光になって、空へ溶けていった。どこか、安らいだ声だった。"}]}, {"title": "ブリザルトへようこそ", "pre": [{"t": "n", "text": "荒れ狂っていた吹雪と雷が、静かにやんでいく。大陸の空に、何百年ぶりかの青空が広がった。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……晴れた。ほんとに晴れたぞ、セツ！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……ああ。悪くない"}, {"t": "s", "who": "雷の勇者ライカ", "text": "これからは、南と北で行き来しようぜ。ルカも、じいやも喜ぶ"}, {"t": "s", "who": "雪の勇者セツ", "text": "……このCOREアトモスは、龍を封じるために守り続けてきたものだ。だが、龍はもういない"}, {"t": "s", "who": "雪の勇者セツ", "text": "{name}。これは、お前が持っていけ"}, {"t": "s", "who": "{name}", "text": "本当に、{i}がもらってもいいの？"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前はこの大陸を救ってくれた。その力を、これからも世界のために使ってくれ"}, {"t": "s", "who": "雷の勇者ライカ", "text": "また遊びに来いよ！ 次は負けねぇからな！"}], "post": [{"t": "n", "text": "COREペリドットに並んで、空色のCOREアトモスが、{name}の手のなかで輝く。"}, {"t": "s", "who": "{name}", "text": "（二つ目のCORE……！ 世界一の宝石へ、また一歩）"}, {"t": "n", "text": "晴れわたったブリザルトの空の下、{name}の旅は、次の国へと続いていく——"}]}], "rel": "2026-10-01"}
 ];
 let deck=loadDeck(),filter="all",S=null,selH=null,selA=null,selE=null,pending=null,logs=[];
 /* ===== ゲーム内の入力・確認ダイアログ ===== */
@@ -2400,7 +2632,9 @@ const EVENTS_LOCKED=false;   // 9/29 公開
 const PACKS=[
  {id:1, name:"はじまりパック-01", sub:"はじまりの100枚", open:true},
  {id:90,name:"時の王パック",sub:"時の王の従者たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"promo",noStep:true},
- {id:91,name:"ハロウィンパック",sub:"パンプキングと仲間たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"hw",noStep:true}
+ {id:91,name:"ハロウィンパック",sub:"パンプキングと仲間たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"hw",noStep:true},
+ {id:92,name:"ボルテアパック",sub:"雷の勇者ライカと雷鳴の獣たち",open:true},
+ {id:93,name:"フロスティアパック",sub:"雪の勇者セツと白銀の仲間たち",open:true}
 ];
 function openPacks(){return PACKS.filter(p=>p.open)}
 function packById(id){return PACKS.find(p=>p.id==id)||PACKS[0]}
@@ -2417,7 +2651,13 @@ function setGachaPack(id){
 /* ===== ステップアップガチャ（初回のみ・全5段階／合計50枚） =====
    guarantee は「最後にめくる側から」順に確定枠を割り当てる。
    card は配布するプロモカードのID。★決まったら入れる★ 空なら配布なし。 */
-const STEP_GACHA_BY_PACK={};   // 弾ごとに構成を変えたいときだけ入れる（例: {2:[...]}）
+const STEP_GACHA_B2=[   // 第2弾（ボルテア・フロスティア）：パックごとに別々。30連目は勇者以外のCRが1枚確定
+ {cost:300,guarantee:["R"],        card:"", short:"大特価",   head:"大特価",            note:"通常の3分の1の値段"},
+ {cost:600,guarantee:["SR"],       card:"", short:"SR確定",   head:"SR以上 1枚確定",    note:""},
+ {cost:900,guarantee:["R"],        card:"b2c14_crp", short:"プロモCR", head:"プロモCR 1枚",     note:"ここでしか手に入らない ハリー･ケンのCR"},
+ {cost:900,guarantee:["SR","SR"],  card:"", short:"SR×2",     head:"SR以上 2枚確定",    note:""},
+ {cost:900,guarantee:["UR"],       card:"", short:"UR確定",   head:"UR以上 1枚確定",    note:"最後は最高レアを保証"}];
+const STEP_GACHA_BY_PACK={92:STEP_GACHA_B2,93:STEP_GACHA_B2};   // 弾ごとに構成を変えたいときだけ入れる
 const STEP_GACHA=[
  {cost:300,guarantee:["R"],        card:"", short:"大特価",   head:"大特価",           note:"通常の3分の1の値段"},
  {cost:600,guarantee:["SR"],       card:"", short:"SR確定",   head:"SR以上 1枚確定",   note:""},
@@ -2438,10 +2678,12 @@ const STEP_GACHA=[
      pulls:[{label,count,cost,cur,guarantee}] … 専用の引くボタン。これがあると通常の1回/10回/ステップアップの代わりに出る
         cur:"ticket" で🎫券払い（省略は💎）。guarantee は確定枠（例 ["SR"]＝最後の1枚がSR以上） */
 const GACHAS=[
- {id:"p1",   pack:1, title:"はじまりパック-01",   sub:"はじまりの100枚",       period:"常設",       theme:["#1d5aa6","#0a1d3c"],accent:"#f0c76a"},
- {id:"start",pack:1, title:"スタートダッシュ",sub:"10連・SR以上1枚確定",period:"初回限定",theme:["#b5541a","#3a1206"],accent:"#ffc36a",
+ {id:"p1",   pack:1, bg:"bg_p1.webp", title:"はじまりパック-01",   sub:"はじまりの100枚",       period:"常設",       theme:["#1d5aa6","#0a1d3c"],accent:"#f0c76a"},
+ {id:"start",pack:1, bg:"bg_p1.webp", title:"スタートダッシュ",sub:"10連・SR以上1枚確定",period:"初回限定",theme:["#b5541a","#3a1206"],accent:"#ffc36a",
   limit:1, pulls:[{label:"10回引く",count:10,cost:100,guarantee:["SR"]}]},
  {id:"promo",pack:90,title:"時の王パック",sub:"時の王の従者たち",whenEvent:true,whenEventId:"chronoga",pity:{n:50,r:"CR"},theme:["#8a2d6e","#2a0c2a"],accent:"#ff9ad8"},
+ {id:"volt",pack:92,bg:"bg_volt.webp",title:"ボルテアパック",sub:"雷の勇者ライカと雷鳴の獣たち",period:"第2弾",start:"2026-10-01",pity:{n:50,r:"CR"},theme:["#6a3fb5","#1a0f3a"],accent:"#ffd84a"},
+ {id:"frost",pack:93,bg:"bg_frost.webp",title:"フロスティアパック",sub:"雪の勇者セツと白銀の仲間たち",period:"第2弾",start:"2026-10-01",pity:{n:50,r:"CR"},theme:["#3f8fd0","#0a2340"],accent:"#bfe9ff"},
  {id:"halloween",pack:91,title:"ハロウィンパック",sub:"パンプキングと仲間たち",whenEvent:true,whenEventId:"halloween",pity:{n:50,r:"CR"},theme:["#c2561a","#2a0c2a"],accent:"#ffb347"}
 ];
 function gachaById(id){return GACHAS.find(g=>g.id==id)||GACHAS[0]}
@@ -2507,7 +2749,8 @@ function fillText(s){
  const rival=rs=="f"?"みな":"じゅん";
  const ri=rs=="f"?"わたし":"僕";
  const rk=rs=="f"?"姉":"兄"; // ライバルは双子のきょうだい
- return s.replace(/\{name\}/g,player.name).replace(/\{i\}/g,i).replace(/\{rival\}/g,rival).replace(/\{ri\}/g,ri).replace(/\{rk\}/g,rk);
+ const anchan=player.sex=="m"?"兄ちゃん":player.sex=="f"?"姉ちゃん":"旅の人";
+ return s.replace(/\{name\}/g,player.name).replace(/\{anchan\}/g,anchan).replace(/\{i\}/g,i).replace(/\{rival\}/g,rival).replace(/\{ri\}/g,ri).replace(/\{rk\}/g,rk);
 }
 // ストーリー進行: クリア済みの "章-話" を記録
 function storyProgress(){try{return JSON.parse(store.get("cmStoryProg")||"[]")}catch(e){return[]}}
@@ -2542,8 +2785,10 @@ function showStoryReward(){const r=storyRewardPending;storyRewardPending=null;if
  $("srPop").classList.add("show");sfx("win")}
 function isStoryClear(ch,ep){return storyProgress().includes(ch+"-"+ep)}
 // その話が挑戦可能か(前の話がクリア済みか、最初の話か)
+function storyChOpen(chIdx){const c=STORY[chIdx];return !!c&&(!c.rel||todayStr()>=c.rel)}
 function isStoryUnlocked(chIdx,epIdx){
  if(chIdx==0&&epIdx==0)return true;
+ if(!storyChOpen(chIdx))return false;
  // 同じ章の前の話
  if(epIdx>0)return isStoryClear(STORY[chIdx].ch,epIdx-1);
  // 章の最初の話 → 前の章の最終話クリアが条件
@@ -3588,13 +3833,14 @@ function openList(keepScroll){hideAll();$("list").classList.remove("hide");if(!k
 function detailCard(id){showD(by(id))}
 
 /* ================= 図鑑 ================= */
-const PACK_LABELS={0:"プロモ",90:"イベント"};   // 配布・ステップアップ特典の別イラストもプロモ(0)に入れる   // 90番はイベント報酬のプロモ弾
+const PACK_LABELS={0:"プロモ",90:"イベント",92:"第2弾"};   // 配布・ステップアップ特典の別イラストもプロモ(0)に入れる   // 90番はイベント報酬のプロモ弾
 function packLabel(p){return PACK_LABELS[p]||("第"+p+"弾")}
 let codexPackKeys=[];
 function codexPacks(){
  const map={};
  P.filter(c=>isVisible(c)).forEach(c=>{const p=codexTabOf(c);(map[p]=map[p]||[]).push(c)});
  if(map[0])map[0].sort((a,b)=>((a.no||(by(a.baseId)||{}).no)||999)-((b.no||(by(b.baseId)||{}).no)||999)||(a.rarity=="CR")-(b.rarity=="CR"));   // プロモは番号順（CRは元カードの後ろ）
+ if(map[92]){const go={c:0,v:1,f:2};map[92].sort((a,b)=>(go[a.b2]-go[b.b2])||((a.rarity=="CR")-(b.rarity=="CR")))}   // 第2弾：嵐の境目→ボルテア→フロスティア（CRはそれぞれの最後）
  codexPackKeys=Object.keys(map).map(Number).sort((a,b)=>a-b);
  return codexPackKeys.map(k=>map[k])
 }
@@ -3612,6 +3858,14 @@ function renderCodex(){
  const pack=packs[codexPack]||[];
  const owned=pack.filter(c=>ownedCount(c.id)>0).length;
  $("codexInfo").textContent=`${packLabel(codexPackKeys[codexPack])}　${owned}/${pack.length}種類`;
+ // 第2弾：陣営ごとの見出し（押すとその陣営の最初のページへ）と、パックごとの集まり具合
+ {const gb=$("codexGroups"),is2=codexPackKeys[codexPack]===92;gb.classList.toggle("hide",!is2);
+  if(is2){const G=[["c","🌀 嵐の境目"],["v","⚡ ボルテア"],["f","❄️ フロスティア"]];
+   const cur=(pack[codexPage*CODEX_PAGE_SIZE]||{}).b2;
+   const pk=k=>{const L=P.filter(c=>c.b2&&!c.unreleased&&c.rarity!="CR"&&(c.b2=="c"||c.b2==k));return L.filter(c=>ownedCount(c.id)>0).length+"/"+L.length};
+   gb.innerHTML=G.map(([k,lb])=>{const L=pack.filter(c=>c.b2==k);const first=pack.findIndex(c=>c.b2==k);
+     return '<button type="button" class="cgBtn cg-'+k+(cur==k?' on':'')+'" onclick="codexPage='+Math.floor(first/CODEX_PAGE_SIZE)+';renderCodex()"><b>'+lb+'</b><span>'+L.filter(c=>ownedCount(c.id)>0).length+'/'+L.length+'</span></button>'}).join("")
+    +'<div class="cgPacks">⚡ボルテアパック '+pk("v")+'　❄️フロスティアパック '+pk("f")+'</div>'}}
  const start=codexPage*CODEX_PAGE_SIZE,items=pack.slice(start,start+CODEX_PAGE_SIZE);
  const g=$("codexGrid");g.innerHTML="";
  // 非CRだけで通し番号を振る（CR解禁で他の番号がズレない）。CRは元カードの番号に -c を付ける
@@ -3691,7 +3945,9 @@ function renderStepGacha(){
 // 確定枠を「最後にめくる側」から割り当てる
 function buildBatch(count,guarantee){
  const a=Array.from({length:count},()=>rollGacha());
- (guarantee||[]).slice().reverse().forEach((r,k)=>{const idx=count-1-k;if(idx>=0)a[idx]=rollGachaMin(r)});
+ (guarantee||[]).slice().reverse().forEach((r,k)=>{const idx=count-1-k;if(idx<0)return;
+  if(r=="CRx"){const pool=packPool("CR").filter(c=>!/^b2[vf]_(raika|setsu)_cr$/.test(c.id));a[idx]=pool.length?cp(pool[Math.random()*pool.length|0]):rollGachaMin("UR")}   // 勇者以外のCR
+  else a[idx]=rollGachaMin(r)});
  applyPity(a);
  return a}
 // ===== 天井（ガチャごと） =====
@@ -3739,7 +3995,7 @@ function rollRarity(){const T=packTable(),total=T.reduce((s,x)=>s+x.w,0);let rol
 // 弾で分けているので、promo かどうかではなく pack だけで絞る
 // （スターターのプロモは pack 0 なので、選べる弾には入らない）
 // unreleased:1 のカードはデータだけあって配っていない（ガチャにも図鑑にも出ない）
-function packPool(rarity){return P.filter(c=>c.rarity==rarity&&packOf(c)==curPack&&!c.unreleased&&!c.bossOnly)}
+function packPool(rarity){return P.filter(c=>c.rarity==rarity&&(packOf(c)==curPack||(c.packs&&c.packs.includes(curPack)))&&!c.unreleased&&!c.bossOnly)}
 // その弾で実際に出るレア度に直した排出表。無いレア度は1段下へ、下に無ければ上へ寄せる
 // （プロモ弾はNが無いので、Nの分はRになる）
 function packRarityOf(r){const order=["CR","UR","SR","R","N"],i=order.indexOf(r);
@@ -4005,7 +4261,7 @@ function renderGachaList(){
  box.innerHTML=visibleGachas().map(G=>{
   const banner=G.banner
    ?'<div class="gBanner hasImg" style="background-image:url('+TREE_BASE_URL+G.banner+')"><div class="gbPeriod">'+gachaPeriodText(G)+'</div></div>'
-   :'<div class="gBanner'+(G.art?' hasArt" style="background-image:url('+TREE_BASE_URL+G.art+')"':'"')+'><div class="gbPeriod">'+gachaPeriodText(G)+'</div><div class="gbTitle">'+G.title+'</div><div class="gbSub">'+G.sub+'</div></div>';
+   :'<div class="gBanner'+(G.art?' hasArt" style="background-image:url('+TREE_BASE_URL+G.art+')"':(' showBn"'+(G.bg?' style="background-image:url('+TREE_BASE_URL+G.bg+')"':'')))+'><div class="gbPeriod">'+gachaPeriodText(G)+'</div><div class="gbTitle">'+G.title+'</div><div class="gbSub">'+G.sub+'</div>'+(G.art?'':'<div class="gbShade"></div>'+gachaShowcase(G))+'</div>';
   return '<section class="gBlock" id="gb_'+G.id+'" style="--g1:'+G.theme[0]+';--g2:'+G.theme[1]+';--ga:'+G.accent+'">'+banner
    +'<div class="gBody">'+gachaBlockStep(G)
    +(G.limit?'<div class="gLeft">残り <b>'+gachaLeft(G)+'</b> 回</div>':"")
@@ -4013,6 +4269,14 @@ function renderGachaList(){
    +'<div class="gBtns">'+gachaBlockBtns(G)+'</div>'
    +'<button class="rateLink" onclick="openRatesFor(\''+G.id+'\')">提供割合</button></div></section>'}).join("");
 }
+// ガチャのバナーに、そのパックのSR以上のカードをランダムで3枚並べる（開くたびに変わる）
+function gachaShowcase(G){const RO=RARITY_ORDER,cr=crRevealed();
+ const pool=P.filter(c=>(packOf(c)==G.pack||(c.packs&&c.packs.includes(G.pack)))&&!c.unreleased&&!c.bossOnly&&CARD_IMAGES[c.id]&&(RO[c.rarity]||0)>=(RO.SR||0)&&(cr||c.rarity!="CR"));
+ const pick=[],used=new Set();const a=[...pool];
+ while(pick.length<3&&a.length){const c=a.splice(Math.random()*a.length|0,1)[0];const k=c.baseId||c.id;if(used.has(k))continue;used.add(k);pick.push(c)}
+ if(!pick.length)return "";
+ const ord=pick.length==3?[pick[1],pick[0],pick[2]]:pick;   // いちばん良いものをまん中に
+ return '<div class="gbCards">'+ord.map((c,i)=>'<div class="gbC gbC'+i+' r-'+c.rarity+'"><img src="'+CARD_IMAGES[c.id]+'" alt="" loading="lazy"></div>').join("")+'</div>'}
 let curGacha="p1";
 // 一覧のボタンから引く：そのガチャの弾に切り替えてから、いつもの引く処理へ
 function pullFrom(id,kind){if(gachaBusy)return;
@@ -4042,7 +4306,7 @@ async function pullCustom(G,b){if(gachaBusy||!b)return;
  showGachaResults();
  gachaBusy=false}
 function guaranteeText(g){const c={};(g||[]).forEach(r=>c[r]=(c[r]||0)+1);
- return Object.keys(c).map(r=>r+"以上 "+c[r]+"枚確定").join("・")}
+ return Object.keys(c).map(r=>r=="CRx"?"CR（勇者以外） "+c[r]+"枚確定":r+"以上 "+c[r]+"枚確定").join("・")}
 function gachaBackToList(){if(gachaBusy)return;
  gachaResetView();gachaMode("list");renderGachaList();$("app").scrollTop=0;sfx("sel")}
 function openGacha(){hideAll();$("gacha").classList.remove("hide");$("app").scrollTop=0;
@@ -4463,6 +4727,93 @@ function guideNext(){const q=guideQ;if(!q)return;q.i++;
  guideShow()}
 function guideReset(){store.set("cmGuide","[]");closeAbout();log2Toast("父の説明を、次に画面を開いたときにもう一度出します")}
 
+/* ================= 第2弾「荒天大陸ブリザルト」の仕組み =================
+   【凍結】凍結したモンスターは、持ち主の次のターン、攻撃できない
+   【感電X】感電したモンスターが攻撃するたび、持ち主にXダメージ（次の持ち主のターンの終わりまで。重なったら大きい方）
+   カードの onActs（登場時）・deathActs（破壊時）・startActs／endActs（自分のターンの始め／終わり）・acts（呪文）を doActs で行う */
+function b2Other(side){return side=="p"?"c":"p"}
+function b2B(side){return side=="p"?S.pb:S.cb}
+function isFrozen(m){return !!(m&&(m.freeze||m.frozenNow))}
+function statusFx(side,i,kind){const s=slot(side,i);if(!s)return;s.classList.add(kind=="freeze"?"fxFreeze":"fxShock");setTimeout(()=>s.classList.remove("fxFreeze","fxShock"),700)}
+function applyFreeze(side,i,src){const m=b2B(side)[i];if(!m)return;m.freeze=1;log((src?src+"：":"")+m.name+"を【凍結】");try{statusFx(side,i,"freeze")}catch(e){}}
+function applyShock(side,i,x,src){const m=b2B(side)[i];if(!m||!x)return;m.shock=Math.max(m.shock||0,x);m.shockLife=(S.active==side)?2:1;
+ log((src?src+"：":"")+m.name+"に【感電"+m.shock+"】");try{statusFx(side,i,"shock")}catch(e){}}
+// 感電したモンスターが攻撃する：持ち主にダメージ
+function shockOnAttack(m,side){if(!m||!(m.shock>0))return;log(m.name+"は感電している！ "+m.shock+"ダメージ");heroDmg(side,m.shock,side);try{chk()}catch(e){}}
+// 持ち主のターンの始め（resetBoard のあと）
+function b2TurnStart(side){const B=b2B(side);
+ B.forEach(m=>{if(!m)return;m.frozenNow=0;if(m.freeze){m.freeze=0;m.frozenNow=1;m.used=true;m.attacks=0;log(m.name+"は凍っていて動けない")}});
+ B.forEach(m=>{if(m&&m.startActs)doActs(m.startActs,side,m)})}
+// 持ち主のターンの終わり
+function b2TurnEnd(side){const B=b2B(side);B.forEach(m=>{if(m&&m.endActs)doActs(m.endActs,side,m)});
+ B.forEach(m=>{if(!m)return;m.frozenNow=0;if(m.shockLife){m.shockLife--;if(m.shockLife<=0)m.shock=0}})}
+function b2Cond(a,side){if(!a.if)return true;const me=side=="p"?S.php:S.chp,op=side=="p"?S.chp:S.php,EB=b2B(b2Other(side));
+ if(a.if=="enemyOne")return EB.filter(Boolean).length==1;
+ if(a.if=="hpLower")return me<op;if(a.if=="hpNotLower")return !(me<op);
+ if(a.if=="hpLe3000")return me<=3000;
+ if(a.if=="frozenExists")return EB.some(m=>m&&isFrozen(m));
+ return true}
+function b2Best(B,side,f){let bi=-1,bv=-1e9;B.forEach((m,i)=>{if(m&&(!f||f(m))){const v=at(m,side)+df(m,side)*0.3+(m.cost||0)*200;if(v>bv){bv=v;bi=i}}});return bi}
+function doActs(acts,side,src){if(!S||!acts)return;const os=b2Other(side),MB=b2B(side),EB=b2B(os),nm=(src&&src.name)||"";
+ const pre=acts.map(a=>b2Cond(a,side));   // 条件は、先に全部判断しておく（破壊で場の数が変わる前に）
+ acts.forEach((a,k)=>{if(!S||S.over||!pre[k])return;
+  const okKill=m=>(a.maxCost==null||(m.cost||0)<=a.maxCost)&&(a.maxDef==null||df(m,MB.includes(m)?side:os)<=a.maxDef);
+  switch(a.a){
+  case"freeze":{const idx=EB.map((m,i)=>m?i:-1).filter(i=>i>=0);
+   if(a.t=="all")idx.forEach(i=>applyFreeze(os,i,nm));
+   else if(a.t=="rand"){if(idx.length)applyFreeze(os,idx[Math.random()*idx.length|0],nm)}
+   else{const n=a.t=="two"?2:1,s2=idx.filter(i=>!isFrozen(EB[i])).sort((x,y)=>at(EB[y],os)-at(EB[x],os));(s2.length?s2:idx).slice(0,n).forEach(i=>applyFreeze(os,i,nm))}break}
+  case"freezeSelf":{const i=MB.findIndex(m=>m&&src&&m.uid===src.uid);if(i>=0){MB[i].freeze=1;log(MB[i].name+"はダルくて、次のターン動けない")}break}
+  case"shock":{if(a.t=="all")EB.forEach((m,i)=>{if(m)applyShock(os,i,a.x,nm)});else{const i=b2Best(EB,os);if(i>=0)applyShock(os,i,a.x,nm)}break}
+  case"dmg":heroDmg(os,a.x,side);break;
+  case"selfDmg":heroDmg(side,a.x,side);break;
+  case"bothDmg":heroDmg(os,a.x,side);heroDmg(side,a.x,side);break;
+  case"heal":healHero(side,a.x);break;
+  case"draw":for(let n=0;n<(a.n||1);n++)draw(side);break;
+  case"kill":{const i=b2Best(EB,os,okKill);if(i>=0){log(nm+"：「"+EB[i].name+"」を破壊");boomKill(os,i)}break}
+  case"killAll":{[[os,EB]].concat(a.both?[[side,MB]]:[]).forEach(([sd,B])=>B.forEach((m,i)=>{if(m&&okKill(m))boomKill(sd,i)}));break}
+  case"buffAll":MB.forEach(m=>{if(!m)return;if(a.atk)m.buff=(m.buff||0)+a.atk;if(a.def)m.defBuff=(m.defBuff||0)+a.def;if(a.charge)grantCharge(m)});break;
+  case"buffOne":case"buffTwo":{const n=a.a=="buffTwo"?2:1;
+   const idx=MB.map((m,i)=>m?i:-1).filter(i=>i>=0).sort((x,y)=>a.def&&!a.atk?df(MB[y],side)-df(MB[x],side):at(MB[y],side)-at(MB[x],side)).slice(0,n);
+   idx.forEach(i=>{const m=MB[i];if(a.atk)m.buff=(m.buff||0)+a.atk;if(a.def)m.defBuff=(m.defBuff||0)+a.def;if(a.charge)grantCharge(m);if(a.guard){m.guard=1;m.permGuard=1}});break}
+  case"debuffAll":EB.forEach(m=>{if(m)m.curse=Math.max(m.curse||0,a.atk)});S.curseBy=side;log("相手のモンスター全体のATK-"+a.atk);break;
+  case"debuffOne":{const i=b2Best(EB,os);if(i>=0){EB[i].curse=Math.max(EB[i].curse||0,a.atk);S.curseBy=side}break}
+  case"defDownAll":EB.forEach(m=>{if(m)m.defBuff=(m.defBuff||0)-a.def});log("地震！ 相手全体のDEF-"+a.def);break;
+  case"discardEnemy":discardRnd(os,a.n||1);break;
+  case"discardSelfDraw":discardRnd(side,a.d||2);for(let n=0;n<(a.n||3);n++)draw(side);break;
+  case"returnMon":case"returnSpell":{const G=side=="p"?S.pg:S.cg,H=side=="p"?S.ph:S.ch,want=a.a=="returnMon"?"monster":"spell";
+   let bi=-1,bv=-1;G.forEach((c,i)=>{if(c&&c.type==want&&(!src||c.id!==src.id)&&(c.cost||0)>bv){bv=c.cost||0;bi=i}});
+   if(bi>=0){const c=G.splice(bi,1)[0];H.push(cp(by(c.id)));log(nm+"：「"+c.name+"」を手札に戻した")}break}
+  case"search":{const D=side=="p"?S.pd:S.cd,H=side=="p"?S.ph:S.ch,i=D.findIndex(c=>c&&c.id==a.id);if(i>=0){const c=D.splice(i,1)[0];H.push(c);log(nm+"：「"+c.name+"」を山札から手札に")}break}
+  case"cure":MB.forEach(m=>{if(!m)return;m.freeze=0;if(m.frozenNow&&S.active==side){m.frozenNow=0;m.used=false;m.attacks=m.double?2:1}m.frozenNow=0;m.shock=0;m.shockLife=0});log("凍結・感電を治した");break;
+  case"spellLock":if(side=="p")S.cLock=true;else S.pLock=true;log((side=="p"?"相手":"あなた")+"は次のターン、呪文を使えない");break;
+  case"stripGuard":{const i=b2Best(EB,os,m=>m.guard);if(i>=0){EB[i].guard=0;EB[i].permGuard=0;EB[i].noGuard=1;log("「"+EB[i].name+"」の守護がなくなった")}break}
+  case"noAttackSelf":MB.forEach(m=>{if(m){m.used=true;m.attacks=0}});break;
+  case"random":{const x=a.list[Math.random()*a.list.length|0];doActs([x],side,src);break}
+  }});
+ try{render()}catch(e){}}
+// CPUが第2弾の呪文を使うかどうか
+function b2CpuGate(c){const A=c.acts||[],EB=S.pb,MB=S.cb,en=EB.filter(Boolean).length,mn=MB.filter(Boolean).length;
+ if(A.some(a=>a.a=="noAttackSelf")&&MB.some(m=>m&&!m.used&&!m.cantAttack))return false;
+ if(A.some(a=>a.a=="selfDmg"||a.a=="bothDmg")&&S.chp<=3000)return false;
+ let ok=false;A.forEach(a=>{if(!b2Cond(a,"c"))return;switch(a.a){
+  case"freeze":case"shock":case"debuffAll":case"debuffOne":case"defDownAll":if(en>0)ok=true;break;
+  case"kill":if(EB.some(m=>m&&(a.maxCost==null||m.cost<=a.maxCost)&&(a.maxDef==null||df(m,"p")<=a.maxDef)))ok=true;break;
+  case"killAll":{const f=(m,sd)=>m&&(a.maxCost==null||m.cost<=a.maxCost)&&(a.maxDef==null||df(m,sd)<=a.maxDef);const th=EB.filter(m=>f(m,"p")).length,mi=a.both?MB.filter(m=>f(m,"c")).length:0;if(th>=1&&th>mi)ok=true;break}
+  case"dmg":ok=true;break;
+  case"heal":if(S.chp<=7000)ok=true;break;
+  case"draw":if(S.ch.length<=4)ok=true;break;
+  case"buffAll":case"buffOne":case"buffTwo":if(mn>0&&(a.def||MB.some(m=>m&&(!m.used||a.charge))))ok=true;break;
+  case"returnMon":case"returnSpell":if(S.cg.some(x=>x&&x.type==(a.a=="returnMon"?"monster":"spell")))ok=true;break;
+  case"discardEnemy":if(S.ph.length>0)ok=true;break;
+  case"discardSelfDraw":if(S.ch.length<=3)ok=true;break;
+  case"spellLock":if(S.ph.length>=2)ok=true;break;
+  case"cure":if(MB.some(m=>m&&(isFrozen(m)||m.shock)))ok=true;break;
+  case"random":ok=true;break}});
+ return ok}
+// 第2弾のカードは、発売日（rel）までガチャ・図鑑・デッキに出さない
+P.forEach(c=>{if(c.rel&&todayStr()<c.rel)c.unreleased=true});
+
 /* ================= 計測（GoatCounter のイベント） =================
    ゲームの中で何が起きたかの回数だけ送る（名前などは送らない）。読み込めていないときは何もしない */
 function gcEvent(name){try{if(window.goatcounter&&window.goatcounter.count&&location.protocol.startsWith("http"))
@@ -4861,7 +5212,7 @@ function playTalk(lines,after){
 function playStoryPhase(chIdx,epIdx,phase){
  const ep=STORY[chIdx].episodes[epIdx];
  if(phase=="pre"){
-  storyLine=ep.pre;storyAfter=()=>startStoryBattle(chIdx,epIdx);
+  storyLine=ep.pre;storyAfter=ep.enemy?()=>startStoryBattle(chIdx,epIdx):()=>{markStoryClear(STORY[chIdx].ch,epIdx);playStoryPhase(chIdx,epIdx,"post")};
  }else{
   storyLine=ep.post;storyAfter=()=>{renderStoryList();openStory();setTimeout(showStoryReward,300)};
  }
@@ -5044,6 +5395,9 @@ function start(personality,fixed){
  S.storyTerms=storyContext?(((STORY[storyContext.chIdx]||{}).episodes||[])[storyContext.epIdx]||{}).terms||null:null;S.tipShown={};
  selH=selA=selE=null;pending=null;clearLaneFx();
  for(let i=0;i<5;i++){draw("p",true);draw("c",true)}
+ if(opp.hp){S.chp=opp.hp;S.cMax=opp.hp}
+ {const ep=storyContext?(((STORY[storyContext.chIdx]||{}).episodes||[])[storyContext.epIdx]||null):null;
+  if(ep&&ep.ally)ep.ally.forEach(id=>{const c=by(id);if(c){S.ph.push({...cp(c),uid:Math.random()});log("「"+c.name+"」が力を貸してくれた！")}})}
  log(`対戦相手：${opp.name}「${fillText(opp.tagline||"")}」`);render()
 }
 function log(t){if(FM.on&&FM.role=="host")t=String(t).replace(/CPU/g,FM.oppName);
@@ -5090,6 +5444,7 @@ function ec(c,side){let v=c.cost;
  if(c.odd&&ownTurn(side)%2==1)v-=c.odd;
  if(c.graveDiscount&&(side=="p"?S.pg:S.cg).length>=c.graveDiscountNeed)v-=c.graveDiscount;
  if(c.fullBoardDiscount&&(side=="p"?S.pb:S.cb).every(Boolean))v-=c.fullBoardDiscount;
+ if(c.graveCheap&&S&&(side=="p"?S.pg:S.cg).some(x=>x&&x.id==c.graveCheap))v-=2;   // おおざめ
  let e=side=="p"?"c":"p";
  if(c.type=="monster"&&aura(e,"monsterCost"))v+=1;
  if(c.type=="monster"&&S&&S.sumTax&&S.sumTax[side])v+=S.sumTax[side];   // 影の執事 ノクス
@@ -5103,6 +5458,10 @@ function at(c,side){if(!c)return 0;let B=side=="p"?S.pb:S.cb,i=lane(B,c),v=(c.at
  if(c.centerAtkBuff&&i==1)v+=c.centerAtkBuff;
  if(c.turnShift&&ownTurn(side)%2==1)v+=5000;   // サライオン：持ち主の奇数ターン（とその直後の相手ターン）
  [i-1,i+1].forEach(j=>{if(j>=0&&j<3&&B[j]&&B[j].aura=="adjacentPlus2000")v+=2000});
+ if(c.fullBoardAtk&&B.every(Boolean))v+=c.fullBoardAtk;   // スノーメンズ
+ {const OB=side=="p"?S.cb:S.pb;v-=Math.max(0,...OB.map(m=>(m&&m.auraEnemyAtk)||0));   // マウント･FUJI・吹雪姉妹
+  if(B.some(m=>m&&m.id=="b2v_plasy")&&B.some(m=>m&&m.id=="b2v_minus"))v+=1000;
+  if(OB.some(m=>m&&m.id=="b2v_plasy")&&OB.some(m=>m&&m.id=="b2v_minus"))v-=1000}
  if(c.curse)v-=c.curse;   // 魔女の手作りシチュー
  return Math.max(0,v)}
 function df(c,side){if(!c)return 0;let B=side=="p"?S.pb:S.cb,v=(c.def||0)+(c.defBuff||0);
@@ -5111,13 +5470,14 @@ function df(c,side){if(!c)return 0;let B=side=="p"?S.pb:S.cb,v=(c.def||0)+(c.def
  if(side=="c"&&S.cDefBonus)v+=S.cDefBonus;
  if(c.centerBuff&&lane(B,c)==1)v+=c.centerBuff;
  if(c.turnShift&&ownTurn(side)%2==0)v+=5000;   // サライオン：持ち主の偶数ターン（とその直後の相手ターン）
+ if(c.guard&&B.some(m=>m&&m!==c&&m.guardDefAura))v+=Math.max(...B.filter(m=>m&&m!==c&&m.guardDefAura).map(m=>m.guardDefAura));   // ホッキョクグマン
  if(side=="p"&&S.pDef2)v*=2;
  if(side=="c"&&S.cDef2)v*=2;
  return Math.max(0,v)}
 
 /* ================= HP操作 ================= */
 function healHero(side,n){if(n<=0||S.over)return;
- if(side=="p")S.php=Math.min(10000,S.php+n);else S.chp=Math.min(10000,S.chp+n);
+ if(side=="p")S.php=Math.min(10000,S.php+n);else S.chp=Math.min(S.cMax||10000,S.chp+n);
  floatHero(side,"+"+n,"green");sfx("heal");render()}
 // 山札を指定枚数だけ墓地へ置く（足りなければあるだけ）
 function millDeck(side,k){
@@ -5128,6 +5488,7 @@ function millDeck(side,k){
  return c;
 }
 function heroDmg(side,n,from){if(n<=0||S.over)return;
+ if(S.castingSpell&&from&&from!=side&&b2B(side).some(m=>m&&m.spellHalf))n=Math.ceil(n/200)*100;   // ヒライジン
  if(from&&from!=side){
   if(side=="p"&&S.pShield){S.pShield=false;floatHero("p","無効化!","green");sfx("shield");log("ダメージを1回無効化！");return}
   if(side=="c"&&S.cShield){S.cShield=false;floatHero("c","無効化!","green");sfx("shield");log("CPUがダメージを無効化");return}
@@ -5180,6 +5541,8 @@ function renderTablet(){
    kind は説明の見出しに出る分類。増やしても構わない。 */
 const GLOSSARY_NAME="石版";
 const TERMS={
+ "凍結":{kind:"紋章",icon:"❄️",text:"凍結したモンスターは、持ち主の次のターン、攻撃できません。"},
+ "感電":{kind:"紋章",icon:"⚡",text:"感電したモンスターが攻撃するたび、そのモンスターの持ち主がダメージを受けます（【感電1000】なら1000ダメージ）。次の持ち主のターンの終わりまで続きます。重なったときは大きい方が残ります。"},
  "守護":{kind:"紋章",icon:"🛡",text:"相手の攻撃を、このモンスターが代わりに受け止めることができます。止めるかどうか、どの守護で止めるかは、守る側が選べます。",
    note:"※1体が受け止められるのは1ターンに1回までです。守護を2体並べれば、1ターンに2回まで受け止められます。"},
  "突撃":{kind:"紋章",icon:"⚡",text:"召喚したそのターンから攻撃できます。",
@@ -5305,6 +5668,9 @@ function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
     +(c.rarity=="CR"?" crframe":"")
     +((c.buff||0)>0||(c.defBuff||0)>0?" buffed":((c.defBuff||0)<0?" debuffed":""));
    d.innerHTML=htmlCard(c,side);
+   if(isFrozen(c)||c.shock){const bd=document.createElement("div");bd.className="b2st";
+    bd.innerHTML=(isFrozen(c)?'<span class="stF">❄️</span>':'')+(c.shock?'<span class="stS">⚡'+c.shock+'</span>':'');d.appendChild(bd);
+    if(isFrozen(c))d.classList.add("frozenC");if(c.shock)d.classList.add("shockC")}
    if(validTarget(c,side))s.classList.add("targetable");
    if(!isP&&selA!=null&&!pending){const f=selA;if(f==1||i==1||f+i==2)s.classList.add("targetable")}
    const tap=()=>{if(S.over)return;
@@ -5539,6 +5905,7 @@ function afterSummon(m,side){if(!S||!m)return;
   if(o.summonTax){heroDmg(side,o.summonTax,os);log(o.name+"：宿代"+o.summonTax)}
   if(o.drawOnEnemyCharge&&(m.charge||m.permCharge)){draw(os);log(o.name+"：1枚ドロー")}})}
 function summonEff(c,side){const p=side=="p",EB=p?S.cb:S.pb,ES=p?"c":"p";
+ if(c.onActs)doActs(c.onActs,side,c);
  if(c.on=="selfMill2")millDeck(side,2);
  if(c.on=="draw1")draw(side);
  if(c.on=="enemyNextCost1"){const os=side=="p"?"c":"p";S.sumTax=S.sumTax||{};S.sumTax[os]=1;log(c.name+"：相手が次に召喚するモンスターのコスト+1")}
@@ -5612,6 +5979,7 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
  if(E=="discard2")discardRnd(ES,2);
  if(E=="discard3"){discardRnd(ES,3);if(side=="p"&&!FM.on){S.suisoN=(S.suisoN||0)+1;if(S.suisoN>=2)ttSet("suiso2",1)}}   // 称号：1試合で2回使う
  if(E=="discard2draw2"){discardRnd(ES,2);draw(side);draw(side)}
+ if(E=="acts")doActs(c.acts,side,c);
  if(E=="spelllock"){if(p)S.cLock=true;else S.pLock=true;log((p?"CPU":"あなた")+"は次のターン呪文を唱えられない")}
  if(E=="def2"){if(p)S.pDef2=true;else S.cDef2=true;log("味方全体のDEFを2倍化")}
  if(E=="damageShield"){if(p)S.pShield=true;else S.cShield=true;log("次のダメージを1回無効化")}
@@ -5728,7 +6096,7 @@ async function playerAtk(f,to){let a=S.pb[f],d=S.cb[to];if(!a)return;
  const bi=FM.on&&FM.role=="host"?await fmAskBlock(av,to,a.name,d?d.name:"直接攻撃"):cpuBlockChoice(av,to);
  if(bi>=0&&bi!=to){
   S.cb[bi].guardTurn=true;shield("c",bi);sfx("shield");
-  log(S.cb[bi].name+"が守護で受け止めた！");
+  log(S.cb[bi].name+"が守護で受け止めた！");if(S.cb[bi].drawOnBlock)draw("c");
   if(S.cb[bi].blockBurn){heroDmg("p",S.cb[bi].blockBurn,"c");log(S.cb[bi].name+"："+S.cb[bi].blockBurn+"ダメージ")}
   to=bi;d=S.cb[to];
   setLaneFx({atk:{side:"p",i:f},tgt:{side:"c",i:to}});  // 青を守護のレーンへ移す
@@ -5738,9 +6106,22 @@ async function playerAtk(f,to){let a=S.pb[f],d=S.cb[to];if(!a)return;
  }
  clearLaneFx();
  await mark("p",f);
+ shockOnAttack(a,"p");if(!S||S.over)return;
  if(!d){const dmg=at(a,"p");S.curSrc=a.id;heroDmg("c",dmg,"p");if(a.lifesteal)healHero("p",dmg);afterAtk(a,"p");render();chk();return}
  await battle("p",f,"c",to)}
-async function battle(as,ai,ds,di){const AB=as=="p"?S.pb:S.cb,DB=ds=="p"?S.pb:S.cb;
+// バトルのあとの第2弾の効果（感電・凍結・倒したときのダメージ）
+async function battle(as,ai,ds,di){const AB=b2B(as),DB=b2B(ds),a=AB[ai],d=DB[di];if(!a||!d)return battleCore(as,ai,ds,di);
+ let tmp=0;if(a.atkVsFrozen&&isFrozen(d)){tmp=a.atkVsFrozen;a.buff=(a.buff||0)+tmp;log(a.name+"：凍った相手にATK+"+tmp)}
+ await battleCore(as,ai,ds,di);if(!S)return;
+ const aA=AB[ai]&&AB[ai].uid===a.uid,dA=DB[di]&&DB[di].uid===d.uid;
+ if(tmp&&aA)a.buff-=tmp;
+ if(a.shockHit&&dA)applyShock(ds,di,a.shockHit,a.name);
+ if(d.shockHit&&aA)applyShock(as,ai,d.shockHit,d.name);
+ if(a.freezeHit&&dA)applyFreeze(ds,di,a.name);
+ if((d.freezeHit||d.freezeAttacker)&&aA)applyFreeze(as,ai,d.name);
+ if(a.killDmg&&!dA&&!S.over){heroDmg(ds,a.killDmg,as);log(a.name+"："+a.killDmg+"ダメージ")}
+ render();chk()}
+async function battleCore(as,ai,ds,di){const AB=as=="p"?S.pb:S.cb,DB=ds=="p"?S.pb:S.cb;
  const a=AB[ai],d=DB[di];if(!a||!d)return;
  if(as=="p")S.curSrc=a.id;
  sfxCard(a,"atk","hit");
@@ -5775,6 +6156,7 @@ function tryMillGuard(side,i){
 function kill(side,i){const B=side=="p"?S.pb:S.cb,G=side=="p"?S.pg:S.cg,c=B[i];if(!c)return;
  if(tryMillGuard(side,i))return;
  G.push(c);B[i]=null;
+ if(c.deathActs)doActs(c.deathActs,side,c);
  if(c.death=="draw1")draw(side);
  if(c.death=="heal1000")healHero(side,1000);
  if(c.death=="heal2000")healHero(side,2000);
@@ -5806,9 +6188,11 @@ function resetBoard(side){clearHalloween(side);
  B.forEach(m=>{if(!m)return;const b=by(m.id)||{};
   m.used=false;m.attacks=m.double?2:1;m.buff=0;m.defBuff=0;m.webbed=0;
   m.charge=(b.charge||m.permCharge)?1:0;
-  m.guard=(b.guard||m.permGuard)?1:0})}
+  m.guard=(b.guard||m.permGuard)&&!m.noGuard?1:0});
+ try{b2TurnStart(side)}catch(e){}}
 // ちょい呑み：そのターンの終わりに、印のついたモンスターを破壊する
 async function turnEndDeaths(side){if(!S||S.over)return;const B=side=="p"?S.pb:S.cb;
+ try{b2TurnEnd(side)}catch(e){}
  for(let i=0;i<3;i++){const m=B[i];if(m&&m.choiDie){log(m.name+"は酔いつぶれた（ちょい呑み）");await boomKill(side,i);if(S.over)return}}}
 async function endTurn(){if(FM.on&&FM.role=="guest")return fmGuestEnd();
  if(!S||S.busy||S.over)return;
@@ -5839,6 +6223,7 @@ const BUFF_FX={allAtk2000:1,allAtk2500:1,laneBuff:1,allCharge:1,allChargeAtk1000
 function guardWall(){let mx=0;S.cb.forEach(m=>{if(m&&!m.cantAttack)mx=Math.max(mx,at(m,"c"))});
  return S.pb.some(m=>m&&m.guard&&df(m,"p")>=mx&&mx>0)}
 function cpuGate(c){const E=c.eff,ps=pStats(),cs=cStats(),php=S.php,chp=S.chp;
+ if(E=="acts")return b2CpuGate(c);
  if(E=="turnBurn")return php<=Math.min(5000,turnTotal()*500)||turnTotal()>=8;
  if(E=="stew")return ps.n>=2&&S.pb.some(m=>m&&!m.curse);
  if(E=="tot")return S.ph.length>=2;
@@ -6004,14 +6389,14 @@ async function cpuDoAttack(pos,tgt){const m=S.cb[pos];if(!m)return;const av=at(m
   if(!S||S.over)return;
   if(bi>=0&&bi!=tgt){
    S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");if(!FM.on)ttAdd("guard");
-   log(S.pb[bi].name+"が守護で受け止めた！");
+   log(S.pb[bi].name+"が守護で受け止めた！");if(S.pb[bi].drawOnBlock)draw("p");
    if(S.pb[bi].blockBurn){heroDmg("c",S.pb[bi].blockBurn,"p");log(S.pb[bi].name+"："+S.pb[bi].blockBurn+"ダメージ")}
-   await mark("c",pos);await battle("c",pos,"p",bi);await sleep(450);return}
+   await mark("c",pos);shockOnAttack(m,"c");if(!S||S.over)return;await battle("c",pos,"p",bi);await sleep(450);return}
   if(S.pb[tgt]&&S.pb[tgt].guard&&!S.pb[tgt].guardTurn)S.pb[tgt].guardTurn=true;   // 守護そのものを殴った
   if(tgt==1&&!S.pb[1]){
-   await mark("c",pos);heroDmg("p",av,"c");
+   await mark("c",pos);shockOnAttack(m,"c");if(!S||S.over)return;heroDmg("p",av,"c");
    if(m.lifesteal)healHero("c",av);afterAtk(m,"c");render();chk();await sleep(450);return}
-  await mark("c",pos);await battle("c",pos,"p",tgt);await sleep(450)}
+  await mark("c",pos);shockOnAttack(m,"c");if(!S||S.over)return;await battle("c",pos,"p",tgt);await sleep(450)}
 // 手札から「今のコストで一番たくさん使える組み合わせ」を選ぶ（呪文は使う条件を満たすものだけ）
 function cpuPlan(cc){
  const free=[0,1,2].filter(i=>!S.cb[i]).length;
@@ -6073,6 +6458,11 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
    markStoryClear(STORY[ctx.chIdx].ch,ctx.epIdx);
    setTimeout(()=>{$("resultov").classList.remove("show");playStoryPhase(ctx.chIdx,ctx.epIdx,"post")},900);
    return;
+  }else if((STORY[ctx.chIdx].episodes[ctx.epIdx]||{}).loseOk){
+   // 負けて当然の戦い（禁断の龍）：負けても物語は進む
+   markStoryClear(STORY[ctx.chIdx].ch,ctx.epIdx);
+   setTimeout(()=>{$("resultov").classList.remove("show");playStoryPhase(ctx.chIdx,ctx.epIdx,"post")},1400);
+   $("rSub").textContent="龍の力は、あまりにも強大だった……";
   }else if(STORY[ctx.chIdx].ch===0){
    // 序章は負けても先に進める（もう一度挑戦も選べる）
    storyLoseCtx=ctx;$("rStoryGo").classList.remove("hide");
