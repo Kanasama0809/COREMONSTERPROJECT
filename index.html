@@ -149,6 +149,9 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .m4grid8 .m4 .m4nm{font-size:11px;white-space:nowrap}
 /* ホームのバナー */
 .homeBanner{position:relative;z-index:2;margin:8px 8px 0;flex:0 0 auto}
+/* ガチャ一覧の見出し */
+.gSec{margin:14px 4px 6px;font-size:13px;font-weight:900;color:#9fb6d6;letter-spacing:.1em;display:flex;align-items:center;gap:8px}
+.gSec::after{content:"";flex:1;height:1px;background:#2c4568}
 /* ガチャのバナー：SR以上のカード3枚 */
 .gBanner.showBn{background-size:cover;background-position:center}
 .gBanner.showBn>.gbTitle,.gBanner.showBn>.gbSub{position:relative;z-index:2;text-shadow:0 2px 8px #000c}
@@ -1381,7 +1384,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.9.0</div>
+ <div class="tVer" id="tVer">ver.5.9.1</div>
 </div>
 
 <div id="app">
@@ -1871,7 +1874,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.9.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.9.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2633,8 +2636,8 @@ const PACKS=[
  {id:1, name:"はじまりパック-01", sub:"はじまりの100枚", open:true},
  {id:90,name:"時の王パック",sub:"時の王の従者たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"promo",noStep:true},
  {id:91,name:"ハロウィンパック",sub:"パンプキングと仲間たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"hw",noStep:true},
- {id:92,name:"ボルテアパック",sub:"雷の勇者ライカと雷鳴の獣たち",open:true},
- {id:93,name:"フロスティアパック",sub:"雪の勇者セツと白銀の仲間たち",open:true}
+ {id:92,name:"ボルテアパック-02a",sub:"雷の勇者ライカと雷鳴の獣たち",open:true},
+ {id:93,name:"フロスティアパック-02b",sub:"雪の勇者セツと白銀の仲間たち",open:true}
 ];
 function openPacks(){return PACKS.filter(p=>p.open)}
 function packById(id){return PACKS.find(p=>p.id==id)||PACKS[0]}
@@ -2677,13 +2680,13 @@ const STEP_GACHA=[
      pity:{n:50,r:"CR"} … 天井。n回引いてもそのレア度が出なければ、n回目で必ず出す（出た時点で数え直し）
      pulls:[{label,count,cost,cur,guarantee}] … 専用の引くボタン。これがあると通常の1回/10回/ステップアップの代わりに出る
         cur:"ticket" で🎫券払い（省略は💎）。guarantee は確定枠（例 ["SR"]＝最後の1枚がSR以上） */
-const GACHAS=[
- {id:"p1",   pack:1, bg:"bg_p1.webp", title:"はじまりパック-01",   sub:"はじまりの100枚",       period:"常設",       theme:["#1d5aa6","#0a1d3c"],accent:"#f0c76a"},
+const GACHAS=[   // メイン（いつでも引ける・天井なし）→ イベント（期間限定・50回でCR確定）の順に並ぶ
+ {id:"p1",   pack:1, bg:"bg_p1.webp", title:"はじまりパック-01",   sub:"はじまりの100枚",       period:"メイン",       theme:["#1d5aa6","#0a1d3c"],accent:"#f0c76a"},
+ {id:"volt",pack:92,bg:"bg_volt.webp",title:"ボルテアパック-02a",sub:"雷の勇者ライカと雷鳴の獣たち",period:"メイン",start:"2026-10-01",theme:["#6a3fb5","#1a0f3a"],accent:"#ffd84a"},
+ {id:"frost",pack:93,bg:"bg_frost.webp",title:"フロスティアパック-02b",sub:"雪の勇者セツと白銀の仲間たち",period:"メイン",start:"2026-10-01",theme:["#3f8fd0","#0a2340"],accent:"#bfe9ff"},
  {id:"start",pack:1, bg:"bg_p1.webp", title:"スタートダッシュ",sub:"10連・SR以上1枚確定",period:"初回限定",theme:["#b5541a","#3a1206"],accent:"#ffc36a",
   limit:1, pulls:[{label:"10回引く",count:10,cost:100,guarantee:["SR"]}]},
  {id:"promo",pack:90,title:"時の王パック",sub:"時の王の従者たち",whenEvent:true,whenEventId:"chronoga",pity:{n:50,r:"CR"},theme:["#8a2d6e","#2a0c2a"],accent:"#ff9ad8"},
- {id:"volt",pack:92,bg:"bg_volt.webp",title:"ボルテアパック",sub:"雷の勇者ライカと雷鳴の獣たち",period:"第2弾",start:"2026-10-01",pity:{n:50,r:"CR"},theme:["#6a3fb5","#1a0f3a"],accent:"#ffd84a"},
- {id:"frost",pack:93,bg:"bg_frost.webp",title:"フロスティアパック",sub:"雪の勇者セツと白銀の仲間たち",period:"第2弾",start:"2026-10-01",pity:{n:50,r:"CR"},theme:["#3f8fd0","#0a2340"],accent:"#bfe9ff"},
  {id:"halloween",pack:91,title:"ハロウィンパック",sub:"パンプキングと仲間たち",whenEvent:true,whenEventId:"halloween",pity:{n:50,r:"CR"},theme:["#c2561a","#2a0c2a"],accent:"#ffb347"}
 ];
 function gachaById(id){return GACHAS.find(g=>g.id==id)||GACHAS[0]}
@@ -4258,11 +4261,12 @@ function gachaBlockStep(G){
   +'<div class="stepCard"><div class="sc1">'+((i+1)*10)+'連目・💎'+s.cost+'</div><div class="sc2">'+s.head+'</div>'+(s.note?'<div class="sc3">'+s.note+'</div>':"")+'</div></div>'}
 function renderGachaList(){
  const box=$("gachaList");if(!box)return;
- box.innerHTML=visibleGachas().map(G=>{
+ let _sec="";
+ box.innerHTML=visibleGachas().map(G=>{const sec=G.whenEvent?"イベント":"メイン";const head=sec!=_sec?'<div class="gSec">'+sec+'</div>':"";_sec=sec;
   const banner=G.banner
    ?'<div class="gBanner hasImg" style="background-image:url('+TREE_BASE_URL+G.banner+')"><div class="gbPeriod">'+gachaPeriodText(G)+'</div></div>'
    :'<div class="gBanner'+(G.art?' hasArt" style="background-image:url('+TREE_BASE_URL+G.art+')"':(' showBn"'+(G.bg?' style="background-image:url('+TREE_BASE_URL+G.bg+')"':'')))+'><div class="gbPeriod">'+gachaPeriodText(G)+'</div><div class="gbTitle">'+G.title+'</div><div class="gbSub">'+G.sub+'</div>'+(G.art?'':'<div class="gbShade"></div>'+gachaShowcase(G))+'</div>';
-  return '<section class="gBlock" id="gb_'+G.id+'" style="--g1:'+G.theme[0]+';--g2:'+G.theme[1]+';--ga:'+G.accent+'">'+banner
+  return head+'<section class="gBlock" id="gb_'+G.id+'" style="--g1:'+G.theme[0]+';--g2:'+G.theme[1]+';--ga:'+G.accent+'">'+banner
    +'<div class="gBody">'+gachaBlockStep(G)
    +(G.limit?'<div class="gLeft">残り <b>'+gachaLeft(G)+'</b> 回</div>':"")
    +(G.pity?'<div class="gLeft">'+pityLabel(G)+'確定まで あと <b>'+pityLeft(G)+'</b> 回</div>':"")
@@ -4270,8 +4274,8 @@ function renderGachaList(){
    +'<button class="rateLink" onclick="openRatesFor(\''+G.id+'\')">提供割合</button></div></section>'}).join("");
 }
 // ガチャのバナーに、そのパックのSR以上のカードをランダムで3枚並べる（開くたびに変わる）
-function gachaShowcase(G){const RO=RARITY_ORDER,cr=crRevealed();
- const pool=P.filter(c=>(packOf(c)==G.pack||(c.packs&&c.packs.includes(G.pack)))&&!c.unreleased&&!c.bossOnly&&CARD_IMAGES[c.id]&&(RO[c.rarity]||0)>=(RO.SR||0)&&(cr||c.rarity!="CR"));
+function gachaShowcase(G){const RO=RARITY_ORDER;
+ const pool=P.filter(c=>(packOf(c)==G.pack||(c.packs&&c.packs.includes(G.pack)))&&!c.unreleased&&!c.bossOnly&&CARD_IMAGES[c.id]&&(RO[c.rarity]||0)>=(RO.SR||0)&&c.rarity!="CR");   // CRは出さない
  const pick=[],used=new Set();const a=[...pool];
  while(pick.length<3&&a.length){const c=a.splice(Math.random()*a.length|0,1)[0];const k=c.baseId||c.id;if(used.has(k))continue;used.add(k);pick.push(c)}
  if(!pick.length)return "";
