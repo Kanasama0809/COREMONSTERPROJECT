@@ -80,7 +80,7 @@ button:active{transform:translateY(2px);box-shadow:0 0 0 #0a3a80,0 2px 6px #0006
 /* ===== 図鑑：第2弾の陣営見出し ===== */
 .codexGroups{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0}
 .codexGroups.hide{display:none}
-.cgBtn{display:flex;flex-direction:column;align-items:center;gap:1px;min-height:44px;padding:4px 2px;border-radius:10px;border:1px solid var(--cg);background:#10203a;color:#eaf2ff;font:inherit;font-size:11px}
+.cgBtn{position:relative;z-index:2;touch-action:manipulation;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;min-height:44px;padding:4px 2px;border-radius:10px;border:1px solid var(--cg);background:#10203a;color:#eaf2ff;font:inherit;font-size:11px}
 .cgBtn b{font-size:12px}.cgBtn span{color:#9fb6d6;font-size:11px}
 .cgBtn.on{background:var(--cg);color:#10203a}.cgBtn.on span{color:#10203a}
 .cg-c{--cg:#b8c4d6}.cg-v{--cg:#ffd84a}.cg-f{--cg:#9fdcff}
@@ -1384,7 +1384,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.9.1</div>
+ <div class="tVer" id="tVer">ver.5.12.0</div>
 </div>
 
 <div id="app">
@@ -1874,7 +1874,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.9.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.12.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1995,165 +1995,165 @@ const P=[{"id":"aichu","name":"アイチュ","sortName":"あいちゅ","type":"m
 {"id": "kou_s1", "name": "光の勇者 コウ", "sortName": "ひかりのゆうしゃこう", "type": "monster", "cost": 8, "atk": 6000, "def": 3500, "text": "自分の偶数回目のターンなら、このモンスターのコストを-2する。登場時、相手のDEF2000以下のモンスター全てを破壊する", "even": 2, "on": "def2000", "rarity": "UR", "pack": 0, "baseId": "kou", "promo": 1, "event": 1, "passS": "s1"},
 {"id": "an_s1", "name": "闇の勇者 アン", "sortName": "やみのゆうしゃあん", "type": "monster", "cost": 9, "atk": 4000, "def": 6000, "text": "自分の奇数回目のターンなら、このモンスターのコストを-2する。相手のモンスターの召喚コストを+1する", "odd": 2, "aura": "monsterCost", "rarity": "UR", "pack": 0, "baseId": "an", "promo": 1, "event": 1, "passS": "s1"},
 /* ===== 第2弾「荒天大陸ブリザルト」150枚＋CR2枚（共通＝packs[92,93]・ボルテア92・フロスティア93。発売日 rel まで非公開）===== */
-{"id": "b2c01", "type": "monster", "cost": 8, "name": "ボルブリザ", "rarity": "UR", "atk": 5500, "def": 5500, "text": "登場時、相手のモンスターすべてを【凍結】", "onActs": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c02", "type": "monster", "cost": 6, "name": "秘境の歌姫 メロディエ", "rarity": "UR", "atk": 2500, "def": 4000, "text": "自分のターンの終わりに、自分のHP+1000", "endActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c03", "type": "monster", "cost": 7, "name": "トルネードラゴン", "rarity": "UR", "atk": 5000, "def": 3000, "text": "突撃。登場時、相手のコスト4以下のモンスター1体を破壊", "charge": 1, "onActs": [{"a": "kill", "maxCost": 4}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c04", "type": "monster", "cost": 7, "name": "ウンカイクジラ", "rarity": "UR", "atk": 3000, "def": 6000, "text": "守護。攻撃を受け止めるたび、1枚引く", "guard": 1, "drawOnBlock": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c05", "type": "monster", "cost": 5, "name": "オーローラ", "rarity": "SR", "atk": 3000, "def": 3000, "text": "登場時、自分のモンスター全体のATK+1000（このターン）", "onActs": [{"a": "buffAll", "atk": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c06", "type": "monster", "cost": 4, "name": "アラシカ", "rarity": "SR", "atk": 2500, "def": 2000, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c07", "type": "monster", "cost": 4, "name": "キリキリン", "rarity": "SR", "atk": 2000, "def": 3500, "text": "登場時、相手のモンスター1体を【凍結】", "onActs": [{"a": "freeze", "t": "one"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c08", "type": "monster", "cost": 5, "name": "ニジマスター", "rarity": "SR", "atk": 3500, "def": 3500, "text": "登場時、1枚引く", "onActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c09", "type": "monster", "cost": 3, "name": "つむじぃ", "rarity": "SR", "atk": 1500, "def": 2500, "text": "登場時、相手のモンスター1体に【感電1000】", "onActs": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c10", "type": "monster", "cost": 3, "name": "かまいたち", "rarity": "SR", "atk": 2500, "def": 1000, "text": "突撃。相手のモンスターを倒したとき、相手に500ダメージ", "charge": 1, "killDmg": 500, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c11", "type": "monster", "cost": 5, "name": "おおざめ", "rarity": "R", "atk": 3500, "def": 3000, "text": "自分の墓地に「こさめ」があれば、コスト-2", "graveCheap": "b2c_kosame", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c12", "type": "monster", "cost": 3, "name": "そらタロー", "rarity": "R", "atk": 2000, "def": 2000, "text": "登場時、自分のHP+1000", "onActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c13", "type": "monster", "cost": 3, "name": "もくもくも", "rarity": "R", "atk": 1000, "def": 3000, "text": "守護。このモンスターを攻撃したモンスターを【凍結】", "guard": 1, "freezeAttacker": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c14", "type": "monster", "cost": 4, "name": "ハリー･ケン", "rarity": "R", "atk": 3000, "def": 2000, "text": "登場時、相手のDEF1000以下のモンスターをすべて破壊", "onActs": [{"a": "killAll", "maxDef": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c15", "type": "monster", "cost": 2, "name": "タルタルボウズ", "rarity": "R", "atk": 1000, "def": 2000, "text": "守護。破壊されたとき、自分のHP+1000", "guard": 1, "deathActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c16", "type": "monster", "cost": 4, "name": "レインコート地蔵", "rarity": "R", "atk": 1500, "def": 4000, "text": "守護・貫通されない", "guard": 1, "noPierce": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c17", "type": "monster", "cost": 2, "name": "かざみどりーむ", "rarity": "R", "atk": 1000, "def": 1000, "text": "破壊されたとき、1枚引く", "deathActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c18", "type": "monster", "cost": 5, "name": "豚に珍獣", "rarity": "R", "atk": 3000, "def": 3500, "text": "守護", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c19", "type": "monster", "cost": 3, "name": "じゅーず", "rarity": "R", "atk": 1500, "def": 1500, "text": "破壊されたとき、自分のHP+1500", "deathActs": [{"a": "heal", "x": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c20", "type": "monster", "cost": 4, "name": "うわキング", "rarity": "R", "atk": 2000, "def": 2000, "text": "二回攻撃（二股だから）", "double": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c21", "type": "monster", "cost": 3, "name": "ほうちょうちょう", "rarity": "N", "atk": 2500, "def": 1000, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c22", "type": "monster", "cost": 1, "name": "ポチ", "rarity": "N", "atk": 1000, "def": 500, "text": "「ワン」", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c23", "type": "monster", "cost": 1, "name": "タマ", "rarity": "N", "atk": 500, "def": 1000, "text": "守護。「ニャー」", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c24", "type": "monster", "cost": 2, "name": "ただの馬", "rarity": "N", "atk": 1500, "def": 1500, "text": "ただの馬です", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c_kosame", "type": "monster", "cost": 2, "name": "こさめ", "rarity": "N", "atk": 1000, "def": 1000, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c26", "type": "monster", "cost": 2, "name": "もぐもぐら", "rarity": "N", "atk": 1000, "def": 1500, "text": "登場時、自分のHP+500", "onActs": [{"a": "heal", "x": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c27", "type": "monster", "cost": 3, "name": "アルマジロジロ", "rarity": "N", "atk": 1000, "def": 3000, "text": "守護", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c28", "type": "monster", "cost": 2, "name": "オウムガイ", "rarity": "N", "atk": 1500, "def": 1000, "text": "破壊されたとき、1枚引く", "deathActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c29", "type": "monster", "cost": 3, "name": "にゃがぐつ", "rarity": "N", "atk": 1500, "def": 1500, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c30", "type": "monster", "cost": 3, "name": "じとじとうもろこし", "rarity": "N", "atk": 2000, "def": 2500, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c31", "type": "spell", "cost": 7, "name": "絶対零度", "rarity": "UR", "text": "相手のモンスターすべてを【凍結】し、DEF2000以下を破壊", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}, {"a": "killAll", "maxDef": 2000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c32", "type": "spell", "cost": 4, "name": "晴天の霹靂", "rarity": "SR", "text": "相手のモンスター1体を破壊。相手の場が1体だけなら、さらに1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1000, "if": "enemyOne"}, {"a": "kill"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c33", "type": "spell", "cost": 5, "name": "ホワイトアウト", "rarity": "SR", "text": "相手のモンスターすべてを【凍結】", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c34", "type": "spell", "cost": 3, "name": "ダイヤモンドダスト", "rarity": "SR", "text": "相手のモンスター1体を【凍結】し、1枚引く", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}, {"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c35", "type": "spell", "cost": 5, "name": "サンダーラッシュ", "rarity": "SR", "text": "自分のモンスター全体に突撃とATK+500（このターン）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 500, "charge": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c36", "type": "spell", "cost": 4, "name": "吹雪", "rarity": "R", "text": "相手のモンスター全体のATK-1000（次の相手のターンの終わりまで）", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c37", "type": "spell", "cost": 4, "name": "白銀の世界", "rarity": "R", "text": "自分のモンスター全体のDEF+1500（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffAll", "def": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c38", "type": "spell", "cost": 3, "name": "虹の架け橋", "rarity": "R", "text": "自分の墓地のモンスター1体を手札に戻す", "eff": "acts", "acts": [{"a": "returnMon"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c39", "type": "spell", "cost": 5, "name": "竜巻注意報", "rarity": "R", "text": "お互いの場のコスト2以下のモンスターをすべて破壊", "eff": "acts", "acts": [{"a": "killAll", "maxCost": 2, "both": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c40", "type": "spell", "cost": 3, "name": "一寸先は霧", "rarity": "R", "text": "相手のモンスター全体のATK-500（次の相手のターンの終わりまで）。1枚引く", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 500}, {"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c41", "type": "spell", "cost": 4, "name": "晴れ時々雷", "rarity": "R", "text": "相手に1500ダメージ。自分のHPが相手より少なければ、さらに1000", "eff": "acts", "acts": [{"a": "dmg", "x": 1500}, {"a": "dmg", "x": 1000, "if": "hpLower"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c42", "type": "spell", "cost": 2, "name": "雪解け水", "rarity": "N", "text": "自分のHP+1500", "eff": "acts", "acts": [{"a": "heal", "x": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c43", "type": "spell", "cost": 2, "name": "つるつるゾーン", "rarity": "N", "text": "相手のモンスター1体を【凍結】", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c44", "type": "spell", "cost": 1, "name": "スリップステップ", "rarity": "N", "text": "自分のモンスター1体に突撃", "eff": "acts", "acts": [{"a": "buffOne", "charge": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c45", "type": "spell", "cost": 3, "name": "つららミサイル", "rarity": "N", "text": "相手のDEF2000以下のモンスター1体を破壊", "eff": "acts", "acts": [{"a": "kill", "maxDef": 2000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c46", "type": "spell", "cost": 1, "name": "白い息", "rarity": "N", "text": "1枚引く", "eff": "acts", "acts": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c47", "type": "spell", "cost": 2, "name": "雲行きが怪しい", "rarity": "N", "text": "相手の手札をランダムに1枚捨てさせる", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c48", "type": "spell", "cost": 2, "name": "てるてるダンス", "rarity": "N", "text": "自分のHP+1000。相手のモンスター1体のATK-500（次の相手のターンの終わりまで）", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "debuffOne", "atk": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c49", "type": "spell", "cost": 1, "name": "嵐の予感", "rarity": "N", "text": "1枚引き、相手に500ダメージ", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "dmg", "x": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2c50", "type": "spell", "cost": 3, "name": "風にまかせて", "rarity": "N", "text": "手札をランダムに2枚捨てて、3枚引く", "eff": "acts", "acts": [{"a": "discardSelfDraw", "d": 2, "n": 3}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01"},
-{"id": "b2v_raika", "type": "monster", "cost": 7, "name": "雷の勇者 ライカ", "rarity": "UR", "atk": 3500, "def": 2500, "text": "突撃・二回攻撃。登場時、相手のDEF1500以下のモンスター1体を破壊", "charge": 1, "double": 1, "onActs": [{"a": "kill", "maxDef": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v02", "type": "monster", "cost": 7, "name": "サンダードラゴン", "rarity": "UR", "atk": 5000, "def": 4000, "text": "バトルした相手に【感電2000】。登場時、相手のモンスター全体に【感電1000】", "shockHit": 2000, "onActs": [{"a": "shock", "t": "all", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v03", "type": "monster", "cost": 6, "name": "地震･雷･火事･親父", "rarity": "UR", "atk": 4000, "def": 4000, "text": "登場時、ランダムで1つ：地震＝相手全体のDEF-1000／雷＝相手1体を破壊／火事＝相手に2000ダメージ／親父＝相手の手札を1枚捨てさせる", "onActs": [{"a": "random", "list": [{"a": "defDownAll", "def": 1000}, {"a": "kill"}, {"a": "dmg", "x": 2000}, {"a": "discardEnemy", "n": 1}]}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v04", "type": "monster", "cost": 8, "name": "マウント･FUJI", "rarity": "UR", "atk": 2000, "def": 7000, "text": "守護・攻撃できない。場にいる間、相手のモンスターのATK-500。破壊されたとき、相手に3000ダメージ", "guard": 1, "cantAttack": 1, "auraEnemyAtk": 500, "deathActs": [{"a": "dmg", "x": 3000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v05", "type": "monster", "cost": 6, "name": "雷鳴の大鷲", "rarity": "UR", "atk": 3500, "def": 2500, "text": "突撃。バトルした相手に【感電1500】", "charge": 1, "shockHit": 1500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v06", "type": "monster", "cost": 5, "name": "ライメイオン", "rarity": "SR", "atk": 3500, "def": 2500, "text": "突撃。バトルした相手に【感電1000】", "charge": 1, "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v07", "type": "monster", "cost": 4, "name": "雷の使者ゴロウ", "rarity": "SR", "atk": 2500, "def": 2500, "text": "登場時、山札から「雷の勇者 ライカ」を1枚手札に加える", "onActs": [{"a": "search", "id": "b2v_raika"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v_plasy", "type": "monster", "cost": 3, "name": "正のプラシィ", "rarity": "SR", "atk": 1500, "def": 2000, "text": "場に「負のマイナ」がいれば、自分のモンスター全体のATK+1000", "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v_minus", "type": "monster", "cost": 3, "name": "負のマイナ", "rarity": "SR", "atk": 2000, "def": 1500, "text": "場に「正のプラシィ」がいれば、相手のモンスター全体のATK-1000", "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v10", "type": "monster", "cost": 4, "name": "ヒライジン", "rarity": "SR", "atk": 1000, "def": 4000, "text": "守護。自分が受ける呪文のダメージを半分にする", "guard": 1, "spellHalf": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v11", "type": "monster", "cost": 5, "name": "電子レンジジイ", "rarity": "SR", "atk": 2500, "def": 3000, "text": "登場時、自分の墓地の呪文1枚を手札に戻す（チンして温め直し）", "onActs": [{"a": "returnSpell"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v12", "type": "monster", "cost": 4, "name": "磁場ばばあ", "rarity": "SR", "atk": 2000, "def": 3000, "text": "登場時、相手のモンスター1体の守護をなくす", "onActs": [{"a": "stripGuard"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v13", "type": "monster", "cost": 2, "name": "ゴロニャン", "rarity": "R", "atk": 1500, "def": 1000, "text": "バトルした相手に【感電500】", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v14", "type": "monster", "cost": 3, "name": "カマカマキリ･雷", "rarity": "R", "atk": 1500, "def": 1000, "text": "二回攻撃。バトルした相手に【感電500】", "double": 1, "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v15", "type": "monster", "cost": 2, "name": "サンダーマウス", "rarity": "R", "atk": 1000, "def": 500, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v16", "type": "monster", "cost": 3, "name": "カンデンチュウ", "rarity": "R", "atk": 2000, "def": 1500, "text": "破壊されたとき、相手のモンスター1体に【感電1000】", "deathActs": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v17", "type": "monster", "cost": 4, "name": "雷の剣士", "rarity": "R", "atk": 3000, "def": 2500, "text": "バトルした相手に【感電1000】", "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v18", "type": "monster", "cost": 3, "name": "まぁ坊", "rarity": "R", "atk": 2000, "def": 2000, "text": "破壊されたとき、相手に1000ダメージ（辛さが爆発）", "deathActs": [{"a": "dmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v19", "type": "monster", "cost": 2, "name": "ショートケーキ", "rarity": "R", "atk": 1000, "def": 1000, "text": "登場時、お互いのプレイヤーに1000ダメージ（漏電）", "onActs": [{"a": "bothDmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v20", "type": "monster", "cost": 4, "name": "ゴロゴロック", "rarity": "R", "atk": 1500, "def": 4500, "text": "守護", "guard": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v21", "type": "monster", "cost": 5, "name": "ライゾウ", "rarity": "R", "atk": 4000, "def": 3500, "text": "バトルした相手に【感電1500】", "shockHit": 1500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v22", "type": "monster", "cost": 3, "name": "エレキうなぎ", "rarity": "R", "atk": 1000, "def": 2500, "text": "守護。バトルした相手に【感電1000】", "guard": 1, "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v23", "type": "monster", "cost": 4, "name": "まぐまぐろ", "rarity": "R", "atk": 2500, "def": 1500, "text": "突撃。破壊されたとき、相手に500ダメージ", "charge": 1, "deathActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v24", "type": "monster", "cost": 1, "name": "サンダーバッタ", "rarity": "N", "atk": 500, "def": 500, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v25", "type": "monster", "cost": 2, "name": "でんきひつじ", "rarity": "N", "atk": 1000, "def": 2000, "text": "バトルした相手に【感電500】", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v26", "type": "monster", "cost": 2, "name": "まっかっか", "rarity": "N", "atk": 1000, "def": 1000, "text": "登場時、相手に500ダメージ（刺された）", "onActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v27", "type": "monster", "cost": 1, "name": "ビリビリスライム", "rarity": "N", "atk": 500, "def": 1000, "text": "バトルした相手に【感電500】", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v28", "type": "monster", "cost": 3, "name": "サンダースネーク", "rarity": "N", "atk": 2000, "def": 1000, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v29", "type": "monster", "cost": 2, "name": "かみなりえび", "rarity": "N", "atk": 1500, "def": 1000, "text": "破壊されたとき、相手に500ダメージ", "deathActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v30", "type": "monster", "cost": 2, "name": "でんQちゃん", "rarity": "N", "atk": 1000, "def": 1000, "text": "登場時、1枚引く（ひらめいた）", "onActs": [{"a": "draw", "n": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v31", "type": "spell", "cost": 9, "name": "大噴火", "rarity": "UR", "text": "相手のモンスターすべてを破壊し、相手に2000ダメージ", "eff": "acts", "acts": [{"a": "killAll"}, {"a": "dmg", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v32", "type": "spell", "cost": 4, "name": "逆転サンダー！", "rarity": "SR", "text": "自分のHPが相手より少なければ、相手のモンスター1体を破壊して2000ダメージ。そうでなければ1000ダメージ", "eff": "acts", "acts": [{"a": "kill", "if": "hpLower"}, {"a": "dmg", "x": 2000, "if": "hpLower"}, {"a": "dmg", "x": 1000, "if": "hpNotLower"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v33", "type": "spell", "cost": 5, "name": "MAXボルテージ", "rarity": "SR", "text": "自分のモンスター全体のATK+2000（このターン）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v34", "type": "spell", "cost": 6, "name": "火砕流注意報", "rarity": "SR", "text": "相手のモンスター全体に【感電1000】し、相手に1000ダメージ", "eff": "acts", "acts": [{"a": "shock", "t": "all", "x": 1000}, {"a": "dmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v35", "type": "spell", "cost": 3, "name": "カミナリオトシ", "rarity": "R", "text": "相手のコスト4以下のモンスター1体を破壊", "eff": "acts", "acts": [{"a": "kill", "maxCost": 4}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v36", "type": "spell", "cost": 2, "name": "電光石火", "rarity": "R", "text": "自分のモンスター1体に突撃とATK+1000（このターン）", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1000, "charge": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v37", "type": "spell", "cost": 3, "name": "しびれる展開", "rarity": "R", "text": "相手のモンスター全体に【感電500】", "eff": "acts", "acts": [{"a": "shock", "t": "all", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v38", "type": "spell", "cost": 4, "name": "火事場の馬鹿力", "rarity": "R", "text": "自分のHPが3000以下なら、自分のモンスター全体に突撃とATK+2000（このターン）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 2000, "charge": 1, "if": "hpLe3000"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v39", "type": "spell", "cost": 3, "name": "マグマショット", "rarity": "R", "text": "相手に2000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v40", "type": "spell", "cost": 5, "name": "激辛ラーメン", "rarity": "R", "text": "相手に3000ダメージ。自分にも1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 3000}, {"a": "selfDmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v41", "type": "spell", "cost": 1, "name": "バチッと静電気", "rarity": "N", "text": "相手のモンスター1体に【感電1000】", "eff": "acts", "acts": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v42", "type": "spell", "cost": 2, "name": "へそ取っちゃうぞ", "rarity": "N", "text": "相手の手札をランダムに1枚捨てさせる", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v43", "type": "spell", "cost": 3, "name": "閃いた！！", "rarity": "N", "text": "2枚引く", "eff": "acts", "acts": [{"a": "draw", "n": 2}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v44", "type": "spell", "cost": 2, "name": "充電中", "rarity": "N", "text": "1枚引き、自分のHP+500", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v45", "type": "spell", "cost": 1, "name": "雷鳴轟轟", "rarity": "N", "text": "相手に500ダメージ。自分のモンスター1体のATK+500（このターン）", "eff": "acts", "acts": [{"a": "dmg", "x": 500}, {"a": "buffOne", "atk": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v46", "type": "spell", "cost": 2, "name": "停電ドッキリ", "rarity": "N", "text": "次の相手のターン、相手は呪文を使えない", "eff": "acts", "acts": [{"a": "spellLock"}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v47", "type": "spell", "cost": 2, "name": "ビリビリマッサージ", "rarity": "N", "text": "自分のHP+1000。自分のモンスター1体のDEF+1000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "buffOne", "def": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v48", "type": "spell", "cost": 1, "name": "火に油", "rarity": "N", "text": "自分のモンスター1体のATK+1500（このターン）", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v49", "type": "spell", "cost": 3, "name": "温泉でホッと一息", "rarity": "N", "text": "自分のHP+2000", "eff": "acts", "acts": [{"a": "heal", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2v50", "type": "spell", "cost": 2, "name": "静電気ハイタッチ", "rarity": "N", "text": "自分のモンスター2体のATK+1000（このターン）", "eff": "acts", "acts": [{"a": "buffTwo", "atk": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01"},
-{"id": "b2f_setsu", "type": "monster", "cost": 7, "name": "雪の勇者 セツ", "rarity": "UR", "atk": 2500, "def": 5000, "text": "守護・貫通されない。登場時、相手のモンスター1体を【凍結】", "guard": 1, "noPierce": 1, "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f02", "type": "monster", "cost": 8, "name": "スノードラゴン", "rarity": "UR", "atk": 5000, "def": 5000, "text": "自分のターンの始めに、相手のモンスター1体を【凍結】。破壊されたとき、相手のモンスターすべてを【凍結】", "deathActs": [{"a": "freeze", "t": "all"}], "startActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f03", "type": "monster", "cost": 6, "name": "あの時の鶴です！", "rarity": "UR", "atk": 3000, "def": 3000, "text": "登場時、自分のHP+3000。自分の墓地のモンスター1体を手札に戻す（恩返し）", "onActs": [{"a": "heal", "x": 3000}, {"a": "returnMon"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f04", "type": "monster", "cost": 6, "name": "ホッキョクグマン", "rarity": "UR", "atk": 4000, "def": 4500, "text": "守護。自分のほかの守護モンスターのDEF+1000", "guard": 1, "guardDefAura": 1000, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f05", "type": "monster", "cost": 5, "name": "スワンダホー", "rarity": "UR", "atk": 2500, "def": 3500, "text": "登場時、相手のモンスター2体を【凍結】", "onActs": [{"a": "freeze", "t": "two"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f06", "type": "monster", "cost": 4, "name": "雪の使者シンシ", "rarity": "SR", "atk": 2000, "def": 3000, "text": "登場時、山札から「雪の勇者 セツ」を1枚手札に加える", "onActs": [{"a": "search", "id": "b2f_setsu"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f07", "type": "monster", "cost": 4, "name": "雪ダル魔", "rarity": "SR", "atk": 2000, "def": 2000, "text": "登場時、相手のモンスター1体を【凍結】。次の自分のターン、このモンスターは攻撃できない（ダルい）", "onActs": [{"a": "freeze", "t": "one"}, {"a": "freezeSelf"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f08", "type": "monster", "cost": 3, "name": "あられ姫", "rarity": "SR", "atk": 1500, "def": 2500, "text": "自分のターンの終わりに、相手のモンスター1体をランダムに【凍結】", "endActs": [{"a": "freeze", "t": "rand"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f09", "type": "monster", "cost": 5, "name": "吹雪姉妹", "rarity": "SR", "atk": 3000, "def": 3000, "text": "場にいる間、相手のモンスター全体のATK-500", "auraEnemyAtk": 500, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f10", "type": "monster", "cost": 5, "name": "★ロブスター★", "rarity": "SR", "atk": 3500, "def": 4000, "text": "守護・貫通されない（スターはしぶとい）", "guard": 1, "noPierce": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f11", "type": "monster", "cost": 4, "name": "ゆきおかま", "rarity": "SR", "atk": 2500, "def": 2500, "text": "登場時、相手のモンスター1体を【凍結】し、自分のHP+1000", "onActs": [{"a": "freeze", "t": "one"}, {"a": "heal", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f12", "type": "monster", "cost": 3, "name": "しょうがドクター", "rarity": "SR", "atk": 1000, "def": 2500, "text": "登場時、自分のHP+1000。自分のモンスターの【凍結】【感電】を治す", "onActs": [{"a": "heal", "x": 1000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f13", "type": "monster", "cost": 2, "name": "つららりら", "rarity": "R", "atk": 1500, "def": 1000, "text": "登場時、相手のモンスター1体を【凍結】", "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f14", "type": "monster", "cost": 4, "name": "スノーランサー", "rarity": "R", "atk": 3000, "def": 2000, "text": "【凍結】している相手を攻撃するとき、ATK+1500", "atkVsFrozen": 1500, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f15", "type": "monster", "cost": 3, "name": "フロスト･サーモン", "rarity": "R", "atk": 2000, "def": 2000, "text": "破壊されたとき、相手のモンスター1体を【凍結】", "deathActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f16", "type": "monster", "cost": 4, "name": "雪ラクダ", "rarity": "R", "atk": 1500, "def": 4000, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f17", "type": "monster", "cost": 3, "name": "好きーやー！", "rarity": "R", "atk": 2000, "def": 1500, "text": "突撃（スキーで滑ってくる）", "charge": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f18", "type": "monster", "cost": 5, "name": "スノーメンズ", "rarity": "R", "atk": 2500, "def": 2500, "text": "自分の場にモンスターが3体いるとき、ATK+2000", "fullBoardAtk": 2000, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f19", "type": "monster", "cost": 2, "name": "ゆきつね", "rarity": "R", "atk": 1000, "def": 2000, "text": "【凍結】している相手を攻撃するとき、ATK+1000", "atkVsFrozen": 1000, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f20", "type": "monster", "cost": 2, "name": "かまくらげ", "rarity": "R", "atk": 0, "def": 3000, "text": "守護・攻撃できない", "guard": 1, "cantAttack": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f21", "type": "monster", "cost": 3, "name": "湯たんぽんぽこ", "rarity": "R", "atk": 1500, "def": 2000, "text": "自分のターンの終わりに、自分のHP+500", "endActs": [{"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f22", "type": "monster", "cost": 4, "name": "こおりぱんだ", "rarity": "R", "atk": 2500, "def": 3500, "text": "守護。このモンスターを攻撃したモンスターを【凍結】", "guard": 1, "freezeAttacker": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f23", "type": "monster", "cost": 3, "name": "スノウマイマー", "rarity": "R", "atk": 1000, "def": 2500, "text": "守護・貫通されない（見えない壁）", "guard": 1, "noPierce": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f24", "type": "monster", "cost": 1, "name": "雪うさぎ", "rarity": "N", "atk": 500, "def": 1500, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f25", "type": "monster", "cost": 2, "name": "ふ豚", "rarity": "N", "atk": 1000, "def": 2500, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f26", "type": "monster", "cost": 2, "name": "スノーバタフライ", "rarity": "N", "atk": 1000, "def": 1000, "text": "破壊されたとき、1枚引く", "deathActs": [{"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f27", "type": "monster", "cost": 3, "name": "もちもちーたー", "rarity": "N", "atk": 2500, "def": 1500, "text": "突撃", "charge": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f28", "type": "monster", "cost": 3, "name": "さんまママ", "rarity": "N", "atk": 1500, "def": 2500, "text": "登場時、自分のHP+1000", "onActs": [{"a": "heal", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f29", "type": "monster", "cost": 2, "name": "へらへらジカ", "rarity": "N", "atk": 1500, "def": 1500, "text": "へらへらしている", "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f30", "type": "monster", "cost": 2, "name": "つめたい", "rarity": "N", "atk": 1000, "def": 2000, "text": "このモンスターとバトルした相手を【凍結】", "freezeHit": 1, "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f31", "type": "spell", "cost": 8, "name": "大ブリザード", "rarity": "UR", "text": "相手のモンスター全体を【凍結】し、ATK-1000（次の相手のターンの終わりまで）。1枚引く", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}, {"a": "debuffAll", "atk": 1000}, {"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f32", "type": "spell", "cost": 5, "name": "雪山で寝るな！", "rarity": "SR", "text": "自分のモンスター全体のDEF+2000（次の自分のターンの始めまで）。【凍結】を治す", "eff": "acts", "acts": [{"a": "buffAll", "def": 2000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f33", "type": "spell", "cost": 4, "name": "鍋パーティー", "rarity": "SR", "text": "自分のHP+2500。1枚引く", "eff": "acts", "acts": [{"a": "heal", "x": 2500}, {"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f34", "type": "spell", "cost": 6, "name": "闇鍋", "rarity": "SR", "text": "ランダムで1つ：相手全体を【凍結】／相手に2000ダメージ／自分のHP+3000／2枚引く", "eff": "acts", "acts": [{"a": "random", "list": [{"a": "freeze", "t": "all"}, {"a": "dmg", "x": 2000}, {"a": "heal", "x": 3000}, {"a": "draw", "n": 2}]}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f35", "type": "spell", "cost": 3, "name": "つららおとし", "rarity": "R", "text": "相手のDEF2500以下のモンスター1体を破壊", "eff": "acts", "acts": [{"a": "kill", "maxDef": 2500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f36", "type": "spell", "cost": 2, "name": "カチコチビーム", "rarity": "R", "text": "相手のモンスター1体を【凍結】", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f37", "type": "spell", "cost": 3, "name": "冷たい視線", "rarity": "R", "text": "相手のモンスター全体のATK-1000（次の相手のターンの終わりまで）", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f38", "type": "spell", "cost": 4, "name": "かまくらづくり", "rarity": "R", "text": "自分のモンスター1体に守護とDEF+2000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffOne", "def": 2000, "guard": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f39", "type": "spell", "cost": 3, "name": "雪玉ラッシュ", "rarity": "R", "text": "相手に1500ダメージ。【凍結】しているモンスターがいれば、さらに1000", "eff": "acts", "acts": [{"a": "dmg", "x": 1500}, {"a": "dmg", "x": 1000, "if": "frozenExists"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f40", "type": "spell", "cost": 4, "name": "雪だるま作戦", "rarity": "R", "text": "自分のモンスター全体のATK+500・DEF+1000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffAll", "atk": 500, "def": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f41", "type": "spell", "cost": 1, "name": "おやじギャグ", "rarity": "N", "text": "相手のモンスター1体を【凍結】（寒すぎて）", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f42", "type": "spell", "cost": 2, "name": "こたつタイム", "rarity": "N", "text": "自分のHP+1500", "eff": "acts", "acts": [{"a": "heal", "x": 1500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f43", "type": "spell", "cost": 2, "name": "あられ打ち", "rarity": "N", "text": "相手に1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f44", "type": "spell", "cost": 2, "name": "フローズンマンゴー", "rarity": "N", "text": "1枚引き、自分のHP+500", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f45", "type": "spell", "cost": 1, "name": "デカすぎる手袋", "rarity": "N", "text": "自分のモンスター1体のDEF+2000（次の自分のターンの始めまで）", "eff": "acts", "acts": [{"a": "buffOne", "def": 2000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f46", "type": "spell", "cost": 2, "name": "アツアツの肉まん", "rarity": "N", "text": "自分のHP+1000。自分のモンスターの【凍結】を治す", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f47", "type": "spell", "cost": 2, "name": "寄り道おでん", "rarity": "N", "text": "1枚引き、自分のHP+500", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f48", "type": "spell", "cost": 1, "name": "熱燗どうすか", "rarity": "N", "text": "自分のモンスター1体のATK+1000（このターン）", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f49", "type": "spell", "cost": 3, "name": "冬眠します", "rarity": "N", "text": "自分のHP+2000し、1枚引く。このターン、自分のモンスターは攻撃できない", "eff": "acts", "acts": [{"a": "heal", "x": 2000}, {"a": "draw", "n": 1}, {"a": "noAttackSelf"}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2f50", "type": "spell", "cost": 2, "name": "レッツゴー雪かき", "rarity": "N", "text": "お互いの場のコスト1のモンスターをすべて破壊", "eff": "acts", "acts": [{"a": "killAll", "maxCost": 1, "both": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01"},
-{"id": "b2v_raika_cr", "type": "monster", "cost": 7, "name": "雷の勇者 ライカ", "rarity": "CR", "atk": 3500, "def": 2500, "text": "突撃・二回攻撃。登場時、相手のDEF1500以下のモンスター1体を破壊", "charge": 1, "double": 1, "onActs": [{"a": "kill", "maxDef": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v_raika"},
-{"id": "b2f_setsu_cr", "type": "monster", "cost": 7, "name": "雪の勇者 セツ", "rarity": "CR", "atk": 2500, "def": 5000, "text": "守護・貫通されない。登場時、相手のモンスター1体を【凍結】", "guard": 1, "noPierce": 1, "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f_setsu"},
-{"id": "b2v02_cr", "type": "monster", "cost": 7, "name": "サンダードラゴン", "rarity": "CR", "atk": 5000, "def": 4000, "text": "バトルした相手に【感電2000】。登場時、相手のモンスター全体に【感電1000】", "shockHit": 2000, "onActs": [{"a": "shock", "t": "all", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v02", "imgOf": "b2v02"},
-{"id": "b2v03_cr", "type": "monster", "cost": 6, "name": "地震･雷･火事･親父", "rarity": "CR", "atk": 4000, "def": 4000, "text": "登場時、ランダムで1つ：地震＝相手全体のDEF-1000／雷＝相手1体を破壊／火事＝相手に2000ダメージ／親父＝相手の手札を1枚捨てさせる", "onActs": [{"a": "random", "list": [{"a": "defDownAll", "def": 1000}, {"a": "kill"}, {"a": "dmg", "x": 2000}, {"a": "discardEnemy", "n": 1}]}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v03", "imgOf": "b2v03"},
-{"id": "b2f02_cr", "type": "monster", "cost": 8, "name": "スノードラゴン", "rarity": "CR", "atk": 5000, "def": 5000, "text": "自分のターンの始めに、相手のモンスター1体を【凍結】。破壊されたとき、相手のモンスターすべてを【凍結】", "deathActs": [{"a": "freeze", "t": "all"}], "startActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f02", "imgOf": "b2f02"},
-{"id": "b2f03_cr", "type": "monster", "cost": 6, "name": "あの時の鶴です！", "rarity": "CR", "atk": 3000, "def": 3000, "text": "登場時、自分のHP+3000。自分の墓地のモンスター1体を手札に戻す（恩返し）", "onActs": [{"a": "heal", "x": 3000}, {"a": "returnMon"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f03", "imgOf": "b2f03"},
-{"id": "b2c01_cr", "type": "monster", "cost": 8, "name": "ボルブリザ", "rarity": "CR", "atk": 5500, "def": 5500, "text": "登場時、相手のモンスターすべてを【凍結】", "onActs": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "baseId": "b2c01", "imgOf": "b2c01"},
-{"id": "b2c02_cr", "type": "monster", "cost": 6, "name": "秘境の歌姫 メロディエ", "rarity": "CR", "atk": 2500, "def": 4000, "text": "自分のターンの終わりに、自分のHP+1000", "endActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "baseId": "b2c02", "imgOf": "b2c02"},
-{"id": "b2c14_crp", "type": "monster", "cost": 4, "name": "ハリー･ケン", "rarity": "CR", "atk": 3000, "def": 2000, "text": "登場時、相手のDEF1000以下のモンスターをすべて破壊", "onActs": [{"a": "killAll", "maxDef": 1000}], "pack": 0, "rel": "2026-10-01", "baseId": "b2c14", "imgOf": "b2c14", "promo": 1, "event": 1},
+{"id": "b2c01", "type": "monster", "cost": 8, "name": "ボルブリザ", "rarity": "UR", "atk": 5500, "def": 5500, "text": "登場時、相手のモンスター全てを【凍結】する", "onActs": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ぼるぶりざ"},
+{"id": "b2c02", "type": "monster", "cost": 6, "name": "秘境の歌姫 メロディエ", "rarity": "UR", "atk": 2500, "def": 4000, "text": "自分のターン終了時、自分のHPを+1000する", "endActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ひきょうのうたひめめろでぃえ"},
+{"id": "b2c03", "type": "monster", "cost": 7, "name": "トルネードラゴン", "rarity": "UR", "atk": 5000, "def": 3000, "text": "突撃。登場時、相手のコスト4以下のモンスター1体を破壊する", "charge": 1, "onActs": [{"a": "kill", "maxCost": 4}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "とるねーどらごん"},
+{"id": "b2c04", "type": "monster", "cost": 7, "name": "ウンカイクジラ", "rarity": "UR", "atk": 3000, "def": 6000, "text": "守護。1ターンに1回、攻撃を受け止めた時、自分の山札を1枚ドローする", "guard": 1, "drawOnBlock": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "うんかいくじら"},
+{"id": "b2c05", "type": "monster", "cost": 5, "name": "オーローラ", "rarity": "SR", "atk": 3000, "def": 3000, "text": "登場時、次の自分のターンの開始まで、自分のモンスター全てのATKを+1000する", "onActs": [{"a": "buffAll", "atk": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "おーろーら"},
+{"id": "b2c06", "type": "monster", "cost": 4, "name": "アラシカ", "rarity": "SR", "atk": 2500, "def": 2000, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "あらしか"},
+{"id": "b2c07", "type": "monster", "cost": 4, "name": "キリキリン", "rarity": "SR", "atk": 2000, "def": 3500, "text": "登場時、相手モンスター1体を【凍結】する", "onActs": [{"a": "freeze", "t": "one"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "きりきりん"},
+{"id": "b2c08", "type": "monster", "cost": 5, "name": "ニジマスター", "rarity": "SR", "atk": 3500, "def": 3500, "text": "登場時、自分の山札を1枚ドローする", "onActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "にじますたー"},
+{"id": "b2c09", "type": "monster", "cost": 3, "name": "つむじぃ", "rarity": "SR", "atk": 1500, "def": 2500, "text": "登場時、相手モンスター1体に【感電1000】を与える", "onActs": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "つむじぃ"},
+{"id": "b2c10", "type": "monster", "cost": 3, "name": "かまいたち", "rarity": "SR", "atk": 2500, "def": 1000, "text": "突撃。相手モンスターを破壊した時、相手プレイヤーに500ダメージ", "charge": 1, "killDmg": 500, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "かまいたち"},
+{"id": "b2c11", "type": "monster", "cost": 5, "name": "おおざめ", "rarity": "R", "atk": 3500, "def": 3000, "text": "自分の墓地に「こさめ」があるなら、このモンスターのコストを-2する", "graveCheap": "b2c_kosame", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "おおざめ"},
+{"id": "b2c12", "type": "monster", "cost": 3, "name": "そらタロー", "rarity": "R", "atk": 2000, "def": 2000, "text": "登場時、自分のHPを+1000する", "onActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "そらたろー"},
+{"id": "b2c13", "type": "monster", "cost": 3, "name": "もくもくも", "rarity": "R", "atk": 1000, "def": 3000, "text": "守護。このモンスターを攻撃したモンスターを【凍結】する", "guard": 1, "freezeAttacker": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "もくもくも"},
+{"id": "b2c14", "type": "monster", "cost": 4, "name": "ハリー･ケン", "rarity": "R", "atk": 3000, "def": 2000, "text": "登場時、相手のDEF1000以下のモンスターを全て破壊する", "onActs": [{"a": "killAll", "maxDef": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "はりーけん"},
+{"id": "b2c15", "type": "monster", "cost": 2, "name": "タルタルボウズ", "rarity": "R", "atk": 1000, "def": 2000, "text": "守護。破壊された時、自分のHPを+1000する", "guard": 1, "deathActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "たるたるぼうず"},
+{"id": "b2c16", "type": "monster", "cost": 4, "name": "レインコート地蔵", "rarity": "R", "atk": 1500, "def": 4000, "text": "守護。貫通されない", "guard": 1, "noPierce": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "れいんこーとじぞう"},
+{"id": "b2c17", "type": "monster", "cost": 2, "name": "かざみどりーむ", "rarity": "R", "atk": 1000, "def": 1000, "text": "破壊された時、自分の山札を1枚ドローする", "deathActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "かざみどりーむ"},
+{"id": "b2c18", "type": "monster", "cost": 5, "name": "豚に珍獣", "rarity": "R", "atk": 3000, "def": 3500, "text": "守護", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ぶたにちんじゅう"},
+{"id": "b2c19", "type": "monster", "cost": 3, "name": "じゅーず", "rarity": "R", "atk": 1500, "def": 1500, "text": "破壊された時、自分のHPを+1500する", "deathActs": [{"a": "heal", "x": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "じゅーず"},
+{"id": "b2c20", "type": "monster", "cost": 4, "name": "うわキング", "rarity": "R", "atk": 2000, "def": 2000, "text": "二回攻撃", "double": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "うわきんぐ"},
+{"id": "b2c21", "type": "monster", "cost": 3, "name": "ほうちょうちょう", "rarity": "N", "atk": 2500, "def": 1000, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ほうちょうちょう"},
+{"id": "b2c22", "type": "monster", "cost": 1, "name": "ポチ", "rarity": "N", "atk": 1000, "def": 500, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ぽち"},
+{"id": "b2c23", "type": "monster", "cost": 1, "name": "タマ", "rarity": "N", "atk": 500, "def": 1000, "text": "守護", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "たま"},
+{"id": "b2c24", "type": "monster", "cost": 2, "name": "ただの馬", "rarity": "N", "atk": 1500, "def": 1500, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ただのうま"},
+{"id": "b2c_kosame", "type": "monster", "cost": 2, "name": "こさめ", "rarity": "N", "atk": 1000, "def": 1000, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "こさめ"},
+{"id": "b2c26", "type": "monster", "cost": 2, "name": "もぐもぐら", "rarity": "N", "atk": 1000, "def": 1500, "text": "登場時、自分のHPを+500する", "onActs": [{"a": "heal", "x": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "もぐもぐら"},
+{"id": "b2c27", "type": "monster", "cost": 3, "name": "アルマジロジロ", "rarity": "N", "atk": 1000, "def": 3000, "text": "守護", "guard": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "あるまじろじろ"},
+{"id": "b2c28", "type": "monster", "cost": 2, "name": "オウムガイ", "rarity": "N", "atk": 1500, "def": 1000, "text": "破壊された時、自分の山札を1枚ドローする", "deathActs": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "おうむがい"},
+{"id": "b2c29", "type": "monster", "cost": 3, "name": "にゃがぐつ", "rarity": "N", "atk": 1500, "def": 1500, "text": "突撃", "charge": 1, "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "にゃがぐつ"},
+{"id": "b2c30", "type": "monster", "cost": 3, "name": "じとじとうもろこし", "rarity": "N", "atk": 2000, "def": 2500, "text": "", "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "じとじとうもろこし"},
+{"id": "b2c31", "type": "spell", "cost": 7, "name": "絶対零度", "rarity": "UR", "text": "相手のモンスター全てを【凍結】する。その後、相手のDEF2000以下のモンスターを全て破壊する", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}, {"a": "killAll", "maxDef": 2000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ぜったいれいど"},
+{"id": "b2c32", "type": "spell", "cost": 4, "name": "晴天の霹靂", "rarity": "SR", "text": "相手モンスター1体を破壊する。相手の場のモンスターが1体だけなら、さらに相手プレイヤーに1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1000, "if": "enemyOne"}, {"a": "kill"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "せいてんのへきれき"},
+{"id": "b2c33", "type": "spell", "cost": 5, "name": "ホワイトアウト", "rarity": "SR", "text": "相手のモンスター全てを【凍結】する", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ほわいとあうと"},
+{"id": "b2c34", "type": "spell", "cost": 3, "name": "ダイヤモンドダスト", "rarity": "SR", "text": "相手モンスター1体を【凍結】する。その後、自分の山札を1枚ドローする", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}, {"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "だいやもんどだすと"},
+{"id": "b2c35", "type": "spell", "cost": 5, "name": "サンダーラッシュ", "rarity": "SR", "text": "次の自分のターンの開始まで、自分のモンスター全てに突撃を与え、ATKを+500する", "eff": "acts", "acts": [{"a": "buffAll", "atk": 500, "charge": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "さんだーらっしゅ"},
+{"id": "b2c36", "type": "spell", "cost": 4, "name": "吹雪", "rarity": "R", "text": "次の自分のターンの開始まで、相手のモンスター全てのATKを-1000する", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ふぶき"},
+{"id": "b2c37", "type": "spell", "cost": 4, "name": "白銀の世界", "rarity": "R", "text": "次の自分のターンの開始まで、自分のモンスター全てのDEFを+1500する", "eff": "acts", "acts": [{"a": "buffAll", "def": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "はくぎんのせかい"},
+{"id": "b2c38", "type": "spell", "cost": 3, "name": "虹の架け橋", "rarity": "R", "text": "自分の墓地のモンスター1体を手札に加える", "eff": "acts", "acts": [{"a": "returnMon"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "にじのかけはし"},
+{"id": "b2c39", "type": "spell", "cost": 5, "name": "竜巻注意報", "rarity": "R", "text": "お互いの場のコスト2以下のモンスターを全て破壊する", "eff": "acts", "acts": [{"a": "killAll", "maxCost": 2, "both": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "たつまきちゅういほう"},
+{"id": "b2c40", "type": "spell", "cost": 3, "name": "一寸先は霧", "rarity": "R", "text": "次の自分のターンの開始まで、相手のモンスター全てのATKを-500する。その後、自分の山札を1枚ドローする", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 500}, {"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "いっすんさきはきり"},
+{"id": "b2c41", "type": "spell", "cost": 4, "name": "晴れ時々雷", "rarity": "R", "text": "相手プレイヤーに1500ダメージ。自分のHPが相手より少ないなら、さらに1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1500}, {"a": "dmg", "x": 1000, "if": "hpLower"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "はれときどきかみなり"},
+{"id": "b2c42", "type": "spell", "cost": 2, "name": "雪解け水", "rarity": "N", "text": "自分のHPを+1500する", "eff": "acts", "acts": [{"a": "heal", "x": 1500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "ゆきどけみず"},
+{"id": "b2c43", "type": "spell", "cost": 2, "name": "つるつるゾーン", "rarity": "N", "text": "相手モンスター1体を【凍結】する", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "つるつるぞーん"},
+{"id": "b2c44", "type": "spell", "cost": 1, "name": "スリップステップ", "rarity": "N", "text": "次の自分のターンの開始まで、自分のモンスター1体に突撃を与える", "eff": "acts", "acts": [{"a": "buffOne", "charge": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "すりっぷすてっぷ"},
+{"id": "b2c45", "type": "spell", "cost": 3, "name": "つららミサイル", "rarity": "N", "text": "相手のDEF2000以下のモンスター1体を破壊する", "eff": "acts", "acts": [{"a": "kill", "maxDef": 2000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "つららみさいる"},
+{"id": "b2c46", "type": "spell", "cost": 1, "name": "白い息", "rarity": "N", "text": "自分の山札を1枚ドローする", "eff": "acts", "acts": [{"a": "draw", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "しろいいき"},
+{"id": "b2c47", "type": "spell", "cost": 2, "name": "雲行きが怪しい", "rarity": "N", "text": "相手の手札を1枚ランダムに捨てさせる", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "くもゆきがあやしい"},
+{"id": "b2c48", "type": "spell", "cost": 2, "name": "てるてるダンス", "rarity": "N", "text": "自分のHPを+1000する。次の自分のターンの開始まで、相手モンスター1体のATKを-500する", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "debuffOne", "atk": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "てるてるだんす"},
+{"id": "b2c49", "type": "spell", "cost": 1, "name": "嵐の予感", "rarity": "N", "text": "自分の山札を1枚ドローする。その後、相手プレイヤーに500ダメージ", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "dmg", "x": 500}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "あらしのよかん"},
+{"id": "b2c50", "type": "spell", "cost": 3, "name": "風にまかせて", "rarity": "N", "text": "自分の手札をランダムに2枚捨てる。その後、自分の山札を3枚ドローする", "eff": "acts", "acts": [{"a": "discardSelfDraw", "d": 2, "n": 3}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "sortName": "かぜにまかせて"},
+{"id": "b2v_raika", "type": "monster", "cost": 7, "name": "雷の勇者 ライカ", "rarity": "UR", "atk": 3000, "def": 2500, "text": "突撃。二回攻撃。登場時、相手のDEF1500以下のモンスター1体を破壊する", "charge": 1, "double": 1, "onActs": [{"a": "kill", "maxDef": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かみなりのゆうしゃらいか"},
+{"id": "b2v02", "type": "monster", "cost": 7, "name": "サンダードラゴン", "rarity": "UR", "atk": 5000, "def": 4000, "text": "このモンスターとバトルした相手モンスターに【感電2000】を与える。登場時、相手のモンスター全てに【感電1000】を与える", "shockHit": 2000, "onActs": [{"a": "shock", "t": "all", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "さんだーどらごん"},
+{"id": "b2v03", "type": "monster", "cost": 6, "name": "地震･雷･火事･親父", "rarity": "UR", "atk": 4000, "def": 4000, "text": "登場時、ランダムで1つ：地震＝相手モンスター全てのDEFを-1000する／雷＝相手モンスター1体を破壊する／火事＝相手プレイヤーに2000ダメージ／親父＝相手の手札を1枚ランダムに捨てさせる", "onActs": [{"a": "random", "list": [{"a": "defDownAll", "def": 1000}, {"a": "kill"}, {"a": "dmg", "x": 2000}, {"a": "discardEnemy", "n": 1}]}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "じしんかみなりかじおやじ"},
+{"id": "b2v04", "type": "monster", "cost": 8, "name": "マウント･FUJI", "rarity": "UR", "atk": 2000, "def": 7000, "text": "守護。攻撃できない。このモンスターが場にいる間、相手のモンスター全てのATKを-500する。破壊された時、相手プレイヤーに3000ダメージ", "guard": 1, "cantAttack": 1, "auraEnemyAtk": 500, "deathActs": [{"a": "dmg", "x": 3000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "まうんとFUJI"},
+{"id": "b2v05", "type": "monster", "cost": 6, "name": "雷鳴の大鷲", "rarity": "UR", "atk": 3500, "def": 2500, "text": "突撃。このモンスターとバトルした相手モンスターに【感電1500】を与える", "charge": 1, "shockHit": 1500, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "らいめいのおおわし"},
+{"id": "b2v06", "type": "monster", "cost": 5, "name": "ライメイオン", "rarity": "SR", "atk": 3500, "def": 2500, "text": "突撃。このモンスターとバトルした相手モンスターに【感電1000】を与える", "charge": 1, "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "らいめいおん"},
+{"id": "b2v07", "type": "monster", "cost": 4, "name": "雷の使者ゴロウ", "rarity": "SR", "atk": 2500, "def": 2500, "text": "登場時、山札から「雷の勇者 ライカ」を1枚手札に加える", "onActs": [{"a": "search", "id": "b2v_raika"}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かみなりのししゃごろう"},
+{"id": "b2v_plasy", "type": "monster", "cost": 3, "name": "正のプラシィ", "rarity": "SR", "atk": 1500, "def": 2000, "text": "自分の場に「負のマイナ」がいるなら、自分のモンスター全てのATKを+1000する", "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "せいのぷらしぃ"},
+{"id": "b2v_minus", "type": "monster", "cost": 3, "name": "負のマイナ", "rarity": "SR", "atk": 2000, "def": 1500, "text": "自分の場に「正のプラシィ」がいるなら、相手のモンスター全てのATKを-1000する", "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ふのまいな"},
+{"id": "b2v10", "type": "monster", "cost": 4, "name": "ヒライジン", "rarity": "SR", "atk": 1000, "def": 4000, "text": "守護。相手の呪文で自分が受けるダメージを半分にする", "guard": 1, "spellHalf": 1, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ひらいじん"},
+{"id": "b2v11", "type": "monster", "cost": 5, "name": "電子レンジジイ", "rarity": "SR", "atk": 2500, "def": 3000, "text": "登場時、自分の墓地の呪文1枚を手札に加える", "onActs": [{"a": "returnSpell"}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "でんしれんじじい"},
+{"id": "b2v12", "type": "monster", "cost": 4, "name": "磁場ばばあ", "rarity": "SR", "atk": 2000, "def": 3000, "text": "登場時、相手モンスター1体の守護をなくす", "onActs": [{"a": "stripGuard"}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "じばばばあ"},
+{"id": "b2v13", "type": "monster", "cost": 2, "name": "ゴロニャン", "rarity": "R", "atk": 1500, "def": 1000, "text": "このモンスターとバトルした相手モンスターに【感電500】を与える", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ごろにゃん"},
+{"id": "b2v14", "type": "monster", "cost": 3, "name": "カマカマキリ･雷", "rarity": "R", "atk": 1500, "def": 1000, "text": "二回攻撃。このモンスターとバトルした相手モンスターに【感電500】を与える", "double": 1, "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かまかまきりかみなり"},
+{"id": "b2v15", "type": "monster", "cost": 2, "name": "サンダーマウス", "rarity": "R", "atk": 1000, "def": 500, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "さんだーまうす"},
+{"id": "b2v16", "type": "monster", "cost": 3, "name": "カンデンチュウ", "rarity": "R", "atk": 2000, "def": 1500, "text": "破壊された時、相手モンスター1体に【感電1000】を与える", "deathActs": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かんでんちゅう"},
+{"id": "b2v17", "type": "monster", "cost": 4, "name": "雷の剣士", "rarity": "R", "atk": 3000, "def": 2500, "text": "このモンスターとバトルした相手モンスターに【感電1000】を与える", "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かみなりのけんし"},
+{"id": "b2v18", "type": "monster", "cost": 3, "name": "まぁ坊", "rarity": "R", "atk": 2000, "def": 2000, "text": "破壊された時、相手プレイヤーに1000ダメージ", "deathActs": [{"a": "dmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "まぁぼう"},
+{"id": "b2v19", "type": "monster", "cost": 2, "name": "ショートケーキ", "rarity": "R", "atk": 1000, "def": 1000, "text": "登場時、お互いのプレイヤーに1000ダメージ", "onActs": [{"a": "bothDmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "しょーとけーき"},
+{"id": "b2v20", "type": "monster", "cost": 4, "name": "ゴロゴロック", "rarity": "R", "atk": 1500, "def": 4500, "text": "守護", "guard": 1, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ごろごろっく"},
+{"id": "b2v21", "type": "monster", "cost": 5, "name": "ライゾウ", "rarity": "R", "atk": 4000, "def": 3500, "text": "このモンスターとバトルした相手モンスターに【感電1500】を与える", "shockHit": 1500, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "らいぞう"},
+{"id": "b2v22", "type": "monster", "cost": 3, "name": "エレキうなぎ", "rarity": "R", "atk": 1000, "def": 2500, "text": "守護。このモンスターとバトルした相手モンスターに【感電1000】を与える", "guard": 1, "shockHit": 1000, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "えれきうなぎ"},
+{"id": "b2v23", "type": "monster", "cost": 4, "name": "まぐまぐろ", "rarity": "R", "atk": 2500, "def": 1500, "text": "突撃。破壊された時、相手プレイヤーに500ダメージ", "charge": 1, "deathActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "まぐまぐろ"},
+{"id": "b2v24", "type": "monster", "cost": 1, "name": "サンダーバッタ", "rarity": "N", "atk": 500, "def": 500, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "さんだーばった"},
+{"id": "b2v25", "type": "monster", "cost": 2, "name": "でんきひつじ", "rarity": "N", "atk": 1000, "def": 2000, "text": "このモンスターとバトルした相手モンスターに【感電500】を与える", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "でんきひつじ"},
+{"id": "b2v26", "type": "monster", "cost": 2, "name": "まっかっか", "rarity": "N", "atk": 1000, "def": 1000, "text": "登場時、相手プレイヤーに500ダメージ", "onActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "まっかっか"},
+{"id": "b2v27", "type": "monster", "cost": 1, "name": "ビリビリスライム", "rarity": "N", "atk": 500, "def": 1000, "text": "このモンスターとバトルした相手モンスターに【感電500】を与える", "shockHit": 500, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "びりびりすらいむ"},
+{"id": "b2v28", "type": "monster", "cost": 3, "name": "サンダースネーク", "rarity": "N", "atk": 2000, "def": 1000, "text": "突撃", "charge": 1, "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "さんだーすねーく"},
+{"id": "b2v29", "type": "monster", "cost": 2, "name": "かみなりえび", "rarity": "N", "atk": 1500, "def": 1000, "text": "破壊された時、相手プレイヤーに500ダメージ", "deathActs": [{"a": "dmg", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かみなりえび"},
+{"id": "b2v30", "type": "monster", "cost": 2, "name": "でんQちゃん", "rarity": "N", "atk": 1000, "def": 1000, "text": "登場時、自分の山札を1枚ドローする", "onActs": [{"a": "draw", "n": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "でんQちゃん"},
+{"id": "b2v31", "type": "spell", "cost": 9, "name": "大噴火", "rarity": "UR", "text": "相手のモンスター全てを破壊する。その後、相手プレイヤーに2000ダメージ", "eff": "acts", "acts": [{"a": "killAll"}, {"a": "dmg", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "だいふんか"},
+{"id": "b2v32", "type": "spell", "cost": 4, "name": "逆転サンダー！", "rarity": "SR", "text": "自分のHPが相手より少ないなら、相手モンスター1体を破壊し、相手プレイヤーに2000ダメージ。そうでないなら、相手プレイヤーに1000ダメージ", "eff": "acts", "acts": [{"a": "kill", "if": "hpLower"}, {"a": "dmg", "x": 2000, "if": "hpLower"}, {"a": "dmg", "x": 1000, "if": "hpNotLower"}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ぎゃくてんさんだー"},
+{"id": "b2v33", "type": "spell", "cost": 5, "name": "MAXボルテージ", "rarity": "SR", "text": "次の自分のターンの開始まで、自分のモンスター全てのATKを+1500する", "eff": "acts", "acts": [{"a": "buffAll", "atk": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "MAXぼるてーじ"},
+{"id": "b2v34", "type": "spell", "cost": 6, "name": "火砕流注意報", "rarity": "SR", "text": "相手のモンスター全てに【感電1000】を与える。その後、相手プレイヤーに1000ダメージ", "eff": "acts", "acts": [{"a": "shock", "t": "all", "x": 1000}, {"a": "dmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かさいりゅうちゅういほう"},
+{"id": "b2v35", "type": "spell", "cost": 3, "name": "カミナリオトシ", "rarity": "R", "text": "相手のコスト4以下のモンスター1体を破壊する", "eff": "acts", "acts": [{"a": "kill", "maxCost": 4}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かみなりおとし"},
+{"id": "b2v36", "type": "spell", "cost": 2, "name": "電光石火", "rarity": "R", "text": "次の自分のターンの開始まで、自分のモンスター1体に突撃を与え、ATKを+1000する", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1000, "charge": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "でんこうせっか"},
+{"id": "b2v37", "type": "spell", "cost": 3, "name": "しびれる展開", "rarity": "R", "text": "相手のモンスター全てに【感電500】を与える", "eff": "acts", "acts": [{"a": "shock", "t": "all", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "しびれるてんかい"},
+{"id": "b2v38", "type": "spell", "cost": 4, "name": "火事場の馬鹿力", "rarity": "R", "text": "自分のHPが3000以下なら、次の自分のターンの開始まで、自分のモンスター全てに突撃を与え、ATKを+2000する", "eff": "acts", "acts": [{"a": "buffAll", "atk": 2000, "charge": 1, "if": "hpLe3000"}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "かじばのばかぢから"},
+{"id": "b2v39", "type": "spell", "cost": 4, "name": "マグマショット", "rarity": "R", "text": "相手プレイヤーに2000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "まぐましょっと"},
+{"id": "b2v40", "type": "spell", "cost": 5, "name": "激辛ラーメン", "rarity": "R", "text": "相手プレイヤーに3000ダメージ。その後、自分のHPを-1000する", "eff": "acts", "acts": [{"a": "dmg", "x": 3000}, {"a": "selfDmg", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "げきからーめん"},
+{"id": "b2v41", "type": "spell", "cost": 1, "name": "バチッと静電気", "rarity": "N", "text": "相手モンスター1体に【感電1000】を与える", "eff": "acts", "acts": [{"a": "shock", "t": "one", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ばちっとせいでんき"},
+{"id": "b2v42", "type": "spell", "cost": 2, "name": "へそ取っちゃうぞ", "rarity": "N", "text": "相手の手札を1枚ランダムに捨てさせる", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "へそとっちゃうぞ"},
+{"id": "b2v43", "type": "spell", "cost": 3, "name": "閃いた！！", "rarity": "N", "text": "自分の山札を2枚ドローする", "eff": "acts", "acts": [{"a": "draw", "n": 2}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ひらめいた"},
+{"id": "b2v44", "type": "spell", "cost": 2, "name": "充電中", "rarity": "N", "text": "自分の山札を1枚ドローする。その後、自分のHPを+500する", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "じゅうでんちゅう"},
+{"id": "b2v45", "type": "spell", "cost": 1, "name": "雷鳴轟轟", "rarity": "N", "text": "相手プレイヤーに500ダメージ。次の自分のターンの開始まで、自分のモンスター1体のATKを+500する", "eff": "acts", "acts": [{"a": "dmg", "x": 500}, {"a": "buffOne", "atk": 500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "らいめいごうごう"},
+{"id": "b2v46", "type": "spell", "cost": 2, "name": "停電ドッキリ", "rarity": "N", "text": "相手は次のターン、呪文を唱えられない", "eff": "acts", "acts": [{"a": "spellLock"}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ていでんどっきり"},
+{"id": "b2v47", "type": "spell", "cost": 2, "name": "ビリビリマッサージ", "rarity": "N", "text": "自分のHPを+1000する。次の自分のターンの開始まで、自分のモンスター1体のDEFを+1000する", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "buffOne", "def": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "びりびりまっさーじ"},
+{"id": "b2v48", "type": "spell", "cost": 1, "name": "火に油", "rarity": "N", "text": "次の自分のターンの開始まで、自分のモンスター1体のATKを+1500する", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "ひにあぶら"},
+{"id": "b2v49", "type": "spell", "cost": 3, "name": "温泉でホッと一息", "rarity": "N", "text": "自分のHPを+2000する", "eff": "acts", "acts": [{"a": "heal", "x": 2000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "おんせんでほっとひといき"},
+{"id": "b2v50", "type": "spell", "cost": 2, "name": "静電気ハイタッチ", "rarity": "N", "text": "次の自分のターンの開始まで、自分のモンスター2体のATKを+1000する", "eff": "acts", "acts": [{"a": "buffTwo", "atk": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "sortName": "せいでんきはいたっち"},
+{"id": "b2f_setsu", "type": "monster", "cost": 7, "name": "雪の勇者 セツ", "rarity": "UR", "atk": 2500, "def": 5000, "text": "守護。貫通されない。登場時、相手モンスター1体を【凍結】する", "guard": 1, "noPierce": 1, "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきのゆうしゃせつ"},
+{"id": "b2f02", "type": "monster", "cost": 8, "name": "スノードラゴン", "rarity": "UR", "atk": 5000, "def": 5000, "text": "自分のターン開始時、相手モンスター1体を【凍結】する。破壊された時、相手のモンスター全てを【凍結】する", "deathActs": [{"a": "freeze", "t": "all"}], "startActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "すのーどらごん"},
+{"id": "b2f03", "type": "monster", "cost": 6, "name": "あの時の鶴です！", "rarity": "UR", "atk": 3000, "def": 3000, "text": "登場時、自分のHPを+3000する。その後、自分の墓地のモンスター1体を手札に加える", "onActs": [{"a": "heal", "x": 3000}, {"a": "returnMon"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "あのときのつるです"},
+{"id": "b2f04", "type": "monster", "cost": 6, "name": "ホッキョクグマン", "rarity": "UR", "atk": 4000, "def": 4500, "text": "守護。自分の他の守護モンスターのDEFを+1000する", "guard": 1, "guardDefAura": 1000, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ほっきょくぐまん"},
+{"id": "b2f05", "type": "monster", "cost": 5, "name": "スワンダホー", "rarity": "UR", "atk": 2500, "def": 3500, "text": "登場時、相手のモンスター2体を【凍結】する", "onActs": [{"a": "freeze", "t": "two"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "すわんだほー"},
+{"id": "b2f06", "type": "monster", "cost": 4, "name": "雪の使者シンシ", "rarity": "SR", "atk": 2000, "def": 3000, "text": "登場時、山札から「雪の勇者 セツ」を1枚手札に加える", "onActs": [{"a": "search", "id": "b2f_setsu"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきのししゃしんし"},
+{"id": "b2f07", "type": "monster", "cost": 4, "name": "雪ダル魔", "rarity": "SR", "atk": 2000, "def": 2000, "text": "登場時、相手モンスター1体を【凍結】する。次の自分のターン、このモンスターは攻撃できない", "onActs": [{"a": "freeze", "t": "one"}, {"a": "freezeSelf"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきだるま"},
+{"id": "b2f08", "type": "monster", "cost": 3, "name": "あられ姫", "rarity": "SR", "atk": 1500, "def": 2500, "text": "自分のターン終了時、相手モンスター1体をランダムに【凍結】する", "endActs": [{"a": "freeze", "t": "rand"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "あられひめ"},
+{"id": "b2f09", "type": "monster", "cost": 5, "name": "吹雪姉妹", "rarity": "SR", "atk": 3000, "def": 3000, "text": "このモンスターが場にいる間、相手のモンスター全てのATKを-500する", "auraEnemyAtk": 500, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ふぶきしまい"},
+{"id": "b2f10", "type": "monster", "cost": 5, "name": "★ロブスター★", "rarity": "SR", "atk": 3500, "def": 4000, "text": "守護。貫通されない", "guard": 1, "noPierce": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ろぶすたー"},
+{"id": "b2f11", "type": "monster", "cost": 4, "name": "ゆきおかま", "rarity": "SR", "atk": 2500, "def": 2500, "text": "登場時、相手モンスター1体を【凍結】する。その後、自分のHPを+1000する", "onActs": [{"a": "freeze", "t": "one"}, {"a": "heal", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきおかま"},
+{"id": "b2f12", "type": "monster", "cost": 3, "name": "しょうがドクター", "rarity": "SR", "atk": 1000, "def": 2500, "text": "登場時、自分のHPを+1000する。その後、自分のモンスターの【凍結】と【感電】を治す", "onActs": [{"a": "heal", "x": 1000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "しょうがどくたー"},
+{"id": "b2f13", "type": "monster", "cost": 2, "name": "つららりら", "rarity": "R", "atk": 1500, "def": 1000, "text": "登場時、相手モンスター1体を【凍結】する", "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "つららりら"},
+{"id": "b2f14", "type": "monster", "cost": 4, "name": "スノーランサー", "rarity": "R", "atk": 3000, "def": 2000, "text": "【凍結】している相手モンスターを攻撃する時、このモンスターのATKを+1500する", "atkVsFrozen": 1500, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "すのーらんさー"},
+{"id": "b2f15", "type": "monster", "cost": 3, "name": "フロスト･サーモン", "rarity": "R", "atk": 2000, "def": 2000, "text": "破壊された時、相手モンスター1体を【凍結】する", "deathActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ふろすとさーもん"},
+{"id": "b2f16", "type": "monster", "cost": 4, "name": "雪ラクダ", "rarity": "R", "atk": 1500, "def": 4000, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきらくだ"},
+{"id": "b2f17", "type": "monster", "cost": 3, "name": "好きーやー！", "rarity": "R", "atk": 2000, "def": 1500, "text": "突撃", "charge": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "すきーやー"},
+{"id": "b2f18", "type": "monster", "cost": 5, "name": "スノーメンズ", "rarity": "R", "atk": 2500, "def": 2500, "text": "自分の場が全て埋まっている時、このモンスターのATKを+2000する", "fullBoardAtk": 2000, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "すのーめんず"},
+{"id": "b2f19", "type": "monster", "cost": 2, "name": "ゆきつね", "rarity": "R", "atk": 1000, "def": 2000, "text": "【凍結】している相手モンスターを攻撃する時、このモンスターのATKを+1000する", "atkVsFrozen": 1000, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきつね"},
+{"id": "b2f20", "type": "monster", "cost": 2, "name": "かまくらげ", "rarity": "R", "atk": 0, "def": 3000, "text": "守護。攻撃できない", "guard": 1, "cantAttack": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "かまくらげ"},
+{"id": "b2f21", "type": "monster", "cost": 3, "name": "湯たんぽんぽこ", "rarity": "R", "atk": 1500, "def": 2000, "text": "自分のターン終了時、自分のHPを+500する", "endActs": [{"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆたんぽんぽこ"},
+{"id": "b2f22", "type": "monster", "cost": 4, "name": "こおりぱんだ", "rarity": "R", "atk": 2500, "def": 3500, "text": "守護。このモンスターを攻撃したモンスターを【凍結】する", "guard": 1, "freezeAttacker": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "こおりぱんだ"},
+{"id": "b2f23", "type": "monster", "cost": 3, "name": "スノウマイマー", "rarity": "R", "atk": 1000, "def": 2500, "text": "守護。貫通されない", "guard": 1, "noPierce": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "すのうまいまー"},
+{"id": "b2f24", "type": "monster", "cost": 1, "name": "雪うさぎ", "rarity": "N", "atk": 500, "def": 1500, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきうさぎ"},
+{"id": "b2f25", "type": "monster", "cost": 2, "name": "ふ豚", "rarity": "N", "atk": 1000, "def": 2500, "text": "守護", "guard": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ふとん"},
+{"id": "b2f26", "type": "monster", "cost": 2, "name": "スノーバタフライ", "rarity": "N", "atk": 1000, "def": 1000, "text": "破壊された時、自分の山札を1枚ドローする", "deathActs": [{"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "すのーばたふらい"},
+{"id": "b2f27", "type": "monster", "cost": 3, "name": "もちもちーたー", "rarity": "N", "atk": 2500, "def": 1500, "text": "突撃", "charge": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "もちもちーたー"},
+{"id": "b2f28", "type": "monster", "cost": 3, "name": "さんまママ", "rarity": "N", "atk": 1500, "def": 2500, "text": "登場時、自分のHPを+1000する", "onActs": [{"a": "heal", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "さんままま"},
+{"id": "b2f29", "type": "monster", "cost": 2, "name": "へらへらジカ", "rarity": "N", "atk": 1500, "def": 1500, "text": "", "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "へらへらじか"},
+{"id": "b2f30", "type": "monster", "cost": 2, "name": "つめたい", "rarity": "N", "atk": 1000, "def": 2000, "text": "このモンスターとバトルした相手モンスターを【凍結】する", "freezeHit": 1, "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "つめたい"},
+{"id": "b2f31", "type": "spell", "cost": 8, "name": "大ブリザード", "rarity": "UR", "text": "相手のモンスター全てを【凍結】する。次の自分のターンの開始まで、相手のモンスター全てのATKを-1000する。その後、自分の山札を1枚ドローする", "eff": "acts", "acts": [{"a": "freeze", "t": "all"}, {"a": "debuffAll", "atk": 1000}, {"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "だいぶりざーど"},
+{"id": "b2f32", "type": "spell", "cost": 5, "name": "雪山で寝るな！", "rarity": "SR", "text": "次の自分のターンの開始まで、自分のモンスター全てのDEFを+2000する。その後、自分のモンスターの【凍結】を治す", "eff": "acts", "acts": [{"a": "buffAll", "def": 2000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきやまでねるな"},
+{"id": "b2f33", "type": "spell", "cost": 4, "name": "鍋パーティー", "rarity": "SR", "text": "自分のHPを+2500する。その後、自分の山札を1枚ドローする", "eff": "acts", "acts": [{"a": "heal", "x": 2500}, {"a": "draw", "n": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "なべぱーてぃー"},
+{"id": "b2f34", "type": "spell", "cost": 6, "name": "闇鍋", "rarity": "SR", "text": "ランダムで1つ：相手のモンスター全てを【凍結】する／相手プレイヤーに2000ダメージ／自分のHPを+3000する／自分の山札を2枚ドローする", "eff": "acts", "acts": [{"a": "random", "list": [{"a": "freeze", "t": "all"}, {"a": "dmg", "x": 2000}, {"a": "heal", "x": 3000}, {"a": "draw", "n": 2}]}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "やみなべ"},
+{"id": "b2f35", "type": "spell", "cost": 3, "name": "つららおとし", "rarity": "R", "text": "相手のDEF2500以下のモンスター1体を破壊する", "eff": "acts", "acts": [{"a": "kill", "maxDef": 2500}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "つららおとし"},
+{"id": "b2f36", "type": "spell", "cost": 2, "name": "カチコチビーム", "rarity": "R", "text": "相手モンスター1体を【凍結】する", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "かちこちびーむ"},
+{"id": "b2f37", "type": "spell", "cost": 3, "name": "冷たい視線", "rarity": "R", "text": "次の自分のターンの開始まで、相手のモンスター全てのATKを-1000する", "eff": "acts", "acts": [{"a": "debuffAll", "atk": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "つめたいしせん"},
+{"id": "b2f38", "type": "spell", "cost": 4, "name": "かまくらづくり", "rarity": "R", "text": "次の自分のターンの開始まで、自分のモンスター1体に守護を与え、DEFを+2000する", "eff": "acts", "acts": [{"a": "buffOne", "def": 2000, "guard": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "かまくらづくり"},
+{"id": "b2f39", "type": "spell", "cost": 3, "name": "雪玉ラッシュ", "rarity": "R", "text": "相手プレイヤーに1500ダメージ。【凍結】している相手モンスターがいるなら、さらに1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1500}, {"a": "dmg", "x": 1000, "if": "frozenExists"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきだまらっしゅ"},
+{"id": "b2f40", "type": "spell", "cost": 4, "name": "雪だるま作戦", "rarity": "R", "text": "次の自分のターンの開始まで、自分のモンスター全てのATKを+500、DEFを+1000する", "eff": "acts", "acts": [{"a": "buffAll", "atk": 500, "def": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ゆきだるまさくせん"},
+{"id": "b2f41", "type": "spell", "cost": 1, "name": "おやじギャグ", "rarity": "N", "text": "相手モンスター1体を【凍結】する", "eff": "acts", "acts": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "おやじぎゃぐ"},
+{"id": "b2f42", "type": "spell", "cost": 2, "name": "こたつタイム", "rarity": "N", "text": "自分のHPを+1500する", "eff": "acts", "acts": [{"a": "heal", "x": 1500}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "こたつたいむ"},
+{"id": "b2f43", "type": "spell", "cost": 2, "name": "あられ打ち", "rarity": "N", "text": "相手プレイヤーに1000ダメージ", "eff": "acts", "acts": [{"a": "dmg", "x": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "あられうち"},
+{"id": "b2f44", "type": "spell", "cost": 2, "name": "フローズンマンゴー", "rarity": "N", "text": "自分の山札を1枚ドローする。その後、自分のHPを+500する", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "ふろーずんまんごー"},
+{"id": "b2f45", "type": "spell", "cost": 1, "name": "デカすぎる手袋", "rarity": "N", "text": "次の自分のターンの開始まで、自分のモンスター1体のDEFを+2000する", "eff": "acts", "acts": [{"a": "buffOne", "def": 2000}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "でかすぎるてぶくろ"},
+{"id": "b2f46", "type": "spell", "cost": 2, "name": "アツアツの肉まん", "rarity": "N", "text": "自分のHPを+1000する。その後、自分のモンスターの【凍結】を治す", "eff": "acts", "acts": [{"a": "heal", "x": 1000}, {"a": "cure"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "あつあつのにくまん"},
+{"id": "b2f47", "type": "spell", "cost": 2, "name": "寄り道おでん", "rarity": "N", "text": "自分の山札を1枚ドローする。その後、自分のHPを+500する", "eff": "acts", "acts": [{"a": "draw", "n": 1}, {"a": "heal", "x": 500}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "よりみちおでん"},
+{"id": "b2f48", "type": "spell", "cost": 1, "name": "熱燗どうすか", "rarity": "N", "text": "次の自分のターンの開始まで、自分のモンスター1体のATKを+1000する", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1000}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "あつかんどうすか"},
+{"id": "b2f49", "type": "spell", "cost": 3, "name": "冬眠します", "rarity": "N", "text": "自分のHPを+2000する。その後、自分の山札を1枚ドローする。このターン、自分のモンスターは攻撃できない", "eff": "acts", "acts": [{"a": "heal", "x": 2000}, {"a": "draw", "n": 1}, {"a": "noAttackSelf"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "とうみんします"},
+{"id": "b2f50", "type": "spell", "cost": 2, "name": "レッツゴー雪かき", "rarity": "N", "text": "お互いの場のコスト1のモンスターを全て破壊する", "eff": "acts", "acts": [{"a": "killAll", "maxCost": 1, "both": 1}], "pack": 93, "b2": "f", "rel": "2026-10-01", "sortName": "れっつごーゆきかき"},
+{"id": "b2v_raika_cr", "type": "monster", "cost": 7, "name": "雷の勇者 ライカ", "rarity": "CR", "atk": 3000, "def": 2500, "text": "突撃。二回攻撃。登場時、相手のDEF1500以下のモンスター1体を破壊する", "charge": 1, "double": 1, "onActs": [{"a": "kill", "maxDef": 1500}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v_raika", "sortName": "かみなりのゆうしゃらいか"},
+{"id": "b2f_setsu_cr", "type": "monster", "cost": 7, "name": "雪の勇者 セツ", "rarity": "CR", "atk": 2500, "def": 5000, "text": "守護。貫通されない。登場時、相手モンスター1体を【凍結】する", "guard": 1, "noPierce": 1, "onActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f_setsu", "sortName": "ゆきのゆうしゃせつ"},
+{"id": "b2v02_cr", "type": "monster", "cost": 7, "name": "サンダードラゴン", "rarity": "CR", "atk": 5000, "def": 4000, "text": "このモンスターとバトルした相手モンスターに【感電2000】を与える。登場時、相手のモンスター全てに【感電1000】を与える", "shockHit": 2000, "onActs": [{"a": "shock", "t": "all", "x": 1000}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v02", "imgOf": "b2v02", "sortName": "さんだーどらごん"},
+{"id": "b2v03_cr", "type": "monster", "cost": 6, "name": "地震･雷･火事･親父", "rarity": "CR", "atk": 4000, "def": 4000, "text": "登場時、ランダムで1つ：地震＝相手モンスター全てのDEFを-1000する／雷＝相手モンスター1体を破壊する／火事＝相手プレイヤーに2000ダメージ／親父＝相手の手札を1枚ランダムに捨てさせる", "onActs": [{"a": "random", "list": [{"a": "defDownAll", "def": 1000}, {"a": "kill"}, {"a": "dmg", "x": 2000}, {"a": "discardEnemy", "n": 1}]}], "pack": 92, "b2": "v", "rel": "2026-10-01", "baseId": "b2v03", "imgOf": "b2v03", "sortName": "じしんかみなりかじおやじ"},
+{"id": "b2f02_cr", "type": "monster", "cost": 8, "name": "スノードラゴン", "rarity": "CR", "atk": 5000, "def": 5000, "text": "自分のターン開始時、相手モンスター1体を【凍結】する。破壊された時、相手のモンスター全てを【凍結】する", "deathActs": [{"a": "freeze", "t": "all"}], "startActs": [{"a": "freeze", "t": "one"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f02", "imgOf": "b2f02", "sortName": "すのーどらごん"},
+{"id": "b2f03_cr", "type": "monster", "cost": 6, "name": "あの時の鶴です！", "rarity": "CR", "atk": 3000, "def": 3000, "text": "登場時、自分のHPを+3000する。その後、自分の墓地のモンスター1体を手札に加える", "onActs": [{"a": "heal", "x": 3000}, {"a": "returnMon"}], "pack": 93, "b2": "f", "rel": "2026-10-01", "baseId": "b2f03", "imgOf": "b2f03", "sortName": "あのときのつるです"},
+{"id": "b2c01_cr", "type": "monster", "cost": 8, "name": "ボルブリザ", "rarity": "CR", "atk": 5500, "def": 5500, "text": "登場時、相手のモンスター全てを【凍結】する", "onActs": [{"a": "freeze", "t": "all"}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "baseId": "b2c01", "imgOf": "b2c01", "sortName": "ぼるぶりざ"},
+{"id": "b2c02_cr", "type": "monster", "cost": 6, "name": "秘境の歌姫 メロディエ", "rarity": "CR", "atk": 2500, "def": 4000, "text": "自分のターン終了時、自分のHPを+1000する", "endActs": [{"a": "heal", "x": 1000}], "pack": 92, "packs": [92, 93], "b2": "c", "rel": "2026-10-01", "baseId": "b2c02", "imgOf": "b2c02", "sortName": "ひきょうのうたひめめろでぃえ"},
+{"id": "b2c14_crp", "type": "monster", "cost": 4, "name": "ハリー･ケン", "rarity": "CR", "atk": 3000, "def": 2000, "text": "登場時、相手のDEF1000以下のモンスターを全て破壊する", "onActs": [{"a": "killAll", "maxDef": 1000}], "pack": 0, "rel": "2026-10-01", "baseId": "b2c14", "imgOf": "b2c14", "promo": 1, "event": 1, "sortName": "はりーけん"},
 {"type":"monster","id":"chronoga_cr","name":"時間の神 クロノガ","sortName":"じかんのかみくろのが","cost":6,"atk":4000,"def":3000,"text":"破壊される時、自分の山札を5枚墓地へ置き、破壊を無効にする。この効果は自分のターンに1回しか使えない","millGuard":5,"rarity":"CR","pack":90,"promo":1,"event":1,"baseId":"chronoga","lore":"砂は落ちるものではなく、還るもの。神殿の砂時計が逆さに流れはじめたとき、時の神は長い眠りから目を覚ました。"},
 {"type":"monster","id":"pv01","name":"刻ノ民","sortName":"ときのたみ","cost":2,"atk":1000,"def":1000,"text":"登場時、自分の山札を2枚墓地へ置く","on":"selfMill2","rarity":"R","pack":90,"promo":1,"event":1},
 {"type":"monster","id":"pv02","name":"刻ノ守人","sortName":"ときのもりびと","cost":3,"atk":2000,"def":2000,"text":"【守護】。登場時、自分の山札を2枚墓地へ置く","guard":1,"on":"selfMill2","rarity":"R","pack":90,"promo":1,"event":1},
@@ -3847,32 +3847,36 @@ function codexPacks(){
  codexPackKeys=Object.keys(map).map(Number).sort((a,b)=>a-b);
  return codexPackKeys.map(k=>map[k])
 }
-let codexPack=0,codexPage=0;
+let codexPack=0,codexPage=0,codexGroup=null;   // codexGroup：第2弾の陣営でしぼりこみ（c/v/f、null=全部）
 const CODEX_PAGE_SIZE=6; // 3列×2段。縦長カード比率のままスクロール無しに収めるため9から変更
-function openCodex(){hideAll();$("codex").classList.remove("hide");$("app").scrollTop=0;codexPack=0;codexPage=0;renderCodex();completeWelcome("codex");guideOnce("codex")}
-function setPack(i){codexPack=i;codexPage=0;renderCodex()}
-function codexPageCount(){const pack=codexPacks()[codexPack]||[];return Math.max(1,Math.ceil(pack.length/CODEX_PAGE_SIZE))}
+function openCodex(){hideAll();$("codex").classList.remove("hide");$("app").scrollTop=0;codexPack=0;codexPage=0;codexGroup=null;renderCodex();completeWelcome("codex");guideOnce("codex")}
+function setPack(i){codexPack=i;codexPage=0;codexGroup=null;renderCodex()}
+function codexView(){const all=codexPacks()[codexPack]||[];return (codexPackKeys[codexPack]===92&&codexGroup)?all.filter(c=>c.b2==codexGroup):all}
+function setCodexGroup(k){codexGroup=codexGroup==k?null:k;codexPage=0;sfx("sel");renderCodex()}
+function codexPageCount(){const pack=codexView();return Math.max(1,Math.ceil(pack.length/CODEX_PAGE_SIZE))}
 function codexPrevPage(){if(codexPage>0){codexPage--;renderCodex()}}
 function codexNextPage(){if(codexPage<codexPageCount()-1){codexPage++;renderCodex()}}
 function renderCodex(){
  const packs=codexPacks();
  const tabs=$("packTabs");tabs.innerHTML="";
  packs.forEach((_,i)=>{const b=document.createElement("button");b.className="packTab"+(i==codexPack?" on":"");b.textContent=packLabel(codexPackKeys[i]);b.onclick=()=>setPack(i);tabs.appendChild(b)});
- const pack=packs[codexPack]||[];
- const owned=pack.filter(c=>ownedCount(c.id)>0).length;
- $("codexInfo").textContent=`${packLabel(codexPackKeys[codexPack])}　${owned}/${pack.length}種類`;
+ const fullPack=packs[codexPack]||[],pack=codexView();
+ const owned=fullPack.filter(c=>ownedCount(c.id)>0).length;
+ $("codexInfo").textContent=`${packLabel(codexPackKeys[codexPack])}　${owned}/${fullPack.length}種類`;
  // 第2弾：陣営ごとの見出し（押すとその陣営の最初のページへ）と、パックごとの集まり具合
  {const gb=$("codexGroups"),is2=codexPackKeys[codexPack]===92;gb.classList.toggle("hide",!is2);
   if(is2){const G=[["c","🌀 嵐の境目"],["v","⚡ ボルテア"],["f","❄️ フロスティア"]];
-   const cur=(pack[codexPage*CODEX_PAGE_SIZE]||{}).b2;
+   const cur=codexGroup;
    const pk=k=>{const L=P.filter(c=>c.b2&&!c.unreleased&&c.rarity!="CR"&&(c.b2=="c"||c.b2==k));return L.filter(c=>ownedCount(c.id)>0).length+"/"+L.length};
-   gb.innerHTML=G.map(([k,lb])=>{const L=pack.filter(c=>c.b2==k);const first=pack.findIndex(c=>c.b2==k);
-     return '<button type="button" class="cgBtn cg-'+k+(cur==k?' on':'')+'" onclick="codexPage='+Math.floor(first/CODEX_PAGE_SIZE)+';renderCodex()"><b>'+lb+'</b><span>'+L.filter(c=>ownedCount(c.id)>0).length+'/'+L.length+'</span></button>'}).join("")
-    +'<div class="cgPacks">⚡ボルテアパック '+pk("v")+'　❄️フロスティアパック '+pk("f")+'</div>'}}
+   gb.innerHTML=G.map(([k,lb])=>{const L=fullPack.filter(c=>c.b2==k);
+     return '<button type="button" class="cgBtn cg-'+k+(cur==k?' on':'')+'" data-g="'+k+'"><b>'+lb+'</b><span>'+L.filter(c=>ownedCount(c.id)>0).length+'/'+L.length+'</span></button>'}).join("")
+    +'<div class="cgPacks">⚡ボルテアパック '+pk("v")+'　❄️フロスティアパック '+pk("f")+(codexGroup?'　<u>全部を見る</u>':'')+'</div>';
+   gb.querySelectorAll(".cgBtn").forEach(b=>b.addEventListener("click",()=>setCodexGroup(b.dataset.g)));
+   const u=gb.querySelector(".cgPacks u");if(u)u.addEventListener("click",()=>{codexGroup=null;codexPage=0;renderCodex()})}}
  const start=codexPage*CODEX_PAGE_SIZE,items=pack.slice(start,start+CODEX_PAGE_SIZE);
  const g=$("codexGrid");g.innerHTML="";
  // 非CRだけで通し番号を振る（CR解禁で他の番号がズレない）。CRは元カードの番号に -c を付ける
- let _pos=0;const _num={};pack.forEach(c=>{if(c.rarity!=="CR"){_pos++;_num[c.id]=_pos}});let _tot=_pos;
+ let _pos=0;const _num={};fullPack.forEach(c=>{if(c.rarity!=="CR"){_pos++;_num[c.id]=_pos}});let _tot=_pos;
  if(codexPackKeys[codexPack]===0){pack.forEach(c=>{if(c.no&&c.rarity!=="CR")_num[c.id]=c.no});P.forEach(c=>{if(c.no)_num[c.id]=c.no});_tot=PROMO_TOTAL}   // プロモは決まった番号
  items.forEach((c,idx)=>{
   const n=ownedCount(c.id),seen=hasEncountered(c.id);
@@ -4536,7 +4540,8 @@ function fmAsk(q){if(!FM.on||!FM.ref)return Promise.resolve(null);
  FM.askP=p.then(()=>{FM.askP=null});
  FM.ref.child("ask").set({...q,id});
  return p}
-async function fmAskBlock(av,to,atkName,tgtName){const gs=guards(S.cb,-1);if(!gs.length)return -1;
+async function fmAskBlock(av,to,atkName,tgtName){const gs=guards(S.cb,to);   // 攻撃されている守護自身は、身代わりにならない
+if(!gs.length)return -1;
  const bi=await fmAsk({kind:"block",av,to,atk:atkName,tgt:tgtName});
  return (Number.isInteger(bi)&&gs.includes(bi)&&S.cb[bi])?bi:-1}
 function fmNextAction(){return new Promise(res=>{if(FM.queue.length)return res(FM.queue.shift());FM.wait=res})}
@@ -4739,11 +4744,15 @@ function b2Other(side){return side=="p"?"c":"p"}
 function b2B(side){return side=="p"?S.pb:S.cb}
 function isFrozen(m){return !!(m&&(m.freeze||m.frozenNow))}
 function statusFx(side,i,kind){const s=slot(side,i);if(!s)return;s.classList.add(kind=="freeze"?"fxFreeze":"fxShock");setTimeout(()=>s.classList.remove("fxFreeze","fxShock"),700)}
-function applyFreeze(side,i,src){const m=b2B(side)[i];if(!m)return;m.freeze=1;log((src?src+"：":"")+m.name+"を【凍結】");try{statusFx(side,i,"freeze")}catch(e){}}
+function applyFreeze(side,i,src){const m=b2B(side)[i];if(!m)return;m.freeze=1;
+ if(side=="c"&&S&&!S.over){try{ttAdd("frz",1);const tt=turnTotal();if(S.frzT!==tt){S.frzT=tt;S.frzN=0}S.frzN++;if(S.frzN>=3)ttSet("frz3",1)}catch(e){}}   // 称号：凍結した回数／1ターンに3体
+ log((src?src+"：":"")+m.name+"を【凍結】");try{statusFx(side,i,"freeze")}catch(e){}}
 function applyShock(side,i,x,src){const m=b2B(side)[i];if(!m||!x)return;m.shock=Math.max(m.shock||0,x);m.shockLife=(S.active==side)?2:1;
  log((src?src+"：":"")+m.name+"に【感電"+m.shock+"】");try{statusFx(side,i,"shock")}catch(e){}}
 // 感電したモンスターが攻撃する：持ち主にダメージ
-function shockOnAttack(m,side){if(!m||!(m.shock>0))return;log(m.name+"は感電している！ "+m.shock+"ダメージ");heroDmg(side,m.shock,side);try{chk()}catch(e){}}
+function shockOnAttack(m,side){if(!m||!(m.shock>0))return;log(m.name+"は感電している！ "+m.shock+"ダメージ");heroDmg(side,m.shock,side);
+ if(side=="c"){try{ttAdd("shockDmg",m.shock);if(S.chp<=0)S.shockKO=1}catch(e){}}   // 称号：感電で与えたダメージ／感電でとどめ
+ try{chk()}catch(e){}}
 // 持ち主のターンの始め（resetBoard のあと）
 function b2TurnStart(side){const B=b2B(side);
  B.forEach(m=>{if(!m)return;m.frozenNow=0;if(m.freeze){m.freeze=0;m.frozenNow=1;m.used=true;m.attacks=0;log(m.name+"は凍っていて動けない")}});
@@ -4758,44 +4767,66 @@ function b2Cond(a,side){if(!a.if)return true;const me=side=="p"?S.php:S.chp,op=s
  if(a.if=="frozenExists")return EB.some(m=>m&&isFrozen(m));
  return true}
 function b2Best(B,side,f){let bi=-1,bv=-1e9;B.forEach((m,i)=>{if(m&&(!f||f(m))){const v=at(m,side)+df(m,side)*0.3+(m.cost||0)*200;if(v>bv){bv=v;bi=i}}});return bi}
-function doActs(acts,side,src){if(!S||!acts)return;const os=b2Other(side),MB=b2B(side),EB=b2B(os),nm=(src&&src.name)||"";
+// 1体を選ぶ効果（凍結・感電・破壊・ATKを下げる・守護をなくす・味方の強化）。choose=true のときは pick で選ぶ（自分はタップ・CPUは自動・フレンドは相手が選ぶ）
+function b2Target(a,side,MB,EB,okKill){const os=b2Other(side);
+ switch(a.a){
+  case"freeze":if(a.t=="all"||a.t=="rand")return null;return {kind:"enemy",n:a.t=="two"?2:1,valid:(m,sd)=>sd==os,score:(m,sd)=>(isFrozen(m)?-5000:0)+at(m,sd),apply:(sd,i)=>applyFreeze(sd,i,a._nm)};
+  case"shock":if(a.t=="all")return null;return {kind:"enemy",n:1,valid:(m,sd)=>sd==os,score:(m,sd)=>at(m,sd)+(m.cost||0)*200,apply:(sd,i)=>applyShock(sd,i,a.x,a._nm)};
+  case"kill":return {kind:"enemy",n:1,valid:(m,sd)=>sd==os&&okKill(m),score:(m,sd)=>at(m,sd)+df(m,sd)*0.3+(m.cost||0)*200,apply:(sd,i)=>{const m=b2B(sd)[i];if(m){log(a._nm+"：「"+m.name+"」を破壊");boomKill(sd,i)}}};
+  case"debuffOne":return {kind:"enemy",n:1,valid:(m,sd)=>sd==os,score:(m,sd)=>at(m,sd),apply:(sd,i)=>{const m=b2B(sd)[i];if(m){m.curse=Math.max(m.curse||0,a.atk);S.curseBy=side;log(m.name+"のATK-"+a.atk)}}};
+  case"stripGuard":return {kind:"enemy",n:1,valid:(m,sd)=>sd==os&&m.guard,score:(m,sd)=>df(m,sd),apply:(sd,i)=>{const m=b2B(sd)[i];if(m){m.guard=0;m.permGuard=0;m.noGuard=1;log("「"+m.name+"」の守護がなくなった")}}};
+  case"buffOne":case"buffTwo":return {kind:"ally",n:a.a=="buffTwo"?2:1,valid:(m,sd)=>sd==side,score:(m,sd)=>a.def&&!a.atk?df(m,sd):at(m,sd)+(a.charge&&m.used?2000:0),
+   apply:(sd,i)=>{const m=b2B(sd)[i];if(!m)return;if(a.atk)m.buff=(m.buff||0)+a.atk;if(a.def)m.defBuff=(m.defBuff||0)+a.def;if(a.charge)grantCharge(m);if(a.guard){m.guard=1;m.permGuard=1}}};
+ }return null}
+function doActs(acts,side,src,opt){if(!S||!acts)return;const os=b2Other(side),MB=b2B(side),EB=b2B(os),nm=(src&&src.name)||"",choose=!!(opt&&opt.choose);
  const pre=acts.map(a=>b2Cond(a,side));   // 条件は、先に全部判断しておく（破壊で場の数が変わる前に）
- acts.forEach((a,k)=>{if(!S||S.over||!pre[k])return;
+ const step=k=>{while(k<acts.length){if(!S||S.over)return;const a0=acts[k];if(!pre[k]){k++;continue}
+  const a={...a0,_nm:nm};
   const okKill=m=>(a.maxCost==null||(m.cost||0)<=a.maxCost)&&(a.maxDef==null||df(m,MB.includes(m)?side:os)<=a.maxDef);
+  const T=b2Target(a,side,MB,EB,okKill);
+  if(T){const B=T.kind=="enemy"?EB:MB,sd0=T.kind=="enemy"?os:side;
+   const cand=()=>B.map((m,i)=>m&&T.valid(m,sd0)?i:-1).filter(i=>i>=0);
+   const c0=cand();if(!c0.length){k++;continue}
+   const auto=!choose||(side=="c"&&!(FM.on&&FM.role=="host"));
+   if(auto||c0.length<=T.n){   // 自動（CPU・破壊時などの効果）か、選ぶまでもないとき
+    c0.sort((x,y)=>T.score(B[y],sd0)-T.score(B[x],sd0)).slice(0,T.n).forEach(i=>T.apply(sd0,i));k++;continue}
+   // 自分（またはフレンドの相手）が選ぶ
+   const kk=k;let left=T.n;const chosen=[];
+   const one=()=>pick(side,T.kind,(m,sd)=>T.valid(m,sd)&&!chosen.includes(m.uid),T.score,(sd,i)=>{const m=b2B(sd)[i];if(m)chosen.push(m.uid);T.apply(sd,i);left--;
+     if(left>0&&cand().some(i=>!chosen.includes(B[i]&&B[i].uid)))one();else{step(kk+1);try{render()}catch(e){}}},kk==0&&opt?opt.refund:null);
+   if(side=="p")log(T.kind=="enemy"?"効果をかける相手のモンスターを選んでください":"効果をかける自分のモンスターを選んでください");
+   one();return}
   switch(a.a){
   case"freeze":{const idx=EB.map((m,i)=>m?i:-1).filter(i=>i>=0);
    if(a.t=="all")idx.forEach(i=>applyFreeze(os,i,nm));
-   else if(a.t=="rand"){if(idx.length)applyFreeze(os,idx[Math.random()*idx.length|0],nm)}
-   else{const n=a.t=="two"?2:1,s2=idx.filter(i=>!isFrozen(EB[i])).sort((x,y)=>at(EB[y],os)-at(EB[x],os));(s2.length?s2:idx).slice(0,n).forEach(i=>applyFreeze(os,i,nm))}break}
+   else if(a.t=="rand"){if(idx.length)applyFreeze(os,idx[Math.random()*idx.length|0],nm)}break}
   case"freezeSelf":{const i=MB.findIndex(m=>m&&src&&m.uid===src.uid);if(i>=0){MB[i].freeze=1;log(MB[i].name+"はダルくて、次のターン動けない")}break}
-  case"shock":{if(a.t=="all")EB.forEach((m,i)=>{if(m)applyShock(os,i,a.x,nm)});else{const i=b2Best(EB,os);if(i>=0)applyShock(os,i,a.x,nm)}break}
+  case"shock":EB.forEach((m,i)=>{if(m)applyShock(os,i,a.x,nm)});break;
   case"dmg":heroDmg(os,a.x,side);break;
   case"selfDmg":heroDmg(side,a.x,side);break;
   case"bothDmg":heroDmg(os,a.x,side);heroDmg(side,a.x,side);break;
   case"heal":healHero(side,a.x);break;
   case"draw":for(let n=0;n<(a.n||1);n++)draw(side);break;
-  case"kill":{const i=b2Best(EB,os,okKill);if(i>=0){log(nm+"：「"+EB[i].name+"」を破壊");boomKill(os,i)}break}
   case"killAll":{[[os,EB]].concat(a.both?[[side,MB]]:[]).forEach(([sd,B])=>B.forEach((m,i)=>{if(m&&okKill(m))boomKill(sd,i)}));break}
   case"buffAll":MB.forEach(m=>{if(!m)return;if(a.atk)m.buff=(m.buff||0)+a.atk;if(a.def)m.defBuff=(m.defBuff||0)+a.def;if(a.charge)grantCharge(m)});break;
-  case"buffOne":case"buffTwo":{const n=a.a=="buffTwo"?2:1;
-   const idx=MB.map((m,i)=>m?i:-1).filter(i=>i>=0).sort((x,y)=>a.def&&!a.atk?df(MB[y],side)-df(MB[x],side):at(MB[y],side)-at(MB[x],side)).slice(0,n);
-   idx.forEach(i=>{const m=MB[i];if(a.atk)m.buff=(m.buff||0)+a.atk;if(a.def)m.defBuff=(m.defBuff||0)+a.def;if(a.charge)grantCharge(m);if(a.guard){m.guard=1;m.permGuard=1}});break}
   case"debuffAll":EB.forEach(m=>{if(m)m.curse=Math.max(m.curse||0,a.atk)});S.curseBy=side;log("相手のモンスター全体のATK-"+a.atk);break;
-  case"debuffOne":{const i=b2Best(EB,os);if(i>=0){EB[i].curse=Math.max(EB[i].curse||0,a.atk);S.curseBy=side}break}
   case"defDownAll":EB.forEach(m=>{if(m)m.defBuff=(m.defBuff||0)-a.def});log("地震！ 相手全体のDEF-"+a.def);break;
   case"discardEnemy":discardRnd(os,a.n||1);break;
   case"discardSelfDraw":discardRnd(side,a.d||2);for(let n=0;n<(a.n||3);n++)draw(side);break;
   case"returnMon":case"returnSpell":{const G=side=="p"?S.pg:S.cg,H=side=="p"?S.ph:S.ch,want=a.a=="returnMon"?"monster":"spell";
    let bi=-1,bv=-1;G.forEach((c,i)=>{if(c&&c.type==want&&(!src||c.id!==src.id)&&(c.cost||0)>bv){bv=c.cost||0;bi=i}});
-   if(bi>=0){const c=G.splice(bi,1)[0];H.push(cp(by(c.id)));log(nm+"：「"+c.name+"」を手札に戻した")}break}
+   if(bi>=0){const c=G.splice(bi,1)[0];H.push(cp(by(c.id)));log(nm+"：「"+c.name+"」を手札に戻した");if(side=="p"&&src&&(src.baseId||src.id)=="b2f03"){try{ttSet("tsuru",1)}catch(e){}}}break}
   case"search":{const D=side=="p"?S.pd:S.cd,H=side=="p"?S.ph:S.ch,i=D.findIndex(c=>c&&c.id==a.id);if(i>=0){const c=D.splice(i,1)[0];H.push(c);log(nm+"：「"+c.name+"」を山札から手札に")}break}
   case"cure":MB.forEach(m=>{if(!m)return;m.freeze=0;if(m.frozenNow&&S.active==side){m.frozenNow=0;m.used=false;m.attacks=m.double?2:1}m.frozenNow=0;m.shock=0;m.shockLife=0});log("凍結・感電を治した");break;
   case"spellLock":if(side=="p")S.cLock=true;else S.pLock=true;log((side=="p"?"相手":"あなた")+"は次のターン、呪文を使えない");break;
-  case"stripGuard":{const i=b2Best(EB,os,m=>m.guard);if(i>=0){EB[i].guard=0;EB[i].permGuard=0;EB[i].noGuard=1;log("「"+EB[i].name+"」の守護がなくなった")}break}
   case"noAttackSelf":MB.forEach(m=>{if(m){m.used=true;m.attacks=0}});break;
-  case"random":{const x=a.list[Math.random()*a.list.length|0];doActs([x],side,src);break}
-  }});
- try{render()}catch(e){}}
+  case"random":{const k0=Math.random()*a.list.length|0,x=a.list[k0];
+   if(side=="p"&&src){const bid=src.baseId||src.id;if(bid=="b2v03"||bid=="b2f34"){try{const o=ttStats(),key=bid=="b2v03"?"oyaji":"yami";o[key]=(o[key]||0)|(1<<k0);ttSave(o)}catch(e){}}}   // 称号：4つ全部出す
+   doActs([x],side,src);break}
+  }
+  k++}
+  try{render()}catch(e){}};
+ step(0)}
 // CPUが第2弾の呪文を使うかどうか
 function b2CpuGate(c){const A=c.acts||[],EB=S.pb,MB=S.cb,en=EB.filter(Boolean).length,mn=MB.filter(Boolean).length;
  if(A.some(a=>a.a=="noAttackSelf")&&MB.some(m=>m&&!m.used&&!m.cantAttack))return false;
@@ -4835,7 +4866,15 @@ function ttSave(o){store.set("cmStats",JSON.stringify(o))}
 function ttAdd(k,n){const o=ttStats();o[k]=(o[k]||0)+(n||1);ttSave(o);return o[k]}
 function ttSet(k,v){const o=ttStats();o[k]=v;ttSave(o)}
 function ttFin(id){const o=ttStats();return ((o.fin||{})[id])||0}
+// 図鑑の集まり具合を弾ごとに（CR・イベント・プロモは数えない）。1＝はじまりパック-01、2＝第2弾（共通・ボルテア・フロスティア）
+function ttSetPct(n){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased&&!c.event&&!c.baseId&&c.rarity!="CR"&&(n==2?!!c.b2:(!c.b2&&packOf(c)==1)));return L.length?L.filter(c=>m[c.id]>0).length/L.length:0}
 function ttOwnedPct(){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased);return L.length?L.filter(c=>m[c.id]>0).length/L.length:0}
+// 弾ごと：1＝第1弾（はじまりパック）、2＝第2弾（ブリザルト）。プロモ・イベントは入らない
+// ドラゴン：名前に「ドラゴン」が入るモンスターと、雷雪竜ボルブリザ
+function isDragon(c){const b=c.baseId?by(c.baseId)||c:c;return b.type=="monster"&&(/ドラゴン/.test(b.name)||b.id=="b2c01")}
+function storyChDone(ch){const c=STORY.find(x=>x.ch===ch);return !!c&&c.episodes.every((e,i)=>storyProgress().includes(ch+"-"+i))}
+function ttInSet(c,n){return n==2?!!c.b2:(!c.b2&&packOf(c)==1&&!c.event&&!c.promo)}
+function ttOwnedRSet(r,n){const m=ownedMap();return P.filter(c=>!c.bossOnly&&!c.unreleased&&c.rarity==r&&ttInSet(c,n)&&m[c.id]>0).length}
 function ttOwnedR(r){const m=ownedMap();return P.filter(c=>!c.bossOnly&&c.rarity==r&&m[c.id]>0).length}
 function ttAll(f){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased&&f(c));return L.length>0&&L.every(c=>m[c.id]>0)}
 function ttPassDone(k){try{const se=SEASONS.find(x=>x.id=="s1"),st=JSON.parse(store.get("cmPass")||"null");return !!(st&&st.sid=="s1"&&st.open&&st.open[k]&&(st.pts||0)>=se.tiers*se.ptPer)}catch(e){return false}}
@@ -4851,6 +4890,11 @@ const TITLES=[
  // ストーリー・毎日
  {id:"t_intro",name:"旅立ちの勇者",c:"green",cond:"序章をクリアする",ok:()=>isIntroDone()},
  {id:"t_ch1",name:"木ノ國の英雄",c:"green",cond:"第1章をクリアする",ok:()=>STORY[1]&&STORY[1].episodes.every((e,i)=>storyProgress().includes("1-"+i))},
+ // ブリザルト編（クリア済みの話から判断するので、先にクリアした人にも届く）
+ {id:"t_ch2",name:"雷鳴の客人",c:"green",cond:"第2章をクリアする",ok:()=>storyChDone(2)},
+ {id:"t_ch3",name:"白銀の訪問者",c:"green",cond:"第3章をクリアする",ok:()=>storyChDone(3)},
+ {id:"t_ch4",name:"龍に抗う者",c:"green",cond:"第4章をクリアする",ok:()=>storyChDone(4)},
+ {id:"t_ch5",name:"晴れ空をもたらす者",c:"gold",cond:"第5章をクリアする",ok:()=>storyChDone(5)},
  {id:"t_login7",name:"コツコツ派",c:"green",cond:"7日ログインする",ok:()=>(T().login||0)>=7},
  {id:"t_login30",name:"皆勤賞",c:"green",cond:"30日ログインする",ok:()=>(T().login||0)>=30},
  {id:"t_task50",name:"働き者",c:"green",cond:"タスクの報酬を50回受け取る",ok:()=>(T().tasks||0)>=50},
@@ -4884,16 +4928,26 @@ const TITLES=[
  {id:"t_summon500",name:"召喚士",c:"blue",cond:"モンスターを500回召喚する",ok:()=>(T().summons||0)>=500},
  {id:"t_grave",name:"墓守",c:"purple",cond:"自分の墓地が20枚以上ある状態で勝つ",ok:()=>!!T().grave},
  {id:"t_full",name:"満員御礼",c:"red",cond:"自分の場が3体うまった状態で勝つ",ok:()=>!!T().full},
+ {id:"t_dragon3",name:"龍の三重奏",c:"purple",cond:"自分の場に3種類のドラゴンがいる状態で勝つ",ok:()=>!!T().dragon3},
  // ガチャ・集める
  {id:"t_gacha100",name:"ガチャ好き",c:"white",cond:"ガチャを100回引く",ok:()=>(T().gacha||0)>=100},
  {id:"t_gacha500",name:"ガチャ廃人",c:"bronze",cond:"ガチャを500回引く",ok:()=>(T().gacha||0)>=500},
- {id:"t_sr10",name:"SRハンター",c:"bronze",cond:"SRを10種類集める",ok:()=>ttOwnedR("SR")>=10},
- {id:"t_ur5",name:"UR使い",c:"silver",cond:"URを5種類集める",ok:()=>ttOwnedR("UR")>=5},
- {id:"t_cr1",name:"CRに選ばれし者",c:"silver",cond:"CRを手に入れる",ok:()=>ttOwnedR("CR")>=1},
- {id:"t_crall",name:"CRマスター",c:"gold",cond:"CRを全部集める",ok:()=>ttAll(c=>c.rarity=="CR")},
+ {id:"t_sr10",name:"SRハンター",c:"bronze",cond:"第1弾のSRを10種類集める",ok:()=>ttOwnedRSet("SR",1)>=10},
+ {id:"t_ur5",name:"UR使い",c:"silver",cond:"第1弾のURを5種類集める",ok:()=>ttOwnedRSet("UR",1)>=5},
+ {id:"t_cr1",name:"CRに選ばれし者",c:"silver",cond:"第1弾のCRを手に入れる",ok:()=>ttOwnedRSet("CR",1)>=1},
+ {id:"t_crall",name:"CRマスター",c:"gold",cond:"第1弾のCRを全部集める",ok:()=>ttAll(c=>c.rarity=="CR"&&ttInSet(c,1))},
+ // 第2弾（荒天大陸ブリザルト）
+ {id:"t_b2sr10",name:"雷雪のSRハンター",c:"bronze",cond:"第2弾のSRを10種類集める",ok:()=>ttOwnedRSet("SR",2)>=10},
+ {id:"t_b2ur5",name:"嵐を統べるUR使い",c:"silver",cond:"第2弾のURを5種類集める",ok:()=>ttOwnedRSet("UR",2)>=5},
+ {id:"t_b2cr1",name:"荒天のCRに愛されし者",c:"silver",cond:"第2弾のCRを手に入れる",ok:()=>ttOwnedRSet("CR",2)>=1},
+ {id:"t_b2crall",name:"荒天のCRマスター",c:"gold",cond:"第2弾のCRを全部集める",ok:()=>ttAll(c=>c.rarity=="CR"&&ttInSet(c,2))},
+ {id:"t_b2volt",name:"雷鳴の蒐集家",c:"gold",cond:"ボルテアパック-02aのカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.b2&&c.rarity!="CR"&&(c.b2=="c"||c.b2=="v"))},
+ {id:"t_b2frost",name:"白銀の蒐集家",c:"gold",cond:"フロスティアパック-02bのカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.b2&&c.rarity!="CR"&&(c.b2=="c"||c.b2=="f"))},
  {id:"t_shard",name:"かけら収集家",c:"bronze",cond:"かけらを1000ためる",ok:()=>shard>=1000},
- {id:"t_codex50",name:"コレクター",c:"silver",cond:"図鑑を50%うめる",ok:()=>ttOwnedPct()>=.5},
- {id:"t_codex100",name:"カード博士",c:"gold",cond:"図鑑を100%うめる",ok:()=>ttOwnedPct()>=1},
+ {id:"t_codex50",name:"コレクター",c:"silver",cond:"図鑑の第1弾を50%うめる",ok:()=>ttSetPct(1)>=.5},
+ {id:"t_codex100",name:"カード博士",c:"gold",cond:"図鑑の第1弾を100%うめる",ok:()=>ttSetPct(1)>=1},
+ {id:"t_codex2_50",name:"ブリザルト探検家",c:"silver",cond:"図鑑の第2弾を50%うめる",ok:()=>ttSetPct(2)>=.5},
+ {id:"t_codex2_100",name:"荒天の博士",c:"gold",cond:"図鑑の第2弾を100%うめる",ok:()=>ttSetPct(2)>=1},
  {id:"t_promoall",name:"プロモコレクター",c:"silver",cond:"プロモを全部集める",ok:()=>ttAll(c=>c.promo&&!c.passS)},
  // おもしろ（このカードでとどめ）
  {id:"t_suiso",name:"水素の音ォ",c:"blue",cond:"1試合で「水素の音ォ！！」を2回使う",ok:()=>!!T().suiso2},
@@ -4915,6 +4969,30 @@ const TITLES=[
  {id:"t_pumpking",name:"古城の王を退けし者",c:"jet",cond:"覚醒 パンプキングに勝つ",ok:()=>(T().awake_halloween||0)>=1},
  {id:"t_pumpking10",name:"ハロウィンの覇者",c:"jet",cond:"覚醒 パンプキングに10勝する",ok:()=>(T().awake_halloween||0)>=10},
  {id:"t_awake30",name:"深淵をのぞく者",c:"jet",cond:"覚醒ボスに合計30勝する",ok:()=>(T().awake_chronoga||0)+(T().awake_halloween||0)>=30},
+ // 第2弾：凍結・感電
+ {id:"t_frz100",name:"氷の魔術師",c:"blue",cond:"相手のモンスターを合計100回【凍結】する",ok:()=>(T().frz||0)>=100},
+ {id:"t_shock10k",name:"ビリビリ職人",c:"blue",cond:"【感電】で相手に合計10000ダメージを与える",ok:()=>(T().shockDmg||0)>=10000},
+ {id:"t_shockko",name:"自滅を誘う者",c:"purple",cond:"相手が【感電】のダメージでHP0になって勝つ",ok:()=>!!T().shockKO},
+ {id:"t_frz3",name:"一面の銀世界",c:"purple",cond:"1ターンに相手のモンスターを3体【凍結】する",ok:()=>!!T().frz3},
+ {id:"t_breakg",name:"守りを砕く者",c:"red",cond:"凍った守護に止められずに、奥のモンスターか本体を攻撃して勝つ",ok:()=>!!T().breakg},
+ // 第2弾：おもしろカード
+ {id:"t_tadauma",name:"ただ者ではない",c:"white",cond:"「ただの馬」でとどめを刺す",fin:"b2c24"},
+ {id:"t_petz",name:"犬猫同居",c:"green",cond:"「ポチ」と「タマ」を同時に場に出す",ok:()=>!!T().petz},
+ {id:"t_plmn",name:"プラマイゼロ",c:"blue",cond:"「正のプラシィ」と「負のマイナ」を同時に場に出す",ok:()=>!!T().plmn},
+ {id:"t_oyaji",name:"こわいものなし",c:"red",cond:"「地震･雷･火事･親父」の4つの効果を全部出す",ok:()=>((T().oyaji||0)&15)==15},
+ {id:"t_samu",name:"さむっ",c:"blue",cond:"「おやじギャグ」を使った試合で勝つ",ok:()=>!!T().samu},
+ {id:"t_kanshoku",name:"完食",c:"red",cond:"「激辛ラーメン」でとどめを刺す",fin:"b2v40"},
+ {id:"t_yami",name:"闇鍋奉行",c:"purple",cond:"「闇鍋」の4つの効果を全部出す",ok:()=>((T().yami||0)&15)==15},
+ {id:"t_tsuru",name:"恩返し",c:"white",cond:"「あの時の鶴です！」で墓地のモンスターを手札に加える",ok:()=>!!T().tsuru},
+ {id:"t_futamata",name:"二股がバレた",c:"purple",cond:"「うわキング」の攻撃で、1ターンに相手のモンスターを2体倒す",ok:()=>!!T().futamata},
+ {id:"t_takara",name:"宝の持ち腐れ",c:"green",cond:"「豚に珍獣」でとどめを刺す",fin:"b2c18"},
+ // 第2弾：集める・対戦
+ {id:"t_b2step",name:"階段をのぼりきった者",c:"bronze",cond:"ボルテアパック-02a・フロスティアパック-02bのステップアップを、どちらも50連まで引く",ok:()=>stepDone(92)>=5&&stepDone(93)>=5},
+ {id:"t_duo",name:"二人の勇者",c:"silver",cond:"「雷の勇者 ライカ」と「雪の勇者 セツ」を入れたデッキで勝つ",ok:()=>!!T().duo},
+ {id:"t_b2cpu",name:"大陸めぐり",c:"bronze",cond:"第2弾のCPU5人（ライガ・ユキナ・テンペ・コハル・バクゴウ）全員に勝つ",ok:()=>["b2raiga","b2yukina","b2tempe","b2koharu","b2bakugo"].every(k=>(T().b2cpu||{})[k])},
+ {id:"t_vol1",name:"定めを覆す者",c:"jet",cond:"第3章で、HP22000の禁断の龍ボルブリザに勝つ",ok:()=>!!T().vol1},
+ {id:"t_vol2",name:"不可能を可能にする者",c:"rainbow",cond:"第5章で、HP25000の禁断の龍ボルブリザに勝つ",ok:()=>!!T().vol2},
+ {id:"t_volbriza",name:"龍を鎮めし者",c:"jet",cond:"ストーリーで禁断の龍ボルブリザ（最終決戦）に勝つ",ok:()=>storyProgress().includes("5-4")},
  // シーズン限定
  {id:"t_s1light",name:"光の継承者",c:"rainbow",cond:"光のシーズンパスを30段まで進める（シーズン1）",ok:()=>ttPassDone("light"),limited:1},
  {id:"t_s1dark",name:"闇の継承者",c:"rainbow",cond:"闇のシーズンパスを30段まで進める（シーズン1）",ok:()=>ttPassDone("dark"),limited:1},
@@ -4966,6 +5044,12 @@ function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
   if(S.cd&&S.cd.length===0&&(S.cFatigue||0)>0)o.mill=1;
   if(S.pg&&S.pg.length>=20)o.grave=1;
   if(S.pb&&S.pb.every(Boolean))o.full=1;
+  {const D=new Set((S.pb||[]).filter(m=>m&&isDragon(m)).map(m=>m.baseId||m.id));if(D.size>=3)o.dragon3=1}   // 龍の三重奏
+  try{if(storyContext){const ep=STORY[storyContext.chIdx].episodes[storyContext.epIdx];if(ep&&ep.enemy=="b2_volbriza1")o.vol1=1;if(ep&&ep.enemy=="b2_volbriza2")o.vol2=1}}catch(e){}   // 負けても進む龍戦に勝った
+  if(S.used&&S.used.b2f41)o.samu=1;   // おやじギャグを使った試合で勝つ
+  if(S.shockKO)o.shockKO=1;if(S.brk)o.breakg=1;
+  {const dk=(typeof deck!="undefined"&&deck)||[],has=b=>dk.some(id=>id==b||id==b+"_cr");if(has("b2v_raika")&&has("b2f_setsu"))o.duo=1}
+  if(["b2raiga","b2yukina","b2tempe","b2koharu","b2bakugo"].includes(oppId)){o.b2cpu=o.b2cpu||{};o.b2cpu[oppId]=1}
   if(S.usedMake)o.make=1;
   if(S.used){if(S.used.hontou)o.hontouWin=1;if(S.used.kokoikku)o.haikuWin=1}
   if(S.lastHitChoi)o.choiKO=1;
@@ -5545,7 +5629,7 @@ function renderTablet(){
    kind は説明の見出しに出る分類。増やしても構わない。 */
 const GLOSSARY_NAME="石版";
 const TERMS={
- "凍結":{kind:"紋章",icon:"❄️",text:"凍結したモンスターは、持ち主の次のターン、攻撃できません。"},
+ "凍結":{kind:"紋章",icon:"❄️",text:"凍結したモンスターは、持ち主の次のターン、攻撃できません。凍っている間は、守護で味方の身代わりにもなれません。そのターンが終わると溶けます。すでに凍結しているモンスターをもう一度凍結しても、重なったり長くなったりはしません。"},
  "感電":{kind:"紋章",icon:"⚡",text:"感電したモンスターが攻撃するたび、そのモンスターの持ち主がダメージを受けます（【感電1000】なら1000ダメージ）。次の持ち主のターンの終わりまで続きます。重なったときは大きい方が残ります。"},
  "守護":{kind:"紋章",icon:"🛡",text:"相手の攻撃を、このモンスターが代わりに受け止めることができます。止めるかどうか、どの守護で止めるかは、守る側が選べます。",
    note:"※1体が受け止められるのは1ターンに1回までです。守護を2体並べれば、1ターンに2回まで受け止められます。"},
@@ -5605,7 +5689,10 @@ function htmlCard(c,side){
  return `<div class="cost${disc}">${cost}</div><div class=kicon>${kicons(c)}</div>${art}${c.type=="monster"
   ?`<div class=stats><span class=a>${at(c,side)}</span><span class=sep>/</span><span class=d>${df(c,side)}</span></div>`
   :`<div class=spelltag>呪文</div>`}`}
-function render(){if(!S)return;
+function b2Watch(){if(!S||S.over||!S.pb)return;const w=S.b2w=S.b2w||{};const has=id=>S.pb.some(m=>m&&(m.baseId||m.id)==id);
+ if(!w.pet&&has("b2c22")&&has("b2c23")){w.pet=1;ttSet("petz",1)}
+ if(!w.pm&&has("b2v_plasy")&&has("b2v_minus")){w.pm=1;ttSet("plmn",1)}}
+function render(){if(!S)return;try{b2Watch()}catch(e){}
  if(FM.on&&FM.role=="host")fmSchedulePublish();
  try{
   $("php").textContent=Math.max(0,S.php);$("chp").textContent=Math.max(0,S.chp);
@@ -5909,7 +5996,7 @@ function afterSummon(m,side){if(!S||!m)return;
   if(o.summonTax){heroDmg(side,o.summonTax,os);log(o.name+"：宿代"+o.summonTax)}
   if(o.drawOnEnemyCharge&&(m.charge||m.permCharge)){draw(os);log(o.name+"：1枚ドロー")}})}
 function summonEff(c,side){const p=side=="p",EB=p?S.cb:S.pb,ES=p?"c":"p";
- if(c.onActs)doActs(c.onActs,side,c);
+ if(c.onActs)doActs(c.onActs,side,c,{choose:true});
  if(c.on=="selfMill2")millDeck(side,2);
  if(c.on=="draw1")draw(side);
  if(c.on=="enemyNextCost1"){const os=side=="p"?"c":"p";S.sumTax=S.sumTax||{};S.sumTax[os]=1;log(c.name+"：相手が次に召喚するモンスターのコスト+1")}
@@ -5983,7 +6070,7 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
  if(E=="discard2")discardRnd(ES,2);
  if(E=="discard3"){discardRnd(ES,3);if(side=="p"&&!FM.on){S.suisoN=(S.suisoN||0)+1;if(S.suisoN>=2)ttSet("suiso2",1)}}   // 称号：1試合で2回使う
  if(E=="discard2draw2"){discardRnd(ES,2);draw(side);draw(side)}
- if(E=="acts")doActs(c.acts,side,c);
+ if(E=="acts")doActs(c.acts,side,c,{choose:true,refund});
  if(E=="spelllock"){if(p)S.cLock=true;else S.pLock=true;log((p?"CPU":"あなた")+"は次のターン呪文を唱えられない")}
  if(E=="def2"){if(p)S.pDef2=true;else S.cDef2=true;log("味方全体のDEFを2倍化")}
  if(E=="damageShield"){if(p)S.pShield=true;else S.cShield=true;log("次のダメージを1回無効化")}
@@ -6034,7 +6121,7 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
 
 /* ================= 戦闘 ================= */
 // 守護持ちの位置を返す。1体につき1ターンに1回だけかばえる
-function guards(B,ex){const r=[];B.forEach((m,i)=>{if(i!=ex&&m&&m.guard&&!m.guardTurn)r.push(i)});return r}
+function guards(B,ex){const r=[];B.forEach((m,i)=>{if(i!=ex&&m&&m.guard&&!m.guardTurn&&!isFrozen(m))r.push(i)});return r}   // 凍結中は守護（身代わり）できない
 function enemyTarget(to){if(FM.on&&FM.role=="guest")return fmGuestAttack(to);
  if(!S||S.over||S.busy)return;
  if(pending)return;
@@ -6059,7 +6146,7 @@ function setLaneFx(o){laneFx={atk:null,tgt:null,guardSide:null,guards:[],...o};r
 function clearLaneFx(){laneFx={atk:null,tgt:null,guardSide:null,guards:[]}}
 // CPUの判断。止める価値があるかを見る
 function cpuBlockChoice(av,to){
- const gs=guards(S.cb,-1);
+ const gs=guards(S.cb,to);
  if(!gs.length)return -1;
  const face=!S.cb[to];                       // 直接攻撃されているか
  const dmg=face?av:0;
@@ -6076,7 +6163,7 @@ function cpuBlockChoice(av,to){
 }
 function askBlock(av,to,atkName,tgtName){
  return new Promise(res=>{
-  const gs=guards(S.pb,-1);
+  const gs=guards(S.pb,to);   // 攻撃されている守護自身は、身代わりにならない（ほかに守護がいなければ聞かない）
   if(!gs.length)return res(-1);
   blockAsk=res;
   // 盤面の守護を黄色く光らせる。文字での説明は最小限にする
@@ -6094,13 +6181,14 @@ function blockChoose(i){
 
 async function playerAtk(f,to){let a=S.pb[f],d=S.cb[to];if(!a)return;
  const av=at(a,"p");
+ if(S.cb.some(m=>m&&m.guard&&isFrozen(m))&&!guards(S.cb,-1).length&&!(d&&d.guard))S.brk=1;   // 称号：凍った守護に止められずに攻撃した
  setLaneFx({atk:{side:"p",i:f},tgt:{side:"c",i:to}});   // 赤＝攻撃元／青＝攻撃先
  await sleep(260);
  // 守護で止めるかは、守る側が決める（CPUは自動・フレンドはゲストに聞く）
  const bi=FM.on&&FM.role=="host"?await fmAskBlock(av,to,a.name,d?d.name:"直接攻撃"):cpuBlockChoice(av,to);
  if(bi>=0&&bi!=to){
   S.cb[bi].guardTurn=true;shield("c",bi);sfx("shield");
-  log(S.cb[bi].name+"が守護で受け止めた！");if(S.cb[bi].drawOnBlock)draw("c");
+  log(S.cb[bi].name+"が守護で受け止めた！");if(S.cb[bi].drawOnBlock&&S.cb[bi].dobT!==S.turn){S.cb[bi].dobT=S.turn;draw("c")}
   if(S.cb[bi].blockBurn){heroDmg("p",S.cb[bi].blockBurn,"c");log(S.cb[bi].name+"："+S.cb[bi].blockBurn+"ダメージ")}
   to=bi;d=S.cb[to];
   setLaneFx({atk:{side:"p",i:f},tgt:{side:"c",i:to}});  // 青を守護のレーンへ移す
@@ -6124,6 +6212,7 @@ async function battle(as,ai,ds,di){const AB=b2B(as),DB=b2B(ds),a=AB[ai],d=DB[di]
  if(a.freezeHit&&dA)applyFreeze(ds,di,a.name);
  if((d.freezeHit||d.freezeAttacker)&&aA)applyFreeze(as,ai,d.name);
  if(a.killDmg&&!dA&&!S.over){heroDmg(ds,a.killDmg,as);log(a.name+"："+a.killDmg+"ダメージ")}
+ if(as=="p"&&aA&&!dA&&(a.baseId||a.id)=="b2c20"){try{const tt=turnTotal();if(a.kT!==tt){a.kT=tt;a.kN=0}a.kN++;if(a.kN>=2)ttSet("futamata",1)}catch(e){}}   // 称号：二股がバレた
  render();chk()}
 async function battleCore(as,ai,ds,di){const AB=as=="p"?S.pb:S.cb,DB=ds=="p"?S.pb:S.cb;
  const a=AB[ai],d=DB[di];if(!a||!d)return;
@@ -6342,7 +6431,7 @@ function attackGain(pos,t){const m=S.cb[pos];if(!m)return -1e9;
  return worst}
 // 今の盤面で見込める攻撃の得（各モンスターの一番いい攻撃の合計）。sick=true なら召喚したばかりのものも数える
 function attackPotential(sick){let sum=0;
- for(const pos of[1,0,2]){const m=S.cb[pos];if(!m||m.cantAttack)continue;
+ for(const pos of[1,0,2]){const m=S.cb[pos];if(!m||m.cantAttack||at(m,"c")<=0)continue;   // CPUはATK0では攻撃しない（人はわざと負けて空きマスを作る作戦があるので、ルールでは止めない）
   const ready=!m.used&&(m.attacks||0)>0;if(!ready&&!sick)continue;
   let b=0;for(let t=0;t<3;t++){if(!(pos==1||t==1||pos+t==2))continue;if(!S.pb[t]&&t!=1)continue;b=Math.max(b,attackGain(pos,t))}
   sum+=Math.min(b,2e6)}
@@ -6393,7 +6482,7 @@ async function cpuDoAttack(pos,tgt){const m=S.cb[pos];if(!m)return;const av=at(m
   if(!S||S.over)return;
   if(bi>=0&&bi!=tgt){
    S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");if(!FM.on)ttAdd("guard");
-   log(S.pb[bi].name+"が守護で受け止めた！");if(S.pb[bi].drawOnBlock)draw("p");
+   log(S.pb[bi].name+"が守護で受け止めた！");if(S.pb[bi].drawOnBlock&&S.pb[bi].dobT!==S.turn){S.pb[bi].dobT=S.turn;draw("p")}
    if(S.pb[bi].blockBurn){heroDmg("c",S.pb[bi].blockBurn,"p");log(S.pb[bi].name+"："+S.pb[bi].blockBurn+"ダメージ")}
    await mark("c",pos);shockOnAttack(m,"c");if(!S||S.over)return;await battle("c",pos,"p",bi);await sleep(450);return}
   if(S.pb[tgt]&&S.pb[tgt].guard&&!S.pb[tgt].guardTurn)S.pb[tgt].guardTurn=true;   // 守護そのものを殴った
