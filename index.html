@@ -1384,7 +1384,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.12.0</div>
+ <div class="tVer" id="tVer">ver.5.12.1</div>
 </div>
 
 <div id="app">
@@ -1874,7 +1874,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.12.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.12.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -5946,6 +5946,8 @@ function ownTap(i){if(S.over)return;const m=S.pb[i];if(!m)return;
 function chargeBlocked(side){if(!S)return false;const OB=side=="p"?S.cb:S.pb;return OB.some(o=>o&&o.noEnemyCharge)}
 function sideOfMon(m){return S&&S.pb.includes(m)?"p":S&&S.cb.includes(m)?"c":null}
 function grantCharge(m){const sd=sideOfMon(m);
+ if(m.acted||m.frozenNow){m.charge=1;return}   // このターンもう攻撃した／凍結中のモンスターは、突撃をもらっても動けない（出したばかりのモンスターだけが動けるようになる）
+
  if(sd&&chargeBlocked(sd)&&m.used&&(m.attacks||0)<=0){m.charge=1;log("パンプキングの威圧："+m.name+"は動けない");return}m.charge=1;if(m.used&&(m.attacks||0)<=0){m.used=false;m.attacks=m.double?2:1}else{m.used=false;m.attacks=Math.max(1,m.attacks||0)}}
 function summon(pos){if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
  if(!S||S.busy||S.over||pending||selH==null)return;
@@ -6230,7 +6232,7 @@ async function battleCore(as,ai,ds,di){const AB=as=="p"?S.pb:S.cb,DB=ds=="p"?S.p
  }else{float(ds,di,av,"red");await sleep(380);await boomKill(ds,di);await boomKill(as,ai)}
  if(AB[ai])afterAtk(AB[ai],as);
  render();chk()}
-function afterAtk(m,side){if(m.atkEff=="draw1")draw(side);if(m.atkEff=="gain500")m.permAtk=(m.permAtk||0)+500;
+function afterAtk(m,side){m.acted=1;if(m.atkEff=="draw1")draw(side);if(m.atkEff=="gain500")m.permAtk=(m.permAtk||0)+500;
  m.attacks=(m.attacks||1)-1;if(m.attacks<=0)m.used=true;selA=null}
 // 破壊を山札で肩代わりできるか。できたら肩代わりして true を返す
 function tryMillGuard(side,i){
@@ -6279,7 +6281,7 @@ function resetBoard(side){clearHalloween(side);
  // 守護の「このターンかばった」印を、お互いぶん戻す
  [S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m)m.guardTurn=false}));const B=side=="p"?S.pb:S.cb;
  B.forEach(m=>{if(!m)return;const b=by(m.id)||{};
-  m.used=false;m.attacks=m.double?2:1;m.buff=0;m.defBuff=0;m.webbed=0;
+  m.used=false;m.attacks=m.double?2:1;m.buff=0;m.defBuff=0;m.webbed=0;m.acted=0;
   m.charge=(b.charge||m.permCharge)?1:0;
   m.guard=(b.guard||m.permGuard)&&!m.noGuard?1:0});
  try{b2TurnStart(side)}catch(e){}}
