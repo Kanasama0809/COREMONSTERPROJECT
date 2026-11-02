@@ -1394,7 +1394,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.14.1</div>
+ <div class="tVer" id="tVer">ver.5.14.2</div>
 </div>
 
 <div id="app">
@@ -1884,7 +1884,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.14.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.14.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -5229,7 +5229,7 @@ const SEASONS=[
    dark:{name:"闇のシーズンパス",accent:"#b48cff",bg:"#1c1630",
     rw:{3:"deathhero_s1",6:"nocto",9:"nekura_s1",12:"deathhero_s1",15:"nocto",18:"uradracula_s1",21:"nekura_s1",24:"uradracula_s1",27:"an_s1",30:"an_s1"}}}},
  {id:"s2",name:"シーズン2「炎と水」",start:"2026-11-01",end:"2026-11-30",tiers:30,ptPer:100,
-  unlockCost:1500,freeFirst:true,
+  unlockCost:1500,freeFirst:false,   // シーズン2は2つとも有料（無料の1つはなし）
   // カードのない段：💎100 → 🐉龍の券1 → 💎100 → 🔹かけら50 のくり返し
   normal:[{type:"crystal",n:100,label:"💎100"},{type:"ticket",kind:"dragon",n:1,label:"🐉龍の券1枚"},
           {type:"crystal",n:100,label:"💎100"},{type:"shard",n:50,label:"🔹かけら50"}],
