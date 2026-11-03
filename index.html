@@ -149,6 +149,21 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .m4grid8 .m4 .m4nm{font-size:11px;white-space:nowrap}
 /* ホームのバナー */
 .homeBanner{position:relative;z-index:2;margin:8px 8px 0;flex:0 0 auto}
+/* ひとりで・ドラフト */
+.bt-dr{--bc:#9fdcff}
+.kwBar{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 2px}
+.kwB{min-height:32px;padding:0 10px;border-radius:99px;border:1px solid #3a5a80;background:#10203a;color:#cfe0f5;font:inherit;font-size:12px;font-weight:700}
+.kwB.on{background:#ffd84a;color:#1a1a1a;border-color:#ffd84a}
+.drHead{text-align:center;font-weight:800;margin:6px 0 8px}
+.drPicks{display:flex;flex-direction:column;gap:8px}
+.drPick{display:flex;gap:10px;align-items:stretch;text-align:left;padding:8px;border-radius:12px;border:2px solid #3a5a80;background:#10203a;color:#eaf2ff;font:inherit;min-height:44px}
+.drPick.rr-sr{border-color:#c29bff}.drPick.rr-ur{border-color:#f6cf6b}.drPick.rr-r{border-color:#6bc8ff}
+.drPick .cArt{position:relative;flex:0 0 84px;height:84px;border-radius:8px;overflow:hidden;background:#0a1526;display:flex;align-items:center;justify-content:center}
+.drPick .cArt img{width:100%;height:100%;object-fit:cover}
+.drPI{flex:1;min-width:0}.drPN{font-weight:800;font-size:14px}.drPR{font-size:11px;color:#9fb6d6}.drPS{font-size:12px;color:#9fb6d6;margin:2px 0}.drPT{font-size:12px;line-height:1.4}
+.drDeck{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:8px 0}
+.drDC{display:flex;gap:6px;align-items:center;padding:5px 8px;border-radius:8px;background:#0006;font-size:12px}
+.drDC .cCost{position:static;flex:0 0 auto}
 /* 伝説の龍への挑戦 */
 .drTabs{display:flex;flex-wrap:wrap;gap:6px;padding:4px 2px 8px}
 .drTab{flex:0 0 auto;min-height:40px;padding:0 12px;border-radius:99px;border:1px solid var(--ga);background:#10203a;color:#eaf2ff;font:inherit;font-size:13px;font-weight:800;white-space:nowrap}
@@ -1394,7 +1409,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.14.2</div>
+ <div class="tVer" id="tVer">ver.5.15.0</div>
 </div>
 
 <div id="app">
@@ -1488,11 +1503,11 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 
  <div class="menu4">
   <div class="m4pair">
-   <button class="m4 big" id="m4_battle" onclick="menuGo(1)"><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">CPUと対戦</span></button>
+   <button class="m4 big" id="m4_battle" onclick="sfx('sel');openSolo()"><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">CPUと対戦</span></button>
    <button class="m4 big friendT" id="m4_friend" onclick="menuGo(9)"><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンドマッチ</span></button>
   </div>
   <div class="m4grid3">
-   <button class="m4" id="m4_events" onclick="menuGo(2)"><span class="m4em">⏳</span><span class="m4nm">イベント</span></button>
+   <button class="m4" id="m4_codex" onclick="menuGo(4)"><span class="m4em">📖</span><span class="m4nm">図鑑</span></button>
    <button class="m4" id="m4_tasks" onclick="menuGo(7)"><span class="m4em">✅</span><span class="m4nm">タスク</span></button>
    <button class="m4" id="m4_deck" onclick="menuGo(3)"><span class="m4em">🃏</span><span class="m4nm">デッキ</span></button>
   </div>
@@ -1542,12 +1557,28 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 <div id="battleTab" class="hide">
  <div class="editorHead"><h1>対戦</h1><div class="sub">どこで戦うか選ぼう</div></div>
  <div class="btList">
-  <button type="button" class="btCard bt-cpu" onclick="menuGo(1)"><span class="btTtl">ひとりで</span><span class="btSub">CPUと対戦</span></button>
+  <button type="button" class="btCard bt-cpu" onclick="openSolo()"><span class="btTtl">ひとりで</span><span class="btSub">ランダムバトル・ストーリー・イベント・ドラフト</span><span id="btSoloBadge" class="pBadge hide">!</span></button>
   <button type="button" class="btCard bt-fr" onclick="menuGo(9)"><span class="btTtl">だれかと</span><span class="btSub">部屋コードでフレンドマッチ</span></button>
-  <button type="button" class="btCard bt-ev" onclick="menuGo(2)"><img id="btEvImg" class="btImg" alt=""><span class="btTtl">イベント</span><span class="btSub" id="btEvSub">ボスバトル</span><span id="btEvBadge" class="pBadge hide">!</span></button>
-  <button type="button" class="btCard bt-st" onclick="continueStory()"><span class="btTtl">ストーリー</span><span class="btSub" id="btStSub">つづきから</span></button>
  </div>
  <button type="button" class="deckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="btDeckName"></span><span class="dlGo">変える ▶</span></button>
+</div>
+
+<div id="soloHub" class="hide">
+ <div class="editorHead"><h1>ひとりで</h1><div class="sub">CPUと戦う</div></div>
+ <div class="btList">
+  <button type="button" class="btCard bt-cpu" onclick="menuGo(1)"><span class="btTtl">ランダムバトル</span><span class="btSub">好きなデッキでCPUと一戦</span></button>
+  <button type="button" class="btCard bt-st" onclick="continueStory()"><span class="btTtl">ストーリー</span><span class="btSub" id="btStSub">つづきから</span></button>
+  <button type="button" class="btCard bt-ev" onclick="menuGo(2)"><img id="btEvImg" class="btImg" alt=""><span class="btTtl">イベント</span><span class="btSub" id="btEvSub">ボスバトル</span><span id="btEvBadge" class="pBadge hide">!</span></button>
+  <button type="button" class="btCard bt-dr" onclick="openDraft()"><span class="btTtl">ドラフトチャレンジ</span><span class="btSub" id="btDrSub">その場でデッキを作って連勝をめざす</span></button>
+ </div>
+ <button type="button" class="deckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="btDeckName2"></span><span class="dlGo">変える ▶</span></button>
+ <div class="foot"><button type="button" class="sec" onclick="openBattleTab()">戻る</button></div>
+</div>
+
+<div id="draft" class="hide">
+ <div class="editorHead"><h1>ドラフトチャレンジ</h1><div class="sub" id="drSub"></div></div>
+ <div id="drBody"></div>
+ <div class="foot"><button type="button" class="sec" onclick="openSolo()">戻る</button></div>
 </div>
 
 <div id="menuTab" class="hide">
@@ -1607,6 +1638,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
    <button onclick="clearDeckSlot()">🗑 この枠を空に</button>
   </div>
   <div class="fb"><button id="fAll" onclick="setFilter('all')">全部</button><button id="fMon" onclick="setFilter('monster')">モンスター</button><button id="fSpl" onclick="setFilter('spell')">呪文</button></div>
+  <div class="kwBar" id="kwBar"></div>
   <select id="editSort" class="sortSel" onchange="setSortMode(this.value)">
    <option value="kana">50音順</option>
    <option value="cost">コスト順</option>
@@ -1884,7 +1916,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.14.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.15.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -1955,6 +1987,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div id="rSub" class="rsub"></div>
  <button type="button" id="rStoryGo" class="gold hide" style="width:100%;margin-bottom:8px" onclick="storyGoOnAfterLose()">▶ 先に進む</button>
  <div id="rDragon" class="rDragon hide"></div>
+ <div id="rDraft" class="rDragon hide"></div>
  <div class="rbtns" id="rBtns"><button onclick="hideP('resultov');rematchLast()">🔁 もう一度対戦</button><button class="sec" onclick="hideP('resultov');if(FM.on)fmQuit();else menu()">メニューへ</button></div>
 </div></div>
 
@@ -3030,7 +3063,7 @@ function treeBurst(){
 
 /* ===== 下のタブ（ホーム・ストーリー・対戦・ガチャ・メニュー） =====
    タブの画面と、そこから開く画面で出す。対戦中・会話・チュートリアル・序章クリア前は隠す */
-const TAB_OF={menu:"home",story:"story",battleTab:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
+const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
  gacha:"gacha",exchange:"gacha",menuTab:"more",tasks:"more",titles:"more",codex:"more",tablet:"more",presents:"more",news:"more",edit:"more",pass:"home"};
 function tabGo(k){if(!isIntroDone())return;sfx("sel");
  if(k=="home")menu();else if(k=="story")menuGo(0);else if(k=="battle")openBattleTab();else if(k=="gacha")menuGo(6);else if(k=="more")openMenuTab();syncTab()}
@@ -3045,7 +3078,8 @@ function syncTab(){const bar=$("tabBar");if(!bar)return;const sc=curScreen();
  badge("more",more);badge("battle",ev)}
 setInterval(()=>{try{syncTab()}catch(e){}},300);
 function openBattleTab(){hideAll();$("battleTab").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
-function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());
+function openSolo(){if(!isIntroDone()){sfx("no");log2Toast("序章をクリアすると解放されます");return}hideAll();$("soloHub").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
+function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());try{$("btDeckName2").textContent=deckSlotName(curSlot());const n=evMisReadyCount();$("btSoloBadge").classList.toggle("hide",!n);$("btDrSub").textContent=draftSub()}catch(e){}
  try{const ev=eventsActive()[0];if(ev){const im=eventArtImg(ev);$("btEvImg").src=im||"";$("btEvImg").classList.toggle("hide",!im);$("btEvSub").textContent=(ev.title||ev.name)+(eventsActive().length>1?" ほか":"")}
   else{$("btEvImg").classList.add("hide");$("btEvSub").textContent="開催中のイベントはありません"}}catch(e){}
  try{const n=evMisReadyCount();$("btEvBadge").classList.toggle("hide",!n)}catch(e){}
@@ -3347,7 +3381,7 @@ function drStartTenpen(){if(!drTenpenOpen())return;drRun={mode:"tenpen",idx:0,hp
 function drGive(n,why){const left=Math.max(0,DR_TIX_CAP-ticketToday("dragon")),g=Math.min(n,left);
  if(g<=0){log2Toast("今日の龍の券はもらいきりました");return 0}bumpTicketToday(g,"dragon");addTicket(g,why,"dragon");return g}
 // 結果画面：次へ進むボタン
-function drOnResult(won){const box=$("rDragon"),btns=$("rBtns");if(!drCtx){box.classList.add("hide");btns.classList.remove("hide");return}
+function drOnResult(won){const box=$("rDragon"),btns=$("rBtns");if(!drCtx){box.classList.add("hide");if(!draftCtx)btns.classList.remove("hide");return}
  const r=drRun;drCtx=null;box.classList.remove("hide");btns.classList.add("hide");
  const back='<button class="sec" onclick="hideP(\'resultov\');drRun=null;openEventDetail(\'dragon\')">イベントへ戻る</button>';
  if(!r){box.innerHTML=back;return}
@@ -3429,6 +3463,57 @@ function onEventWin(){
  bumpTicketToday(give,tk);addTicket(give,st.name||e.name,tk);
 }
 
+/* ===== ドラフトチャレンジ =====
+   3枚から1枚を選ぶ×15回（選んだカードは2枚ずつ入って30枚）。CPUと連戦して、1回負けたら終わり。
+   報酬（💎）がもらえるのは、その日の1回目のチャレンジだけ。2回目からは練習（何回でも遊べる）。
+   保存 cmDraft：{day, used, best, run:{picks,deck,streak,reward,got}} */
+const DRAFT_PICKS=15,DRAFT_RATE=[["N",55],["R",30],["SR",11],["UR",4]];
+const DRAFT_BONUS={3:100,5:300,7:500,10:1000},DRAFT_WIN=30;
+let draftCtx=null,draftOffer=null;
+function draftSt(){let o={};try{o=JSON.parse(store.get("cmDraft")||"{}")||{}}catch(e){o={}}if(o.day!==todayStr()){o.day=todayStr();o.used=0}return o}
+function draftSave(o){store.set("cmDraft",JSON.stringify(o))}
+function draftSub(){const o=draftSt();if(o.run&&o.run.deck)return "挑戦中："+o.run.streak+"連勝（つづきから）";return o.used?"今日の報酬は受け取り済み（練習で遊べる）":"今日の1回目は💎がもらえる"}
+function draftPool(r){return P.filter(c=>c.rarity==r&&!c.bossOnly&&!c.gItem&&!c.unreleased&&!c.baseId&&(c.type=="monster"||c.type=="spell"))}
+function draftRollOffer(picked){const t=DRAFT_RATE.reduce((a,x)=>a+x[1],0);let x=Math.random()*t,r="N";for(const [k,w] of DRAFT_RATE){x-=w;if(x<0){r=k;break}}
+ const fam=new Set(picked.map(familyId));let pool=draftPool(r).filter(c=>!fam.has(familyId(c.id)));if(pool.length<3)pool=draftPool("N").filter(c=>!fam.has(familyId(c.id)));
+ const out=[];while(out.length<3&&pool.length)out.push(pool.splice(Math.random()*pool.length|0,1)[0].id);return out}
+function openDraft(){if(!isIntroDone())return;hideAll();$("draft").classList.remove("hide");$("app").scrollTop=0;renderDraft();syncTab()}
+function draftStart(){const o=draftSt();const reward=!o.used;o.used=1;o.run={picks:[],deck:null,streak:0,reward,got:0};draftSave(o);draftOffer=null;sfx("sel");renderDraft()}
+function draftQuit(){const o=draftSt();o.run=null;draftSave(o);draftOffer=null;renderDraft()}
+function draftPick(i){const o=draftSt(),r=o.run;if(!r||r.deck||!draftOffer)return;const id=draftOffer[i];if(!id)return;sfx("summon");
+ r.picks.push(id);draftOffer=null;if(r.picks.length>=DRAFT_PICKS)r.deck=r.picks.flatMap(x=>[x,x]);draftSave(o);renderDraft()}
+function draftOpp(streak){const L=PERSONALITIES;const b=L[Math.random()*L.length|0];
+ return {...b,id:"draft_"+b.id,hp:10000+streak*500,tagline:b.tagline,pDeck:null}}
+function draftFight(){const o=draftSt(),r=o.run;if(!r||!r.deck)return;const opp=draftOpp(r.streak);opp.pDeck=[...r.deck];
+ draftCtx={streak:r.streak};eventBattleId=null;storyContext=null;drCtx=null;prematch(opp)}
+function draftOnResult(won){const box=$("rDraft"),btns=$("rBtns");if(!draftCtx){box.classList.add("hide");return}
+ draftCtx=null;box.classList.remove("hide");btns.classList.add("hide");const o=draftSt(),r=o.run;if(!r){box.innerHTML="";return}
+ let html="";
+ if(won){r.streak++;let g=0;if(r.reward){g=DRAFT_WIN+(DRAFT_BONUS[r.streak]||0);addCrystal(g,"ドラフト "+r.streak+"連勝");r.got+=g}
+  o.best=Math.max(o.best||0,r.streak);try{const t=ttStats();t.draftBest=Math.max(t.draftBest||0,r.streak);ttSave(t)}catch(e){}
+  draftSave(o);html='<div class="drRes">🎴 '+r.streak+'連勝！'+(g?'　💎+'+g:'')+'</div>'
+   +(DRAFT_BONUS[r.streak+1]&&r.reward?'<div class="drRes" style="font-weight:600;font-size:12px">次に勝つと '+(r.streak+1)+'連勝ボーナス 💎+'+DRAFT_BONUS[r.streak+1]+'</div>':'')
+   +'<button class="gold" onclick="hideP(\'resultov\');draftFight()">次の対戦へ ▶</button><button class="sec" onclick="hideP(\'resultov\');openDraft()">ドラフトの画面へ</button>'}
+ else{const n=r.streak,got=r.got;o.run=null;draftSave(o);
+  html='<div class="drRes">'+n+'連勝で終了</div>'+(got?'<div class="drRes">今回の報酬 💎'+got+'</div>':'<div class="drRes" style="font-weight:600;font-size:12px">（練習なので報酬はありません）</div>')
+   +'<button class="gold" onclick="hideP(\'resultov\');openDraft()">ドラフトの画面へ</button>'}
+ box.innerHTML=html}
+function draftCardHtml(id,i){const c=by(id);if(!c)return "";const img=CARD_IMAGES[id];
+ return '<button type="button" class="drPick rr-'+(c.rarity||"N").toLowerCase()+'" onclick="draftPick('+i+')"><div class="cArt">'+(img?'<img src="'+img+'" alt="">':'<span class="cEmo">'+(c.type=="monster"?"👾":"✨")+'</span>')+'<span class="cCost">'+c.cost+'</span></div>'
+  +'<div class="drPI"><div class="drPN">'+escH(c.name)+' <span class="drPR">'+c.rarity+'</span></div><div class="drPS">'+(c.type=="monster"?c.atk+' / '+c.def:'呪文')+'</div><div class="drPT">'+escH(c.text||"能力なし")+'</div></div></button>'}
+function renderDraft(){const o=draftSt(),r=o.run;$("drSub").textContent="最高 "+(o.best||0)+"連勝";let h="";
+ if(!r){h='<div class="evStory">3枚から1枚を選ぶのを'+DRAFT_PICKS+'回くり返して、その場で30枚のデッキを作る（選んだカードは2枚ずつ入る）。<br>CPUと連戦して、<b>1回負けたら終わり</b>。勝つほど相手のHPが増える。</div>'
+   +'<div class="evRw">'+(o.used?'今日の報酬は受け取り済み。今からは練習（報酬なし）として何回でも遊べる':'今日の1回目は、勝つたびに💎'+DRAFT_WIN+'。3・5・7・10連勝でボーナス（💎100・300・500・1000）')+'</div>'
+   +'<button type="button" class="gold evGoBtn" onclick="draftStart()">ドラフトをはじめる ▶</button>'}
+ else if(!r.deck){if(!draftOffer)draftOffer=draftRollOffer(r.picks);
+  h='<div class="drHead">'+(r.picks.length+1)+' / '+DRAFT_PICKS+' 枚目　1枚選ぶ（2枚ずつ入る）</div><div class="drPicks">'+draftOffer.map(draftCardHtml).join("")+'</div>'
+   +'<button type="button" class="sec evGoBtn" onclick="draftQuit()">やめる</button>'}
+ else{const L=[...new Set(r.deck)].map(by).filter(Boolean).sort((a,b)=>a.cost-b.cost||kanaSort(a,b));
+  h='<div class="evRw">'+(r.reward?'報酬あり（今日の1回目）':'練習（報酬なし）')+'　今 '+r.streak+'連勝</div>'
+   +'<button type="button" class="gold evGoBtn" onclick="draftFight()">'+(r.streak?'次の対戦へ ▶（'+(r.streak+1)+'戦目）':'対戦する ▶（1戦目）')+'</button>'
+   +'<div class="drDeck">'+L.map(c=>'<div class="drDC"><span class="cCost">'+c.cost+'</span>'+escH(c.name)+'×2</div>').join("")+'</div>'
+   +'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'このチャレンジを終わりにしますか？（連勝はここまで）\',draftQuit)">チャレンジを終える</button>'}
+ $("drBody").innerHTML=h}
 function tryRandomBattle(){
  if(!isIntroDone()){sfx("sel");log2Toast("序章をクリアすると解放されます");return}
  prematch();
@@ -3867,10 +3952,18 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
+// 絞りこみ（能力の言葉）。もう一度押すと外れる
+const EDIT_KW=["突撃","守護","二回攻撃","貫通されない","凍結","感電","回復","ドロー","ダメージ"];
+let editKw=null;
+function setEditKw(k){editKw=editKw==k?null:k;sfx("sel");renderEdit()}
+function kwMatch(c){if(!editKw)return true;const t=String(c.text||"");
+ if(editKw=="回復")return /HPを\+/.test(t);if(editKw=="ドロー")return /ドロー/.test(t);if(editKw=="ダメージ")return /プレイヤーに\d+ダメージ/.test(t);
+ if(editKw=="突撃")return !!(c.charge||c.permCharge)||/突撃/.test(t);if(editKw=="守護")return !!c.guard||/守護/.test(t);
+ return t.includes(editKw)}
 function openEdit(){
  {const sl=deckSlots()[curSlot()];if(sl&&Array.isArray(sl.cards))deck=sl.cards.filter(id=>by(id))}   // 未完成のデッキも、そのまま続きから編集
  hideAll();$("edit").classList.remove("hide");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit();guideOnce("edit")}
@@ -3924,6 +4017,7 @@ function renderEdit(){renderEditInfo();
  if(strip){strip.innerHTML="";
   const counts={},order=[];
   deck.forEach(id=>{counts[id]=(counts[id]||0)+1;if(!order.includes(id))order.push(id)});
+  order.sort((a,b)=>{const x=by(a),y=by(b);return (!x||!y)?0:(x.cost-y.cost)||kanaSort(x,y)});   // デッキはコストの低い順
   if(!order.length){strip.innerHTML='<div class="deckEmpty">下からカードを選んでデッキを作ろう（30枚）</div>';}
   else order.forEach(id=>{const c=by(id);if(!c)return;const img=CARD_IMAGES[id];
    const t=document.createElement("div");t.className="dChip rr-"+(c.rarity||"N").toLowerCase();
@@ -3933,7 +4027,8 @@ function renderEdit(){renderEditInfo();
  }
  // --- コレクション：所持カードをカード画像タイルで。タップで1枚足す／長押しで詳細 ---
  let g=$("eg");g.innerHTML="";
- sortCards(P.filter(c=>isVisible(c)&&ownedCount(c.id)>0&&(filter=="all"||c.type==filter))).forEach(c=>{
+ $("kwBar").innerHTML=EDIT_KW.map(k=>'<button type="button" class="kwB'+(editKw==k?' on':'')+'" onclick="setEditKw(\''+k+'\')">'+k+'</button>').join("");
+ sortCards(P.filter(c=>isVisible(c)&&ownedCount(c.id)>0&&(filter=="all"||c.type==filter)&&kwMatch(c))).forEach(c=>{
   const n=deck.filter(x=>x==c.id).length,own=ownedCount(c.id),fam=familyId(c.id);
   const famCount=deck.filter(x=>familyId(x)==fam).length;
   const full=(n>=own)||(famCount>=2)||(deck.length>=40);
@@ -5139,6 +5234,10 @@ const TITLES=[
  {id:"t_egg1",name:"孵化の瞬間",c:"white",cond:"ドラゴエッグを割る",ok:()=>!!T().egg1},
  {id:"t_egg2",name:"子だくさん",c:"green",cond:"1試合でドラゴエッグを2つ割る",ok:()=>!!T().egg2},
  {id:"t_eggko",name:"卵が先か、龍が先か",c:"blue",cond:"ドラゴエッグが割れたダメージでとどめを刺す",fin:"dr_egg"},
+ // ドラフトチャレンジ
+ {id:"t_draft3",name:"引きの強さ",c:"bronze",cond:"ドラフトチャレンジで3連勝する",ok:()=>(T().draftBest||0)>=3},
+ {id:"t_draft5",name:"即席の名手",c:"silver",cond:"ドラフトチャレンジで5連勝する",ok:()=>(T().draftBest||0)>=5},
+ {id:"t_draft10",name:"ドラフト王",c:"jet",cond:"ドラフトチャレンジで10連勝する",ok:()=>(T().draftBest||0)>=10},
  {id:"t_vol1",name:"定めを覆す者",c:"jet",cond:"第3章で、HP22000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol1},
  {id:"t_vol2",name:"不可能を可能にする者",c:"rainbow",cond:"第5章で、HP25000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol2},
  {id:"t_volbriza",name:"龍を鎮めし者",c:"jet",cond:"ストーリーで氷雷龍ボルブリザ（最終決戦）に勝つ",ok:()=>storyProgress().includes("5-4")},
@@ -5580,7 +5679,7 @@ function prematch(personality,fixed){
  else pmSpin(second);
 }
 // 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
-function renderPmDeck(show){const b=$("pmDeck");if(!b)return;b.classList.toggle("hide",!show);if(show)b.innerHTML='使うデッキ：<b>'+escH(deckSlotName(curSlot()))+'</b>　変える ▶'}
+function renderPmDeck(show){const b=$("pmDeck");if(!b)return;const dr=pmPending&&pmPending.personality&&pmPending.personality.pDeck;b.classList.toggle("hide",!show||!!dr);if(show)b.innerHTML='使うデッキ：<b>'+escH(deckSlotName(curSlot()))+'</b>　変える ▶'}
 function renderPmMe(){const t=titleEquipped();$("pmMe").innerHTML=titleTagHtml(t)+titleNameHtml((player&&player.name)||"あなた",t)}
 function pmSpin(second){
  const box=$("pmFlip");
@@ -5640,7 +5739,7 @@ function start(personality,fixed){
  hideAll();$("game").classList.remove("hide");logs=[];
  const mk=(ids,keep)=>{const a=ids.map(id=>cp(by(id))).filter(Boolean).map(c=>({...c,uid:Math.random()}));return keep?a:shuf(a)};
  S={turn:1,tn:{p:1,c:0},phase:"main1",active:"p",cost:1,max:1,php:10000,chp:10000,opp:opp,
-  pd:mk(fixed?fixed.p:deck,!!fixed),cd:mk(fixed?fixed.c:opp.deck,!!fixed),ph:[],ch:[],pb:[null,null,null],cb:[null,null,null],pg:[],cg:[],
+  pd:mk(fixed?fixed.p:(opp.pDeck||deck),!!fixed),cd:mk(fixed?fixed.c:opp.deck,!!fixed),ph:[],ch:[],pb:[null,null,null],cb:[null,null,null],pg:[],cg:[],
   busy:false,over:false,pDef2:false,cDef2:false,pDefBonus:0,cDefBonus:0,
   pLock:false,cLock:false,pShield:false,cShield:false,pOnce:false,cOnce:false,
   pFatigue:0,cFatigue:0,atkSide:null,atkI:null};
@@ -6723,6 +6822,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  // ストーリー戦: 勝てば対戦後パートへ、負ければ再挑戦できるようにする
  $("rStoryGo").classList.add("hide");
  try{drOnResult(w===true)}catch(e){}
+ try{draftOnResult(w===true)}catch(e){}
  if(storyContext){
   const ctx=storyContext;
   if(w===true){
