@@ -149,6 +149,8 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .m4grid8 .m4 .m4nm{font-size:11px;white-space:nowrap}
 /* ホームのバナー */
 .homeBanner{position:relative;z-index:2;margin:8px 8px 0;flex:0 0 auto}
+/* 総力戦 */
+.raidBar{height:12px;border-radius:99px;background:#0006;overflow:hidden;margin:6px 0 10px}.raidBar span{display:block;height:100%;background:linear-gradient(90deg,#ff5a5a,#ffb347)}
 /* 戦績・アイコン */
 .pIcon{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;overflow:hidden;flex:0 0 auto;background:#0a1526;border:2px solid #3a5a80;vertical-align:middle}
 .pIcon img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;transform:scale(1.35)}
@@ -1423,7 +1425,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.16.0</div>
+ <div class="tVer" id="tVer">ver.5.17.0</div>
 </div>
 
 <div id="app">
@@ -1938,7 +1940,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.16.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.17.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2010,6 +2012,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <button type="button" id="rStoryGo" class="gold hide" style="width:100%;margin-bottom:8px" onclick="storyGoOnAfterLose()">▶ 先に進む</button>
  <div id="rDragon" class="rDragon hide"></div>
  <div id="rDraft" class="rDragon hide"></div>
+ <div id="rRaid" class="rDragon hide"></div>
  <div class="rbtns" id="rBtns"><button onclick="hideP('resultov');rematchLast()">🔁 もう一度対戦</button><button class="sec" onclick="hideP('resultov');if(FM.on)fmQuit();else menu()">メニューへ</button></div>
 </div></div>
 
@@ -2601,6 +2604,7 @@ const STORY=[
 {"ch": 4, "title": "第4章：禁断の龍", "episodes": [{"title": "龍、目覚める", "pre": [{"t": "n", "text": "龍の目覚めとともに、北の吹雪も南の雷も、いっそう激しくなった。"}, {"t": "s", "who": "雪の勇者セツ", "text": "龍の力に当てられて、魔物たちが暴れている。街へ下りるぞ"}, {"t": "s", "who": "{name}", "text": "ああ！"}], "enemy": "b2_beast", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……これで、ひとまず街の入り口は守れた"}, {"t": "s", "who": "雪の勇者セツ", "text": "龍は大陸の中心へ向かった。あそこには、南と北の境目がある"}]}, {"title": "崩壊する大陸", "pre": [{"t": "n", "text": "吹雪と雷が大陸じゅうに広がり、街も村も、嵐に飲み込まれていく。"}, {"t": "s", "who": "{name}", "text": "（{i}のせいだ……{i}が、COREを一つにしようなんて言わなければ……）"}, {"t": "s", "who": "嵐の眷属", "text": "ヒュオオオ……アラシハ、トマラナイ……"}, {"t": "s", "who": "雪の勇者セツ", "text": "考えるのはあとだ。目の前の人を守れ、{name}"}], "enemy": "b2_storm", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……龍を止めるには、俺一人の力では足りない"}, {"t": "s", "who": "雪の勇者セツ", "text": "南の王家——ライカの力が、どうしても要る"}]}, {"title": "南へ", "pre": [{"t": "s", "who": "{name}", "text": "{i}がボルテアへ戻って、ライカを連れてくる"}, {"t": "s", "who": "雪の勇者セツ", "text": "……危険だ。山脈の道は、嵐で一番荒れている"}, {"t": "s", "who": "{name}", "text": "それでも行く。これは、{i}が始めてしまったことだから"}, {"t": "s", "who": "雪の勇者セツ", "text": "……そうか。なら、俺も後から必ず行く。約束だ"}, {"t": "n", "text": "嵐の山道。岩のような巨体が、道をふさいでいた。"}, {"t": "s", "who": "峠の番人ゴウライ", "text": "ここは通さん……！ 嵐の中を進む者は、みな飲み込まれる"}], "enemy": "b2_pass", "post": [{"t": "n", "text": "番人を退け、{name}は南へ——雷の国ボルテアへと急いだ。"}]}, {"title": "ライカの決断", "pre": [{"t": "n", "text": "ボルテアの城。雷鳴の中、ライカが仁王立ちで待っていた。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "お前！ 北で何があった！？ 空がおかしいぞ！"}, {"t": "s", "who": "{name}", "text": "……全部話す。{i}のせいで、龍の封印が解けたんだ"}, {"t": "n", "text": "{name}は、COREの正体と、遺跡で見たすべてをライカに伝えた。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……そっか。やっちまったことは仕方ねぇ"}, {"t": "s", "who": "雷の勇者ライカ", "text": "だったら今度は、大陸を救うために戦うだけだろ！ 一人で背負ってんじゃねぇよ！"}, {"t": "s", "who": "王子ルカ", "text": "姉ちゃん！ 街の外に、龍の眷属が！"}, {"t": "s", "who": "雷の勇者ライカ", "text": "ちょうどいい。{name}、俺の力を貸してやる。ビリッと決めるぜ！"}], "ally": ["b2v_raika"], "enemy": "b2_drakev", "post": [{"t": "s", "who": "雷の勇者ライカ", "text": "へへっ、いい連携だったな！"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……セツのやつにも、会わなきゃな"}, {"t": "n", "text": "ライカの手札には、いつの間にか一枚のカードが残っていた。雷の勇者の、力のかけら。"}]}, {"title": "二人の勇者", "pre": [{"t": "n", "text": "吹雪をまとった青年が、ボルテアの城門をくぐった。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……約束どおり来た"}, {"t": "s", "who": "雷の勇者ライカ", "text": "セツ……！ 何年ぶりだよ、まったく"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前の先祖も、俺の先祖も、守ろうとしたのは同じものだった。……大陸だ"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……知ってるよ。今、聞いた"}, {"t": "s", "who": "雷の勇者ライカ", "text": "ケンカはもうやめだ。龍を止めるぞ、セツ"}, {"t": "s", "who": "雪の勇者セツ", "text": "……ああ。本当のCOREアトモスの力を使えば、龍に届くかもしれない"}, {"t": "n", "text": "そのとき、城の上空に、雪と雷をまとった嵐の化身が現れた。"}, {"t": "s", "who": "雪の勇者セツ", "text": "{name}。今度は、俺の力を使え"}], "ally": ["b2f_setsu"], "enemy": "b2_avatar", "post": [{"t": "s", "who": "雷の勇者ライカ", "text": "……やるじゃん、セツ"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前の大声も、たまには役に立つ"}, {"t": "s", "who": "{name}", "text": "（二人とも、本当は仲がいいんだな……）"}]}, {"title": "反撃の準備", "pre": [{"t": "n", "text": "南と北の兵士たちが、同じ旗の下に集まりはじめる。目指すは、大陸の中心の遺跡。"}, {"t": "s", "who": "王子ルカ", "text": "大変だ！ 龍が大陸の中心で、とんでもない嵐を起こしてる！"}, {"t": "s", "who": "じいや", "text": "その手前に、龍に魅入られた嵐の将が陣取っております"}, {"t": "s", "who": "雷の勇者ライカ", "text": "上等だ！ {name}、先陣はお前に任せた！"}], "enemy": "b2_general", "post": [{"t": "s", "who": "雪の勇者セツ", "text": "……道は開いた"}, {"t": "s", "who": "雷の勇者ライカ", "text": "行くぞ！ 決戦だ！"}]}], "rel": "2026-10-01"},
 {"ch": 5, "title": "第5章：二つの国の力", "episodes": [{"title": "決戦の地へ", "pre": [{"t": "n", "text": "大陸の中心。雷雲と雪雲が渦を巻く、その真下に古い遺跡があった。"}, {"t": "s", "who": "遺跡への道の番人", "text": "……龍の眠りを、二度と妨げさせはせぬ"}, {"t": "s", "who": "雪の勇者セツ", "text": "龍の力で目覚めた番人だ。気を抜くな"}], "enemy": "b2_road", "post": [{"t": "n", "text": "遺跡の上空。雷と吹雪を同時にまとった巨大な龍が、こちらを見下ろしていた。"}]}, {"title": "禁断の龍との戦い", "boss": true, "loseOk": true, "pre": [{"t": "s", "who": "雷の勇者ライカ", "text": "でけぇ……！"}, {"t": "s", "who": "雪の勇者セツ", "text": "二人で行く。{name}、俺たちの力を使え"}, {"t": "s", "who": "氷雷龍ボルブリザ", "text": "グオオオオオ……！！"}], "ally": ["b2v_raika", "b2f_setsu"], "enemy": "b2_volbriza2", "post": [{"t": "n", "text": "二人の勇者の力を合わせても、龍の嵐はやまない。遺跡が、音を立てて崩れはじめる。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "くそっ……まだ足りねぇのか！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……遺跡の最深部だ。本当のCOREを使うしかない！"}]}, {"title": "本当のCORE", "pre": [{"t": "n", "text": "崩れる遺跡の最深部。澄んだ空色の光が、静かに脈打っていた。"}, {"t": "s", "who": "{name}", "text": "これが……本当のCOREアトモス"}, {"t": "s", "who": "アトモスの守護者", "text": "……この光は、南と北が手を取り合ったときにだけ応える。お前たちに、その資格はあるか"}], "enemy": "b2_atmos", "post": [{"t": "s", "who": "アトモスの守護者", "text": "……よかろう"}, {"t": "s", "who": "雷の勇者ライカ", "text": "セツ、いくぞ！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……ああ"}, {"t": "n", "text": "ライカの雷と、セツの雪。二つの力が、アトモスへと注ぎこまれていく。"}]}, {"title": "二つの国の力", "boss": true, "pre": [{"t": "n", "text": "アトモスが輝く。けれど、その光はまだ揺らいでいた。"}, {"t": "s", "who": "雪の勇者セツ", "text": "……力が、合わさりきらない"}, {"t": "s", "who": "雷の勇者ライカ", "text": "{name}！ 最後に、お前の力を見せてくれ。俺たち二人と、本気でやり合え！"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前が、南と北をつなぐ橋になれ"}], "enemy": "b2_twins", "post": [{"t": "s", "who": "雷の勇者ライカ", "text": "……へへっ。やっぱ、お前は強ぇな"}, {"t": "s", "who": "雪の勇者セツ", "text": "……今なら、届く"}, {"t": "n", "text": "三人の想いが重なったとき、アトモスはまぶしい空色の光を放った。"}]}, {"title": "最後のバトル", "boss": true, "pre": [{"t": "n", "text": "空色の光をまとい、{name}たちは再び龍の前に立つ。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "今度こそ決めるぞ！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……雪は、すべてを静かにする"}, {"t": "s", "who": "{name}", "text": "ボルブリザ……もう、戦わなくていいんだ！"}, {"t": "s", "who": "氷雷龍ボルブリザ", "text": "グオオオオオオ……！！！"}], "ally": ["b2v_raika", "b2f_setsu"], "enemy": "b2_volbriza3", "post": [{"t": "n", "text": "最後の一撃が、龍の胸に届いた。"}, {"t": "n", "text": "ボルブリザは大きく一声鳴くと、雷と雪の光になって、空へ溶けていった。どこか、安らいだ声だった。"}]}, {"title": "ブリザルトへようこそ", "pre": [{"t": "n", "text": "荒れ狂っていた吹雪と雷が、静かにやんでいく。大陸の空に、何百年ぶりかの青空が広がった。"}, {"t": "s", "who": "雷の勇者ライカ", "text": "……晴れた。ほんとに晴れたぞ、セツ！"}, {"t": "s", "who": "雪の勇者セツ", "text": "……ああ。悪くない"}, {"t": "s", "who": "雷の勇者ライカ", "text": "これからは、南と北で行き来しようぜ。ルカも、じいやも喜ぶ"}, {"t": "s", "who": "雪の勇者セツ", "text": "……このCOREアトモスは、龍を封じるために守り続けてきたものだ。だが、龍はもういない"}, {"t": "s", "who": "雪の勇者セツ", "text": "{name}。これは、お前が持っていけ"}, {"t": "s", "who": "{name}", "text": "本当に、{i}がもらってもいいの？"}, {"t": "s", "who": "雪の勇者セツ", "text": "お前はこの大陸を救ってくれた。その力を、これからも世界のために使ってくれ"}, {"t": "s", "who": "雷の勇者ライカ", "text": "また遊びに来いよ！ 次は負けねぇからな！"}], "post": [{"t": "n", "text": "COREペリドットに並んで、空色のCOREアトモスが、{name}の手のなかで輝く。"}, {"t": "s", "who": "{name}", "text": "（二つ目のCORE……！ 世界一の宝石へ、また一歩）"}, {"t": "n", "text": "晴れわたったブリザルトの空の下、{name}の旅は、次の国へと続いていく——"}]}], "rel": "2026-10-01"}
 ];
+DECK_SLOTS=3;   // 枠の数を先に決める（これより前に loadDeck が動くと、いつも1番の枠になっていた）
 let deck=loadDeck(),filter="all",S=null,selH=null,selA=null,selE=null,pending=null,logs=[];
 /* ===== ゲーム内の入力・確認ダイアログ ===== */
 let askCb=null,yesnoCb=null;
@@ -3199,6 +3203,11 @@ function renderMenuLock(){try{titleCheck(!isIntroDone())}catch(e){}renderWheel()
      period を書くとその文字を出す。省略すると「〜10/31まで」か「常設」を自動で出す */
 const EVENTS=[
  // ===== ハロウィン（10月）=====
+ {id:"raid1",kind:"raid",open:true,icon:"💥",tag:"総力戦",
+  name:"総力戦：暴走ボルブリザ",title:"総力戦：暴走ボルブリザ",sub:"HP10万の龍を、みんなで毎日削る",
+  theme:["#5a1a2a","#120818"],accent:"#ff7a7a",start:"",end:"2026-11-17",
+  desc:"HP10万の暴走ボルブリザに、1日1回・10ターンで挑む。削ったHPは次の日に持ち越し。",
+  boss:{name:"暴走 氷雷龍ボルブリザ",card:"b2c01_cr",story:"鎮めたはずの氷雷龍が、ふたたび暴れだした。\nそのHPは、10万。1回では倒しきれない。\n毎日少しずつ削って、14日のうちに止めろ——"}},
  {id:"dragon",kind:"dragon",open:true,icon:"🐉",tag:"伝説の龍",ticket:"dragon",gachaPack:94,
   name:"伝説の龍への挑戦",title:"伝説の龍への挑戦",sub:"4体の竜と、天変地異",
   theme:["#3a2a6a","#0a1030"],accent:"#bfe9ff",start:"",end:"2026-11-30",
@@ -3333,6 +3342,7 @@ function renderEventDetail(){
  const e=curEvent;if(!e)return;
  $("evdTitle").textContent=e.name;
  if(e.kind=="dragon")return renderDragonDetail(e);
+ if(e.kind=="raid")return renderRaidDetail(e);
  const tk=eventTicket(e),got=ticketToday(tk),cap=(e.reward&&e.reward.dailyCap)||0;
  const capOver=cap&&got>=cap;
  const misN=(e.missions||[]).length,misReady=(e.missions||[]).filter(m=>!evMisOf(e.id).got.includes(m.id)&&evMisProg(e,m)>=m.goal).length;
@@ -3536,6 +3546,59 @@ function renderDraft(){const o=draftSt(),r=o.run;$("drSub").textContent="最高 
    +'<div class="drDeck">'+L.map(c=>'<div class="drDC"><span class="cCost">'+c.cost+'</span>'+escH(c.name)+'×2</div>').join("")+'</div>'
    +'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'このチャレンジを終わりにしますか？（連勝はここまで）\',draftQuit)">チャレンジを終える</button>'}
  $("drBody").innerHTML=h}
+/* ===== ランク戦のCPU（ブロンズ→マスター、各ランク2人）。強さはシミュレーションで上のランクほど強くなる順に並べた。
+   ランク戦はまだ作っていないので、今はデータだけ */
+const RANK_TIERS=[["bronze","ブロンズ"],["silver","シルバー"],["gold","ゴールド"],["platinum","プラチナ"],["diamond","ダイヤ"],["master","マスター"]];
+const RANK_CPUS=[
+ {id:"rk_mei",tier:"bronze",name:"花屋のメイ",tagline:"お花も守りも、まかせてね",aggro:0.6,deck:["b2c42", "b2c42", "b2v47", "b2v47", "b2f25", "b2f25", "b2c27", "b2c27", "b2f24", "b2f24", "b2f28", "b2f28", "b2f30", "b2f30", "b2f27", "b2f27", "b2v25", "b2v25", "b2c26", "b2c26", "b2c23", "b2c23", "b2c30", "b2c30", "b2c28", "b2c28", "b2v29", "b2v29", "b2c24", "b2c24"]},
+ {id:"rk_riku",tier:"bronze",name:"見習い剣士 リク",tagline:"まだまだ修行中です！",aggro:0.6,deck:["wsurprise", "wsurprise", "suiso", "suiso", "firestraight", "firestraight", "aichu", "aichu", "kamakamakiri", "kamakamakiri", "baikingu", "baikingu", "udon", "udon", "balloon5", "balloon5", "slime", "slime", "babygolem", "babygolem", "fukurou", "fukurou", "sonobashinobi", "sonobashinobi", "fontni", "fontni", "wolfket", "wolfket", "dashpanther", "dashpanther"]},
+ {id:"rk_gen",tier:"silver",name:"漁師のゲン",tagline:"じっくり守って、大物を釣る",aggro:0.7,deck:["b2v44", "b2v44", "b2f49", "b2f49", "b2f47", "b2f47", "shoukyuukei", "shoukyuukei", "makijack", "makijack", "tarakong", "tarakong", "b2v20", "b2v20", "b2f22", "b2f22", "b2c15", "b2c15", "komoku", "komoku", "ladyga", "ladyga", "b2f16", "b2f16", "b2c16", "b2c16", "b2c18", "b2c18", "b2f25", "b2f25"]},
+ {id:"rk_jin",tier:"silver",name:"雷小僧 ジン",tagline:"ビリビリしびれさせてやる！",aggro:1.2,deck:["b2v34", "b2v34", "b2v31", "b2v31", "b2v37", "b2v37", "b2c35", "b2c35", "b2c31", "b2c31", "b2c01", "b2c01", "b2v05", "b2v05", "b2v06", "b2v06", "b2v21", "b2v21", "b2c09", "b2c09", "b2c10", "b2c10", "b2v17", "b2v17", "b2c06", "b2c06", "b2c08", "b2c08", "b2v22", "b2v22"]},
+ {id:"rk_kotaro",tier:"gold",name:"祭囃子のコタロウ",tagline:"にぎやかに並べて押しきるぞ",aggro:1.1,deck:["tsubame", "tsubame", "gomen", "gomen", "b2c35", "b2c35", "makijack", "makijack", "suhada", "suhada", "ladyga", "ladyga", "b2f10", "b2f10", "b2c08", "b2c08", "deathhero", "deathhero", "b2v06", "b2v06", "b2v21", "b2v21", "boseki", "boseki", "ikiru", "ikiru", "boen", "boen", "heavylancer", "heavylancer"]},
+ {id:"rk_bakushin",tier:"gold",name:"炎のバクシン",tagline:"燃やしつくしてやる！",aggro:1.2,deck:["kanpou", "kanpou", "b2v31", "b2v31", "tsubame", "tsubame", "gomen", "gomen", "makijack", "makijack", "b2c10", "b2c10", "deathhero", "deathhero", "suhada", "suhada", "b2v06", "b2v06", "ikiru", "ikiru", "boen", "boen", "b2v23", "b2v23", "b2c06", "b2c06", "b2f10", "b2f10", "gaikotsu", "gaikotsu"]},
+ {id:"rk_gard",tier:"platinum",name:"鉄拳のガルド",tagline:"正面から叩きつぶす",aggro:1.2,deck:["b2v31", "b2v31", "kanpou", "kanpou", "b2c31", "b2c31", "hontou", "hontou", "b2v03", "b2v03", "b2c03", "b2c03", "makijack", "makijack", "suhada", "suhada", "deathhero", "deathhero", "b2c10", "b2c10", "boen", "boen", "b2f10", "b2f10", "ikiru", "ikiru", "b2v06", "b2v06", "ladyga", "ladyga"]},
+ {id:"rk_kagero",tier:"platinum",name:"策士 カゲロウ",tagline:"すべては計算どおり",aggro:0.9,deck:["b2c32", "b2c32", "firecurve", "firecurve", "jirasanaide", "jirasanaide", "choi", "choi", "kaijou", "kaijou", "b2f35", "b2f35", "makijack", "makijack", "ladyga", "ladyga", "suhada", "suhada", "b2c08", "b2c08", "b2c14", "b2c14", "deathhero", "deathhero", "babydragon", "babydragon", "b2f10", "b2f10", "boseki", "boseki"]},
+ {id:"rk_shirayuki",tier:"diamond",name:"氷の令嬢 シラユキ",tagline:"凍りつく覚悟はできて？",aggro:0.8,deck:["b2c31", "b2c31", "b2f31", "b2f31", "b2c34", "b2c34", "b2c33", "b2c33", "b2c01", "b2c01", "b2c07", "b2c07", "b2f10", "b2f10", "b2f22", "b2f22", "b2f11", "b2f11", "b2f08", "b2f08", "b2c13", "b2c13", "b2f12", "b2f12", "b2f07", "b2f07", "b2c08", "b2c08", "b2f19", "b2f19"]},
+ {id:"rk_minato",tier:"diamond",name:"双剣のミナト",tagline:"二本の刃からは逃げられない",aggro:0.9,deck:["b2v36", "b2v36", "lastpower", "lastpower", "quickorder", "quickorder", "makijack", "makijack", "ladyga", "ladyga", "b2c20", "b2c20", "tarakong", "tarakong", "b2v21", "b2v21", "boseki", "boseki", "mucha", "mucha", "b2v20", "b2v20", "katatsumura", "katatsumura", "heavylancer", "heavylancer", "babydragon", "babydragon", "b2f22", "b2f22"]},
+ {id:"rk_rune",tier:"master",name:"古代の賢者 ルーン",tagline:"千年の知恵、受けてみよ",aggro:0.8,deck:["uriega", "uriega", "b2v31", "b2v31", "kanpou", "kanpou", "kami", "kami", "jirasanaide", "jirasanaide", "suhada", "suhada", "makijack", "makijack", "ikiru", "ikiru", "b2f10", "b2f10", "ladyga", "ladyga", "tarakong", "tarakong", "boen", "boen", "b2c15", "b2c15", "boseki", "boseki", "b2v10", "b2v10"]},
+ {id:"rk_reina",tier:"master",name:"無冠の女王 レイナ",tagline:"頂点で待っているわ",aggro:1.0,deck:["b2c31", "b2c31", "b2f31", "b2f31", "uriega", "uriega", "mimi", "mimi", "b2c01", "b2c01", "b2f02", "b2f02", "makijack", "makijack", "suhada", "suhada", "b2f12", "b2f12", "b2c07", "b2c07", "b2c09", "b2c09", "b2f08", "b2f08", "b2f11", "b2f11", "b2v06", "b2v06", "ikiru", "ikiru"]}];
+/* ===== 総力戦「暴走 氷雷龍ボルブリザ」 =====
+   ボスのHPは10万で、削った分は次の日に持ち越し。1日1回・10ターン制限。期間14日。
+   25・50・75%で💎300、倒すと💎3000＋称号＋ボルブリザのCRアイコン。保存 cmRaid */
+const RAID={id:"raid1",ev:"raid1",hp:100000,limit:10,gem:3000,ms:[[25,300],[50,300],[75,300]],icon:"b2c01_cr"};
+let raidCtx=null;
+function raidSt(){let o=null;try{o=JSON.parse(store.get("cmRaid")||"null")}catch(e){}if(!o||o.id!==RAID.id)o={id:RAID.id,hp:RAID.hp,dealt:0,best:0,day:"",ms:{},cleared:0,tries:0};o.ms=o.ms||{};return o}
+function raidSave(o){store.set("cmRaid",JSON.stringify(o))}
+function raidOpen(){const e=eventById(RAID.ev);return !!e&&eventInPeriod(e)}
+function raidCanTry(){const o=raidSt();return raidOpen()&&!o.cleared&&o.day!==todayStr()}
+function extraIcons(){try{return JSON.parse(store.get("cmIconsX")||"[]")||[]}catch(e){return[]}}
+function unlockIcon(id){const a=extraIcons();if(!a.includes(id)){a.push(id);store.set("cmIconsX",JSON.stringify(a))}}
+function raidStart(){if(!raidCanTry()){sfx("no");log2Toast(raidSt().cleared?"もう倒しました！":"今日の挑戦は終わりました（また明日）");return}
+ const o=raidSt();o.day=todayStr();o.tries=(o.tries||0)+1;raidSave(o);raidCtx={start:o.hp};
+ const opp={id:"raid_vol",name:"暴走 氷雷龍ボルブリザ",tagline:RAID.limit+"ターンで、どれだけ削れるか",aggro:1.0,hp:o.hp,raidLimit:RAID.limit,
+  bossCard:"b2c01_cr",bossLine:"「グオオオオオ……！！」",deck:[...DR_DECK.volbriza_a]};
+ sfx("sel");eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;prematch(opp)}
+function raidOnResult(w){const box=$("rRaid"),btns=$("rBtns");if(!raidCtx||!S||!S.raid){box.classList.add("hide");return}
+ const st=raidCtx.start;raidCtx=null;const dealt=Math.max(0,Math.min(st,st-Math.max(0,S.chp)));const o=raidSt();
+ o.hp=Math.max(0,o.hp-dealt);o.dealt=(o.dealt||0)+dealt;o.best=Math.max(o.best||0,dealt);const notes=[];
+ RAID.ms.forEach(([pc,g])=>{if(!o.ms[pc]&&o.dealt>=RAID.hp*pc/100){o.ms[pc]=1;addCrystal(g,"総力戦 "+pc+"%");notes.push(pc+"%達成 💎+"+g)}});
+ let killed=false;if(o.hp<=0&&!o.cleared){o.cleared=1;killed=true;addCrystal(RAID.gem,"総力戦 撃破");unlockIcon(RAID.icon);try{ttSet("raid1",1)}catch(e){}notes.push("撃破！ 💎+"+RAID.gem+"・ボルブリザのアイコン")}
+ try{const t=ttStats();t.raidBest=Math.max(t.raidBest||0,dealt);ttSave(t)}catch(e){}raidSave(o);
+ const t=$("rTitle");if(killed){t.textContent="撃破！";t.className="rtitle dot winc"}else if(w==="time"){t.textContent="TIME UP";t.className="rtitle dot winc"}
+ $("rSub").textContent="今回のダメージ "+dealt.toLocaleString();
+ box.classList.remove("hide");btns.classList.add("hide");
+ box.innerHTML='<div class="drRes">残りHP <b>'+o.hp.toLocaleString()+'</b> / '+RAID.hp.toLocaleString()+'</div>'
+  +'<div class="raidBar"><span style="width:'+Math.round(o.hp/RAID.hp*100)+'%"></span></div>'
+  +notes.map(x=>'<div class="drRes drTp">'+x+'</div>').join("")
+  +'<button class="gold" onclick="hideP(\'resultov\');openEventDetail(\'raid1\')">総力戦の画面へ</button>'}
+function renderRaidDetail(e){const o=raidSt(),left=Math.round(o.hp/RAID.hp*100),can=raidCanTry();
+ const msRow=RAID.ms.map(([pc,g])=>'<div class="drStep">'+pc+'%削る<span>'+(o.ms[pc]?'✓ 受け取り済み':'💎'+g)+'</span></div>').join("");
+ $("evdBody").innerHTML='<div class="evList"><div class="evStory">'+e.boss.story.replace(/\n/g,"<br>")+'</div>'
+  +'<section class="gBlock evCard open evStage" style="--g1:#5a1a2a;--g2:#120818;--ga:#ff7a7a"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES.b2c01_cr||"")+')"></div><div class="gbPeriod">'+(o.cleared?"撃破済み ✓":"1日1回")+'</div><div class="gbTitle">暴走 氷雷龍ボルブリザ</div><div class="gbSub">HP '+RAID.hp.toLocaleString()+'・'+RAID.limit+'ターン制限・HPは持ち越し</div></div>'
+  +'<div class="gBody"><div class="drRes">残りHP <b>'+o.hp.toLocaleString()+'</b>（'+left+'%）</div><div class="raidBar"><span style="width:'+left+'%"></span></div>'
+  +'<div class="evStat"><div><div class="sK">今日の挑戦</div><div class="sV">'+(o.day===todayStr()?"済":"まだ")+'</div></div><div><div class="sK">最高ダメージ</div><div class="sV">'+(o.best||0).toLocaleString()+'</div></div><div><div class="sK">挑戦回数</div><div class="sV">'+(o.tries||0)+'</div></div></div>'
+  +'<div class="drSteps">'+msRow+'<div class="drStep">撃破<span>'+(o.cleared?'✓':'💎'+RAID.gem+'＋称号＋CRアイコン')+'</span></div></div>'
+  +'<button type="button" class="gold evGoBtn" '+(can?'':'disabled ')+'onclick="raidStart()">'+(o.cleared?'撃破しました！':can?'挑戦する ▶（今日の1回）':'今日の挑戦は終わり（また明日）')+'</button></div></section></div>'}
 /* ===== へんてこバトル =====
    1試合ごとに、ランダムな特別ルールが1つつく。自分のデッキで、ランダムなCPUと戦う。
    報酬：1日3勝まで、勝つたびに💎100。ルールは S.rule に入り、対戦のあちこちで見る */
@@ -3579,8 +3642,8 @@ function htOnSummon(c,side){const k=S&&S.rule;if(!k||c.type!="monster")return;co
 function htOnResult(won){if(!S||!S.rule)return;const o=htSt();if(won){o.wins=(o.wins||0)+1;if(o.wins<=HT_DAILY){addCrystal(HT_GEM,"へんてこバトル");try{log2Toast("へんてこバトル 💎+"+HT_GEM+"（今日 "+o.wins+"/"+HT_DAILY+"）")}catch(e){}}
   try{const t=ttStats();t.htWins=(t.htWins||0)+1;ttSave(t)}catch(e){}}store.set("cmHT",JSON.stringify(o))}
 /* ===== アイコン（持っているカードの顔を、丸く切り抜いて使う。CR・プロモ・別イラストはなし） ===== */
-function iconCards(){return P.filter(c=>!c.baseId&&c.rarity!="CR"&&!c.promo&&!c.event&&!c.bossOnly&&!c.gItem&&!c.passS&&c.type=="monster"&&CARD_IMAGES[c.id]&&ownedCount(c.id)>0)}
-function myIcon(){const id=store.get("cmIcon");return id&&by(id)&&CARD_IMAGES[id]?id:null}
+function iconCards(){const x=extraIcons().map(by).filter(c=>c&&CARD_IMAGES[c.id]);return x.concat(P.filter(c=>!c.baseId&&c.rarity!="CR"&&!c.promo&&!c.event&&!c.bossOnly&&!c.gItem&&!c.passS&&c.type=="monster"&&CARD_IMAGES[c.id]&&ownedCount(c.id)>0))}
+function myIcon(){const id=store.get("cmIcon");return id&&by(id)&&CARD_IMAGES[id]&&(by(id).rarity!="CR"||extraIcons().includes(id))?id:null}
 function iconHtml(id,sz){sz=sz||48;const im=id&&CARD_IMAGES[id];return im?'<span class="pIcon" style="width:'+sz+'px;height:'+sz+'px"><img src="'+im+'" alt=""></span>':'<span class="pIcon pIconNo" style="width:'+sz+'px;height:'+sz+'px">👤</span>'}
 function setIcon(id){store.set("cmIcon",id);sfx("sel");renderStats()}
 /* ===== 戦績 ===== */
@@ -5333,6 +5396,8 @@ const TITLES=[
  {id:"t_draft5",name:"即席の名手",c:"silver",cond:"ドラフトチャレンジで5連勝する",ok:()=>(T().draftBest||0)>=5},
  {id:"t_draft10",name:"ドラフト王",c:"jet",cond:"ドラフトチャレンジで10連勝する",ok:()=>(T().draftBest||0)>=10},
  {id:"t_ht10",name:"へんてこ名人",c:"silver",cond:"へんてこバトルで10回勝つ",ok:()=>(T().htWins||0)>=10},
+ {id:"t_raid1",name:"暴走を止めし者",c:"jet",cond:"総力戦で、暴走ボルブリザを倒す",ok:()=>!!T().raid1},
+ {id:"t_raidhit",name:"一撃の重み",c:"rainbow",cond:"総力戦の1回の挑戦で、30,000以上のダメージを与える",ok:()=>(T().raidBest||0)>=30000},
  {id:"t_vol1",name:"定めを覆す者",c:"jet",cond:"第3章で、HP22000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol1},
  {id:"t_vol2",name:"不可能を可能にする者",c:"rainbow",cond:"第5章で、HP25000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol2},
  {id:"t_volbriza",name:"龍を鎮めし者",c:"jet",cond:"ストーリーで氷雷龍ボルブリザ（最終決戦）に勝つ",ok:()=>storyProgress().includes("5-4")},
@@ -5379,14 +5444,14 @@ function titleTap(id){const o=tState(),t=titleById(id);if(!t||!o.got[id])return;
 function renderHomeName(){const el=$("homeName");if(!el)return;if(!player){el.innerHTML="";return}
  const t=titleEquipped();el.innerHTML=titleTagHtml(t)+titleNameHtml(player.name,t)}
 // 対戦の結果を記録する（勝ち負け・とどめ・ボスなど）
-function statMode(friend){return friend?"friend":draftCtx?"draft":(drCtx||eventBattleId)?"event":storyContext?"story":(S&&S.rule)?"henteko":"random"}
+function statMode(friend){return friend?"friend":draftCtx?"draft":(drCtx||eventBattleId||(S&&S.raid))?"event":storyContext?"story":(S&&S.rule)?"henteko":"random"}
 function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
  try{const md=statMode(friend);o.mode=o.mode||{};const x=o.mode[md]=o.mode[md]||{w:0,l:0};won?x.w++:x.l++;
   if(["random","story","event","henteko","friend"].includes(md)&&!(S.rule=="random")){o.slot=o.slot||{};const sl=curSlot(),y=o.slot[sl]=o.slot[sl]||{w:0,l:0};won?y.w++:y.l++}
   if(!friend&&S.opp&&S.opp.name){o.opp=o.opp||{};const nm=String(S.opp.name).slice(0,30),z=o.opp[nm]=o.opp[nm]||{w:0,l:0};won?z.w++:z.l++}
   if(S.playCnt){o.play=o.play||{};Object.entries(S.playCnt).forEach(([k,n])=>o.play[k]=(o.play[k]||0)+n)}}catch(e){}
  if(friend){o.fGames=(o.fGames||0)+1;if(won)o.fWins=(o.fWins||0)+1}
- else{if(won){o.wins=(o.wins||0)+1;o.streak=(o.streak||0)+1;o.best=Math.max(o.best||0,o.streak)}else{o.losses=(o.losses||0)+1;o.streak=0}}
+ else if(!S.raid){if(won){o.wins=(o.wins||0)+1;o.streak=(o.streak||0)+1;o.best=Math.max(o.best||0,o.streak)}else{o.losses=(o.losses||0)+1;o.streak=0}}
  if(won){
   const tn=(typeof pturn=="function")?pturn():9;
   if(tn<=5)o.fast5=1;if(tn<=3)o.fast3=1;
@@ -5850,6 +5915,7 @@ function start(personality,fixed){
  for(let i=0;i<5;i++){draw("p",true);draw("c",true)}
  if(opp.hp){S.chp=opp.hp;S.cMax=opp.hp}
  if(opp.phpStart)S.php=opp.phpStart;   // 龍の挑戦：通常版から引き継いだHP
+ if(opp.raidLimit){S.raid=1;S.raidLimit=opp.raidLimit}   // 総力戦：ターン制限
  if(S.rule)htSetupAfter();
  {const ep=storyContext?(((STORY[storyContext.chIdx]||{}).episodes||[])[storyContext.epIdx]||null):null;
   if(ep&&ep.ally)ep.ally.forEach(id=>{const c=by(id);if(c){S.ph.push({...cp(c),uid:Math.random()});log("「"+c.name+"」が力を貸してくれた！")}})}
@@ -6690,6 +6756,7 @@ async function endTurn(){if(FM.on&&FM.role=="guest")return fmGuestEnd();
  if(S&&!S.over){
   S.turn++;S.max=Math.min(10,S.max+(S.rule=="core"?2:1));S.cost=S.max;S.active="p";
   if(S.tn)S.tn.p++;                                  // 自分のターンが始まる
+  if(S.raidLimit&&S.tn&&S.tn.p>S.raidLimit){S.busy=false;log("⏱ "+S.raidLimit+"ターンが終わった！");result("time");return}
   S.phase="main1";phaseCutIn("main1","p");
   suddenDeath("p");chk();
   S.pDef2=false;S.pDefBonus=0;S.pShield=false;S.pOnce=false;S.cOnce=false;
@@ -6935,6 +7002,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  try{drOnResult(w===true)}catch(e){}
  try{draftOnResult(w===true)}catch(e){}
  try{htOnResult(w===true)}catch(e){}
+ try{raidOnResult(w)}catch(e){}
  if(storyContext){
   const ctx=storyContext;
   if(w===true){
