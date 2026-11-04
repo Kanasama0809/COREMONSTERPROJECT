@@ -149,8 +149,22 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .m4grid8 .m4 .m4nm{font-size:11px;white-space:nowrap}
 /* ホームのバナー */
 .homeBanner{position:relative;z-index:2;margin:8px 8px 0;flex:0 0 auto}
+/* 戦績・アイコン */
+.pIcon{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;overflow:hidden;flex:0 0 auto;background:#0a1526;border:2px solid #3a5a80;vertical-align:middle}
+.pIcon img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;transform:scale(1.35)}
+.pIconNo{font-size:22px}
+.stCard{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:#10203a;border:1px solid #2c4568;margin-bottom:10px}
+.stWho{flex:1;min-width:0}.stName{font-size:17px;font-weight:800}.stIconBtn{min-height:40px;padding:0 12px}
+.stIcons{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:0 0 10px;padding:10px;border-radius:12px;background:#0a1526}
+.stIc{background:none;border:0;padding:2px;border-radius:50%;min-height:44px}.stIc.on .pIcon{border-color:#ffd84a;box-shadow:0 0 0 2px #ffd84a}
+.stBox{padding:10px 12px;border-radius:12px;background:#10203a;margin-bottom:10px}
+.stH{font-weight:800;font-size:13px;color:#9fb6d6;margin-bottom:6px}
+.stGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;font-size:11px;color:#9fb6d6}.stGrid b{display:block;font-size:18px;color:#eaf2ff}
+.stRow{display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid #1c3050;font-size:13px}.stRow:first-of-type{border-top:0}
+.stRank{width:16px;text-align:center;font-weight:800;color:#ffd84a}.stNm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.stV{color:#cfe0f5;font-weight:700;white-space:nowrap}
+.stEmpty{font-size:12px;color:#9fb6d6;padding:4px 0}
 /* ひとりで・ドラフト */
-.bt-dr{--bc:#9fdcff}
+.bt-dr{--bc:#9fdcff}.bt-ht{--bc:#ff9ad8}
 .kwBar{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 2px}
 .kwB{min-height:32px;padding:0 10px;border-radius:99px;border:1px solid #3a5a80;background:#10203a;color:#cfe0f5;font:inherit;font-size:12px;font-weight:700}
 .kwB.on{background:#ffd84a;color:#1a1a1a;border-color:#ffd84a}
@@ -1409,7 +1423,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.15.0</div>
+ <div class="tVer" id="tVer">ver.5.16.0</div>
 </div>
 
 <div id="app">
@@ -1569,10 +1583,17 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
   <button type="button" class="btCard bt-cpu" onclick="menuGo(1)"><span class="btTtl">ランダムバトル</span><span class="btSub">好きなデッキでCPUと一戦</span></button>
   <button type="button" class="btCard bt-st" onclick="continueStory()"><span class="btTtl">ストーリー</span><span class="btSub" id="btStSub">つづきから</span></button>
   <button type="button" class="btCard bt-ev" onclick="menuGo(2)"><img id="btEvImg" class="btImg" alt=""><span class="btTtl">イベント</span><span class="btSub" id="btEvSub">ボスバトル</span><span id="btEvBadge" class="pBadge hide">!</span></button>
+  <button type="button" class="btCard bt-ht" onclick="htStart()"><span class="btTtl">へんてこバトル</span><span class="btSub" id="btHtSub">毎回ランダムなルールで戦う</span></button>
   <button type="button" class="btCard bt-dr" onclick="openDraft()"><span class="btTtl">ドラフトチャレンジ</span><span class="btSub" id="btDrSub">その場でデッキを作って連勝をめざす</span></button>
  </div>
  <button type="button" class="deckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="btDeckName2"></span><span class="dlGo">変える ▶</span></button>
  <div class="foot"><button type="button" class="sec" onclick="openBattleTab()">戻る</button></div>
+</div>
+
+<div id="stats" class="hide">
+ <div class="editorHead"><h1>戦績</h1></div>
+ <div id="statsBody"></div>
+ <div class="foot"><button type="button" class="sec" onclick="openMenuTab()">戻る</button></div>
 </div>
 
 <div id="draft" class="hide">
@@ -1585,6 +1606,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="editorHead"><h1>メニュー</h1></div>
  <div class="mtGrid">
   <button type="button" class="mtBtn" onclick="menuGo(7)"><span class="mtT">タスク</span><span class="mtS" id="mtTasks">毎日・毎週</span><span class="pBadge hide" id="mtTasksB"></span></button>
+  <button type="button" class="mtBtn" onclick="sfx('sel');openStats()"><span class="mtT">戦績</span><span class="mtS">勝率・よく使うカード</span></button>
   <button type="button" class="mtBtn" onclick="menuGo(10)"><span class="mtT">称号</span><span class="mtS" id="mtTitles"></span><span class="pBadge hide" id="mtTitlesB"></span></button>
   <button type="button" class="mtBtn" onclick="menuGo(4)"><span class="mtT">図鑑</span><span class="mtS" id="mtCodex"></span></button>
   <button type="button" class="mtBtn" onclick="menuGo(5)"><span class="mtT">石版</span><span class="mtS">用語集</span></button>
@@ -1916,7 +1938,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.15.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.16.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3063,7 +3085,7 @@ function treeBurst(){
 
 /* ===== 下のタブ（ホーム・ストーリー・対戦・ガチャ・メニュー） =====
    タブの画面と、そこから開く画面で出す。対戦中・会話・チュートリアル・序章クリア前は隠す */
-const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
+const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",stats:"more",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
  gacha:"gacha",exchange:"gacha",menuTab:"more",tasks:"more",titles:"more",codex:"more",tablet:"more",presents:"more",news:"more",edit:"more",pass:"home"};
 function tabGo(k){if(!isIntroDone())return;sfx("sel");
  if(k=="home")menu();else if(k=="story")menuGo(0);else if(k=="battle")openBattleTab();else if(k=="gacha")menuGo(6);else if(k=="more")openMenuTab();syncTab()}
@@ -3079,7 +3101,7 @@ function syncTab(){const bar=$("tabBar");if(!bar)return;const sc=curScreen();
 setInterval(()=>{try{syncTab()}catch(e){}},300);
 function openBattleTab(){hideAll();$("battleTab").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
 function openSolo(){if(!isIntroDone()){sfx("no");log2Toast("序章をクリアすると解放されます");return}hideAll();$("soloHub").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
-function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());try{$("btDeckName2").textContent=deckSlotName(curSlot());const n=evMisReadyCount();$("btSoloBadge").classList.toggle("hide",!n);$("btDrSub").textContent=draftSub()}catch(e){}
+function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());try{$("btDeckName2").textContent=deckSlotName(curSlot());const n=evMisReadyCount();$("btSoloBadge").classList.toggle("hide",!n);$("btDrSub").textContent=draftSub();$("btHtSub").textContent=htSub()}catch(e){}
  try{const ev=eventsActive()[0];if(ev){const im=eventArtImg(ev);$("btEvImg").src=im||"";$("btEvImg").classList.toggle("hide",!im);$("btEvSub").textContent=(ev.title||ev.name)+(eventsActive().length>1?" ほか":"")}
   else{$("btEvImg").classList.add("hide");$("btEvSub").textContent="開催中のイベントはありません"}}catch(e){}
  try{const n=evMisReadyCount();$("btEvBadge").classList.toggle("hide",!n)}catch(e){}
@@ -3514,6 +3536,74 @@ function renderDraft(){const o=draftSt(),r=o.run;$("drSub").textContent="最高 
    +'<div class="drDeck">'+L.map(c=>'<div class="drDC"><span class="cCost">'+c.cost+'</span>'+escH(c.name)+'×2</div>').join("")+'</div>'
    +'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'このチャレンジを終わりにしますか？（連勝はここまで）\',draftQuit)">チャレンジを終える</button>'}
  $("drBody").innerHTML=h}
+/* ===== へんてこバトル =====
+   1試合ごとに、ランダムな特別ルールが1つつく。自分のデッキで、ランダムなCPUと戦う。
+   報酬：1日3勝まで、勝つたびに💎100。ルールは S.rule に入り、対戦のあちこちで見る */
+const HT_RULES=[
+ {k:"blizzard",icon:"❄️",name:"吹雪の日",desc:"毎ターンのはじめ、ランダムな相手モンスター1体が凍結する"},
+ {k:"thunder",icon:"⚡",name:"雷雨の日",desc:"モンスターが攻撃するたび、持ち主に500ダメージ"},
+ {k:"sunny",icon:"☀️",name:"快晴の日",desc:"お互い、自分のターンのはじめにHP+500"},
+ {k:"storm",icon:"🌪",name:"大嵐の日",desc:"ターンの終わりに、全てのモンスターのDEF-500"},
+ {k:"calm",icon:"🍃",name:"凪の日",desc:"突撃が使えない（出したターンは攻撃できない）"},
+ {k:"short",icon:"⏱",name:"短期決戦",desc:"お互いHP5000から"},
+ {k:"charge",icon:"🐎",name:"全員突撃",desc:"出したモンスターは全部、突撃を持つ"},
+ {k:"blood",icon:"🩸",name:"命をけずる呪文",desc:"呪文のコストは0。かわりに、もとのコスト×500のHPを払う"},
+ {k:"fort",icon:"🏯",name:"中央の要塞",desc:"中央のモンスターはDEF+2000"},
+ {k:"core",icon:"💠",name:"コアあふれ",desc:"毎ターン、コアが2ずつ増える"},
+ {k:"nospell",icon:"🚫",name:"呪文禁止",desc:"お互いのデッキの呪文が、全部モンスターに入れかわる"},
+ {k:"random",icon:"🎲",name:"ランダムデッキ",desc:"お互い、その場でランダムな30枚で戦う"},
+ {k:"bighand",icon:"🃏",name:"大盤ぶるまい",desc:"最初の手札が8枚"}];
+const HT_DAILY=3,HT_GEM=100;
+function htRule(){return S&&S.rule?HT_RULES.find(r=>r.k==S.rule):null}
+function htSt(){let o={};try{o=JSON.parse(store.get("cmHT")||"{}")||{}}catch(e){o={}}if(o.day!==todayStr()){o.day=todayStr();o.wins=0}return o}
+function htSub(){const o=htSt();return "毎回ランダムなルール　今日の💎 "+Math.min(o.wins,HT_DAILY)+" / "+HT_DAILY+"勝"}
+function htPool(type){return P.filter(c=>c.type==type&&isVisible(c)&&!c.baseId&&c.rarity!="CR"&&!c.promo&&!c.event)}
+function htRandomDeck(){const pool=P.filter(c=>isVisible(c)&&!c.baseId&&c.rarity!="CR"&&!c.promo&&!c.event&&(c.type=="monster"||c.type=="spell"));const out=[],fam={};let g=0;
+ while(out.length<30&&g++<5000){const c=pool[Math.random()*pool.length|0];const f=familyId(c.id);if((fam[f]||0)>=2)continue;fam[f]=(fam[f]||0)+1;out.push(c.id)}return out}
+function htStart(){if(!isIntroDone())return;const r=HT_RULES[Math.random()*HT_RULES.length|0];const L=PERSONALITIES;const b=L[Math.random()*L.length|0];
+ const opp={...b,id:"ht_"+b.id,rule:r.k,tagline:r.icon+" "+r.name+"："+r.desc};sfx("sel");eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;prematch(opp)}
+// 対戦の始め（手札を配る前）：デッキが変わるルール
+function htSetupDecks(mk){const k=S.rule;if(!k)return;
+ if(k=="random"){S.pd=mk(htRandomDeck());S.cd=mk(htRandomDeck())}
+ if(k=="nospell"){const mons=htPool("monster");["pd","cd"].forEach(key=>{S[key]=S[key].map(c=>c.type=="spell"?{...cp(mons[Math.random()*mons.length|0]),uid:Math.random()}:c)})}}
+// 手札を配ったあと
+function htSetupAfter(){const r=htRule();if(!r)return;
+ if(r.k=="short"){S.php=5000;S.chp=5000}
+ if(r.k=="bighand")for(let i=0;i<3;i++){draw("p",true);draw("c",true)}
+ log("🌀 へんてこルール「"+r.name+"」："+r.desc);try{log2Toast(r.icon+" "+r.name)}catch(e){}}
+// 出したとき
+function htOnSummon(c,side){const k=S&&S.rule;if(!k||c.type!="monster")return;const B=b2B(side),me=B.find(m=>m&&m.uid===c.uid);if(!me)return;
+ if(k=="charge")grantCharge(me);
+ if(k=="calm"){me.charge=0;me.used=true;me.attacks=0}}
+// 結果：勝ったら💎（1日3勝まで）
+function htOnResult(won){if(!S||!S.rule)return;const o=htSt();if(won){o.wins=(o.wins||0)+1;if(o.wins<=HT_DAILY){addCrystal(HT_GEM,"へんてこバトル");try{log2Toast("へんてこバトル 💎+"+HT_GEM+"（今日 "+o.wins+"/"+HT_DAILY+"）")}catch(e){}}
+  try{const t=ttStats();t.htWins=(t.htWins||0)+1;ttSave(t)}catch(e){}}store.set("cmHT",JSON.stringify(o))}
+/* ===== アイコン（持っているカードの顔を、丸く切り抜いて使う。CR・プロモ・別イラストはなし） ===== */
+function iconCards(){return P.filter(c=>!c.baseId&&c.rarity!="CR"&&!c.promo&&!c.event&&!c.bossOnly&&!c.gItem&&!c.passS&&c.type=="monster"&&CARD_IMAGES[c.id]&&ownedCount(c.id)>0)}
+function myIcon(){const id=store.get("cmIcon");return id&&by(id)&&CARD_IMAGES[id]?id:null}
+function iconHtml(id,sz){sz=sz||48;const im=id&&CARD_IMAGES[id];return im?'<span class="pIcon" style="width:'+sz+'px;height:'+sz+'px"><img src="'+im+'" alt=""></span>':'<span class="pIcon pIconNo" style="width:'+sz+'px;height:'+sz+'px">👤</span>'}
+function setIcon(id){store.set("cmIcon",id);sfx("sel");renderStats()}
+/* ===== 戦績 ===== */
+function openStats(){hideAll();$("stats").classList.remove("hide");$("app").scrollTop=0;renderStats();syncTab()}
+let statsIconOpen=false;
+function renderStats(){const o=ttStats(),t=titleEquipped();const pct=(w,l)=>w+l?Math.round(w/(w+l)*100)+"%":"—";
+ const W=(o.wins||0)+(o.fWins||0),Lo=(o.losses||0)+((o.fGames||0)-(o.fWins||0));
+ const MODES=[["random","ランダムバトル"],["story","ストーリー"],["event","イベント"],["draft","ドラフト"],["henteko","へんてこバトル"],["friend","フレンド"]];
+ const top=(obj,n)=>Object.entries(obj||{}).filter(([k])=>by(k)).sort((a,b)=>b[1]-a[1]).slice(0,n);
+ const cardRow=([id,n],i)=>{const c=by(id);return '<div class="stRow"><span class="stRank">'+(i+1)+'</span>'+iconHtml(CARD_IMAGES[id]?id:null,32)+'<span class="stNm">'+escH(c.name)+'</span><span class="stV">'+n+'回</span></div>'};
+ const used=top(o.play,5),fin=top(o.fin,5);
+ const opps=Object.entries(o.opp||{}).sort((a,b)=>(b[1].w+b[1].l)-(a[1].w+a[1].l)).slice(0,5);
+ let h='<div class="stCard">'+iconHtml(myIcon(),64)+'<div class="stWho"><div class="stTitle">'+titleTagHtml(t)+'</div><div class="stName">'+titleNameHtml((player&&player.name)||"あなた",t)+'</div></div>'
+  +'<button type="button" class="sec stIconBtn" onclick="statsIconOpen=!statsIconOpen;renderStats()">'+(statsIconOpen?'閉じる':'アイコン')+'</button></div>';
+ if(statsIconOpen){const L=iconCards();h+='<div class="stIcons">'+(L.length?L.map(c=>'<button type="button" class="stIc'+(myIcon()==c.id?' on':'')+'" onclick="setIcon(\''+c.id+'\')">'+iconHtml(c.id,52)+'</button>').join(""):'<div class="stEmpty">持っているカードの顔がアイコンになります</div>')+'</div>'}
+ h+='<div class="stBox"><div class="stH">全体</div><div class="stGrid"><div><b>'+(W+Lo)+'</b>対戦</div><div><b>'+W+'</b>勝ち</div><div><b>'+pct(W,Lo)+'</b>勝率</div><div><b>'+(o.best||0)+'</b>最高連勝</div></div></div>';
+ h+='<div class="stBox"><div class="stH">遊び方ごと</div>'+MODES.map(([k,nm])=>{const x=(o.mode||{})[k]||{w:0,l:0};return '<div class="stRow"><span class="stNm">'+nm+'</span><span class="stV">'+x.w+'勝 '+x.l+'敗　'+pct(x.w,x.l)+'</span></div>'}).join("")+'</div>';
+ h+='<div class="stBox"><div class="stH">よく使うカード</div>'+(used.length?used.map(cardRow).join(""):'<div class="stEmpty">これからの対戦で数えます</div>')+'</div>';
+ h+='<div class="stBox"><div class="stH">とどめを刺したカード</div>'+(fin.length?fin.map(cardRow).join(""):'<div class="stEmpty">まだありません</div>')+'</div>';
+ h+='<div class="stBox"><div class="stH">デッキごと</div>'+deckSlots().map((sl,i)=>{const x=(o.slot||{})[i]||{w:0,l:0};return '<div class="stRow"><span class="stNm">'+escH(deckSlotName(i))+'</span><span class="stV">'+x.w+'勝 '+x.l+'敗　'+pct(x.w,x.l)+'</span></div>'}).join("")+'</div>';
+ h+='<div class="stBox"><div class="stH">よく戦う相手</div>'+(opps.length?opps.map(([nm,x])=>'<div class="stRow"><span class="stNm">'+escH(nm)+'</span><span class="stV">'+x.w+'勝 '+x.l+'敗</span></div>').join(""):'<div class="stEmpty">これからの対戦で数えます</div>')+'</div>';
+ h+='<div class="stBox"><div class="stH">最高記録</div><div class="stRow"><span class="stNm">ドラフトの最高連勝</span><span class="stV">'+(o.draftBest||0)+'連勝</span></div><div class="stRow"><span class="stNm">へんてこバトルの勝ち</span><span class="stV">'+(o.htWins||0)+'勝</span></div></div>';
+ $("statsBody").innerHTML=h}
 function tryRandomBattle(){
  if(!isIntroDone()){sfx("sel");log2Toast("序章をクリアすると解放されます");return}
  prematch();
@@ -3952,7 +4042,7 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
@@ -4965,11 +5055,14 @@ function applyFreeze(side,i,src){const m=b2B(side)[i];if(!m)return;m.freeze=1;
 function applyShock(side,i,x,src){const m=b2B(side)[i];if(!m||!x)return;m.shock=Math.max(m.shock||0,x);m.shockLife=(S.active==side)?2:1;
  log((src?src+"：":"")+m.name+"に【感電"+m.shock+"】");try{statusFx(side,i,"shock")}catch(e){}}
 // 感電したモンスターが攻撃する：持ち主にダメージ
-function shockOnAttack(m,side){if(!m||!(m.shock>0))return;log(m.name+"は感電している！ "+m.shock+"ダメージ");heroDmg(side,m.shock,side);
+function shockOnAttack(m,side){if(m&&S&&S.rule=="thunder"){heroDmg(side,500,side);log("⚡ 雷雨："+m.name+"の持ち主に500ダメージ");try{chk()}catch(e){}}
+ if(!m||!(m.shock>0))return;log(m.name+"は感電している！ "+m.shock+"ダメージ");heroDmg(side,m.shock,side);
  if(side=="c"){try{ttAdd("shockDmg",m.shock);if(S.chp<=0)S.shockKO=1}catch(e){}}   // 称号：感電で与えたダメージ／感電でとどめ
  try{chk()}catch(e){}}
 // 持ち主のターンの始め（resetBoard のあと）
 function b2TurnStart(side){const B=b2B(side);
+ if(S.rule=="sunny")healHero(side,500);
+ if(S.rule=="blizzard"){const os=b2Other(side),EB=b2B(os),L=EB.map((m,i)=>m?i:-1).filter(i=>i>=0);if(L.length){const i=L[Math.random()*L.length|0];applyFreeze(os,i,"吹雪")}}
  // 不死鳥 フェニクス：破壊された次の自分のターンの開始時に、空いているマスによみがえる（1試合に1回）
  if(S.phx&&S.phx[side]&&!S.phx[side].done){S.phx[side].done=1;const i=[1,0,2].find(j=>!B[j]);
   if(i!==undefined){const c=by(S.phx[side].id);B[i]={...cp(c),uid:Math.random(),used:true,attacks:0,buff:0,defBuff:0};
@@ -4978,7 +5071,8 @@ function b2TurnStart(side){const B=b2B(side);
  B.forEach(m=>{if(!m)return;m.frozenNow=0;if(m.freeze){m.freeze=0;m.frozenNow=1;m.used=true;m.attacks=0;log(m.name+"は凍っていて動けない")}});
  B.forEach(m=>{if(m&&m.startActs)doActs(m.startActs,side,m)})}
 // 持ち主のターンの終わり
-function b2TurnEnd(side){const B=b2B(side);B.forEach(m=>{if(m&&m.endActs)doActs(m.endActs,side,m)});
+function b2TurnEnd(side){
+ if(S.rule=="storm"){[S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m)m.stormDef=(m.stormDef||0)+500}));log("🌪 大嵐：全てのモンスターのDEF-500")}const B=b2B(side);B.forEach(m=>{if(m&&m.endActs)doActs(m.endActs,side,m)});
  B.forEach(m=>{if(!m)return;m.frozenNow=0;if(m.shockLife){m.shockLife--;if(m.shockLife<=0)m.shock=0}})}
 function b2Cond(a,side){if(!a.if)return true;const me=side=="p"?S.php:S.chp,op=side=="p"?S.chp:S.php,EB=b2B(b2Other(side));
  if(a.if=="enemyOne")return EB.filter(Boolean).length==1;
@@ -5238,6 +5332,7 @@ const TITLES=[
  {id:"t_draft3",name:"引きの強さ",c:"bronze",cond:"ドラフトチャレンジで3連勝する",ok:()=>(T().draftBest||0)>=3},
  {id:"t_draft5",name:"即席の名手",c:"silver",cond:"ドラフトチャレンジで5連勝する",ok:()=>(T().draftBest||0)>=5},
  {id:"t_draft10",name:"ドラフト王",c:"jet",cond:"ドラフトチャレンジで10連勝する",ok:()=>(T().draftBest||0)>=10},
+ {id:"t_ht10",name:"へんてこ名人",c:"silver",cond:"へんてこバトルで10回勝つ",ok:()=>(T().htWins||0)>=10},
  {id:"t_vol1",name:"定めを覆す者",c:"jet",cond:"第3章で、HP22000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol1},
  {id:"t_vol2",name:"不可能を可能にする者",c:"rainbow",cond:"第5章で、HP25000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol2},
  {id:"t_volbriza",name:"龍を鎮めし者",c:"jet",cond:"ストーリーで氷雷龍ボルブリザ（最終決戦）に勝つ",ok:()=>storyProgress().includes("5-4")},
@@ -5284,7 +5379,12 @@ function titleTap(id){const o=tState(),t=titleById(id);if(!t||!o.got[id])return;
 function renderHomeName(){const el=$("homeName");if(!el)return;if(!player){el.innerHTML="";return}
  const t=titleEquipped();el.innerHTML=titleTagHtml(t)+titleNameHtml(player.name,t)}
 // 対戦の結果を記録する（勝ち負け・とどめ・ボスなど）
+function statMode(friend){return friend?"friend":draftCtx?"draft":(drCtx||eventBattleId)?"event":storyContext?"story":(S&&S.rule)?"henteko":"random"}
 function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
+ try{const md=statMode(friend);o.mode=o.mode||{};const x=o.mode[md]=o.mode[md]||{w:0,l:0};won?x.w++:x.l++;
+  if(["random","story","event","henteko","friend"].includes(md)&&!(S.rule=="random")){o.slot=o.slot||{};const sl=curSlot(),y=o.slot[sl]=o.slot[sl]||{w:0,l:0};won?y.w++:y.l++}
+  if(!friend&&S.opp&&S.opp.name){o.opp=o.opp||{};const nm=String(S.opp.name).slice(0,30),z=o.opp[nm]=o.opp[nm]||{w:0,l:0};won?z.w++:z.l++}
+  if(S.playCnt){o.play=o.play||{};Object.entries(S.playCnt).forEach(([k,n])=>o.play[k]=(o.play[k]||0)+n)}}catch(e){}
  if(friend){o.fGames=(o.fGames||0)+1;if(won)o.fWins=(o.fWins||0)+1}
  else{if(won){o.wins=(o.wins||0)+1;o.streak=(o.streak||0)+1;o.best=Math.max(o.best||0,o.streak)}else{o.losses=(o.losses||0)+1;o.streak=0}}
  if(won){
@@ -5680,7 +5780,7 @@ function prematch(personality,fixed){
 }
 // 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
 function renderPmDeck(show){const b=$("pmDeck");if(!b)return;const dr=pmPending&&pmPending.personality&&pmPending.personality.pDeck;b.classList.toggle("hide",!show||!!dr);if(show)b.innerHTML='使うデッキ：<b>'+escH(deckSlotName(curSlot()))+'</b>　変える ▶'}
-function renderPmMe(){const t=titleEquipped();$("pmMe").innerHTML=titleTagHtml(t)+titleNameHtml((player&&player.name)||"あなた",t)}
+function renderPmMe(){const t=titleEquipped();$("pmMe").innerHTML=(myIcon()?iconHtml(myIcon(),36)+' ':'')+titleTagHtml(t)+titleNameHtml((player&&player.name)||"あなた",t)}
 function pmSpin(second){
  const box=$("pmFlip");
  box.classList.remove("on","hit");box.textContent="先攻";
@@ -5743,11 +5843,14 @@ function start(personality,fixed){
   busy:false,over:false,pDef2:false,cDef2:false,pDefBonus:0,cDefBonus:0,
   pLock:false,cLock:false,pShield:false,cShield:false,pOnce:false,cOnce:false,
   pFatigue:0,cFatigue:0,atkSide:null,atkI:null};
+ S.rule=opp.rule||null;S.playCnt={};
+ if(S.rule)htSetupDecks(mk);
  S.storyTerms=storyContext?(((STORY[storyContext.chIdx]||{}).episodes||[])[storyContext.epIdx]||{}).terms||null:null;S.tipShown={};
  selH=selA=selE=null;pending=null;clearLaneFx();
  for(let i=0;i<5;i++){draw("p",true);draw("c",true)}
  if(opp.hp){S.chp=opp.hp;S.cMax=opp.hp}
  if(opp.phpStart)S.php=opp.phpStart;   // 龍の挑戦：通常版から引き継いだHP
+ if(S.rule)htSetupAfter();
  {const ep=storyContext?(((STORY[storyContext.chIdx]||{}).episodes||[])[storyContext.epIdx]||null):null;
   if(ep&&ep.ally)ep.ally.forEach(id=>{const c=by(id);if(c){S.ph.push({...cp(c),uid:Math.random()});log("「"+c.name+"」が力を貸してくれた！")}})}
  log(`対戦相手：${opp.name}「${fillText(opp.tagline||"")}」`);render()
@@ -5791,7 +5894,8 @@ function draw(side,quiet){let D=side=="p"?S.pd:S.cd,H=side=="p"?S.ph:S.ch;
 
 /* ================= 数値計算 ================= */
 function aura(side,a){let B=side=="p"?S.pb:S.cb;return B.some(m=>m&&m.aura==a)}
-function ec(c,side){let v=c.cost;
+function ec(c,side){if(S&&S.rule=="blood"&&c.type=="spell")return 0;   // へんてこ：命をけずる呪文
+ let v=c.cost;
  if(c.even&&ownTurn(side)%2==0)v-=c.even;   // 偶数/奇数は、持ち主から見たターン数（画面のTURN表示と同じ）
  if(c.odd&&ownTurn(side)%2==1)v-=c.odd;
  if(c.graveDiscount&&(side=="p"?S.pg:S.cg).length>=c.graveDiscountNeed)v-=c.graveDiscount;
@@ -5820,6 +5924,8 @@ function at(c,side){if(!c)return 0;let B=side=="p"?S.pb:S.cb,i=lane(B,c),v=(c.at
  if(c.curse)v-=c.curse;   // 魔女の手作りシチュー
  return Math.max(0,v)}
 function df(c,side){if(!c)return 0;let B=side=="p"?S.pb:S.cb,v=(c.def||0)+(c.defBuff||0);
+ if(c.stormDef)v-=c.stormDef;   // へんてこ：大嵐
+ if(S&&S.rule=="fort"&&B[1]===c)v+=2000;   // へんてこ：中央の要塞
  if(c.graveDef)v=(side=="p"?S.pg:S.cg).length*c.graveDef+(c.defBuff||0);
  if(side=="p"&&S.pDefBonus)v+=S.pDefBonus;
  if(side=="c"&&S.cDefBonus)v+=S.cDefBonus;
@@ -6213,6 +6319,7 @@ function ownTap(i){if(S.over)return;const m=S.pb[i];if(!m)return;
 function chargeBlocked(side){if(!S)return false;const OB=side=="p"?S.cb:S.pb;return OB.some(o=>o&&o.noEnemyCharge)}
 function sideOfMon(m){return S&&S.pb.includes(m)?"p":S&&S.cb.includes(m)?"c":null}
 function grantCharge(m){const sd=sideOfMon(m);
+ if(S&&S.rule=="calm"){m.charge=0;return}   // へんてこ：凪の日は突撃なし
  if(m.acted||m.frozenNow){m.charge=1;return}   // このターンもう攻撃した／凍結中のモンスターは、突撃をもらっても動けない（出したばかりのモンスターだけが動けるようになる）
 
  if(sd&&chargeBlocked(sd)&&m.used&&(m.attacks||0)<=0){m.charge=1;log("パンプキングの威圧："+m.name+"は動けない");return}m.charge=1;if(m.used&&(m.attacks||0)<=0){m.used=false;m.attacks=m.double?2:1}else{m.used=false;m.attacks=Math.max(1,m.attacks||0)}}
@@ -6270,6 +6377,8 @@ function summonEff(c,side){const p=side=="p",EB=p?S.cb:S.pb,ES=p?"c":"p";
   if(c.bondCharge){grantCharge(me);log(c.name+"：突撃を得た");if(side=="p")S.raizenT=turnTotal()}
   if(c.bondGuard){me.guard=1;me.permGuard=1;log(c.name+"：守護を得た")}}}
  try{eggHatch(c,side)}catch(e){}
+ try{htOnSummon(c,side)}catch(e){}
+ if(side=="p"&&S){S.playCnt=S.playCnt||{};const k=c.baseId||c.id;S.playCnt[k]=(S.playCnt[k]||0)+1}   // 戦績：出した回数
  if(c.on=="selfMill2")millDeck(side,2);
  if(c.on=="draw1")draw(side);
  if(c.on=="enemyNextCost1"){const os=side=="p"?"c":"p";S.sumTax=S.sumTax||{};S.sumTax[os]=1;log(c.name+"：相手が次に召喚するモンスターのコスト+1")}
@@ -6316,6 +6425,8 @@ function discardRnd(side,n){const H=side=="p"?S.ph:S.ch,G=side=="p"?S.pg:S.cg;le
  for(let i=0;i<n&&H.length;i++){G.push(H.splice(Math.random()*H.length|0,1)[0]);k++}
  if(k)log((side=="p"?"あなた":"CPU")+"の手札を"+k+"枚捨てさせた");return k}
 function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS=side,ES=p?"c":"p";
+ if(S.rule=="blood"){const n=((by(c.id)||c).cost||0)*500;if(n){heroDmg(side,n,side);log("🩸 呪文の代わりにHP-"+n)}}
+ if(side=="p"){S.playCnt=S.playCnt||{};const k=c.baseId||c.id;S.playCnt[k]=(S.playCnt[k]||0)+1}   // 戦績：使った回数
  const heal=n=>healHero(MS,n),oDmg=n=>heroDmg(ES,n,MS),sDmg=n=>heroDmg(MS,n,MS);
  const myD=p?S.pd:S.cd,myG=p?S.pg:S.cg,myH=p?S.ph:S.ch;
  const killAll=(B,sd,f)=>B.forEach((m,i)=>{if(m&&(!f||f(m,i)))boomKill(sd,i)});
@@ -6577,7 +6688,7 @@ async function endTurn(){if(FM.on&&FM.role=="guest")return fmGuestEnd();
  await (TUT.on?tutCpuTurn():FM.on&&FM.role=="host"?remoteTurn():cpuTurn());
  if(S&&!S.over){await turnEndDeaths("c");chk()}
  if(S&&!S.over){
-  S.turn++;S.max=Math.min(10,S.max+1);S.cost=S.max;S.active="p";
+  S.turn++;S.max=Math.min(10,S.max+(S.rule=="core"?2:1));S.cost=S.max;S.active="p";
   if(S.tn)S.tn.p++;                                  // 自分のターンが始まる
   S.phase="main1";phaseCutIn("main1","p");
   suddenDeath("p");chk();
@@ -6823,6 +6934,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  $("rStoryGo").classList.add("hide");
  try{drOnResult(w===true)}catch(e){}
  try{draftOnResult(w===true)}catch(e){}
+ try{htOnResult(w===true)}catch(e){}
  if(storyContext){
   const ctx=storyContext;
   if(w===true){
