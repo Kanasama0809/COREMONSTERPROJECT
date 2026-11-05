@@ -676,7 +676,7 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 .hint.tut{display:block}
 
 /* ===== cards ===== */
-.hand{display:flex;gap:11px;overflow-x:auto;padding:12px 10px;min-height:200px;background:linear-gradient(#1b2334,#131a29);border-radius:18px;align-items:flex-start;margin-top:6px;border:1px solid #2a3a55}
+.hand{display:flex;gap:11px;overflow-x:auto;padding:12px 10px;min-height:174px;background:linear-gradient(#1b2334,#131a29);border-radius:18px;align-items:flex-start;margin-top:6px;border:1px solid #2a3a55}
 
 /* ===== 対戦レイアウトC（下部集約バー：CPU｜中央⏸/END/コア/ログ｜自分） ===== */
 #game>.ztLine{flex:0 0 auto;text-align:center;color:#62d8ff;font-weight:900;font-size:11px;letter-spacing:1px;margin:3px 0}
@@ -1030,7 +1030,7 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 .menuTools{flex-wrap:nowrap;justify-content:flex-start;width:100%;gap:6px}
 .menuTools .lvBadge,.menuTools .shardBadge,.menuTools .crystalBadge{flex:1 1 0;min-width:0;justify-content:center;text-align:center;padding:5px 4px;font-size:12px;white-space:nowrap;overflow:hidden}
 .menuTools .sndToggle{flex:0 0 auto}
-.crystalToast{position:fixed;top:14px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:300;
+.crystalToast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);left:50%;transform:translateX(-50%) translateY(-20px);z-index:300;
  background:#0a3a63ee;border:1px solid #4ee3ff;color:#e9fbff;font-weight:900;font-size:13px;padding:8px 18px;border-radius:99px;
  opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap}
 .crystalToast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -1410,8 +1410,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 .rsub{color:#9fc4e8;margin-bottom:20px;font-size:14px}
 .rbtns{display:grid;gap:10px}
 
-@media(max-height:760px){.card{width:95px;flex-basis:95px}.hand{min-height:190px}.hp{font-size:22px}}
-@media(max-height:660px){.card{width:76px;flex-basis:76px}.hand{min-height:152px;padding:8px 6px}.hp{font-size:18px}
+@media(max-height:760px){.card{width:95px;flex-basis:95px}.hand{min-height:162px}.hp{font-size:22px}}
+@media(max-height:660px){.card{width:76px;flex-basis:76px}.hand{min-height:128px;padding:8px 6px}.hp{font-size:18px}
  .box{padding:4px 6px}.zt{margin:3px 0;font-size:11px}.mid{margin:5px 0;gap:6px}.midbtns{margin:4px 0}.midbtns button{padding:6px;font-size:12px}
  .log{padding:5px;min-height:24px;font-size:11px}.hint{padding:3px;font-size:9.5px;margin-top:3px}.gemrow{padding:4px 6px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -1425,7 +1425,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.17.0</div>
+ <div class="tVer" id="tVer">ver.5.17.1</div>
 </div>
 
 <div id="app">
@@ -1940,7 +1940,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.17.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.17.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3916,7 +3916,10 @@ function spendCrystal(n){if(crystal<n)return false;crystal-=n;saveCrystal();rend
 function renderCrystalDisplays(){["menuCrystal","gachaCrystal","tasksCrystal"].forEach(id=>{const el=$(id);if(el)el.textContent="💎 "+crystal});
  try{renderLevelDisplays()}catch(e){}
  try{renderShardDisplays()}catch(e){}}
-function log2Toast(msg){const el=$("crystalToast");if(!el)return;el.textContent=msg;el.classList.add("show");
+function log2Toast(msg){const el=$("crystalToast");if(!el)return;el.textContent=msg;
+ // 対戦中は、上のHP・TURNの枠に重ならないよう、その下に出す
+ try{const g=$("game");if(g&&!g.classList.contains("hide")){const t=g.querySelector(".top");el.style.top=(t.getBoundingClientRect().bottom+6)+"px"}else el.style.top=""}catch(e){}
+ el.classList.add("show");
  clearTimeout(window._toastT);window._toastT=setTimeout(()=>el.classList.remove("show"),1800)}
 
 function todayStr(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -6136,7 +6139,7 @@ function render(){if(!S)return;try{b2Watch()}catch(e){}
  try{
   $("php").textContent=Math.max(0,S.php);$("chp").textContent=Math.max(0,S.chp);
   const pb=$("phpBar"),cb=$("chpBar");
-  pb.style.width=Math.max(0,S.php/100)+"%";cb.style.width=Math.max(0,S.chp/100)+"%";
+  pb.style.width=Math.max(0,Math.min(100,S.php/100))+"%";cb.style.width=Math.max(0,Math.min(100,S.chp/((S.cMax||10000)/100)))+"%";
   pb.classList.toggle("low",S.php<=3000);cb.classList.toggle("low",S.chp<=3000);
   $("pd").textContent=S.pd.length;$("cd").textContent=S.cd.length;
   $("pgN").textContent=S.pg.length;$("cgN").textContent=S.cg.length;
