@@ -154,6 +154,12 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .rkCard{padding:14px;border-radius:14px;background:#10203a;border:2px solid var(--rk);margin-bottom:10px;text-align:center}
 .rkBadge{font-size:26px;font-weight:900;color:var(--rk);letter-spacing:.04em}
 .rkBar span{background:linear-gradient(90deg,var(--rk),#fff)}.rkPt{font-size:12px;color:#9fb6d6}.rkInfo{margin-top:6px;font-size:13px}
+.rkSub{text-align:center;font-size:12px;color:#9fb6d6;margin:2px 0 8px}
+.rkRuleBtn{display:block;margin:0 auto;min-height:40px;padding:0 16px;background:none;border:0;color:#8fd8ff;font:inherit;font-size:13px;font-weight:700}
+.rkRules{margin-top:4px;padding:8px 12px;border-radius:12px;background:#10203a;font-size:13px}
+.rkRules>div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid #1c3050}.rkRules>div:first-child{border-top:0}
+.rkRules b{color:#cfe0f5}.rkRules span{color:#9fb6d6;text-align:right}
+.rkRules .rkNote{display:block;font-size:11px;color:#9fb6d6;line-height:1.5}
 .rkChip{display:inline-block;font-size:11px;font-weight:800;color:#10203a;background:var(--rk);border-radius:99px;padding:1px 8px;vertical-align:middle}
 /* ショップ */
 .gmTabs{display:flex;gap:6px;margin:4px 0 8px}.gmTab{flex:1;min-height:40px;border-radius:99px;border:1px solid #3a5a80;background:#10203a;color:#cfe0f5;font:inherit;font-weight:800}
@@ -1441,7 +1447,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.18.0</div>
+ <div class="tVer" id="tVer">ver.5.18.2</div>
 </div>
 
 <div id="app">
@@ -1965,7 +1971,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.18.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.18.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3619,17 +3625,16 @@ function rankEvOpp(e,st){const b=e.boss;return {id:"rk_ev_"+e.id+"_"+st.id,name:
 function openRank(){if(!isIntroDone())return;const r=rankRoll();hideAll();$("rank").classList.remove("hide");$("app").scrollTop=0;renderRank();syncTab();
  if(r&&r.g)try{log2Toast("先月の最終ランク「"+r.name+"」 💎+"+r.g)}catch(e){}}
 function rankNextWin(o){return 10+Math.min(20,5*o.streak)}   // 次に勝ったときのpt（今の連勝数から）
-function renderRank(){const o=rankSt(),ri=rankInfo(o.pts);
- const pool=rankPool(ri.ti).length;
+let rankRuleOpen=false;
+function renderRank(){const o=rankSt(),ri=rankInfo(o.pts),pool=rankPool(ri.ti).length;
+ const rules=[["勝ち","+10pt（連勝で最大+30）"],["負け","−10pt"],["月末","最終ランクで💎"],["翌月","1ランク下のⅢから"],["初昇格","💎200／400／1000"]];
  $("rankBody").innerHTML='<div class="rkCard" style="--rk:'+ri.color+'"><div class="rkBadge">'+ri.name+'</div>'
-  +'<div class="raidBar rkBar"><span style="width:'+ri.inPt+'%"></span></div><div class="rkPt">'+ri.inPt+' / 100 pt'+(ri.ti==3?'（次の☆まで）':'（次の段まで）')+'</div>'
-  +'<div class="rkInfo">'+(o.streak?'🔥 '+o.streak+'連勝中　':'')+'次に勝つと <b>+'+rankNextWin(o)+'pt</b>　負けると −10pt</div></div>'
-  +'<div class="evStat"><div><div class="sK">今月の対戦</div><div class="sV">'+(o.wins||0)+'勝 '+((o.games||0)-(o.wins||0))+'敗</div></div><div><div class="sK">最高連勝</div><div class="sV">'+(o.best||0)+'</div></div><div><div class="sK">今月末の💎</div><div class="sV">'+((o.games||0)?rankEndGem(ri):0)+'</div></div></div>'
+  +'<div class="raidBar rkBar"><span style="width:'+ri.inPt+'%"></span></div><div class="rkPt">'+ri.inPt+' / 100 pt</div>'
+  +'<div class="rkInfo">'+(o.streak?'🔥'+o.streak+'連勝中　':'')+'次の勝ち <b>+'+rankNextWin(o)+'pt</b></div></div>'
+  +'<div class="evStat"><div><div class="sK">今月</div><div class="sV">'+(o.wins||0)+'勝'+((o.games||0)-(o.wins||0))+'敗</div></div><div><div class="sK">最高連勝</div><div class="sV">'+(o.best||0)+'</div></div><div><div class="sK">月末の💎</div><div class="sV">'+((o.games||0)?rankEndGem(ri):0)+'</div></div></div>'
   +'<button type="button" class="gold evGoBtn" onclick="rankFight()">対戦する ▶</button>'
-  +'<div class="evRw">相手は今いるAI'+pool+'人からランダム（ゴールドからイベントのボス、マスターから覚醒版も登場）。自分の「使うデッキ」で戦う。</div>'
-  +'<div class="drSteps"><div class="drStep">勝ち<span>+10pt（2連勝目から+5ずつ、最大+30pt）</span></div><div class="drStep">負け<span>−10pt（同じランクの一番下までは落ちる）</span></div>'
-  +'<div class="drStep">月末の💎<span>ブロンズ100／シルバー300／ゴールド600／マスター1000＋☆1つ50</span></div><div class="drStep">翌月<span>1ランク下のⅢから再スタート</span></div>'
-  +'<div class="drStep">初昇格ボーナス<span>シルバー💎200／ゴールド💎400／マスター💎1000（1回だけ）</span></div></div>'}
+  +'<button type="button" class="rkRuleBtn" onclick="rankRuleOpen=!rankRuleOpen;renderRank()">ルール '+(rankRuleOpen?'▲':'▼')+'</button>'
+  +(rankRuleOpen?'<div class="rkRules">'+rules.map(([k,v])=>'<div><b>'+k+'</b><span>'+v+'</span></div>').join("")+'<div class="rkNote">月末の💎はブロンズ100・シルバー300・ゴールド600・マスター1000（＋☆1つ50）。</div></div>':'')}
 function rankFight(){if(!isIntroDone())return;rankRoll();const o=rankSt(),ri=rankInfo(o.pts),L=rankPool(ri.ti);const b=L[Math.random()*L.length|0];
  const opp={...b,id:"rk_"+(b.id||"cpu"),hp:undefined,phpStart:undefined};rankCtx={pts:o.pts};
  eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;raidCtx=null;prematch(opp)}
