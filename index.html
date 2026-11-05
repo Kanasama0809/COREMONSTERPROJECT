@@ -1448,7 +1448,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.19.0</div>
+ <div class="tVer" id="tVer">ver.5.19.1</div>
 </div>
 
 <div id="app">
@@ -1972,7 +1972,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.19.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.19.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -5226,6 +5226,7 @@ function b2B(side){return side=="p"?S.pb:S.cb}
 function isFrozen(m){return !!(m&&(m.freeze||m.frozenNow))}
 function statusFx(side,i,kind){const s=slot(side,i);if(!s)return;s.classList.add(kind=="freeze"?"fxFreeze":"fxShock");setTimeout(()=>s.classList.remove("fxFreeze","fxShock"),700)}
 function applyFreeze(side,i,src){const m=b2B(side)[i];if(!m)return;m.freeze=1;
+ if(S&&S.active===side){m.frozenNow=1;m.used=true;m.attacks=0}   // 自分のターンの途中で凍ったら、そのターンの残りの攻撃もできない（二回攻撃の2回目など）
  if(side=="c"&&S&&!S.over){try{ttAdd("frz",1);const tt=turnTotal();if(S.frzT!==tt){S.frzT=tt;S.frzN=0}S.frzN++;if(S.frzN>=3)ttSet("frz3",1)}catch(e){}}   // 称号：凍結した回数／1ターンに3体
  log((src?src+"：":"")+m.name+"を【凍結】");try{statusFx(side,i,"freeze")}catch(e){}}
 function applyShock(side,i,x,src){const m=b2B(side)[i];if(!m||!x)return;m.shock=Math.max(m.shock||0,x);m.shockLife=(S.active==side)?2:1;
@@ -6185,7 +6186,7 @@ function renderTablet(){
    kind は説明の見出しに出る分類。増やしても構わない。 */
 const GLOSSARY_NAME="石版";
 const TERMS={
- "凍結":{kind:"紋章",icon:"❄️",text:"凍結したモンスターは、持ち主の次のターン、攻撃できません。凍っている間は、守護で味方の身代わりにもなれません。そのターンが終わると溶けます。すでに凍結しているモンスターをもう一度凍結しても、重なったり長くなったりはしません。"},
+ "凍結":{kind:"紋章",icon:"❄️",text:"凍結したモンスターは、持ち主の次のターン、攻撃できません。自分のターンの途中で凍ったときは、そのターンの残りの攻撃もできなくなります。凍っている間は、守護で味方の身代わりにもなれません。重ねて凍結しても、長くはなりません。"},
  "感電":{kind:"紋章",icon:"⚡",text:"感電したモンスターが攻撃するたび、そのモンスターの持ち主がダメージを受けます（【感電1000】なら1000ダメージ）。次の持ち主のターンの終わりまで続きます。重なったときは大きい方が残ります。"},
  "守護":{kind:"紋章",icon:"🛡",text:"相手の攻撃を、このモンスターが代わりに受け止めることができます。止めるかどうか、どの守護で止めるかは、守る側が選べます。",
    note:"※1体が受け止められるのは1ターンに1回までです。守護を2体並べれば、1ターンに2回まで受け止められます。"},
