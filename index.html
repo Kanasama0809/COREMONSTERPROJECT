@@ -169,7 +169,8 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .shopGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .shopItem{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:12px;background:#10203a;border:1px solid #2c4568}
 .shopNm{font-weight:800;font-size:13px}.shopCr{font-size:10px;padding:1px 6px;border-radius:99px;background:linear-gradient(90deg,#ff7a7a,#ffc46b,#7ef0a1,#6bc8ff,#c29bff);color:#1a1a1a}
-.shopBuy{min-height:40px;padding:0 18px}.shopGot{font-size:12px;color:#7ee0a1;font-weight:800;min-height:40px;display:flex;align-items:center}
+.shopBuy{min-height:40px;padding:0 18px}.shopCard{width:70%;max-width:110px;aspect-ratio:.72;object-fit:cover;border-radius:8px;border:2px solid #c29bff}.shopOwn{font-size:11px;color:#9fb6d6}
+.pmT{text-align:center;margin-bottom:4px}.pmN{display:flex;align-items:center;justify-content:center;gap:8px}.shopGot{font-size:12px;color:#7ee0a1;font-weight:800;min-height:40px;display:flex;align-items:center}
 .tabLong{font-size:10px;letter-spacing:-.04em;white-space:nowrap}
 /* 総力戦 */
 .raidBar{height:12px;border-radius:99px;background:#0006;overflow:hidden;margin:6px 0 10px}.raidBar span{display:block;height:100%;background:linear-gradient(90deg,#ff5a5a,#ffb347)}
@@ -1447,7 +1448,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.18.2</div>
+ <div class="tVer" id="tVer">ver.5.19.0</div>
 </div>
 
 <div id="app">
@@ -1971,7 +1972,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.18.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.19.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3654,14 +3655,21 @@ function rankOnResult(won){const box=$("rRank"),btns=$("rBtns");if(!rankCtx){box
   +'<button class="gold" onclick="hideP(\'resultov\');rankFight()">次の対戦へ ▶</button><button class="sec" onclick="hideP(\'resultov\');openRank()">ランク戦の画面へ</button>'}
 /* ===== ショップ（ガチャの画面の中で切り替え） ===== */
 const SHOP_ICONS=[["hw01",500],["hw01cr",1500],["chronoga",500],["chronoga_cr",1500]];
+const SHOP_CR_PRICE=10000;
+function shopCrList(){return P.filter(c=>c.rarity=="CR"&&!c.event&&!c.promo&&!c.passS&&!c.bossOnly&&ownedCount(c.id)>=1)}
 let gachaShopMode=false;
 function setGachaMode(shop){gachaShopMode=!!shop;sfx("sel");$("gacha").classList.toggle("shopMode",gachaShopMode);$("gmGacha").classList.toggle("on",!gachaShopMode);$("gmShop").classList.toggle("on",gachaShopMode);if(gachaShopMode)renderShop()}
 function renderShop(){const own=extraIcons();
  $("shopView").innerHTML='<div class="stH" style="margin:4px 2px 6px">アイコン（🔹かけらで交換）</div><div class="shopGrid">'
   +SHOP_ICONS.map(([id,pr])=>{const c=by(id);if(!c)return"";const got=own.includes(id);return '<div class="shopItem">'+iconHtml(id,64)+'<div class="shopNm">'+escH(c.name)+(c.rarity=="CR"?' <span class="shopCr">CR</span>':'')+'</div>'
    +(got?'<div class="shopGot">交換済み</div>':'<button type="button" class="gold shopBuy" onclick="shopBuy(\''+id+'\','+pr+')">🔹'+pr+'</button>')+'</div>'}).join("")+'</div>'
+  +'<div class="stH" style="margin:14px 2px 6px">CR交換（🔹'+SHOP_CR_PRICE.toLocaleString()+'）</div>'+(()=>{const L=shopCrList();return L.length?'<div class="shopGrid">'+L.map(c=>{const n=ownedCount(c.id),full=n>=2;
+   return '<div class="shopItem">'+(CARD_IMAGES[c.id]?'<img class="shopCard" src="'+CARD_IMAGES[c.id]+'" alt="">':'')+'<div class="shopNm">'+escH(c.name)+'</div><div class="shopOwn">所持 '+n+'枚</div>'
+   +(full?'<div class="shopGot">2枚そろっています</div>':'<button type="button" class="gold shopBuy" onclick="shopBuyCr(\''+c.id+'\')">🔹'+SHOP_CR_PRICE.toLocaleString()+'</button>')+'</div>'}).join("")+'</div>':'<div class="evRw">ガチャで当てたCRを、もう1枚交換できます（イベントのCRはのぞく）。</div>'})()
   +'<div class="stH" style="margin:14px 2px 6px">カード交換</div><button type="button" class="sec evGoBtn" onclick="openExchange()">🔹 かけらでカードを交換する ▶</button>'
   +'<div class="evRw">交換したアイコンは、メニューの「戦績」→「アイコン」から選べます。</div>'}
+function shopBuyCr(id){const c=by(id);if(!c||ownedCount(id)<1||ownedCount(id)>=2)return;if(shard<SHOP_CR_PRICE){sfx("no");log2Toast("🔹かけらが足りません（"+SHOP_CR_PRICE.toLocaleString()+"必要）");return}
+ askYesNo("CR「"+c.name+"」を、🔹かけら"+SHOP_CR_PRICE.toLocaleString()+"で1枚交換しますか？",()=>{if(!spendShard(SHOP_CR_PRICE))return;const m=ownedMap();m[id]=(m[id]||0)+1;store.set("cmOwned",JSON.stringify(m));sfx("summon");log2Toast("CR「"+c.name+"」を手に入れた！");renderShop()})}
 function shopBuy(id,pr){const c=by(id);if(!c||extraIcons().includes(id))return;if(shard<pr){sfx("no");log2Toast("🔹かけらが足りません（"+pr+"必要）");return}
  askYesNo("「"+c.name+(c.rarity=="CR"?"（CR）":"")+"」のアイコンを、🔹かけら"+pr+"で交換しますか？",()=>{if(!spendShard(pr))return;unlockIcon(id);sfx("summon");log2Toast("アイコンを手に入れた！");renderShop()})}
 /* ===== 総力戦「暴走 氷雷龍ボルブリザ」 =====
@@ -5952,7 +5960,8 @@ function prematch(personality,fixed){
 // 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
 function renderPmDeck(show){const b=$("pmDeck");if(!b)return;const dr=pmPending&&pmPending.personality&&pmPending.personality.pDeck;b.classList.toggle("hide",!show||!!dr);if(show)b.innerHTML='使うデッキ：<b>'+escH(deckSlotName(curSlot()))+'</b>　変える ▶'}
 function rankChip(){try{const ri=rankInfo(rankSt().pts);return '<span class="rkChip" style="--rk:'+ri.color+'">'+ri.name+'</span>'}catch(e){return""}}
-function renderPmMe(){const t=titleEquipped();$("pmMe").innerHTML=(myIcon()?iconHtml(myIcon(),36)+' ':'')+titleTagHtml(t)+titleNameHtml((player&&player.name)||"あなた",t)+' '+rankChip()}
+function renderPmMe(){const t=titleEquipped(),tg=titleTagHtml(t);
+ $("pmMe").innerHTML=(tg?'<div class="pmT">'+tg+'</div>':'')+'<div class="pmN">'+(myIcon()?iconHtml(myIcon(),36):'')+'<span>'+titleNameHtml((player&&player.name)||"あなた",t)+'</span></div>'}
 function pmSpin(second){
  const box=$("pmFlip");
  box.classList.remove("on","hit");box.textContent="先攻";
@@ -6471,10 +6480,16 @@ function canBattle(){return !phaseOn()||S.phase=="battle"}
 function anyAttacker(side){const B=side=="c"?S.cb:S.pb;return B.some(m=>m&&!m.used&&(m.attacks||0)>0&&!m.cantAttack)}
 function setPhase(ph){if(!S)return;S.phase=ph;if(phaseOn()){log("— "+PHASE_NAME[ph]+" —");phaseCutIn(ph,S.active)}render()}
 // プレイヤーのボタン：スタンバイ →「アタックフェイズへ」→ アタック →「ターンエンド」
+// まだ使えるカード・攻撃できるモンスターがあるのにターンを終えようとしたら、確認する
+function leftActions(){if(!S||S.active!="p")return "";const free=S.pb.some(x=>!x);
+ const play=S.ph.some(c=>ec(c,"p")<=S.cost&&(c.type=="spell"||(c.type=="monster"&&free)));
+ const atk=S.pb.some(m=>m&&!m.used&&(m.attacks||0)>0&&!m.cantAttack&&at(m,"p")>0);
+ return play&&atk?"まだ使えるカードと、攻撃できるモンスターがいます。":play?"まだ使えるカードがあります。":atk?"まだ攻撃できるモンスターがいます。":""}
+function endTurnAsk(go){const msg=(TUT&&TUT.on)?"":leftActions();if(!msg)return go();askYesNo(msg+"ターンを終わりますか？",go)}
 function nextPhase(){
- if(FM.on&&FM.role=="guest"){if(!fmCanAct())return;if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return fmGuestEnd();fmSend({t:"phase"});return}
+ if(FM.on&&FM.role=="guest"){if(!fmCanAct())return;if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(fmGuestEnd);fmSend({t:"phase"});return}
  if(!S||S.busy||S.over||pending)return;
- if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurn();
+ if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(endTurn);
  selH=null;sfx("sel");setPhase("battle")}
 function phaseBtnLabel(){if(!S||!phaseOn()||S.active!="p")return "ターンエンド ▶";
  if(S.phase=="main1"&&anyAttacker("p"))return "アタックフェイズへ ⚔️";
