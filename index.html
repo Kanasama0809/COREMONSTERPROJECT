@@ -1448,7 +1448,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.19.1</div>
+ <div class="tVer" id="tVer">ver.5.19.3</div>
 </div>
 
 <div id="app">
@@ -1972,7 +1972,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.19.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.19.3</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2448,7 +2448,9 @@ const PERSONALITIES=[
  {id:"b2yukina",name:"氷結のユキナ",tagline:"凍らせて、動きを止めてから",aggro:0.7,rel:"2026-10-01",deck:["b2f13", "b2f13", "b2c07", "b2c07", "b2f11", "b2f11", "b2f07", "b2f07", "b2f14", "b2f14", "b2f19", "b2f19", "b2f22", "b2f22", "b2f16", "b2f16", "b2f08", "b2f08", "b2f05", "b2f05", "b2f36", "b2f36", "b2f41", "b2f41", "b2f35", "b2f35", "b2f37", "b2f37", "b2f33", "b2f33"]},
  {id:"b2tempe",name:"嵐呼びのテンペ",tagline:"天気は、気まぐれなのさ",aggro:1.0,rel:"2026-10-01",deck:["b2c06", "b2c06", "b2c10", "b2c10", "b2c07", "b2c07", "b2c13", "b2c13", "b2c09", "b2c09", "b2c14", "b2c14", "b2c08", "b2c08", "b2c05", "b2c05", "b2c11", "b2c11", "b2c_kosame", "b2c_kosame", "b2c16", "b2c16", "b2c32", "b2c32", "b2c34", "b2c34", "b2c40", "b2c40", "b2c35", "b2c35"]},
  {id:"b2koharu",name:"湯けむりのコハル",tagline:"あったまって、ゆっくり勝つの",aggro:0.6,rel:"2026-10-01",deck:["b2f24", "b2f24", "b2f25", "b2f25", "b2f20", "b2f20", "b2f21", "b2f21", "b2f28", "b2f28", "b2f12", "b2f12", "b2f04", "b2f04", "b2f10", "b2f10", "b2f23", "b2f23", "b2c02", "b2c02", "b2f42", "b2f42", "b2f46", "b2f46", "b2f33", "b2f33", "b2f45", "b2f45", "b2f32", "b2f32"]},
- {id:"b2bakugo",name:"火山のバクゴウ",tagline:"辛さも火力も、爆発だ！",aggro:1.1,rel:"2026-10-01",deck:["b2v26", "b2v26", "b2v19", "b2v19", "b2v18", "b2v18", "b2v29", "b2v29", "b2v10", "b2v10", "b2v20", "b2v20", "b2v04", "b2v04", "b2v03", "b2v03", "b2v11", "b2v11", "b2v39", "b2v39", "b2v40", "b2v40", "b2v34", "b2v34", "b2v31", "b2v31", "b2c41", "b2c41", "b2c49", "b2c49"]}
+ {id:"b2bakugo",name:"火山のバクゴウ",tagline:"辛さも火力も、爆発だ！",aggro:1.1,rel:"2026-10-01",deck:["b2v26", "b2v26", "b2v19", "b2v19", "b2v18", "b2v18", "b2v29", "b2v29", "b2v10", "b2v10", "b2v20", "b2v20", "b2v04", "b2v04", "b2v03", "b2v03", "b2v11", "b2v11", "b2v39", "b2v39", "b2v40", "b2v40", "b2v34", "b2v34", "b2v31", "b2v31", "b2c41", "b2c41", "b2c49", "b2c49"]},
+ /* 謎の男 Mr.K（開発者かなさんの速攻デッキ） */
+ {id:"nazo_k",name:"謎の男 Mr.K",tagline:"名乗るほどの者じゃない",aggro:1.4,deck:["idolwinkp", "idolwinkp", "kamakamakiri", "dashpanther", "dashpanther", "mucha", "mrk", "moratta", "kamakamakiri", "mucha", "mrk", "moratta", "solo", "solo", "shokei", "shokei", "lastpower", "lastpower", "b2c10", "b2v14", "deathmark", "deathmark", "b2c06", "b2c06", "b2v06", "b2v06", "hontou", "hontou", "hien_cr", "hien_cr"]}
 ];
 // 第2弾の発売日までは、第2弾のCPUを対戦相手に出さない
 for(let i=PERSONALITIES.length-1;i>=0;i--){const p=PERSONALITIES[i];if(p.rel&&todayStr()<p.rel)PERSONALITIES.splice(i,1)}
@@ -2850,7 +2852,7 @@ const DAILY_TASKS=[
 ];
 const WEEKLY_TASKS=[
  {id:"win10",label:"対戦に10勝する",goal:10,reward:400},
- {id:"allPersona",label:"6種類のCPU全員と対戦する",goal:6,reward:300},
+ {id:"allPersona",label:"6種類のCPUと対戦する",goal:6,reward:300},
  {id:"gacha5",label:"ガチャを5回引く",goal:5,reward:200}
 ];
 const LOGIN_BONUS=100;
@@ -5513,6 +5515,7 @@ const TITLES=[
  {id:"t_raid1",name:"暴走を止めし者",c:"jet",cond:"総力戦で、暴走ボルブリザを倒す",ok:()=>!!T().raid1},
  {id:"t_raidhit",name:"一撃の重み",c:"rainbow",cond:"総力戦の1回の挑戦で、30,000以上のダメージを与える",ok:()=>(T().raidBest||0)>=30000},
  {id:"t_rankm",name:"頂の挑戦者",c:"jet",cond:"ランク戦でマスターに到達する",ok:()=>!!T().rankMaster},
+ {id:"t_beatK",name:"Kの継承者",c:"gold",cond:"謎の男 Mr.Kに勝つ",ok:()=>!!T().beatK},
  {id:"t_vol1",name:"定めを覆す者",c:"jet",cond:"第3章で、HP22000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol1},
  {id:"t_vol2",name:"不可能を可能にする者",c:"rainbow",cond:"第5章で、HP25000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol2},
  {id:"t_volbriza",name:"龍を鎮めし者",c:"jet",cond:"ストーリーで氷雷龍ボルブリザ（最終決戦）に勝つ",ok:()=>storyProgress().includes("5-4")},
@@ -5580,6 +5583,7 @@ function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
   if(S.used&&S.used.b2f41)o.samu=1;   // おやじギャグを使った試合で勝つ
   if(S.shockKO)o.shockKO=1;if(S.brk)o.breakg=1;
   if(S.lastHitId=="dk_raizen"&&S.raizenT===turnTotal())o.dkcharge=1;   // 龍騎士の突撃
+  if(/nazo_k/.test(oppId||""))o.beatK=1;   // 謎の男 Mr.Kに勝った
   {const dk=(typeof deck!="undefined"&&deck)||[],has=b=>dk.some(id=>id==b||id==b+"_cr");if(has("b2v_raika")&&has("b2f_setsu"))o.duo=1}
   if(["b2raiga","b2yukina","b2tempe","b2koharu","b2bakugo"].includes(oppId)){o.b2cpu=o.b2cpu||{};o.b2cpu[oppId]=1}
   if(S.usedMake)o.make=1;
@@ -5920,6 +5924,7 @@ function pauseHelp(){closePause();$("helpPop").classList.add("show")}
 function closeHelp(){$("helpPop").classList.remove("show")}
 // 同じ相手ともう一度（イベントのボス・ストーリーの敵も、そのままの相手と条件で）
 function rematchLast(){if(FM.on)return fmBackToRoom();if(!lastMatch){prematch();return}
+ if(lastMatch.rule){htStart();return}   // へんてこバトルは、相手もルールも選び直す
  if(lastMatch.random&&!lastMatch.event&&!lastMatch.story){eventBattleId=null;storyContext=null;prematch();return}   // ランダム対戦は相手も選び直す
  eventBattleId=lastMatch.event||null;eventStageId=lastMatch.stage||null;storyContext=lastMatch.story?{...lastMatch.story}:null;prematch(lastMatch.personality,lastMatch.fixed)}
 function pauseRestart(){closePause();if(!lastMatch)return;rematchLast()}
@@ -6017,7 +6022,8 @@ function start(personality,fixed){
  let opp=personality||PERSONALITIES[Math.random()*PERSONALITIES.length|0];
  // ストーリー敵の名前差し込み(ライバル等)
  if(opp.name&&opp.name.includes("{"))opp={...opp,name:fillText(opp.name)};
- lastMatch={personality:opp,fixed,event:eventBattleId,stage:eventStageId,story:storyContext};
+ lastMatch={personality:opp,fixed,event:eventBattleId,stage:eventStageId,story:storyContext,
+  random:!!(pmPending&&pmPending.personality===personality&&pmPending.random),rule:opp.rule||null};   // random・rule：もう一度のときに相手（とルール）を選び直す
  hideAll();$("game").classList.remove("hide");logs=[];
  const mk=(ids,keep)=>{const a=ids.map(id=>cp(by(id))).filter(Boolean).map(c=>({...c,uid:Math.random()}));return keep?a:shuf(a)};
  S={turn:1,tn:{p:1,c:0},phase:"main1",active:"p",cost:1,max:1,php:10000,chp:10000,opp:opp,
