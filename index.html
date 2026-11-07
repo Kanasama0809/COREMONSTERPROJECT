@@ -170,9 +170,25 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .shopItem{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:12px;background:#10203a;border:1px solid #2c4568}
 .shopNm{font-weight:800;font-size:13px}.shopCr{font-size:10px;padding:1px 6px;border-radius:99px;background:linear-gradient(90deg,#ff7a7a,#ffc46b,#7ef0a1,#6bc8ff,#c29bff);color:#1a1a1a}
 .shopBuy{min-height:40px;padding:0 18px}
-.pmList{display:flex;flex-direction:column;gap:8px}.pmItem{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;background:linear-gradient(135deg,#2a1a4a,#10203a);border:1px solid #c29bff}
-.pmImg{width:96px;aspect-ratio:.72;object-fit:cover;border-radius:8px;border:2px solid #f6cf6b;flex:0 0 auto}.pmInfo{flex:1;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.pmNm{font-weight:900;font-size:15px}.pmIn{font-size:12px;color:#cfe0f5}.shopCard{width:70%;max-width:110px;aspect-ratio:.72;object-fit:cover;border-radius:8px;border:2px solid #c29bff}.shopOwn{font-size:11px;color:#9fb6d6}
+.pmList{display:flex;flex-direction:column;gap:12px}
+.pmCard{position:relative;border-radius:16px;overflow:hidden;border:2px solid transparent;background:linear-gradient(#0d1a30,#0d1a30) padding-box,linear-gradient(135deg,#f6cf6b,#7ef0a1,#6bc8ff,#f6cf6b) border-box;box-shadow:0 6px 18px #0008}
+.pmCard.pmDark{background:linear-gradient(#140c22,#140c22) padding-box,linear-gradient(135deg,#c29bff,#ff7ad9,#7a3cff,#c29bff) border-box}
+.pmArt{position:relative;height:170px;background-size:cover;background-position:center 22%}
+.pmArt::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0000 40%,#000c 100%)}
+.pmRib{position:absolute;top:10px;left:10px;z-index:2;font-size:11px;font-weight:900;letter-spacing:.12em;color:#1a1a1a;padding:3px 10px;border-radius:99px;background:linear-gradient(90deg,#f6cf6b,#fff3c4,#f6cf6b)}
+.pmCard.pmDark .pmRib{background:linear-gradient(90deg,#c29bff,#f0d8ff,#c29bff)}
+.pmShine{position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,#0000 35%,#fff5 50%,#0000 65%);transform:translateX(-120%);animation:pmShine 3.6s ease-in-out infinite}
+@keyframes pmShine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.pmTtl{position:absolute;left:12px;bottom:8px;z-index:2}.pmNm{font-weight:900;font-size:19px;text-shadow:0 2px 6px #000}.pmSub{font-size:11px;color:#f6cf6b;font-weight:700}
+.pmCard.pmDark .pmSub{color:#e0b8ff}
+.pmGotMark{position:absolute;right:10px;bottom:10px;z-index:2;font-size:12px;font-weight:900;color:#7ee0a1;background:#000a;padding:4px 10px;border-radius:99px}
+.pmBody{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px}
+.pmIn{display:flex;align-items:center;gap:6px}.pmGet{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:#cfe0f5}.pmGet b{font-size:11px}
+.pmGet:first-child{position:relative;width:54px;height:58px;justify-content:flex-end}
+.pmMini{position:absolute;top:0;left:6px;width:30px;height:42px;border-radius:4px;background-size:cover;background-position:center 20%;border:1px solid #f6cf6b;box-shadow:0 2px 4px #0008}
+.pmMini2{left:18px;top:3px}.pmPlus{color:#9fb6d6;font-weight:900}
+.pmBuy{min-height:48px;padding:0 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:17px;line-height:1.1}.pmBuy small{font-size:10px;font-weight:700;opacity:.8}
+.pmCard.got .pmArt{filter:saturate(.7)}.shopCard{width:70%;max-width:110px;aspect-ratio:.72;object-fit:cover;border-radius:8px;border:2px solid #c29bff}.shopOwn{font-size:11px;color:#9fb6d6}
 .ewNote{text-align:center;font-size:13px;color:#9fb6d6;margin-top:6px}
 .ewToday{display:block;margin:10px auto 0;min-height:40px;background:none;border:0;color:#8fd8ff;font:inherit;font-size:12px;text-decoration:underline}
 .pmT{text-align:center;margin-bottom:4px}.pmN{display:flex;align-items:center;justify-content:center;gap:8px}.shopGot{font-size:12px;color:#7ee0a1;font-weight:800;min-height:40px;display:flex;align-items:center}
@@ -1453,7 +1469,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.21.0</div>
+ <div class="tVer" id="tVer">ver.5.21.1</div>
 </div>
 
 <div id="app">
@@ -1987,7 +2003,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.21.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.21.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2104,7 +2120,7 @@ const P=[{"id":"aichu","name":"アイチュ","sortName":"あいちゅ","type":"m
 /* ===== プレミアムパックのカード（ショップで💎3000・1回だけ） ===== */
 {"type": "monster", "id": "komoku_pr", "name": "木の勇者 コモク", "sortName": "きのゆうしゃこもく", "cost": 4, "atk": 2000, "def": 4000, "text": "守護", "guard": 1, "rarity": "CR", "baseId": "komoku", "pack": 0, "promo": 1, "premium": 1, "lore": "木漏れ日の中、メガネをくいっと押し上げる。森のことなら、何でも知っている。"},
 {"type": "monster", "id": "sk01_pr", "name": "蝕樹のコモク", "sortName": "しょくじゅのこもく", "cost": 7, "atk": 4500, "def": 4500, "text": "吸収。登場時、相手のモンスター全てのDEFをずっと-1000する", "lifesteal": 1, "onActs": [{"a": "permDefDownAll", "x": 1000}], "rarity": "CR", "baseId": "sk01", "pack": 0, "promo": 1, "premium": 1, "lore": "割れたレンズの奥で、紫の光が笑う。闇は、もう怖くない。"},
-/* ===== イベント「蝕まれし世界樹」のカード（蝕樹のパック） ===== */
+/* ===== イベント「蝕まれし世界樹」のカード（蝕樹パック） ===== */
 {"type": "monster", "id": "sk01", "name": "蝕樹のコモク", "sortName": "しょくじゅのこもく", "cost": 7, "atk": 4500, "def": 4500, "text": "吸収。登場時、相手のモンスター全てのDEFをずっと-1000する", "lifesteal": 1, "onActs": [{"a": "permDefDownAll", "x": 1000}], "rarity": "UR", "lore": "世界樹を守っていた木の勇者。根に入りこんだ闇に飲まれ、森の命を吸いながら歩き続ける。", "pack": 95, "promo": 1, "event": 1},
 {"type": "monster", "id": "sk01cr", "name": "蝕樹のコモク", "sortName": "しょくじゅのこもく", "cost": 7, "atk": 4500, "def": 4500, "text": "吸収。登場時、相手のモンスター全てのDEFをずっと-1000する", "lifesteal": 1, "onActs": [{"a": "permDefDownAll", "x": 1000}], "rarity": "CR", "baseId": "sk01", "lore": "割れたメガネの奥で、紫の光がゆれる。それでも、その目はどこか、まだ森を見ている。", "pack": 95, "promo": 1, "event": 1},
 {"type": "monster", "id": "sk02", "name": "吸血の花", "sortName": "きゅうけつのはな", "cost": 4, "atk": 2000, "def": 2000, "text": "吸収。攻撃する度、ATKを+500する", "lifesteal": 1, "atkEff": "gain500", "rarity": "SR", "pack": 95, "promo": 1, "event": 1},
@@ -2803,7 +2819,7 @@ const PACKS=[
  {id:1, name:"はじまりパック-01", sub:"はじまりの100枚", open:true},
  {id:90,name:"時の王パック",sub:"時の王の従者たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"promo",noStep:true},
  {id:91,name:"ハロウィンパック",sub:"パンプキングと仲間たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"hw",noStep:true},
- {id:95,name:"蝕樹のパック",sub:"蝕樹のコモクと闇の森",open:!EVENTS_LOCKED,cost:"ticket",ticket:"tree",noStep:true},
+ {id:95,name:"蝕樹パック",sub:"蝕樹のコモクと闇の森",open:!EVENTS_LOCKED,cost:"ticket",ticket:"tree",noStep:true},
  {id:94,name:"伝説の龍パック",sub:"龍騎士と龍の秘宝",open:!EVENTS_LOCKED,cost:"ticket",ticket:"dragon",noStep:true,table:[["N",52],["R",30],["SR",11],["UR",3.5],["CR",3.5]]},
  {id:92,name:"ボルテアパック-02a",sub:"雷の勇者ライカと雷鳴の獣たち",open:true},
  {id:93,name:"フロスティアパック-02b",sub:"雪の勇者セツと白銀の仲間たち",open:true}
@@ -2857,7 +2873,7 @@ const GACHAS=[   // メイン（いつでも引ける・天井なし）→ イ�
   limit:1, pulls:[{label:"10回引く",count:10,cost:100,guarantee:["SR"]}]},
  {id:"promo",pack:90,title:"時の王パック",sub:"時の王の従者たち",whenEvent:true,whenEventId:"chronoga",pity:{n:50,r:"CR"},theme:["#8a2d6e","#2a0c2a"],accent:"#ff9ad8"},
  {id:"dragon",pack:94,bg:"bg_volt.webp",title:"伝説の龍パック",sub:"龍騎士と龍の秘宝",whenEvent:true,whenEventId:"dragon",pity:{n:50,r:"CR",unowned:true},theme:["#3a2a6a","#0a1030"],accent:"#bfe9ff"},
- {id:"shokuju",pack:95,title:"蝕樹のパック",sub:"蝕樹のコモクと闇の森",whenEvent:true,whenEventId:"shokuju",pity:{n:50,r:"CR"},theme:["#4a1a6a","#100818"],accent:"#c29bff"},
+ {id:"shokuju",pack:95,title:"蝕樹パック",sub:"蝕樹のコモクと闇の森",whenEvent:true,whenEventId:"shokuju",pity:{n:50,r:"CR"},theme:["#4a1a6a","#100818"],accent:"#c29bff"},
  {id:"halloween",pack:91,title:"ハロウィンパック",sub:"パンプキングと仲間たち",whenEvent:true,whenEventId:"halloween",pity:{n:50,r:"CR"},theme:["#c2561a","#2a0c2a"],accent:"#ffb347"}
 ];
 function gachaById(id){return GACHAS.find(g=>g.id==id)||GACHAS[0]}
@@ -3288,7 +3304,7 @@ const EVENTS=[
   name:"蝕まれし世界樹",title:"蝕まれし世界樹",sub:"ボスバトル",
   theme:["#4a1a6a","#100818"],accent:"#c29bff",
   start:"",end:"2026-11-30",
-  desc:"闇に堕ちた木の勇者、蝕樹のコモクに挑む。勝つと樹の券がもらえる（蝕樹のパック専用）。",
+  desc:"闇に堕ちた木の勇者、蝕樹のコモクに挑む。勝つと樹の券がもらえる（蝕樹パック専用）。",
   missions:[
    {id:"win1", label:"蝕樹のコモクに1回勝利する",                 type:"win",goal:1, reward:100},
    {id:"win5", label:"蝕樹のコモクに5回勝利する",                 type:"win",goal:5, reward:200},
@@ -3742,10 +3758,14 @@ function shopCrList(){return P.filter(c=>c.rarity=="CR"&&!c.event&&!c.promo&&!c.
 let gachaShopMode=false;
 function setGachaMode(shop){gachaShopMode=!!shop;sfx("sel");$("gacha").classList.toggle("shopMode",gachaShopMode);$("gmGacha").classList.toggle("on",!gachaShopMode);$("gmShop").classList.toggle("on",gachaShopMode);if(gachaShopMode)renderShop()}
 function renderShop(){const own=extraIcons(),pg=premiumGot();
- $("shopView").innerHTML='<div class="stH" style="margin:4px 2px 6px">プレミアムパック（💎）</div><div class="pmList">'
-  +premiumList().map(x=>{const c=by(x.card),got=pg.includes(x.id);return '<div class="pmItem">'+(CARD_IMAGES[x.card]?'<img class="pmImg" src="'+CARD_IMAGES[x.card]+'" alt="">':'')
-   +'<div class="pmInfo"><div class="pmNm">'+escH(x.name)+' <span class="shopCr">CR</span></div><div class="pmIn">プロモCR×2＋アイコン</div>'
-   +(got?'<div class="shopGot">購入済み</div>':'<button type="button" class="gold shopBuy" onclick="buyPremium(\''+x.id+'\')">💎'+x.price.toLocaleString()+'</button>')+'</div></div>'}).join("")+'</div>'
+ $("shopView").innerHTML='<div class="stH" style="margin:4px 2px 6px">プレミアムパック</div><div class="pmList">'
+  +premiumList().map(x=>{const got=pg.includes(x.id),im=CARD_IMAGES[x.card]||"";
+   return '<div class="pmCard'+(got?' got':'')+(x.need?' pmDark':'')+'">'
+    +'<div class="pmArt" style="background-image:url('+im+')"><span class="pmRib">PREMIUM</span><span class="pmShine"></span>'
+    +'<div class="pmTtl"><div class="pmNm">'+escH(x.name)+'</div><div class="pmSub">限定イラスト</div></div>'+(got?'<div class="pmGotMark">✓ 購入済み</div>':'')+'</div>'
+    +'<div class="pmBody"><div class="pmIn"><div class="pmGet"><span class="pmMini" style="background-image:url('+im+')"></span><span class="pmMini pmMini2" style="background-image:url('+im+')"></span><b>CR×2</b></div>'
+    +'<span class="pmPlus">＋</span><div class="pmGet">'+iconHtml(x.card,40)+'<b>アイコン</b></div></div>'
+    +(got?'':'<button type="button" class="gold pmBuy" onclick="buyPremium(\''+x.id+'\')">💎'+x.price.toLocaleString()+'<small>1回だけ</small></button>')+'</div></div>'}).join("")+'</div>'
   +'<div class="stH" style="margin:14px 2px 6px">アイコン（🔹かけらで交換）</div><div class="shopGrid">'
   +SHOP_ICONS.filter(x=>!x[2]||x[2]()).map(([id,pr])=>{const c=by(id);if(!c)return"";const got=own.includes(id);return '<div class="shopItem">'+iconHtml(id,64)+'<div class="shopNm">'+escH(c.name)+(c.rarity=="CR"?' <span class="shopCr">CR</span>':'')+'</div>'
    +(got?'<div class="shopGot">交換済み</div>':'<button type="button" class="gold shopBuy" onclick="shopBuy(\''+id+'\','+pr+')">🔹'+pr+'</button>')+'</div>'}).join("")+'</div>'
