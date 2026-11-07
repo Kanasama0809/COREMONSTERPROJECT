@@ -1459,6 +1459,16 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  .box{padding:4px 6px}.zt{margin:3px 0;font-size:11px}.mid{margin:5px 0;gap:6px}.midbtns{margin:4px 0}.midbtns button{padding:6px;font-size:12px}
  .log{padding:5px;min-height:24px;font-size:11px}.hint{padding:3px;font-size:9.5px;margin-top:3px}.gemrow{padding:4px 6px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* スマホ：画面のいちばん上（時計の帯）の下には、iOSがうすいぼかしをかける。
+   時計の帯が細い機種（iPhone SE など）でも、画面の中身がぼかしの下から始まるように、上の余白を最低56pxとる */
+@media (hover:none) and (pointer:coarse){
+ #app{padding-top:max(calc(10px + env(safe-area-inset-top)),56px)}
+ #game{min-height:calc(100dvh - 10px - max(calc(10px + env(safe-area-inset-top)),56px) - env(safe-area-inset-bottom))}
+ .crystalToast{top:max(calc(env(safe-area-inset-top,0px) + 8px),52px)}
+}
+/* 背の低い画面（拡大表示のSEなど）：上の余白が増えたぶん、盤面を少し縮めてはみ出さないように */
+@media (max-height:620px){#game>.board{flex:1 1 80px;min-height:80px}#game>.board .slot{min-height:0}.card{width:68px;flex-basis:68px}.hand{min-height:116px}#game>.hint{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 </style>
 <!-- 遊ばれている回数を数える（GoatCounter：個人情報・クッキーなし） -->
 <script data-goatcounter="https://coremon.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
@@ -1469,7 +1479,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.21.1</div>
+ <div class="tVer" id="tVer">ver.5.21.3</div>
 </div>
 
 <div id="app">
@@ -2003,7 +2013,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.21.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.21.3</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3765,7 +3775,7 @@ function renderShop(){const own=extraIcons(),pg=premiumGot();
     +'<div class="pmTtl"><div class="pmNm">'+escH(x.name)+'</div><div class="pmSub">限定イラスト</div></div>'+(got?'<div class="pmGotMark">✓ 購入済み</div>':'')+'</div>'
     +'<div class="pmBody"><div class="pmIn"><div class="pmGet"><span class="pmMini" style="background-image:url('+im+')"></span><span class="pmMini pmMini2" style="background-image:url('+im+')"></span><b>CR×2</b></div>'
     +'<span class="pmPlus">＋</span><div class="pmGet">'+iconHtml(x.card,40)+'<b>アイコン</b></div></div>'
-    +(got?'':'<button type="button" class="gold pmBuy" onclick="buyPremium(\''+x.id+'\')">💎'+x.price.toLocaleString()+'<small>1回だけ</small></button>')+'</div></div>'}).join("")+'</div>'
+    +(got?'':'<button type="button" class="gold pmBuy" onclick="buyPremium(\''+x.id+'\')">💎'+x.price.toLocaleString()+'</button>')+'</div></div>'}).join("")+'</div>'
   +'<div class="stH" style="margin:14px 2px 6px">アイコン（🔹かけらで交換）</div><div class="shopGrid">'
   +SHOP_ICONS.filter(x=>!x[2]||x[2]()).map(([id,pr])=>{const c=by(id);if(!c)return"";const got=own.includes(id);return '<div class="shopItem">'+iconHtml(id,64)+'<div class="shopNm">'+escH(c.name)+(c.rarity=="CR"?' <span class="shopCr">CR</span>':'')+'</div>'
    +(got?'<div class="shopGot">交換済み</div>':'<button type="button" class="gold shopBuy" onclick="shopBuy(\''+id+'\','+pr+')">🔹'+pr+'</button>')+'</div>'}).join("")+'</div>'
