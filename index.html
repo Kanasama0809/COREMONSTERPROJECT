@@ -1482,7 +1482,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.22.1</div>
+ <div class="tVer" id="tVer">ver.5.22.2</div>
 </div>
 
 <div id="app">
@@ -2016,7 +2016,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.22.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.22.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3728,24 +3728,44 @@ function coopDispHand(){if(!S||!S.coop)return S?S.ph:[];const me=coopMe();return
 function coopHostLocked(){return !!(S&&S.coop&&FM.role!="guest"&&S.coop.turn=="B"&&!coopRemote)}
 function coopPendHas(side,i){return !!(S&&S.coopPend&&(S.coopPend[side]||[]).includes(i))}
 // ---- ターンの切り替え（ホスト）
-function coopResetOwner(who){const keep=S.pb.slice();
- const cb=S.curseBy,wb=S.webBy;if(who!=="A"){if(cb==="p")S.curseBy="hold";if(wb==="p")S.webBy="hold"}   // 相方のターンの始まりでは、相手にかけたATK−などを解かない
+/* 「次の自分のターンまで」の効果は、かけた本人の次のターンの始まりで外す。
+   それぞれのターンの始めに今の値を覚えておき（coopSnap）、ターンの終わりに増えたぶんを「その人がかけたもの」として記録する（coopLayerEnd）。
+   その人の次のターンの始めに、記録したぶんだけ外す（coopExpire）。
+   ・自分のモンスターへのATK+／DEF+（buff・defBuff） ・相手（ボス）のモンスターへのATK−／DEF−（curse・curseDef）
+   ・「次のターンまで自分のモンスター全てのDEF+」など（pDefBonus・pDef2・pShield） */
+function coopSnap(){const mon={},cur={};S.pb.forEach(m=>{if(m)mon[m.uid]={b:m.buff||0,d:m.defBuff||0}});S.cb.forEach(m=>{if(m)cur[m.uid]={a:m.curse||0,d:m.curseDef||0}});
+ S.coop.snap={mon,cur,bonus:S.pDefBonus||0,def2:!!S.pDef2,shield:!!S.pShield}}
+function coopLayerEnd(X){const sn=S.coop.snap||{mon:{},cur:{}},L={mon:{},cur:{},bonus:(S.pDefBonus||0)-(sn.bonus||0),def2:!!S.pDef2&&!sn.def2,shield:!!S.pShield&&!sn.shield};
+ S.pb.forEach(m=>{if(!m)return;const o=sn.mon[m.uid]||{b:0,d:0},db=(m.buff||0)-o.b,dd=(m.defBuff||0)-o.d;if(db||dd)L.mon[m.uid]={b:db,d:dd}});
+ S.cb.forEach(m=>{if(!m)return;const o=sn.cur[m.uid]||{a:0,d:0};if((m.curse||0)>o.a||(m.curseDef||0)>o.d)L.cur[m.uid]={a:m.curse||0,d:m.curseDef||0}});
+ S.coop.layer=S.coop.layer||{};S.coop.layer[X]=L}
+function coopExpire(X){const Ls=S.coop.layer||{},L=Ls[X];if(!L)return;const Y=X=="A"?"B":"A",LY=Ls[Y];
+ S.pb.forEach(m=>{if(!m||!L.mon[m.uid])return;if((m.owner||"A")===X)return;   // 本人のモンスターは、このあとの resetBoard で元に戻る
+  m.buff=(m.buff||0)-L.mon[m.uid].b;m.defBuff=(m.defBuff||0)-L.mon[m.uid].d});
+ S.cb.forEach(m=>{if(!m||!L.cur[m.uid])return;const y=LY&&LY.cur[m.uid];m.curse=y?y.a:0;m.curseDef=y?y.d:0});
+ S.pDefBonus=(S.pDefBonus||0)-(L.bonus||0);if(L.def2&&!(LY&&LY.def2))S.pDef2=false;if(L.shield&&!(LY&&LY.shield))S.pShield=false;
+ delete Ls[X]}
+function coopResetOwner(who){coopExpire(who);const keep=S.pb.slice();
+ const cb=S.curseBy,wb=S.webBy;if(cb==="p")S.curseBy="hold";if(wb==="p")S.webBy="hold";   // 相手にかけたATK−などは、記録のほうで外す
  S.pb=keep.map(m=>m&&(m.owner||"A")===who?m:null);resetBoard("p");const res=S.pb;
  if(S.curseBy==="hold")S.curseBy=cb;if(S.webBy==="hold")S.webBy=wb;
  S.pb=keep.map((m,i)=>res[i]&&(!m||(m.owner||"A")===who)?res[i]:m);
- S.pb.forEach(m=>{if(m&&(m.owner||"A")!==who){m.used=true;m.attacks=0}})}
+ S.pb.forEach(m=>{if(m&&(m.owner||"A")!==who){m.used=true;m.attacks=0}});
+ // 本人のモンスターは resetBoard でATK+などが0に戻るので、相方がかけて、まだ続いているぶんを足し直す
+ const Y=who=="A"?"B":"A",LY=(S.coop.layer||{})[Y];
+ if(LY)S.pb.forEach(m=>{if(m&&(m.owner||"A")===who&&LY.mon[m.uid]){m.buff=(m.buff||0)+LY.mon[m.uid].b;m.defBuff=(m.defBuff||0)+LY.mon[m.uid].d}})}
 function coopSwitch(who){const C=S.coop,cur=C.turn;C.hands[cur]=S.ph;C.decks[cur]=S.pd;
  S.ph=C.hands[who]||[];S.pd=C.decks[who]||[];C.turn=who;S.active="p";S.cost=S.max;S.phase="main1";
- if(who=="A"){S.pDef2=false;S.pDefBonus=0;S.pShield=false}   // 「次の自分のターンまで」の守りは、ボスの攻撃のあと（一巡して）から切る
  S.pOnce=false;S.cOnce=false;S.pLock=false;
- coopResetOwner(who);draw("p");phaseCutIn("main1","p");
+ coopResetOwner(who);coopSnap();draw("p");phaseCutIn("main1","p");
  log("ターン"+turnTotal()+"　"+C.names[who]+"のターン")}
 async function coopEndTurn(){if(!S||S.busy||S.over)return;if(coopHostLocked())return log("相方のターンです");
  S.busy=true;selH=selA=selE=null;pending=null;
  await turnEndDeaths("p");chk();if(!S||S.over){if(S)S.busy=false;return}
- if(S.coop.turn=="A"){coopSwitch("B");S.busy=false;render();
+ if(S.coop.turn=="A"){coopLayerEnd("A");coopSwitch("B");S.busy=false;render();
   await coopRemoteTurn();if(!S||S.over||!FM.on)return;
-  S.busy=true;selH=selA=selE=null;pending=null;await turnEndDeaths("p");chk();if(!S||S.over){if(S)S.busy=false;return}}
+  S.busy=true;selH=selA=selE=null;pending=null;await turnEndDeaths("p");chk();if(!S||S.over){if(S)S.busy=false;return}
+  coopLayerEnd("B")}
  // ボスのターン
  if(S.tn)S.tn.c++;suddenDeath("c");chk();if(S.over)return;render();
  await cpuTurn();if(S&&!S.over){await turnEndDeaths("c");chk()}
@@ -3817,7 +3837,7 @@ async function coopHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
   start(opp);S.php=COOP.hp;S.pMax=COOP.hp;S.cMax=COOP.bossHp;
   const gd=(R.guest.deck||[]).filter(id=>by(id));const mk=ids=>shuf(ids.map(id=>cp(by(id))).filter(Boolean).map(c=>({...c,uid:Math.random()})));
   const bd=mk(gd.length==30?gd:[...defDeck]),bh=[];const n0=S.ph.length;for(let i=0;i<n0;i++)if(bd.length)bh.push(bd.shift());
-  S.coop={turn:"A",names,hands:{A:[],B:bh},decks:{A:[],B:bd},boss:{name:b.name,card:b.card}};
+  S.coop={turn:"A",names,hands:{A:[],B:bh},decks:{A:[],B:bd},boss:{name:b.name,card:b.card},layer:{}};coopSnap();
   log("🤝 協力バトル開始！ "+names.A+" → "+names.B+" → ボスの順に動きます");phaseCutIn("main1","p");render();fmPublishNow()})}
 // ---- 入る（相方）
 function coopGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
