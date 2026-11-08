@@ -191,6 +191,7 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .pmCard.got .pmArt{filter:saturate(.7)}.shopCard{width:70%;max-width:110px;aspect-ratio:.72;object-fit:cover;border-radius:8px;border:2px solid #c29bff}.shopOwn{font-size:11px;color:#9fb6d6}
 .ewNote{text-align:center;font-size:13px;color:#9fb6d6;margin-top:6px}
 .ewToday{display:block;margin:10px auto 0;min-height:40px;background:none;border:0;color:#8fd8ff;font:inherit;font-size:12px;text-decoration:underline}
+#edit.coopEdit .slotBar,#edit.coopEdit .slotTools{display:none}
 .pmT{text-align:center;margin-bottom:4px}.pmN{display:flex;align-items:center;justify-content:center;gap:8px}.shopGot{font-size:12px;color:#7ee0a1;font-weight:800;min-height:40px;display:flex;align-items:center}
 .tabLong{font-size:10px;letter-spacing:-.04em;white-space:nowrap}
 /* 総力戦 */
@@ -1481,7 +1482,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.21.4</div>
+ <div class="tVer" id="tVer">ver.5.22.0</div>
 </div>
 
 <div id="app">
@@ -2015,7 +2016,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.21.4</div>
+  <div class="aboutVer" id="aboutVer">ver.5.22.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2754,6 +2755,7 @@ function writeCurSlot(){
 }
 function saveDeck(){
  if(deck.length>30)return log2Toast("30枚以下にしてください（現在"+deck.length+"枚）");
+ if(editMode=="coop"){store.set("cmCoopDeck",JSON.stringify(deck));renderEdit();sfx("sel");log2Toast(deck.length<30?"協力用デッキを途中で保存しました（あと"+(30-deck.length)+"枚）":"協力用デッキに保存しました");return}
  writeCurSlot();renderEdit();sfx("sel");ttSet("deckSaved",1);
  const a=deckSlots(),i=curSlot(),nm=(a[i]&&a[i].name)||("デッキ"+(i+1));
  if(deck.length<30){log2Toast("「"+nm+"」を途中で保存しました（あと"+(30-deck.length)+"枚で完成）");return}   // 未完成でも保存できる。対戦には30枚のデッキを使う
@@ -3302,6 +3304,11 @@ function renderMenuLock(){try{titleCheck(!isIntroDone())}catch(e){}renderWheel()
      period を書くとその文字を出す。省略すると「〜10/31まで」か「常設」を自動で出す */
 const EVENTS=[
  // ===== ハロウィン（10月）=====
+ {id:"coop",kind:"coop",open:true,icon:"🤝",tag:"協力",
+  name:"協力バトル",title:"協力バトル",sub:"2人で覚醒ボスに挑む",
+  theme:["#1a3a5a","#0a1220"],accent:"#7ef0a1",start:"",end:"",
+  desc:"2人で1つの盤面を守る協力バトル。ボスは日替わりの覚醒ボス（HP5万）。",
+  boss:{name:"日替わりの覚醒ボス",card:"b_sk01"}},
  {id:"raid1",kind:"raid",open:true,icon:"💥",tag:"総力戦",
   name:"総力戦：暴走ボルブリザ",title:"総力戦：暴走ボルブリザ",sub:"HP10万の龍を、みんなで毎日削る",
   theme:["#5a1a2a","#120818"],accent:"#ff7a7a",start:"",end:"2026-11-17",
@@ -3462,12 +3469,13 @@ function openEventDetail(id){
  renderEventDetail();
 }
 // イベント一覧のバナーに出す絵：いちばん強い挑戦（覚醒）のボスのカードの絵（CRなど）
-function eventArtImg(e){try{const st=eventStages(e),c=(st[st.length-1]&&st[st.length-1].card)||(e.boss&&e.boss.card);return (c&&CARD_IMAGES[c])||""}catch(x){return ""}}
+function eventArtImg(e){if(e&&e.kind=="coop"){try{return CARD_IMAGES[coopBossToday().card]||""}catch(x){return ""}}try{const st=eventStages(e),c=(st[st.length-1]&&st[st.length-1].card)||(e.boss&&e.boss.card);return (c&&CARD_IMAGES[c])||""}catch(x){return ""}}
 function renderEventDetail(){
  const e=curEvent;if(!e)return;
  $("evdTitle").textContent=e.name;
  if(e.kind=="dragon")return renderDragonDetail(e);
  if(e.kind=="raid")return renderRaidDetail(e);
+ if(e.kind=="coop")return renderCoopDetail(e);
  const tk=eventTicket(e),got=ticketToday(tk),cap=(e.reward&&e.reward.dailyCap)||0;
  const capOver=cap&&got>=cap;
  const misN=(e.missions||[]).length,misReady=(e.missions||[]).filter(m=>!evMisOf(e.id).got.includes(m.id)&&evMisProg(e,m)>=m.goal).length;
@@ -3696,6 +3704,151 @@ const RANK_CPUS=[
  {id:"rk_minato",tier:"diamond",name:"双剣のミナト",tagline:"二本の刃からは逃げられない",aggro:0.9,deck:["b2v36", "b2v36", "lastpower", "lastpower", "quickorder", "quickorder", "makijack", "makijack", "ladyga", "ladyga", "b2c20", "b2c20", "tarakong", "tarakong", "b2v21", "b2v21", "boseki", "boseki", "mucha", "mucha", "b2v20", "b2v20", "katatsumura", "katatsumura", "heavylancer", "heavylancer", "babydragon", "babydragon", "b2f22", "b2f22"]},
  {id:"rk_rune",tier:"master",name:"古代の賢者 ルーン",tagline:"千年の知恵、受けてみよ",aggro:0.8,deck:["uriega", "uriega", "b2v31", "b2v31", "kanpou", "kanpou", "kami", "kami", "jirasanaide", "jirasanaide", "suhada", "suhada", "makijack", "makijack", "ikiru", "ikiru", "b2f10", "b2f10", "ladyga", "ladyga", "tarakong", "tarakong", "boen", "boen", "b2c15", "b2c15", "boseki", "boseki", "b2v10", "b2v10"]},
  {id:"rk_reina",tier:"master",name:"無冠の女王 レイナ",tagline:"頂点で待っているわ",aggro:1.0,deck:["b2c31", "b2c31", "b2f31", "b2f31", "uriega", "uriega", "mimi", "mimi", "b2c01", "b2c01", "b2f02", "b2f02", "makijack", "makijack", "suhada", "suhada", "b2f12", "b2f12", "b2c07", "b2c07", "b2c09", "b2c09", "b2f08", "b2f08", "b2f11", "b2f11", "b2v06", "b2v06", "ikiru", "ikiru"]}];
+/* ===== 協力バトル（2人で1つの盤面を守る・リアルタイム） =====
+   ・フレンドマッチの部屋のしくみを使う（部屋の mode:"coop"）。ホストの端末でゲームを動かし、盤面を相方に送る
+   ・順番：ホスト（A）→ 相方（B）→ ボス。盤面3マス・HP15000は2人で共有。手札・山札は別々、コアはターンごと
+   ・出したモンスターは「出した人」のもの。自分のターンにだけ攻撃できる
+   ・相方のターンは、相方の操作（召喚・呪文・攻撃・対象選び）をホストが受け取って、そのまま再現する
+   ・ボスは日替わりの覚醒ボス（HP50000）。勝つと2人とも💎300（1日3回まで）。期間なし
+   ・デッキは協力用の専用デッキ（cmCoopDeck） */
+const COOP={hp:15000,bossHp:50000,gem:300,daily:3};
+let coopRemote=false;        // ホストが相方の操作を再現している間 true
+function coopDeckIds(){try{const d=JSON.parse(store.get("cmCoopDeck")||"[]");return Array.isArray(d)?d.filter(id=>by(id)):[]}catch(e){return[]}}
+function coopBosses(){const L=[];[["chronoga","覚醒 時間の神 クロノガ"],["halloween","覚醒 パンプキング"],["shokuju","覚醒 蝕樹のコモク"]].forEach(([id])=>{const e=eventById(id);if(!e)return;
+  const st=eventStages(e).find(x=>!x.plain&&eventStages(e).length>1);if(st){const o=rankEvOpp(e,st);L.push({key:id,name:st.name||o.name,card:st.card||o.bossCard,line:(e.boss&&e.boss.line)||"",aggro:o.aggro||1,deck:o.deck})}});
+ DR_KEYS.forEach(k=>L.push({key:"dr_"+k,name:DR[k].a.name,card:DR[k].a.card,line:"「グオオオオ……！」",aggro:DR[k].a.aggro||1,deck:[...DR_DECK[k+"_a"]]}));return L}
+function coopDayIdx(){const t=todayStr().split("-").map(Number);return Math.floor(Date.UTC(t[0],t[1]-1,t[2])/864e5)}
+function coopBossToday(){const L=coopBosses();return L[coopDayIdx()%L.length]}
+function coopSt(){let o={};try{o=JSON.parse(store.get("cmCoop")||"{}")||{}}catch(e){o={}}if(o.day!==todayStr()){o.day=todayStr();o.wins=0}return o}
+function coopMe(){return FM.role=="guest"?"B":"A"}
+function coopIsGuest(){return !!(FM.on&&FM.coop&&FM.role=="guest")}
+// いま画面に出す手札（自分の手札）。自分のターンでなければ、しまってある自分の手札を出す
+function coopDispHand(){if(!S||!S.coop)return S?S.ph:[];const me=coopMe();return S.coop.turn===me?S.ph:(S.coop.hands[me]||[])}
+// ホスト：相方のターン中は、ホスト自身のタップを止める
+function coopHostLocked(){return !!(S&&S.coop&&FM.role!="guest"&&S.coop.turn=="B"&&!coopRemote)}
+function coopPendHas(side,i){return !!(S&&S.coopPend&&(S.coopPend[side]||[]).includes(i))}
+// ---- ターンの切り替え（ホスト）
+function coopResetOwner(who){const keep=S.pb.slice();
+ S.pb=keep.map(m=>m&&(m.owner||"A")===who?m:null);resetBoard("p");const res=S.pb;
+ S.pb=keep.map((m,i)=>res[i]&&(!m||(m.owner||"A")===who)?res[i]:m);
+ S.pb.forEach(m=>{if(m&&(m.owner||"A")!==who){m.used=true;m.attacks=0}})}
+function coopSwitch(who){const C=S.coop,cur=C.turn;C.hands[cur]=S.ph;C.decks[cur]=S.pd;
+ S.ph=C.hands[who]||[];S.pd=C.decks[who]||[];C.turn=who;S.active="p";S.cost=S.max;S.phase="main1";
+ S.pDef2=false;S.pDefBonus=0;S.pShield=false;S.pOnce=false;S.cOnce=false;S.pLock=false;
+ coopResetOwner(who);draw("p");phaseCutIn("main1","p");
+ log("ターン"+turnTotal()+"　"+C.names[who]+"のターン")}
+async function coopEndTurn(){if(!S||S.busy||S.over)return;if(coopHostLocked())return log("相方のターンです");
+ S.busy=true;selH=selA=selE=null;pending=null;
+ await turnEndDeaths("p");chk();if(!S||S.over){if(S)S.busy=false;return}
+ if(S.coop.turn=="A"){coopSwitch("B");S.busy=false;render();
+  await coopRemoteTurn();if(!S||S.over||!FM.on)return;
+  S.busy=true;selH=selA=selE=null;pending=null;await turnEndDeaths("p");chk();if(!S||S.over){if(S)S.busy=false;return}}
+ // ボスのターン
+ if(S.tn)S.tn.c++;suddenDeath("c");chk();if(S.over)return;render();
+ await cpuTurn();if(S&&!S.over){await turnEndDeaths("c");chk()}
+ if(S&&!S.over){S.turn++;S.max=Math.min(10,S.max+1);if(S.tn)S.tn.p++;coopSwitch("A");suddenDeath("p");chk()}
+ if(S){S.busy=false;render();chk()}}
+// 相方のターン：相方の操作を受け取って、ホストで再現する
+async function coopRemoteTurn(){for(let k=0;k<300;k++){if(!S||S.over||!FM.on)return;
+  const a=await fmNextAction();if(!S||S.over||!FM.on)return;
+  if(a.t=="end")return;if(a.t=="resign"){S.php=0;chk();return}
+  coopRemote=true;try{await coopDo(a)}catch(e){}finally{coopRemote=false}
+  for(let w=0;w<60&&S&&S.busy&&!S.over;w++)await sleep(100);render()}}
+async function coopDo(a){
+ if(a.t=="summon"){selH=a.hand;await summon(a.lane)}
+ else if(a.t=="cast"){selH=a.hand;await cast()}
+ else if(a.t=="attack"){selA=a.from;await enemyTarget(a.to)}
+ else if(a.t=="pend"){if(pending)await resolvePending(a.side,a.i)}
+ else if(a.t=="cancel"){if(pending)cancelPending()}
+ else if(a.t=="phase"){if(phaseOn()&&S.phase!="battle")setPhase("battle")}
+ else if(a.t=="block"){if(blockAsk)blockChoose(a.i)}}
+// ---- 相方（ゲスト）の操作：自分では動かさず、ホストに送る
+function coopCanAct(){if(!S||S.over||!FM.on)return false;if(S.coop.turn!=="B"){log("相方のターンです");return false}if(S.busy||FM.sent)return false;return true}
+function coopGuestSummon(pos){if(!coopCanAct()||selH==null)return;const c=S.ph[selH];if(!c||c.type!="monster"||S.pb[pos])return;
+ if(ec(c,"p")>S.cost)return log("コストが足りません");if(c.centerOnly&&pos!=1)return log("中央レーンにのみ召喚できます");
+ fmSend({t:"summon",hand:selH,lane:pos});selH=null;log("召喚中…")}
+function coopGuestCast(){if(!coopCanAct()||selH==null)return;const c=S.ph[selH];if(!c||c.type!="spell")return;
+ if(ec(c,"p")>S.cost)return log("コストが足りません");fmSend({t:"cast",hand:selH});selH=null;log("呪文「"+c.name+"」を発動")}
+function coopGuestAttack(to){if(!coopCanAct()||selA==null)return;const f=selA,m=S.pb[f];if(!m)return;
+ if((m.owner||"A")!=="B")return log("相方のモンスターです");if(m.cantAttack)return log("このモンスターは攻撃できません");
+ if(m.used||(m.attacks||0)<=0)return log("行動済みです");if(!(f==1||to==1||f+to==2))return log("正面か中央にしか届きません");
+ fmSend({t:"attack",from:f,to});selA=null;log("攻撃！")}
+function coopGuestPend(side,i){if(!coopCanAct())return;if(!coopPendHas(side,i))return;fmSend({t:"pend",side,i})}
+function coopGuestOwnTap(i){const m=S&&S.pb[i];if(!m)return;
+ if(S.coopPend){coopGuestPend("p",i);return}
+ if((m.owner||"A")!=="B"){selA=null;selE=null;log(m.name+"（相方のモンスター）");render();return}
+ selA=i;selH=selE=null;sfx("sel");log(m.cantAttack?"このモンスターは攻撃できません":(m.used||m.attacks<=0?"行動済み":"攻撃先をタップ（空の中央＝直接攻撃）"));render()}
+function coopGuestNext(){if(!coopCanAct())return;
+ if(phaseOn()&&S.phase!="battle"&&S.pb.some(m=>m&&(m.owner||"A")==="B"&&!m.used&&(m.attacks||0)>0&&!m.cantAttack)){fmSend({t:"phase"});return}
+ endTurnAsk(()=>{fmSend({t:"end"});selH=selA=null;log("ターンを終えました")})}
+// ---- 結果
+function coopReward(won){if(!won)return 0;const o=coopSt();o.wins=(o.wins||0)+1;let g=0;if(o.wins<=COOP.daily){g=COOP.gem;addCrystal(g,"協力バトル")}
+ store.set("cmCoop",JSON.stringify(o));try{const t=ttStats();t.coopWin=(t.coopWin||0)+1;ttSave(t);titleCheck()}catch(e){}return g}
+function coopShowResult(won){const t=$("rTitle");
+ if(won){t.textContent="WIN!";t.className="rtitle dot winc";sfx("win")}else{t.textContent="LOSE...";t.className="rtitle dot losec";sfx("lose")}
+ $("rSub").textContent=(won?"2人でボスを倒した！ ":"力つきた… ")+turnTotal()+"ターン";
+ const g=coopReward(won),box=$("rRank"),btns=$("rBtns");box.classList.remove("hide");btns.classList.add("hide");
+ box.innerHTML=(g?'<div class="drRes">💎+'+g+'（今日 '+Math.min(coopSt().wins,COOP.daily)+'/'+COOP.daily+'）</div>':won?'<div class="drRes" style="font-size:12px">今日の💎は受け取り済み</div>':'')
+  +(FM.role=="guest"?'<div class="drRes" style="font-size:12px;font-weight:600">ホストが部屋に戻ると、部屋の画面に戻ります</div><button class="sec" onclick="hideP(\'resultov\')">閉じる</button>'
+   :'<button class="gold" onclick="fmBackToRoom()">部屋に戻る</button>');
+ setTimeout(()=>$("resultov").classList.add("show"),600)}
+// ---- 登場演出（2人とも）
+function coopIntro(b,names,cb){hideAll();$("game").classList.remove("hide");pmPending=null;
+ const ok=pmBossShow(b.card,b.line);$("pmName").textContent=b.name;$("pmTag").textContent="🤝 協力バトル　ボスHP "+COOP.bossHp.toLocaleString();
+ $("pmOppTitle").innerHTML="";$("pmMe").innerHTML='<div class="pmN"><span>'+escH(names.A)+'</span>　＆　<span>'+escH(names.B)+'</span></div>';
+ renderPmDeck(false);$("pmBtn").classList.remove("show");$("pmFlip").style.visibility="hidden";$("prematch").classList.add("on");
+ setTimeout(()=>{$("prematch").classList.remove("on");$("pmFlip").style.visibility="";pmBossShow(null);cb&&cb()},ok?3200:1500)}
+// ---- 始める（ホスト）
+async function coopHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
+ const b=coopBossToday();
+ await fr.ref.child("acts").remove();await fr.ref.child("state").remove();await fr.ref.child("ask").remove();await fr.ref.child("ans").remove();
+ await fr.ref.child("match").set({first:"host",coop:true,boss:b.key,at:Date.now()});
+ FM={on:true,role:"host",coop:true,ref:fr.ref,seq:0,queue:[],wait:null,oppName:R.guest.name,oppTitle:R.guest.title||""};
+ fr.ref.child("acts").on("child_added",snap=>{const a=snap.val();if(!a)return;
+  if(a.t=="resign"){if(S&&!S.over){log(FM.oppName+"が退出しました");S.php=0;render();chk()}if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}return}
+  if(FM.wait){const f=FM.wait;FM.wait=null;f(a)}else FM.queue.push(a)});
+ eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;raidCtx=null;rankCtx=null;
+ const names={A:frName(),B:R.guest.name};
+ coopIntro(b,names,()=>{if(!FM.on)return;
+  const opp={id:"coop_"+b.key,name:b.name,tagline:"",aggro:b.aggro,hp:COOP.bossHp,deck:[...b.deck],pDeck:(R.host&&R.host.deck&&R.host.deck.length==30?R.host.deck:coopDeckIds())};
+  start(opp);S.php=COOP.hp;S.pMax=COOP.hp;S.cMax=COOP.bossHp;
+  const gd=(R.guest.deck||[]).filter(id=>by(id));const mk=ids=>shuf(ids.map(id=>cp(by(id))).filter(Boolean).map(c=>({...c,uid:Math.random()})));
+  const bd=mk(gd.length==30?gd:[...defDeck]),bh=[];const n0=S.ph.length;for(let i=0;i<n0;i++)if(bd.length)bh.push(bd.shift());
+  S.coop={turn:"A",names,hands:{A:[],B:bh},decks:{A:[],B:bd},boss:{name:b.name,card:b.card}};
+  log("🤝 協力バトル開始！ "+names.A+" → "+names.B+" → ボスの順に動きます");phaseCutIn("main1","p");render();fmPublishNow()})}
+// ---- 入る（相方）
+function coopGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
+ FM={on:true,role:"guest",coop:true,ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"ホスト",sent:false};
+ logs=[];selH=selA=selE=null;pending=null;S=null;
+ const b=coopBosses().find(x=>x.key==(room.match&&room.match.boss))||coopBossToday();
+ coopIntro(b,{A:FM.oppName,B:frName()},()=>{if(!S)$("log").textContent="ホストが準備しています…"});
+ fr.ref.child("state").on("value",snap=>{const v=snap.val();if(!v||!FM.on)return;
+  if(v.seq<=FM.seq&&v.seq>1)return;FM.seq=v.seq;let h;try{h=JSON.parse(v.s)}catch(e){return}
+  const wasOver=S&&S.over;S=h;S.busy=false;S.opp={id:"coop",name:(h.coop&&h.coop.boss&&h.coop.boss.name)||"ボス"};FM.sent=false;
+  if(FM.fxSeen==null)FM.fxSeen=v.fx&&v.fx.length?v.fx[v.fx.length-1].id:0;
+  if(!blockAsk&&v.lane){try{const L=JSON.parse(v.lane);laneFx={atk:L.atk||null,tgt:L.tgt||null,guardSide:null,guards:[]}}catch(e){}}
+  if(v.log&&v.log!==FM.lastHostLog){FM.lastHostLog=v.log;const l=v.log.replace(/^T\d+｜/,"");logs.push(l);$("log").textContent=l}
+  if(selH!=null&&!coopDispHand()[selH])selH=null;
+  if($("prematch").classList.contains("on"))return;   // 登場演出の間は、盤面を出さない
+  render();setTimeout(()=>fmPlayFx(v.fx),0);
+  if(S.over&&!wasOver)coopShowResult(S.chp<=0)})}
+// ---- 協力用デッキ
+let editMode=null;
+function openCoopEdit(){editMode="coop";let d=coopDeckIds();if(!d.length)d=loadDeck().filter(id=>by(id));deck=[...d];
+ hideAll();$("edit").classList.remove("hide");$("edit").classList.add("coopEdit");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit()}
+function coopEditClose(){editMode=null;$("edit").classList.remove("coopEdit");deck=loadDeck().filter(id=>by(id));openEventDetail("coop")}
+// ---- イベントの画面
+function openCoopRoom(make){const d=coopDeckIds();if(d.length!==30){sfx("no");log2Toast("先に協力用デッキを30枚で作ってください");return}
+ openFriend();fr.coop=true;renderFriend();if(make)friendCreate()}
+function renderCoopDetail(e){const b=coopBossToday(),d=coopDeckIds(),o=coopSt();
+ $("evdBody").innerHTML='<div class="evList"><div class="evStory">ボスのHPは5万。1つの盤面を2人で守り、交代で戦う協力バトル。<br>順番は「ホスト → 相方 → ボス」。HP15000は2人で共有。</div>'
+  +'<section class="gBlock evCard open evStage" style="--g1:#1a3a5a;--g2:#0a1220;--ga:#7ef0a1"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES[b.card]||"")+')"></div>'
+  +'<div class="gbPeriod">今日のボス</div><div class="gbTitle">'+escH(b.name)+'</div><div class="gbSub">HP '+COOP.bossHp.toLocaleString()+'・日替わり</div></div>'
+  +'<div class="gBody"><div class="evStat"><div><div class="sK">協力用デッキ</div><div class="sV">'+d.length+' / 30</div></div><div><div class="sK">今日の💎</div><div class="sV">'+Math.min(o.wins||0,COOP.daily)+' / '+COOP.daily+'</div></div></div>'
+  +'<button type="button" class="sec evGoBtn" onclick="openCoopEdit()">🃏 協力用デッキを'+(d.length?'編集する':'作る')+'</button>'
+  +'<button type="button" class="gold evGoBtn" onclick="openCoopRoom(true)">🤝 部屋を作る</button>'
+  +'<button type="button" class="sec evGoBtn" onclick="openCoopRoom(false)">🔑 部屋に入る（コードを入れる）</button>'
+  +'<div class="evRw">勝つと2人とも💎'+COOP.gem+'（1日'+COOP.daily+'回まで）。はじめて勝つと称号「最高の相棒」</div></div></section></div>'}
 /* ===== ランク戦 =====
    ランク：ブロンズ・シルバー・ゴールド（各Ⅲ→Ⅱ→Ⅰ、100ptずつ）→マスター（100ptごとに☆）。ptは通し番号で持つ（0〜299ブロンズ…900〜マスター）
    勝ち＋10＋連勝ボーナス（2連勝目から＋5ずつ、上限＋20）。負け−10、同じランクの一番下（Ⅲの0pt）より下には落ちない
@@ -4332,7 +4485,7 @@ function autoFill(){let guard=0;const pool=P.filter(c=>isVisible(c));while(deck.
 function familyId(id){const c=by(id);return(c&&c.baseId)?c.baseId:id}
 function add(id){if(deck.length>=40)return log2("40枚までです");const own=ownedCount(id);if(own<=0)return log2("所持していないカードです");const fam=familyId(id);if(deck.filter(x=>familyId(x)==fam).length>=2)return log2("同名2枚までです");if(deck.filter(x=>x==id).length>=own)return log2(`所持数（${own}枚）までです`);deck.push(id);if(deck.length===31)log2Toast("⚠️ 30枚を超えました。保存・退出は30枚以下にしてください");renderEdit()}
 function rem(id){let i=deck.indexOf(id);if(i>=0)deck.splice(i,1);renderEdit()}
-function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてから戻ってください（現在"+deck.length+"枚）");menu()}
+function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてから戻ってください（現在"+deck.length+"枚）");if(editMode=="coop")return coopEditClose();menu()}
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
@@ -4352,7 +4505,7 @@ function openEdit(){
  {const sl=deckSlots()[curSlot()];if(sl&&Array.isArray(sl.cards))deck=sl.cards.filter(id=>by(id))}   // 未完成のデッキも、そのまま続きから編集
  hideAll();$("edit").classList.remove("hide");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit();guideOnce("edit")}
 function renderEditInfo(){const over=deck.length>30,el=$("info");
- el.textContent=over?`⚠️ ${deck.length}枚（30枚超過！30枚以下にしてください）`:`${deck.length}/30枚　平均コスト ${deckAvgCost()}　同名2枚まで`;
+ el.textContent=(editMode=="coop"?"🤝協力用　":"")+(over?`⚠️ ${deck.length}枚（30枚超過！30枚以下にしてください）`:`${deck.length}/30枚　平均コスト ${deckAvgCost()}　同名2枚まで`);
  el.classList.toggle("over",over);
  try{renderSlotBar()}catch(e){}}
 function ownedMap(){try{return JSON.parse(store.get("cmOwned")||"{}")||{}}catch(e){return{}}}
@@ -5032,23 +5185,24 @@ function renderFriend(msg){const b=$("friendBody");if(!b)return;
   +(both?'<div class="frNote frOk">✅ つながりました！</div>':'<div class="frNote">相手を待っています…</div>')
   +'<div class="frWho"><div>ホスト<b>'+(h?escH(h.name):"—")+'</b>'+(h?'デッキ '+(h.deck||[]).length+'枚':"")+(h&&h.online===false?'<br><span class="frErr">通信切れ</span>':"")+'</div>'
   +'<div>ゲスト<b>'+(g?escH(g.name):"—")+'</b>'+(g?'デッキ '+(g.deck||[]).length+'枚':"")+(g&&g.online===false?'<br><span class="frErr">通信切れ</span>':"")+'</div></div>'
-  +(both&&fr.me=="host"?'<div class="frBtns"><button type="button" class="gold" onclick="fmHostStart()">⚔️ 対戦開始</button></div>':"")
-  +(both&&fr.me=="guest"?'<div class="frNote">ホストが「対戦開始」を押すと始まります</div>':"")
+  +(R.mode=="coop"?'<div class="frNote frOk">🤝 協力バトル　今日のボス：'+escH(coopBossToday().name)+'</div>':"")
+  +(both&&fr.me=="host"?'<div class="frBtns"><button type="button" class="gold" onclick="'+(R.mode=="coop"?"coopHostStart()":"fmHostStart()")+'">'+(R.mode=="coop"?"🤝 協力バトル開始":"⚔️ 対戦開始")+'</button></div>':"")
+  +(both&&fr.me=="guest"?'<div class="frNote">ホストが「'+(R.mode=="coop"?"協力バトル開始":"対戦開始")+'」を押すと始まります</div>':"")
   +(both?'<div class="frBtns"><button type="button" onclick="friendPing()">👋 あいさつを送る</button></div>':"")
   +'<div id="frLog" class="frLog"></div>'
   +'<div class="frBtns"><button type="button" class="sec" onclick="friendLeave(false)">部屋を出る</button></div>'
   +'</div>'+err;
  frLog([])}
-function frMe(){const t=titleEquipped();return {name:frName(),deck:frDeck(),title:t?t.id:"",at:Date.now()}}
+function frMe(coop){const t=titleEquipped();return {name:frName(),deck:coop?coopDeckIds():frDeck(),title:t?t.id:"",at:Date.now()}}
 async function friendCreate(){renderFriend("接続中…");
  try{const db=await fbInit();
   for(let k=0;k<8;k++){const code=String(Math.floor(Math.random()*10000)).padStart(4,"0");
    const ref=db.ref("cm_rooms/"+code);
    const cur=(await ref.once("value")).val();
    if(cur&&cur.host&&Date.now()-(cur.created||0)<3*3600e3)continue;   // 使用中（3時間以内）の番号は使わない
-   const room={created:Date.now(),host:{...frMe(),online:true}};
+   const room={created:Date.now(),mode:fr.coop?"coop":"vs",host:{...frMe(fr.coop),online:true}};
    await ref.set(room);
-   fr={mode:"room",me:"host",code,ref,room,log:[]};
+   fr={mode:"room",me:"host",code,ref,room,log:[],coop:room.mode=="coop"};
    frWatch();renderFriend();sfx("sel");return}
   renderFriend("部屋を作れませんでした。もう一度試してください")}
  catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
@@ -5060,9 +5214,11 @@ async function friendJoin(){const code=(($("frCodeIn")||{}).value||"").replace(/
   if(!v||!v.host){renderFriend("その部屋は見つかりませんでした");return}
   if(v.guest&&v.guest.online!==false){renderFriend("その部屋はもう満員です");return}
   if(v.host.online===false){renderFriend("ホストの通信が切れているようです。部屋を作り直してもらってください");return}
-  const me={...frMe(),online:true};
+  if(v.mode=="coop"&&coopDeckIds().length!==30){renderFriend("協力バトルの部屋です。先にイベントの画面で協力用デッキを30枚で作ってください");return}
+  if(v.mode!="coop"&&fr.coop){renderFriend("その部屋は協力バトルの部屋ではありません");return}
+  const me={...frMe(v.mode=="coop"),online:true};
   await ref.child("guest").set(me);
-  fr={mode:"room",me:"guest",code,ref,room:{...v,guest:me},log:[]};
+  fr={mode:"room",me:"guest",code,ref,room:{...v,guest:me},log:[],coop:v.mode=="coop"};
   frWatch();renderFriend();sfx("sel")}
  catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
 // 自分の接続状態を見張る。つながり直したら online:true に戻し、切れたときの印（online:false）も付け直す
@@ -5076,7 +5232,7 @@ function frWatch(){const ref=fr.ref;if(!ref)return;frPresence();
  fr.onVal=ref.on("value",snap=>{const v=snap.val();
   if(!v){if(fr.me=="guest"){frStop();if(FM.on)fmEnd();fr={mode:"top"};hideP("resultov");hideAll();$("friend").classList.remove("hide");renderFriend("ホストが部屋を閉じました")}return}
   const hadG=!!(fr.room&&fr.room.guest);fr.room=v;
-  if(fr.me=="guest"&&v.match&&!FM.on&&v.match.at!==fr.lastMatchAt)return fmGuestEnter(v);
+  if(fr.me=="guest"&&v.match&&!FM.on&&v.match.at!==fr.lastMatchAt)return v.mode=="coop"?coopGuestEnter(v):fmGuestEnter(v);
   if(fr.me=="guest"&&!v.match&&FM.on)return fmLeaveGame("ホストが部屋に戻りました");
   if(FM.on){ if(fr.me=="host"&&!v.guest)fmOppGone();
    const opp=fr.me=="host"?v.guest:v.host;fmOppNet(!!opp&&opp.online!==false);return }
@@ -5147,6 +5303,7 @@ function fmNextAction(){return new Promise(res=>{if(FM.queue.length)return res(F
 let _fmPubT=null;
 function fmSchedulePublish(){if(_fmPubT)return;_fmPubT=setTimeout(()=>{_fmPubT=null;fmPublishNow()},120)}
 function fmPublishNow(){if(!FM.on||FM.role!="host"||!FM.ref||!S)return;
+ if(S.coop){S.coopPend=pending?{p:[0,1,2].filter(i=>S.pb[i]&&validTarget(S.pb[i],"p")),c:[0,1,2].filter(i=>S.cb[i]&&validTarget(S.cb[i],"c"))}:null}
  const slim=JSON.stringify(S,(k,v)=>(k=="lore"||k=="sortName"||k=="opp")?undefined:v);
  const FM_LOCAL_LOG=/確認（長押しで詳細）|足りません|できません|届きません|行動済み|選んでください|ロック中|のみ召喚|タップ|攻撃できる相手/;
  const pubLog=logs.filter(l=>!FM_LOCAL_LOG.test(l)).slice(-1)[0]||"";   // ホストの操作案内は相手に見せない
@@ -5159,7 +5316,7 @@ function fmFx(n,a){if(!FM.on||FM.role!="host")return;FM.fx=FM.fx||[];FM.fxN=(FM.
   window[n]=function(...a){fmFx(n,a.map(x=>typeof x=="object"?null:x));return o.apply(this,a)}});
  const oc=window.cutIn;if(typeof oc=="function")window.cutIn=function(c){if(c)fmFx("cutIn",[c.id]);return oc.apply(this,arguments)};
 })();
-const FM_FLIP=x=>x=="p"?"c":x=="c"?"p":x;
+const FM_FLIP=x=>FM.coop?x:x=="p"?"c":x=="c"?"p":x;   // 協力は同じ側なので、反転しない
 function fmPlayFx(list){(list||[]).forEach(f=>{if(f.id<=(FM.fxSeen||0))return;FM.fxSeen=f.id;const a=f.a||[];
  try{
   if(f.n=="float"){float(FM_FLIP(a[0]),a[1],a[2],a[3]);if(a[3]=="red")sfx("hit")}
@@ -5228,8 +5385,8 @@ function fmNetBanner(){const b=$("fmNet");if(!b)return;let t="";
  if(fr&&fr.ref&&fr.online===false)t="📡 通信が切れました。つながり直すのを待っています…";
  else if(FM.on&&FM.netT)t="📡 相手の通信が切れました（あと"+FM.netLeft+"秒待ちます）";
  b.textContent=t;b.classList.toggle("show",!!t)}
-function fmOppGone(){if(!FM.on)return;log2Toast("相手が退出しました");
- if(S&&!S.over){S.chp=0;chk()}}
+function fmOppGone(){if(!FM.on)return;log2Toast(FM.coop?"相方が退出しました":"相手が退出しました");
+ if(S&&!S.over){if(FM.coop)S.php=0;else S.chp=0;chk()}}
 // ---- ゲスト
 function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;completeWelcome("friend1");gcEvent("friend-match");
  FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",oppTitle:(room.host&&room.host.title)||"",sent:false};
@@ -5641,6 +5798,7 @@ const TITLES=[
  {id:"t_shokuju10",name:"世界樹の守り人",c:"jet",cond:"覚醒 蝕樹のコモクに10勝する",ok:()=>(T().awake_shokuju||0)>=10},
  {id:"t_skall",name:"闇を払う光",c:"rainbow",cond:"蝕まれし世界樹のイベントミッションを全部達成する",ok:()=>{try{const e=eventById("shokuju");return evMisOf("shokuju").got.length>=(e.missions||[]).length}catch(x){return false}},limited:1},
  {id:"t_kimiboku",name:"君は僕？",c:"rainbow",cond:"木の勇者 コモクのCRと、蝕樹のコモクのCRを入れたデッキで、蝕樹のコモクに勝つ",ok:()=>!!T().kimiboku,secret:1},
+ {id:"t_coop1",name:"最高の相棒",c:"gold",cond:"協力バトルで勝つ",ok:()=>(T().coopWin||0)>=1},
  {id:"t_vol1",name:"定めを覆す者",c:"jet",cond:"第3章で、HP22000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol1},
  {id:"t_vol2",name:"不可能を可能にする者",c:"rainbow",cond:"第5章で、HP25000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol2},
  {id:"t_volbriza",name:"龍を鎮めし者",c:"jet",cond:"ストーリーで氷雷龍ボルブリザ（最終決戦）に勝つ",ok:()=>storyProgress().includes("5-4")},
@@ -6382,22 +6540,24 @@ function b2Watch(){if(!S||S.over||!S.pb)return;const w=S.b2w=S.b2w||{};const has
  if(!w.pm&&has("b2v_plasy")&&has("b2v_minus")){w.pm=1;ttSet("plmn",1)}
  [["dk_raizen","b2v02",1],["dk_snowza","b2f02",2],["dk_rune","b2c03",4],["dk_vergu","b2c01",8]].forEach(([k,d,bit])=>{if(!(w.jr&bit)&&has(k)&&has(d)){w.jr=(w.jr||0)|bit;try{ttSet("jinryu",1);const o=ttStats();o.jrm=(o.jrm||0)|bit;ttSave(o)}catch(e){}}})}
 function render(){if(!S)return;try{b2Watch()}catch(e){}
+ if(S.coop&&FM.role!="guest")S.pb.forEach(m=>{if(m&&!m.owner)m.owner=S.coop.turn});   // 協力：出した人の印
  if(FM.on&&FM.role=="host")fmSchedulePublish();
  try{
   $("php").textContent=Math.max(0,S.php);$("chp").textContent=Math.max(0,S.chp);
   const pb=$("phpBar"),cb=$("chpBar");
-  pb.style.width=Math.max(0,Math.min(100,S.php/100))+"%";cb.style.width=Math.max(0,Math.min(100,S.chp/((S.cMax||10000)/100)))+"%";
+  pb.style.width=Math.max(0,Math.min(100,S.php/((S.pMax||10000)/100)))+"%";cb.style.width=Math.max(0,Math.min(100,S.chp/((S.cMax||10000)/100)))+"%";
   pb.classList.toggle("low",S.php<=3000);cb.classList.toggle("low",S.chp<=3000);
   $("pd").textContent=S.pd.length;$("cd").textContent=S.cd.length;
   $("pgN").textContent=S.pg.length;$("cgN").textContent=S.cg.length;
   $("cpuHandInfo").textContent="相手の手札："+S.ch.length+"枚";
   if($("cWho"))$("cWho").textContent="相手";
   if($("chpLabel")&&S.opp)$("chpLabel").textContent=S.opp.name;
-  $("turnN").textContent=turnTotal();if($("btnEnd"))$("btnEnd").textContent=phaseBtnLabel();$("whose").textContent=S.active=="p"?((player&&player.name)||"YOU"):((S.opp&&S.opp.name)?fillText(S.opp.name):("相手"));
+  $("turnN").textContent=turnTotal();if($("btnEnd"))$("btnEnd").textContent=phaseBtnLabel();$("whose").textContent=S.coop&&S.active=="p"?S.coop.names[S.coop.turn]:S.active=="p"?((player&&player.name)||"YOU"):((S.opp&&S.opp.name)?fillText(S.opp.name):("相手"));
  }catch(e){}
  gems();rBoard("cb",S.cb,false);rBoard("pb",S.pb,true);
  const h=$("hand");h.innerHTML="";
- S.ph.forEach((c,index)=>{const d=document.createElement("div");
+ const HH=coopDispHand();
+ HH.forEach((c,index)=>{const d=document.createElement("div");
   d.className="card"+(c.type=="spell"?" spellface":"")+(c.rarity=="CR"?" crframe":"")+rarityEdge(c)+(selH==index?" sel":"");
   d.innerHTML=htmlCard(c,"p");
   bindPress(d,c,()=>{if(S.over)return;
@@ -6405,12 +6565,12 @@ function render(){if(!S)return;try{b2Watch()}catch(e){}
    selH=index;selA=selE=null;sfx("sel");render()});
   if(discardPick&&discardPick.sel.includes(index))d.classList.add("picked");
   h.appendChild(d)});
- if(!S.ph.length){const t=document.createElement("div");t.style.cssText="color:#7b93b5;padding:24px;font-weight:900";t.textContent="手札なし";h.appendChild(t)}
+ if(!HH.length){const t=document.createElement("div");t.style.cssText="color:#7b93b5;padding:24px;font-weight:900";t.textContent="手札なし";h.appendChild(t)}
  try{
   const sel=getSel();
   $("detail").classList.toggle("show",!!sel&&!S.over);
   $("cast").classList.toggle("show",!!sel&&sel.type=="spell"&&selH!=null&&!pending&&!S.over);
-  $("cancel").classList.toggle("show",!!pending&&!S.over);
+  $("cancel").classList.toggle("show",(!!pending||(coopIsGuest()&&!!S.coopPend))&&!S.over);
  }catch(e){}
  try{tutHi()}catch(e){}}
 function gems(){const g=$("gems");g.innerHTML="";for(let i=0;i<10;i++){const d=document.createElement("div");d.className="gem"+(i>=S.cost||i>=S.max?" off":"");g.appendChild(d)}}
@@ -6451,9 +6611,10 @@ function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
    if(isFrozen(c)||c.shock){const bd=document.createElement("div");bd.className="b2st";
     bd.innerHTML=(isFrozen(c)?'<span class="stF">❄️</span>':'')+(c.shock?'<span class="stS">⚡'+c.shock+'</span>':'');d.appendChild(bd);
     if(isFrozen(c))d.classList.add("frozenC");if(c.shock)d.classList.add("shockC")}
-   if(validTarget(c,side))s.classList.add("targetable");
+   if(validTarget(c,side)||coopPendHas(side,i))s.classList.add("targetable");
    if(!isP&&selA!=null&&!pending){const f=selA;if(f==1||i==1||f+i==2)s.classList.add("targetable")}
    const tap=()=>{if(S.over)return;
+    if(coopIsGuest()&&S.coopPend&&!isP){coopGuestPend("c",i);return}
     if(isP)ownTap(i);
     else{
      if(pending){if(validTarget(c,"c"))resolvePending("c",i);return}
@@ -6462,7 +6623,7 @@ function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
    bindPress(d,c,tap);
    s.appendChild(d)}
   e.appendChild(s)})}
-function getSel(){if(selH!=null)return S.ph[selH];if(selA!=null)return S.pb[selA];if(selE!=null)return S.cb[selE];return null}
+function getSel(){if(selH!=null)return coopDispHand()[selH];if(selA!=null)return S.pb[selA];if(selE!=null)return S.cb[selE];return null}
 function detailSel(){const c=getSel();if(c)showD(c)}
 function showD(c,ctx){const img=CARD_IMAGES[c.id];
  $("dc").className="dc"+(c.type=="spell"?" spellface":"")+(c.rarity=="CR"?" cr":"")+rarityEdge(c)
@@ -6589,7 +6750,7 @@ function pick(side,kind,valid,score,cb,refund){
 function resolvePending(side,i){const pd=pending;pending=null;
  if(pd.refund){S.pg.push(pd.refund.card);pd.refund=null}
  pd.cb(side,i);render();chk()}
-function cancelPending(){if(!pending)return;
+function cancelPending(){if(coopIsGuest()){if(S&&S.coopPend&&coopCanAct())fmSend({t:"cancel"});return}if(!pending)return;
  if(pending.fmId){const id=pending.fmId;pending=null;fmAnswer(id,null);log("自動で選びます");render();return}
  if(pending.refund){S.cost+=pending.refund.cost;S.ph.push(pending.refund.card);log("キャンセルしました")}else log("キャンセル");
  pending=null;render()}
@@ -6635,6 +6796,7 @@ function endWarnAns(k){$("endWarnPop").classList.remove("show");const f=endWarnG
 function toggleEndWarn(){store.set("cmEndWarn",store.get("cmEndWarn")=="0"?"1":"0");sfx("sel");renderEndWarnBtn()}
 function renderEndWarnBtn(){if($("ewBtn"))$("ewBtn").textContent=store.get("cmEndWarn")=="0"?"オフ":"オン"}
 function nextPhase(){
+ if(coopIsGuest())return coopGuestNext();if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest"){if(!fmCanAct())return;if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(fmGuestEnd);fmSend({t:"phase"});return}
  if(!S||S.busy||S.over||pending)return;
  if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(endTurn);
@@ -6642,7 +6804,8 @@ function nextPhase(){
 function phaseBtnLabel(){if(!S||!phaseOn()||S.active!="p")return "ターンエンド ▶";
  if(S.phase=="main1"&&anyAttacker("p"))return "アタックフェイズへ ⚔️";
  return "ターンエンド ▶"}
-function ownTap(i){if(S.over)return;const m=S.pb[i];if(!m)return;
+function ownTap(i){if(S.over)return;if(coopIsGuest())return coopGuestOwnTap(i);const m=S.pb[i];if(!m)return;
+ if(coopHostLocked()&&!blockAsk)return log("相方のターンです");
  if(blockAsk){if(laneFx.guards.includes(i))blockChoose(i);return}
  if(pending){if(validTarget(m,"p"))resolvePending("p",i);return}
  if(phaseOn()&&S.active=="p"&&S.phase!="battle"&&!m.used&&(m.attacks||0)>0&&!m.cantAttack){
@@ -6661,7 +6824,8 @@ function grantCharge(m,force){const sd=sideOfMon(m);
  if(m.acted||m.frozenNow){m.charge=1;return}   // このターンもう攻撃した／凍結中のモンスターは、突撃をもらっても動けない（出したばかりのモンスターだけが動けるようになる）
 
  if(sd&&chargeBlocked(sd)&&m.used&&(m.attacks||0)<=0){m.charge=1;log("パンプキングの威圧："+m.name+"は動けない");return}m.charge=1;if(m.used&&(m.attacks||0)<=0){m.used=false;m.attacks=m.double?2:1}else{m.used=false;m.attacks=Math.max(1,m.attacks||0)}}
-function summon(pos){if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
+function summon(pos){if(coopIsGuest())return coopGuestSummon(pos);if(coopHostLocked())return log("相方のターンです");
+ if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
  if(!S||S.busy||S.over||pending||selH==null)return;
  const c=S.ph[selH];if(!c)return;
  if(c.type=="spell")return log("呪文は「発動」ボタンで使います");
@@ -6744,7 +6908,8 @@ function castCheck(c){const E=c.eff;
  if(E=="finish"&&S.chp>2000)return"相手のHPが2000以下の時のみ使えます";
  if(E=="lowHpHeal5000"&&S.php>3000)return"自分のHPが3000以下の時のみ使えます";
  return null}
-function cast(){if(FM.on&&FM.role=="guest")return fmGuestCast();
+function cast(){if(coopIsGuest())return coopGuestCast();if(coopHostLocked())return log("相方のターンです");
+ if(FM.on&&FM.role=="guest")return fmGuestCast();
  if(!S||S.busy||S.over||pending||selH==null)return;
  const c=S.ph[selH];if(!c||c.type!="spell")return;
  if(!canMain())return log("アタックフェイズ中は呪文を使えません");
@@ -6844,7 +7009,8 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
 /* ================= 戦闘 ================= */
 // 守護持ちの位置を返す。1体につき1ターンに1回だけかばえる
 function guards(B,ex){const r=[];B.forEach((m,i)=>{if(i!=ex&&m&&m.guard&&!m.guardTurn&&!isFrozen(m))r.push(i)});return r}   // 凍結中は守護（身代わり）できない
-function enemyTarget(to){if(FM.on&&FM.role=="guest")return fmGuestAttack(to);
+function enemyTarget(to){if(coopIsGuest())return coopGuestAttack(to);if(coopHostLocked())return log("相方のターンです");
+ if(FM.on&&FM.role=="guest")return fmGuestAttack(to);
  if(!S||S.over||S.busy)return;
  if(pending)return;
  if(selA==null)return;
@@ -7016,7 +7182,8 @@ function resetBoard(side){clearHalloween(side);
 async function turnEndDeaths(side){if(!S||S.over)return;const B=side=="p"?S.pb:S.cb;
  try{b2TurnEnd(side)}catch(e){}
  for(let i=0;i<3;i++){const m=B[i];if(m&&m.choiDie){log(m.name+"は酔いつぶれた（ちょい呑み）");await boomKill(side,i);if(S.over)return}}}
-async function endTurn(){if(FM.on&&FM.role=="guest")return fmGuestEnd();
+async function endTurn(){if(coopIsGuest())return coopGuestNext();if(S&&S.coop&&FM.on&&FM.role=="host")return coopEndTurn();
+ if(FM.on&&FM.role=="guest")return fmGuestEnd();
  if(!S||S.busy||S.over)return;
  if(!tutGate("end"))return;
  S.busy=true;selH=selA=selE=null;pending=null;S.pLock=false;
@@ -7268,6 +7435,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  else if(w===false){t.textContent="LOSE...";t.className="rtitle dot losec";sfx("lose")}
  else{t.textContent="DRAW";t.className="rtitle dot losec"}
  $("rSub").textContent=(w===true?"勝利！ ":w===false?"敗北… ":"相打ち ")+pturn()+"ターンで決着";
+ if(FM.on&&S.coop){fmPublishNow();coopShowResult(w===true);return}
  if(FM.on){fmPublishNow();addPassPt(w===true?PASS_PT.win:PASS_PT.lose,"フレンド");try{titleOnBattleEnd(w===true,"",true)}catch(e){}setTimeout(()=>$("resultov").classList.add("show"),600);return}   // フレンドマッチは報酬なし（パスのptだけ）
  onBattleEnd(w===true,S.opp&&S.opp.id);
  // ストーリー戦: 勝てば対戦後パートへ、負ければ再挑戦できるようにする
