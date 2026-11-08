@@ -1482,7 +1482,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.22.0</div>
+ <div class="tVer" id="tVer">ver.5.22.1</div>
 </div>
 
 <div id="app">
@@ -2016,7 +2016,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.22.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.22.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3729,12 +3729,15 @@ function coopHostLocked(){return !!(S&&S.coop&&FM.role!="guest"&&S.coop.turn=="B
 function coopPendHas(side,i){return !!(S&&S.coopPend&&(S.coopPend[side]||[]).includes(i))}
 // ---- ターンの切り替え（ホスト）
 function coopResetOwner(who){const keep=S.pb.slice();
+ const cb=S.curseBy,wb=S.webBy;if(who!=="A"){if(cb==="p")S.curseBy="hold";if(wb==="p")S.webBy="hold"}   // 相方のターンの始まりでは、相手にかけたATK−などを解かない
  S.pb=keep.map(m=>m&&(m.owner||"A")===who?m:null);resetBoard("p");const res=S.pb;
+ if(S.curseBy==="hold")S.curseBy=cb;if(S.webBy==="hold")S.webBy=wb;
  S.pb=keep.map((m,i)=>res[i]&&(!m||(m.owner||"A")===who)?res[i]:m);
  S.pb.forEach(m=>{if(m&&(m.owner||"A")!==who){m.used=true;m.attacks=0}})}
 function coopSwitch(who){const C=S.coop,cur=C.turn;C.hands[cur]=S.ph;C.decks[cur]=S.pd;
  S.ph=C.hands[who]||[];S.pd=C.decks[who]||[];C.turn=who;S.active="p";S.cost=S.max;S.phase="main1";
- S.pDef2=false;S.pDefBonus=0;S.pShield=false;S.pOnce=false;S.cOnce=false;S.pLock=false;
+ if(who=="A"){S.pDef2=false;S.pDefBonus=0;S.pShield=false}   // 「次の自分のターンまで」の守りは、ボスの攻撃のあと（一巡して）から切る
+ S.pOnce=false;S.cOnce=false;S.pLock=false;
  coopResetOwner(who);draw("p");phaseCutIn("main1","p");
  log("ターン"+turnTotal()+"　"+C.names[who]+"のターン")}
 async function coopEndTurn(){if(!S||S.busy||S.over)return;if(coopHostLocked())return log("相方のターンです");
@@ -6327,7 +6330,7 @@ function start(personality,fixed){
   if(ep&&ep.ally)ep.ally.forEach(id=>{const c=by(id);if(c){S.ph.push({...cp(c),uid:Math.random()});log("「"+c.name+"」が力を貸してくれた！")}})}
  log(`対戦相手：${opp.name}「${fillText(opp.tagline||"")}」`);render()
 }
-function log(t){if(FM.on&&FM.role=="host")t=String(t).replace(/CPU/g,FM.oppName);
+function log(t){if(FM.on&&FM.role=="host")t=String(t).replace(/CPU/g,FM.coop?((S&&S.opp&&S.opp.name)||"ボス"):FM.oppName);
  logs.push(`T${S?S.turn:"?"}｜${t}`);if($("log"))$("log").textContent=t}
 // プレイヤーに見せるターン番号（後攻でも自分の1手目=ターン1になるよう見た目だけ調整。内部のS.turnはコスト/偶奇効果用にそのまま）
 function pturn(){return S?Math.max(1,S.tn?S.tn.p:S.turn-(S.pSecond?1:0)):1}
@@ -6412,7 +6415,7 @@ function df(c,side){if(!c)return 0;let B=side=="p"?S.pb:S.cb,v=(c.def||0)+(c.def
 
 /* ================= HP操作 ================= */
 function healHero(side,n){if(n<=0||S.over)return;
- if(side=="p")S.php=Math.min(10000,S.php+n);else S.chp=Math.min(S.cMax||10000,S.chp+n);
+ if(side=="p")S.php=Math.max(S.php,Math.min(S.pMax||10000,S.php+n));else S.chp=Math.max(S.chp,Math.min(S.cMax||10000,S.chp+n));   // 上限より多いときに回復しても、減らない
  floatHero(side,"+"+n,"green");sfx("heal");render()}
 // 山札を指定枚数だけ墓地へ置く（足りなければあるだけ）
 function millDeck(side,k){
