@@ -216,6 +216,13 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .cpAct{border-radius:13px;min-height:52px;padding:12px 8px;font-size:14px;font-weight:900;color:#fff;border:1px solid #69dfff;background:linear-gradient(#315b80,#17304b);box-shadow:inset 0 1px #ffffff33,0 4px 12px #0005;font-family:inherit}
 .cpDeck{grid-column:1/-1}.cpGold{border-color:#ffdc7b;background:linear-gradient(#d6a934,#8d6417)}
 .cpReward{text-align:center;color:#75efaa;font-weight:900;font-size:13px;padding:2px 10px 16px}
+/* フレンドマッチ（協力バトルと同じ作り） */
+#friend .cbPanel.fpPanel{border-color:#2f5880;background:linear-gradient(135deg,#0d2238cc,#0a1424cc)}#friend .cbLabel{color:#7fb8ff}
+#friend .cbCode.fpCode{text-shadow:0 0 12px #7fb8ff}
+#friend .cpEye{color:#7fb8ff}
+.fpSeats{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin-bottom:10px}
+.fpVs{font-size:18px;font-weight:900;color:#ffd84a;text-shadow:0 0 10px #ffd84a88;padding:0 2px}
+.cbSeat.fpSeat.on{border-color:#7fb8ff;box-shadow:0 0 0 1px #7fb8ff55 inset}.fpTitle{transform:scale(.85);transform-origin:left;margin-bottom:-2px}
 /* 作戦基地 */
 #coopLobby{background-image:linear-gradient(#7ef0a10d 1px,transparent 1px),linear-gradient(90deg,#7ef0a10d 1px,transparent 1px);background-size:22px 22px}
 .cbLabel{font-size:11px;font-weight:900;letter-spacing:.14em;color:#7ef0a1;margin-bottom:6px}
@@ -1525,7 +1532,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.25.0</div>
+ <div class="tVer" id="tVer">ver.5.26.0</div>
 </div>
 
 <div id="app">
@@ -1664,10 +1671,10 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 </div></div>
 
 <div id="friend" class="hide">
- <div class="editorHead"><h1>フレンドマッチ</h1><div class="sub">部屋コードで友だちと対戦</div></div>
- <button type="button" class="deckLine" id="frDeckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="frDeckName"></span><span class="dlGo">変える ▶</span></button>
+ <div class="editorHead"><h1>⚔ フレンドマッチ</h1></div>
+ <span id="frDeckName" hidden></span>
  <div id="friendBody"></div>
- <div class="foot"><button type="button" class="sec" onclick="friendLeave(true)">戻る</button></div>
+ <div class="foot"><button type="button" class="sec" onclick="frBack()">戻る</button></div>
 </div>
 
 <div id="dareHub" class="hide">
@@ -2085,7 +2092,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.25.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.26.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -5329,27 +5336,45 @@ function frName(){return (player&&player.name)||"ななし"}
 function frDeck(){try{return loadDeck().filter(id=>by(id))}catch(e){return[]}}
 function frLog(t){fr.log=(fr.log||[]).concat(t).slice(-20);const el=$("frLog");if(el){el.innerHTML=fr.log.map(escH).join("<br>");el.scrollTop=99999}}
 function openFriend(){try{$("frDeckName").textContent=deckSlotName(curSlot())}catch(e){}hideAll();$("friend").classList.remove("hide");$("app").scrollTop=0;sfx("sel");fr={mode:"top"};renderFriend();guideOnce("friend")}
+// デッキのいちばん強いカード（絵があるもの）
+function frDeckAce(cards){const RO={N:0,R:1,SR:2,UR:3,CR:4};let best=null,bs=-1;
+ (cards||[]).forEach(id=>{const c=by(id);if(!c||!CARD_IMAGES[id])return;const sc=(RO[c.rarity]||0)*100+(c.cost||0);if(sc>bs){bs=sc;best=id}});return best}
+function frBack(){if(fr.mode=="join"){fr.mode="top";renderFriend();return}if(fr.mode=="top"){openDare();return}friendLeave(false)}
+function frStartVs(){const R=fr.room||{};if(!(R.host&&R.guest&&R.host.online!==false&&R.guest.online!==false)){sfx("no");return}fmHostStart()}
 function renderFriend(msg){if(fr&&fr.coop)return renderCoopLobby(msg);const b=$("friendBody");if(!b)return;
  const err=msg?'<div class="frNote frErr">'+escH(msg)+'</div>':"";
- if(fr.mode=="top"){b.innerHTML=
-  '<div class="frBox"><h3>部屋を作る</h3><div class="frNote">4桁の部屋コードが出るので、相手に伝えてください。</div>'
-  +'<div class="frBtns"><button type="button" onclick="friendCreate()">部屋を作る</button></div></div>'
-  +'<div class="frBox"><h3>部屋に入る</h3><div class="frNote">相手から聞いた4桁のコードを入れてください。</div>'
-  +'<input id="frCodeIn" class="frInput" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off">'
-  +'<div class="frBtns"><button type="button" class="gold" onclick="friendJoin()">入る</button></div></div>'+err;return}
- const R=fr.room||{},h=R.host,g=R.guest,both=!!(h&&g&&h.online!==false&&g.online!==false);
- b.innerHTML='<div class="frBox">'
-  +(fr.me=="host"?'<div class="frNote">部屋コード</div><div class="frCode">'+fr.code+'</div>':'<div class="frNote">部屋 '+fr.code+' に入りました</div>')
-  +(both?'<div class="frNote frOk">✅ つながりました！</div>':'<div class="frNote">相手を待っています…</div>')
-  +'<div class="frWho"><div>ホスト<b>'+(h?escH(h.name):"—")+'</b>'+(h?'デッキ '+(h.deck||[]).length+'枚':"")+(h&&h.online===false?'<br><span class="frErr">通信切れ</span>':"")+'</div>'
-  +'<div>ゲスト<b>'+(g?escH(g.name):"—")+'</b>'+(g?'デッキ '+(g.deck||[]).length+'枚':"")+(g&&g.online===false?'<br><span class="frErr">通信切れ</span>':"")+'</div></div>'
-  +(R.mode=="coop"?'<div class="frNote frOk">🤝 協力バトル　今日のボス：'+escH(coopBossToday().name)+'</div>':"")
-  +(both&&fr.me=="host"?'<div class="frBtns"><button type="button" class="gold" onclick="'+(R.mode=="coop"?"coopHostStart()":"fmHostStart()")+'">'+(R.mode=="coop"?"🤝 協力バトル開始":"⚔️ 対戦開始")+'</button></div>':"")
-  +(both&&fr.me=="guest"?'<div class="frNote">ホストが「'+(R.mode=="coop"?"協力バトル開始":"対戦開始")+'」を押すと始まります</div>':"")
-  +(both?'<div class="frBtns"><button type="button" onclick="friendPing()">👋 あいさつを送る</button></div>':"")
+ // 部屋に入る前：協力バトルのページと同じ形
+ if(fr.mode=="top"){const sl=curSlot(),d=deckSlots()[sl],cards=(d&&d.cards)||deck,ace=frDeckAce(cards),o=ttStats(),w=o.fWins||0,l=Math.max(0,(o.fGames||0)-w);
+  const avg=cards.length?(cards.reduce((a,id)=>a+((by(id)||{}).cost||0),0)/cards.length).toFixed(1):"0";
+  b.innerHTML='<p class="cpEye">FRIEND MATCH / 1 VS 1</p><p class="cpIntro">部屋コードで、友だちと1対1の真剣勝負。<br>先攻・後攻はルーレットで決まる</p>'
+   +'<section class="cpCard"><div class="cpHero"><div class="cpArt" style="background-image:url('+(ace&&CARD_IMAGES[ace]||"")+')"></div>'
+   +'<div class="cpCopy"><span class="cpTag">⚔ 使うデッキ</span><h2>'+escH(deckSlotName(sl))+'</h2><div class="cpHp">'+cards.length+'枚・平均コスト '+avg+'</div></div></div>'
+   +'<div class="cpStats"><div class="cpStat"><span class="cpIc">🏆</span><div><div class="cpL">フレンド戦績</div><div class="cpV">'+w+'勝 '+l+'敗</div></div></div>'
+   +'<div class="cpStat"><span class="cpIc">🃏</span><div><div class="cpL">使うデッキ</div><div class="cpV">'+cards.length+' / 30</div></div></div></div>'
+   +'<div class="cpRules"><b>1対1</b> 部屋コードで対戦　<b>報酬</b> なし<br>勝ち負けは、戦績に残る</div>'
+   +'<div class="cpActs"><button type="button" class="cpAct cpDeck" onclick="openDeckPick()">🃏　使うデッキを変える</button>'
+   +'<button type="button" class="cpAct cpGold" onclick="friendCreate()">⚔　部屋を作る</button>'
+   +'<button type="button" class="cpAct" onclick="fr.mode=\'join\';renderFriend()">🔑　部屋に入る</button></div>'
+   +'<div class="cpReward">👋 部屋に入ると、あいさつも送れる</div></section>'+err;return}
+ // コードを入れて入る
+ if(fr.mode=="join"){b.innerHTML='<p class="cpEye">FRIEND MATCH / JOIN</p><div class="cbPanel fpPanel"><div class="cbLabel">部屋コードで入る</div><div class="frNote">相手から聞いた4桁のコードを入れてください</div>'
+   +'<input id="frCodeIn" class="frInput" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off">'
+   +'<div class="frBtns"><button type="button" class="gold" onclick="friendJoin()">入る</button></div></div>'+err;return}
+ // 部屋（ロビー）：作戦基地と同じ作り。2人を「VS」で向かい合わせに
+ const R=fr.room||{},h=R.host,g=R.guest,hOn=!!h&&h.online!==false,gOn=!!g&&g.online!==false,ready=hOn&&gOn;
+ const seat=(role,p,on)=>{const t=p&&p.title?titleById(p.title):null;return '<div class="cbSeat fpSeat'+(p?(on?' on':' off'):' empty')+'"><div class="cbRole">'+role+'</div>'
+  +(p?(t?'<div class="fpTitle">'+titleTagHtml(t)+'</div>':'')+'<div class="cbName">'+escH(p.name)+'</div><div class="cbDeck">デッキ '+(p.deck||[]).length+'枚</div><div class="cbLamp">'+(on?'● 接続中':'● 通信切れ')+'</div>'
+     :'<div class="cbName cbWait">相手を待っています<span class="cbDots"><i>.</i><i>.</i><i>.</i></span></div>')+'</div>'};
+ b.innerHTML='<p class="cpEye">FRIEND MATCH / ROOM</p>'
+  +(fr.me=="host"?'<div class="cbPanel fpPanel cbCodeBox"><div class="cbLabel">部屋コード</div><div class="cbCode fpCode">'+fr.code+'</div><div class="frNote">相手にこのコードを伝えよう</div></div>'
+    :'<div class="cbPanel fpPanel"><div class="cbLabel">部屋 '+fr.code+' に入りました</div></div>')
+  +'<div class="fpSeats">'+seat("ホスト",h,hOn)+'<div class="fpVs">VS</div>'+seat("ゲスト",g,gOn)+'</div>'
+  +(fr.me=="host"?'<div class="frBtns"><button type="button" class="gold cbStart"'+(ready?'':' disabled')+' onclick="frStartVs()">⚔ 対戦開始</button></div>'
+     +(ready?'':'<div class="frNote">'+(g?'相手の通信が戻るのを待っています':'相手がそろうと押せます')+'</div>')
+   :'<div class="frNote cbWaitHost">ホストが「対戦開始」を押すと始まります</div>')
+  +(ready?'<div class="frBtns"><button type="button" onclick="friendPing()">👋 あいさつを送る</button></div>':'')
   +'<div id="frLog" class="frLog"></div>'
-  +'<div class="frBtns"><button type="button" class="sec" onclick="friendLeave(false)">部屋を出る</button></div>'
-  +'</div>'+err;
+  +'<div class="frBtns"><button type="button" class="sec" onclick="friendLeave(false)">'+(fr.me=="host"?"部屋を閉じる":"部屋を出る")+'</button></div>'+err;
  frLog([])}
 function frMe(coop){const t=titleEquipped();return {name:frName(),deck:coop?coopDeckIds():frDeck(),title:t?t.id:"",at:Date.now()}}
 async function friendCreate(){renderFriend("接続中…");
