@@ -192,6 +192,30 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .ewNote{text-align:center;font-size:13px;color:#9fb6d6;margin-top:6px}
 .ewToday{display:block;margin:10px auto 0;min-height:40px;background:none;border:0;color:#8fd8ff;font:inherit;font-size:12px;text-decoration:underline}
 #edit.coopEdit .slotBar,#edit.coopEdit .slotTools{display:none}
+/* だれかと */
+.dhSec{font-size:11px;font-weight:900;letter-spacing:.16em;color:#75efaa;margin:14px 4px 8px}
+.bt-co{--bc:#75efaa}.btCard .dhImg{position:absolute;right:0;top:0;bottom:0;width:46%;background-size:cover;background-position:center 22%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%);opacity:.95;pointer-events:none}
+.btCard .dhChip{position:relative;z-index:1;align-self:flex-start;display:inline-block;font-size:10px;font-weight:900;letter-spacing:.06em;padding:2px 9px;border-radius:99px;margin-bottom:4px}
+.dhFr{background:#7fb8ff;color:#06182b}.dhCo{background:#75efaa;color:#06261a}
+.bt-co .btTtl,.bt-co .btSub{position:relative;z-index:1}
+/* 協力バトルのページ */
+.cpEye{text-align:center;color:#75efaa;font-size:11px;letter-spacing:.16em;font-weight:800;margin:4px 0 6px}
+.cpIntro{text-align:center;color:#c5d7e8;font-size:13px;line-height:1.75;margin:0 auto 14px}
+.cpCard{border:1px solid #41688c;border-radius:18px;overflow:hidden;background:linear-gradient(150deg,#1c354e,#081423);box-shadow:0 12px 35px #0008}
+.cpHero{position:relative;min-height:236px;padding:16px;display:flex;align-items:flex-end;background:#0a1626}
+.cpArt{position:absolute;inset:0;background-size:cover;background-position:center 18%}
+.cpHero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#030c17f5 0%,#030c17aa 30%,transparent 65%)}
+.cpCopy{position:relative;z-index:1}.cpCopy h2{font-size:25px;line-height:1.2;margin:0 0 4px;text-shadow:0 3px 10px #000}
+.cpTag{display:inline-block;border:1px solid #e8bd58;color:#ffe2a0;background:#17263acc;border-radius:99px;padding:5px 12px;font-size:12px;font-weight:800;margin-bottom:8px}
+.cpHp{font-size:18px;font-weight:900;color:#75efaa;text-shadow:0 2px 6px #000}
+.cpStats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 14px 12px}
+.cpStat{border:1px solid #37658e;border-radius:12px;background:#0b1b2d;padding:10px;display:flex;align-items:center;gap:9px}
+.cpIc{font-size:22px}.cpL{font-size:11px;color:#a8bfd4}.cpV{font-size:20px;font-weight:900}
+.cpRules{margin:0 14px 12px;padding:9px 12px;border-radius:10px;background:#0b1b2d;border:1px solid #23415f;font-size:12px;color:#c5d7e8;line-height:1.7}.cpRules b{color:#75efaa}
+.cpActs{padding:0 14px 12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cpAct{border-radius:13px;min-height:52px;padding:12px 8px;font-size:14px;font-weight:900;color:#fff;border:1px solid #69dfff;background:linear-gradient(#315b80,#17304b);box-shadow:inset 0 1px #ffffff33,0 4px 12px #0005;font-family:inherit}
+.cpDeck{grid-column:1/-1}.cpGold{border-color:#ffdc7b;background:linear-gradient(#d6a934,#8d6417)}
+.cpReward{text-align:center;color:#75efaa;font-weight:900;font-size:13px;padding:2px 10px 16px}
 /* 作戦基地 */
 #coopLobby{background-image:linear-gradient(#7ef0a10d 1px,transparent 1px),linear-gradient(90deg,#7ef0a10d 1px,transparent 1px);background-size:22px 22px}
 .cbLabel{font-size:11px;font-weight:900;letter-spacing:.14em;color:#7ef0a1;margin-bottom:6px}
@@ -1501,7 +1525,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.24.0</div>
+ <div class="tVer" id="tVer">ver.5.25.0</div>
 </div>
 
 <div id="app">
@@ -1596,7 +1620,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="menu4">
   <div class="m4pair">
    <button class="m4 big" id="m4_battle" onclick="sfx('sel');openSolo()"><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">CPUと対戦</span></button>
-   <button class="m4 big friendT" id="m4_friend" onclick="menuGo(9)"><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンドマッチ</span></button>
+   <button class="m4 big friendT" id="m4_friend" onclick="sfx('sel');openDare()"><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンドマッチ</span></button>
   </div>
   <div class="m4grid3">
    <button class="m4" id="m4_codex" onclick="menuGo(4)"><span class="m4em">📖</span><span class="m4nm">図鑑</span></button>
@@ -1646,6 +1670,25 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="foot"><button type="button" class="sec" onclick="friendLeave(true)">戻る</button></div>
 </div>
 
+<div id="dareHub" class="hide">
+ <div class="editorHead"><h1>だれかと</h1><div class="sub">友だちと遊ぶ</div></div>
+ <div class="dhSec">VERSUS</div>
+ <div class="btList">
+  <button type="button" class="btCard bt-fr" onclick="menuGo(9)"><span class="dhChip dhFr">対戦</span><span class="btTtl">フレンドマッチ</span><span class="btSub">部屋コードで友だちと1対1</span></button>
+ </div>
+ <div class="dhSec">EVENT</div>
+ <div class="btList">
+  <button type="button" class="btCard bt-co" onclick="openCoopPage()"><span class="dhImg" id="dhCoopImg"></span><span class="dhChip dhCo">協力</span><span class="btTtl">協力バトル</span><span class="btSub" id="dhCoopSub">今日のボス</span></button>
+ </div>
+ <div class="foot"><button type="button" class="sec" onclick="openBattleTab()">戻る</button></div>
+</div>
+
+<div id="coopPage" class="hide">
+ <div class="editorHead"><h1>🤝 協力バトル</h1></div>
+ <div id="coopPageBody"></div>
+ <div class="foot"><button type="button" class="sec" onclick="openDare()">戻る</button></div>
+</div>
+
 <div id="coopLobby" class="hide">
  <div class="editorHead"><h1>🛡 作戦基地</h1><div class="sub">協力バトルの待機ロビー</div></div>
  <div id="coopLobbyBody"></div>
@@ -1655,7 +1698,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="editorHead"><h1>対戦</h1><div class="sub">どこで戦うか選ぼう</div></div>
  <div class="btList">
   <button type="button" class="btCard bt-cpu" onclick="openSolo()"><span class="btTtl">ひとりで</span><span class="btSub">ランダムバトル・ストーリー・イベント・ドラフト</span><span id="btSoloBadge" class="pBadge hide">!</span></button>
-  <button type="button" class="btCard bt-fr" onclick="menuGo(9)"><span class="btTtl">だれかと</span><span class="btSub">部屋コードでフレンドマッチ</span></button>
+  <button type="button" class="btCard bt-fr" onclick="openDare()"><span class="btTtl">だれかと</span><span class="btSub">フレンドマッチ・協力バトル</span></button>
  </div>
  <button type="button" class="deckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="btDeckName"></span><span class="dlGo">変える ▶</span></button>
 </div>
@@ -2042,7 +2085,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.24.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.25.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3216,7 +3259,7 @@ function treeBurst(){
 
 /* ===== 下のタブ（ホーム・ストーリー・対戦・ガチャ・メニュー） =====
    タブの画面と、そこから開く画面で出す。対戦中・会話・チュートリアル・序章クリア前は隠す */
-const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",stats:"more",rank:"battle",coopLobby:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
+const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",stats:"more",rank:"battle",coopLobby:"battle",dareHub:"battle",coopPage:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
  gacha:"gacha",exchange:"gacha",menuTab:"more",tasks:"more",titles:"more",codex:"more",tablet:"more",presents:"more",news:"more",edit:"more",pass:"home"};
 function tabGo(k){if(!isIntroDone())return;sfx("sel");
  if(k=="home")menu();else if(k=="story")menuGo(0);else if(k=="battle")openBattleTab();else if(k=="gacha")menuGo(6);else if(k=="more")openMenuTab();syncTab()}
@@ -3426,8 +3469,8 @@ const EVENTS=[
 ];
 function eventById(id){return EVENTS.find(e=>e.id==id)}
 function eventInPeriod(e,day){day=day||todayStr();return (!e.start||day>=e.start)&&(!e.end||day<=e.end)}
-function eventsShown(){return EVENTS.filter(e=>eventInPeriod(e))}              // 一覧に出るもの（準備中も含む）
-function eventsActive(){return EVENTS.filter(e=>e.open&&eventInPeriod(e))}     // 遊べるもの
+function eventsShown(){return EVENTS.filter(e=>eventInPeriod(e)&&e.kind!=="coop")}   // 協力バトルは「だれかと」に置く              // 一覧に出るもの（準備中も含む）
+function eventsActive(){return EVENTS.filter(e=>e.open&&eventInPeriod(e)&&e.kind!=="coop")}     // 遊べるもの
 function eventPeriodText(e){if(!e.open)return"準備中";if(e.period)return e.period;
  if(e.end){const a=e.end.split("-");return "〜"+(+a[1])+"/"+(+a[2])+"まで"}
  return "開催中"}
@@ -3487,7 +3530,7 @@ function bumpTicketToday(n,k){
 
 /* ===== 挑戦画面 ===== */
 let curEvent=null;
-function openEventDetail(id){
+function openEventDetail(id){if(id==="coop")return openCoopPage();
  const e=eventById(id);if(!e||!e.open)return;
  if(!eventInPeriod(e)){log2Toast("このイベントは開催期間外です");renderEvents();return}
  curEvent=e;
@@ -3913,7 +3956,7 @@ function coopGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
 let editMode=null;
 function openCoopEdit(){editMode="coop";let d=coopDeckIds();if(!d.length)d=loadDeck().filter(id=>by(id));deck=[...d];
  hideAll();$("edit").classList.remove("hide");$("edit").classList.add("coopEdit");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit()}
-function coopEditClose(){editMode=null;$("edit").classList.remove("coopEdit");deck=loadDeck().filter(id=>by(id));openEventDetail("coop")}
+function coopEditClose(){editMode=null;$("edit").classList.remove("coopEdit");deck=loadDeck().filter(id=>by(id));openCoopPage()}
 // ---- イベントの画面
 function openCoopRoom(make){const d=coopDeckIds();if(d.length!==30){sfx("no");log2Toast("先に協力用デッキを30枚で作ってください");return}
  fr={mode:"top",coop:true};showCoopLobby();sfx("sel");if(make)friendCreate();else renderCoopLobby()}
@@ -3926,7 +3969,7 @@ function renderCoopLobby(msg){const b=$("coopLobbyBody");if(!b)return;const err=
  if(fr.mode=="top"){b.innerHTML=mission+'<div class="cbPanel"><div class="cbLabel">部屋コードで合流</div>'
    +'<input id="coopCodeIn" class="frInput" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off">'
    +'<div class="frBtns"><button type="button" class="gold" onclick="friendJoin()">合流する</button></div></div>'+err
-   +'<div class="foot"><button type="button" class="sec" onclick="coopLobbyLeave()">戻る</button></div>';return}
+   +'<div class="foot"><button type="button" class="sec" onclick="fr={mode:\'top\'};openCoopPage()">戻る</button></div>';return}
  const R=fr.room||{},h=R.host,g=R.guest,hOn=!!h&&h.online!==false,gOn=!!g&&g.online!==false,ready=hOn&&gOn;
  const seat=(role,p,on)=>'<div class="cbSeat'+(p?(on?' on':' off'):' empty')+'"><div class="cbRole">'+role+'</div>'
   +(p?'<div class="cbName">'+escH(p.name)+'</div><div class="cbDeck">協力用デッキ '+(p.deck||[]).length+'枚</div><div class="cbLamp">'+(on?'● 接続中':'● 通信切れ')+'</div>'
@@ -3941,6 +3984,20 @@ function renderCoopLobby(msg){const b=$("coopLobbyBody");if(!b)return;const err=
 function coopLobbyStart(){const R=fr.room||{};if(!(R.host&&R.guest&&R.host.online!==false&&R.guest.online!==false)){sfx("no");return}coopHostStart()}
 // 作戦基地を出る：ホストは部屋を解散、ゲストは部屋を出るだけ。どちらもホームへ
 async function coopLobbyLeave(){const host=fr.me=="host";await friendLeave(false);fr={mode:"top"};menu();if(host)log2Toast("部屋を解散しました")}
+function openDare(){if(!isIntroDone()){sfx("no");log2Toast("序章をクリアすると解放されます");return}hideAll();$("dareHub").classList.remove("hide");$("app").scrollTop=0;
+ try{const b=coopBossToday();$("dhCoopImg").style.backgroundImage="url("+(CARD_IMAGES[b.card]||"")+")";$("dhCoopSub").textContent="今日のボス："+b.name}catch(e){}syncTab()}
+function openCoopPage(){hideAll();$("coopPage").classList.remove("hide");$("app").scrollTop=0;renderCoopPage();syncTab()}
+function renderCoopPage(){const b=coopBossToday(),d=coopDeckIds(),o=coopSt();
+ $("coopPageBody").innerHTML='<p class="cpEye">CO-OP RAID / DAILY BOSS</p><p class="cpIntro">2人でひとつの盤面を守り、交代で戦おう。<br>ホスト → 相方 → ボス ／ HPは2人で共有</p>'
+  +'<section class="cpCard"><div class="cpHero"><div class="cpArt" style="background-image:url('+(CARD_IMAGES[b.card]||"")+')"></div>'
+  +'<div class="cpCopy"><span class="cpTag">⚔ 今日のボス</span><h2>'+escH(b.name)+'</h2><div class="cpHp">HP '+COOP.bossHp.toLocaleString()+'</div></div></div>'
+  +'<div class="cpStats"><div class="cpStat"><span class="cpIc">🃏</span><div><div class="cpL">協力用デッキ</div><div class="cpV">'+d.length+' / 30</div></div></div>'
+  +'<div class="cpStat"><span class="cpIc">💎</span><div><div class="cpL">今日の報酬</div><div class="cpV">'+Math.min(o.wins||0,COOP.daily)+' / '+COOP.daily+'</div></div></div></div>'
+  +'<div class="cpRules"><b>2人のHP</b> '+COOP.hp.toLocaleString()+'　<b>盤面</b> 3マスを共有<br>モンスターは、出した人のターンだけ攻撃できる</div>'
+  +'<div class="cpActs"><button type="button" class="cpAct cpDeck" onclick="openCoopEdit()">🃏　協力用デッキを'+(d.length?'編集する':'作る')+'</button>'
+  +'<button type="button" class="cpAct cpGold" onclick="openCoopRoom(true)">🤝　部屋を作る</button>'
+  +'<button type="button" class="cpAct" onclick="openCoopRoom(false)">🔑　部屋に入る</button></div>'
+  +'<div class="cpReward">🏆 勝つと2人とも 💎'+COOP.gem+'（1日'+COOP.daily+'回まで）</div></section>'}
 function renderCoopDetail(e){const b=coopBossToday(),d=coopDeckIds(),o=coopSt();
  $("evdBody").innerHTML='<div class="evList"><div class="evStory">ボスのHPは5万。1つの盤面を2人で守り、交代で戦う協力バトル。<br>順番は「ホスト → 相方 → ボス」。HP15000は2人で共有。</div>'
   +'<section class="gBlock evCard open evStage" style="--g1:#1a3a5a;--g2:#0a1220;--ga:#7ef0a1"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES[b.card]||"")+')"></div>'
@@ -4590,7 +4647,7 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats","rank","coopLobby"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats","rank","coopLobby","dareHub","coopPage"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
