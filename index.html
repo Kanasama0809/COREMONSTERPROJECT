@@ -192,6 +192,21 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .ewNote{text-align:center;font-size:13px;color:#9fb6d6;margin-top:6px}
 .ewToday{display:block;margin:10px auto 0;min-height:40px;background:none;border:0;color:#8fd8ff;font:inherit;font-size:12px;text-decoration:underline}
 #edit.coopEdit .slotBar,#edit.coopEdit .slotTools{display:none}
+/* 作戦基地 */
+#coopLobby{background-image:linear-gradient(#7ef0a10d 1px,transparent 1px),linear-gradient(90deg,#7ef0a10d 1px,transparent 1px);background-size:22px 22px}
+.cbLabel{font-size:11px;font-weight:900;letter-spacing:.14em;color:#7ef0a1;margin-bottom:6px}
+.cbMission,.cbPanel{border:1px solid #2f6a55;border-radius:12px;padding:10px 12px;margin-bottom:10px;background:linear-gradient(135deg,#0d2a24cc,#0a1424cc)}
+.cbBoss{display:flex;gap:12px;align-items:center}.cbBossImg{width:70px;aspect-ratio:.72;border-radius:8px;background-size:cover;background-position:center 20%;border:2px solid #7ef0a1;flex:0 0 auto}
+.cbBossName{font-weight:900;font-size:16px}.cbBossHp{color:#ff9a9a;font-weight:800;font-size:13px;margin:2px 0}.cbRule{font-size:11px;color:#9fb6d6}
+.cbCodeBox{text-align:center}.cbCode{font-size:40px;font-weight:900;letter-spacing:.3em;color:#eaf2ff;text-shadow:0 0 12px #7ef0a1}
+.cbSeats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.cbSeat{border-radius:12px;padding:10px;min-height:96px;border:1px solid #2c4568;background:#0d1a30;display:flex;flex-direction:column;gap:3px}
+.cbSeat.on{border-color:#7ef0a1;box-shadow:0 0 0 1px #7ef0a155 inset}.cbSeat.off{border-color:#ff7a7a}.cbSeat.empty{border-style:dashed}
+.cbRole{font-size:10px;font-weight:900;color:#9fb6d6;letter-spacing:.08em}.cbName{font-weight:900;font-size:15px}.cbDeck{font-size:11px;color:#9fb6d6}
+.cbLamp{font-size:11px;font-weight:800;margin-top:auto}.cbSeat.on .cbLamp{color:#7ee0a1}.cbSeat.off .cbLamp{color:#ff7a7a}
+.cbWait{font-size:12px;color:#9fb6d6;font-weight:700}.cbDots i{animation:cbDot 1.2s infinite;font-style:normal}.cbDots i:nth-child(2){animation-delay:.2s}.cbDots i:nth-child(3){animation-delay:.4s}
+@keyframes cbDot{0%,100%{opacity:.2}50%{opacity:1}}
+.cbStart{min-height:52px;font-size:17px}.cbStart:disabled{opacity:.4;filter:grayscale(.6)}.cbWaitHost{text-align:center}
 .pmT{text-align:center;margin-bottom:4px}.pmN{display:flex;align-items:center;justify-content:center;gap:8px}.shopGot{font-size:12px;color:#7ee0a1;font-weight:800;min-height:40px;display:flex;align-items:center}
 .tabLong{font-size:10px;letter-spacing:-.04em;white-space:nowrap}
 /* 総力戦 */
@@ -1282,6 +1297,10 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 .fmNet{position:fixed;left:50%;top:calc(6px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:150;display:none;
  padding:7px 14px;border-radius:99px;background:#3a0f14ee;border:1px solid #ff8a8a;color:#ffd6d6;font-size:12px;font-weight:800;white-space:nowrap;box-shadow:0 4px 14px #000a}
 .fmNet.show{display:block}
+.netWait{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;background:#020812cc;backdrop-filter:blur(2px)}
+.netWait.on{display:flex}.nwBox{text-align:center;padding:22px 26px;border-radius:16px;background:#0d1a30;border:1px solid #4ee3ff;box-shadow:0 8px 30px #000c;max-width:300px}
+.nwSpin{width:46px;height:46px;margin:0 auto 12px;border-radius:50%;border:4px solid #1c3a5a;border-top-color:#4ee3ff;animation:nwRot 1s linear infinite}
+@keyframes nwRot{to{transform:rotate(360deg)}}.nwMsg{font-weight:800;font-size:14px;line-height:1.5}.nwLeft{margin-top:8px;font-size:26px;font-weight:900;color:#ffd84a}
 .friendLink{display:block;width:100%;margin-top:10px;padding:11px;border-radius:14px;border:1px dashed #4a7bab;background:#0b1a2ecc;color:#cfe6ff;font-size:14px;font-weight:900;font-family:inherit}
 .friendLink small{font-size:10px;color:#8fb8dc;font-weight:700}
 .frBox{width:min(460px,94vw);margin:14px auto;padding:16px;box-sizing:border-box;border-radius:16px;background:#0c1e33;border:1px solid #2f5a8d;text-align:center}
@@ -1482,7 +1501,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.22.2</div>
+ <div class="tVer" id="tVer">ver.5.24.0</div>
 </div>
 
 <div id="app">
@@ -1627,6 +1646,11 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="foot"><button type="button" class="sec" onclick="friendLeave(true)">戻る</button></div>
 </div>
 
+<div id="coopLobby" class="hide">
+ <div class="editorHead"><h1>🛡 作戦基地</h1><div class="sub">協力バトルの待機ロビー</div></div>
+ <div id="coopLobbyBody"></div>
+</div>
+
 <div id="battleTab" class="hide">
  <div class="editorHead"><h1>対戦</h1><div class="sub">どこで戦うか選ぼう</div></div>
  <div class="btList">
@@ -1693,6 +1717,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 
 <nav id="tabBar" class="tabBar hide" aria-label="メイン"><button type="button" id="tab_home" class="tabBtn" onclick="tabGo('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 11 L12 4 L20 11 V20 H14 V14 H10 V20 H4 Z"/></svg><span>ホーム</span><span class="tabBadge hide"></span></button><button type="button" id="tab_story" class="tabBtn" onclick="tabGo('story')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 5 H10 a2 2 0 0 1 2 2 V20 a2 2 0 0 0 -2 -2 H4 Z"/><path d="M20 5 H14 a2 2 0 0 0 -2 2 V20 a2 2 0 0 1 2 -2 H20 Z"/></svg><span>ストーリー</span><span class="tabBadge hide"></span></button><button type="button" id="tab_battle" class="tabBtn" onclick="tabGo('battle')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5 19 L15 9"/><path d="M15 9 L19 5 L19 9 Z"/><path d="M19 19 L9 9"/><path d="M9 9 L5 5 L5 9 Z"/></svg><span>対戦</span><span class="tabBadge hide"></span></button><button type="button" id="tab_gacha" class="tabBtn" onclick="tabGo('gacha')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4 H17 L21 9 L12 20 L3 9 Z"/><path d="M3 9 H21"/><path d="M12 20 L8 9 L10 4"/><path d="M12 20 L16 9 L14 4"/></svg><span class="tabLong">ガチャ・ショップ</span><span class="tabBadge hide"></span></button><button type="button" id="tab_more" class="tabBtn" onclick="tabGo('more')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg><span>メニュー</span><span class="tabBadge hide"></span></button></nav>
 <div id="fmNet" class="fmNet"></div>
+<div id="netWait" class="netWait"><div class="nwBox"><div class="nwSpin"></div><div id="nwMsg" class="nwMsg"></div><div id="nwLeft" class="nwLeft"></div></div></div>
+<div id="infoPop" class="pov"><div class="confirmBox"><div id="infoText" class="askTitle"></div><div class="confirmBtns" style="margin-top:14px"><button type="button" class="gold" onclick="hideP('infoPop')">OK</button></div></div></div>
 <div id="battleTip" class="battleTip"></div>
 <div id="phaseCut" class="phaseCut"></div>
 <div id="game" class="hide">
@@ -2016,7 +2042,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.22.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.24.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3190,7 +3216,7 @@ function treeBurst(){
 
 /* ===== 下のタブ（ホーム・ストーリー・対戦・ガチャ・メニュー） =====
    タブの画面と、そこから開く画面で出す。対戦中・会話・チュートリアル・序章クリア前は隠す */
-const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",stats:"more",rank:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
+const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",stats:"more",rank:"battle",coopLobby:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
  gacha:"gacha",exchange:"gacha",menuTab:"more",tasks:"more",titles:"more",codex:"more",tablet:"more",presents:"more",news:"more",edit:"more",pass:"home"};
 function tabGo(k){if(!isIntroDone())return;sfx("sel");
  if(k=="home")menu();else if(k=="story")menuGo(0);else if(k=="battle")openBattleTab();else if(k=="gacha")menuGo(6);else if(k=="more")openMenuTab();syncTab()}
@@ -3793,17 +3819,43 @@ function coopGuestSummon(pos){if(!coopCanAct()||selH==null)return;const c=S.ph[s
 function coopGuestCast(){if(!coopCanAct()||selH==null)return;const c=S.ph[selH];if(!c||c.type!="spell")return;
  if(ec(c,"p")>S.cost)return log("コストが足りません");fmSend({t:"cast",hand:selH});selH=null;log("呪文「"+c.name+"」を発動")}
 function coopGuestAttack(to){if(!coopCanAct()||selA==null)return;const f=selA,m=S.pb[f];if(!m)return;
- if((m.owner||"A")!=="B")return log("相方のモンスターです");if(m.cantAttack)return log("このモンスターは攻撃できません");
+ if((m.owner||"A")!=="B")return log("相方のモンスターです");if(m.cantAttack)return log("このモンスターは攻撃できません");if(isFrozen(m))return log(m.name+"は凍っていて攻撃できない");
  if(m.used||(m.attacks||0)<=0)return log("行動済みです");if(!(f==1||to==1||f+to==2))return log("正面か中央にしか届きません");
  fmSend({t:"attack",from:f,to});selA=null;log("攻撃！")}
 function coopGuestPend(side,i){if(!coopCanAct())return;if(!coopPendHas(side,i))return;fmSend({t:"pend",side,i})}
 function coopGuestOwnTap(i){const m=S&&S.pb[i];if(!m)return;
+ if(blockAsk){if(laneFx.guards.includes(i))blockChoose(i);return}
  if(S.coopPend){coopGuestPend("p",i);return}
  if((m.owner||"A")!=="B"){selA=null;selE=null;log(m.name+"（相方のモンスター）");render();return}
  selA=i;selH=selE=null;sfx("sel");log(m.cantAttack?"このモンスターは攻撃できません":(m.used||m.attacks<=0?"行動済み":"攻撃先をタップ（空の中央＝直接攻撃）"));render()}
 function coopGuestNext(){if(!coopCanAct())return;
  if(phaseOn()&&S.phase!="battle"&&S.pb.some(m=>m&&(m.owner||"A")==="B"&&!m.used&&(m.attacks||0)>0&&!m.cantAttack)){fmSend({t:"phase"});return}
  endTurnAsk(()=>{fmSend({t:"end"});selH=selA=null;log("ターンを終えました")})}
+// ---- 守護の選択（ボスの攻撃）：A・Bの両方に同時に聞いて、先に選んだほうだけ採用。10秒で守護なし
+const COOP_BLOCK_SEC=10;
+function coopAskBlock(av,to,atkName,tgtName){const gs=guards(S.pb,to);if(!gs.length)return Promise.resolve(-1);
+ const gA=gs.filter(i=>(S.pb[i].owner||"A")==="A"),gB=gs.filter(i=>(S.pb[i].owner||"A")==="B");
+ return new Promise(res=>{let done=false,declA=!gA.length,declB=!gB.length;const id=String("cb")+Date.now()+Math.random().toString(36).slice(2,6);
+  const finish=i=>{if(done)return;done=true;clearTimeout(T);FM.coopAskRes=null;FM.coopAskId=null;
+   if(blockAsk){$("blockPop").classList.remove("show");blockAsk=null}laneFx.guardSide=null;laneFx.guards=[];
+   try{FM.ref&&FM.ref.child("ask").remove()}catch(e){}render();res(i)};
+  let T;const arm=ms=>{T=setTimeout(()=>{if(netPaused())return arm(1000);log("守護しなかった（時間切れ）");finish(-1)},ms)};arm(COOP_BLOCK_SEC*1000);   // 通信待ちの間は時間切れにしない
+  const info=atkName?`🗡 <b>${escH(atkName)}</b>（ATK ${av}）　→　<b>${escH(tgtName)}</b> を攻撃<br><small>相方と早い者勝ち・${COOP_BLOCK_SEC}秒</small>`:"";
+  if(gA.length){blockAsk=i=>{if(done)return;if(i>=0&&gA.includes(i)&&S.pb[i])return finish(i);declA=true;blockAsk=null;$("blockPop").classList.remove("show");laneFx.guards=[];render();
+     if(declB)finish(-1);else log("相方の選択を待っています…")};
+   laneFx.guardSide="p";laneFx.guards=gA;$("blockAtkInfo").innerHTML=info;$("blockPop").classList.add("show");sfx("sel")}
+  if(gB.length&&FM.on&&FM.ref){FM.coopAskId=id;FM.coopAskRes=v=>{if(done)return;if(Number.isInteger(v)&&v>=0&&gB.includes(v)&&S.pb[v]&&!isFrozen(S.pb[v]))return finish(v);
+     declB=true;if(declA)finish(-1)};
+   FM.ref.child("ask").set({kind:"coopBlock",id,av,to,atk:atkName||"",tgt:tgtName||"",guards:gB})}
+  if(declA&&declB)finish(-1);
+  render()})}
+// 相方：ホストから聞かれた守護の選択を出す（自分のモンスターだけ）
+function coopGuestAsk(q){if(!q){if(blockAsk){$("blockPop").classList.remove("show");blockAsk=null;laneFx.guardSide=null;laneFx.guards=[];render()}return}
+ if(q.kind!=="coopBlock"||q.id===FM.coopAnsweredId)return;
+ blockAsk=i=>{FM.coopAnsweredId=q.id;blockAsk=null;$("blockPop").classList.remove("show");laneFx.guardSide=null;laneFx.guards=[];render();fmAnswer(q.id,i)};
+ laneFx.guardSide="p";laneFx.guards=(q.guards||[]).slice();
+ $("blockAtkInfo").innerHTML=q.atk?`🗡 <b>${escH(q.atk)}</b>（ATK ${q.av}）　→　<b>${escH(q.tgt)}</b> を攻撃<br><small>ホストと早い者勝ち・${COOP_BLOCK_SEC}秒</small>`:"";
+ $("blockPop").classList.add("show");sfx("sel");render()}
 // ---- 結果
 function coopReward(won){if(!won)return 0;const o=coopSt();o.wins=(o.wins||0)+1;let g=0;if(o.wins<=COOP.daily){g=COOP.gem;addCrystal(g,"協力バトル")}
  store.set("cmCoop",JSON.stringify(o));try{const t=ttStats();t.coopWin=(t.coopWin||0)+1;ttSave(t);titleCheck()}catch(e){}return g}
@@ -3827,8 +3879,9 @@ async function coopHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
  await fr.ref.child("acts").remove();await fr.ref.child("state").remove();await fr.ref.child("ask").remove();await fr.ref.child("ans").remove();
  await fr.ref.child("match").set({first:"host",coop:true,boss:b.key,at:Date.now()});
  FM={on:true,role:"host",coop:true,ref:fr.ref,seq:0,queue:[],wait:null,oppName:R.guest.name,oppTitle:R.guest.title||""};
+ fr.ref.child("ans").on("value",snap=>{const v=snap.val();if(v&&FM.coopAskId&&v.id===FM.coopAskId&&FM.coopAskRes)FM.coopAskRes(v.v)});
  fr.ref.child("acts").on("child_added",snap=>{const a=snap.val();if(!a)return;
-  if(a.t=="resign"){if(S&&!S.over){log(FM.oppName+"が退出しました");S.php=0;render();chk()}if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}return}
+  if(a.t=="leave"||a.t=="resign")return fmOppGone();   // 相方が退出した
   if(FM.wait){const f=FM.wait;FM.wait=null;f(a)}else FM.queue.push(a)});
  eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;raidCtx=null;rankCtx=null;
  const names={A:frName(),B:R.guest.name};
@@ -3845,6 +3898,7 @@ function coopGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
  logs=[];selH=selA=selE=null;pending=null;S=null;
  const b=coopBosses().find(x=>x.key==(room.match&&room.match.boss))||coopBossToday();
  coopIntro(b,{A:FM.oppName,B:frName()},()=>{if(!S)$("log").textContent="ホストが準備しています…"});
+ fr.ref.child("ask").on("value",snap=>{if(!FM.on||!FM.coop)return;coopGuestAsk(snap.val())});
  fr.ref.child("state").on("value",snap=>{const v=snap.val();if(!v||!FM.on)return;
   if(v.seq<=FM.seq&&v.seq>1)return;FM.seq=v.seq;let h;try{h=JSON.parse(v.s)}catch(e){return}
   const wasOver=S&&S.over;S=h;S.busy=false;S.opp={id:"coop",name:(h.coop&&h.coop.boss&&h.coop.boss.name)||"ボス"};FM.sent=false;
@@ -3862,7 +3916,31 @@ function openCoopEdit(){editMode="coop";let d=coopDeckIds();if(!d.length)d=loadD
 function coopEditClose(){editMode=null;$("edit").classList.remove("coopEdit");deck=loadDeck().filter(id=>by(id));openEventDetail("coop")}
 // ---- イベントの画面
 function openCoopRoom(make){const d=coopDeckIds();if(d.length!==30){sfx("no");log2Toast("先に協力用デッキを30枚で作ってください");return}
- openFriend();fr.coop=true;renderFriend();if(make)friendCreate()}
+ fr={mode:"top",coop:true};showCoopLobby();sfx("sel");if(make)friendCreate();else renderCoopLobby()}
+function showCoopLobby(){hideAll();$("coopLobby").classList.remove("hide");$("app").scrollTop=0;syncTab()}
+// 作戦基地（協力バトルの待機ロビー）
+function renderCoopLobby(msg){const b=$("coopLobbyBody");if(!b)return;const err=msg?'<div class="frNote frErr">'+escH(msg)+'</div>':"";
+ const bs=coopBossToday();
+ const mission='<div class="cbMission"><div class="cbLabel">本日の作戦目標</div><div class="cbBoss"><div class="cbBossImg" style="background-image:url('+(CARD_IMAGES[bs.card]||"")+')"></div>'
+  +'<div class="cbBossInfo"><div class="cbBossName">'+escH(bs.name)+'</div><div class="cbBossHp">HP '+COOP.bossHp.toLocaleString()+'</div><div class="cbRule">ホスト → 相方 → ボス／HP'+COOP.hp.toLocaleString()+'を2人で共有</div></div></div></div>';
+ if(fr.mode=="top"){b.innerHTML=mission+'<div class="cbPanel"><div class="cbLabel">部屋コードで合流</div>'
+   +'<input id="coopCodeIn" class="frInput" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off">'
+   +'<div class="frBtns"><button type="button" class="gold" onclick="friendJoin()">合流する</button></div></div>'+err
+   +'<div class="foot"><button type="button" class="sec" onclick="coopLobbyLeave()">戻る</button></div>';return}
+ const R=fr.room||{},h=R.host,g=R.guest,hOn=!!h&&h.online!==false,gOn=!!g&&g.online!==false,ready=hOn&&gOn;
+ const seat=(role,p,on)=>'<div class="cbSeat'+(p?(on?' on':' off'):' empty')+'"><div class="cbRole">'+role+'</div>'
+  +(p?'<div class="cbName">'+escH(p.name)+'</div><div class="cbDeck">協力用デッキ '+(p.deck||[]).length+'枚</div><div class="cbLamp">'+(on?'● 接続中':'● 通信切れ')+'</div>'
+     :'<div class="cbName cbWait">相方を待っています<span class="cbDots"><i>.</i><i>.</i><i>.</i></span></div>')+'</div>';
+ b.innerHTML=mission
+  +(fr.me=="host"?'<div class="cbPanel cbCodeBox"><div class="cbLabel">部屋コード</div><div class="cbCode">'+fr.code+'</div><div class="frNote">相方にこのコードを伝えよう</div></div>':'<div class="cbPanel"><div class="cbLabel">部屋 '+fr.code+' に合流しました</div></div>')
+  +'<div class="cbSeats">'+seat("隊長（ホスト）",h,hOn)+seat("相方（ゲスト）",g,gOn)+'</div>'
+  +(fr.me=="host"?'<div class="frBtns"><button type="button" class="gold cbStart"'+(ready?'':' disabled')+' onclick="coopLobbyStart()">🤝 作戦開始</button></div>'
+     +(ready?'':'<div class="frNote">'+(g?'相方の通信が戻るのを待っています':'相方がそろうと押せます')+'</div>')
+   :'<div class="frNote cbWaitHost">隊長が「作戦開始」を押すと始まります</div>')+err
+  +'<div class="foot"><button type="button" class="sec" onclick="coopLobbyLeave()">'+(fr.me=="host"?"部屋を解散する":"部屋を出る")+'</button></div>'}
+function coopLobbyStart(){const R=fr.room||{};if(!(R.host&&R.guest&&R.host.online!==false&&R.guest.online!==false)){sfx("no");return}coopHostStart()}
+// 作戦基地を出る：ホストは部屋を解散、ゲストは部屋を出るだけ。どちらもホームへ
+async function coopLobbyLeave(){const host=fr.me=="host";await friendLeave(false);fr={mode:"top"};menu();if(host)log2Toast("部屋を解散しました")}
 function renderCoopDetail(e){const b=coopBossToday(),d=coopDeckIds(),o=coopSt();
  $("evdBody").innerHTML='<div class="evList"><div class="evStory">ボスのHPは5万。1つの盤面を2人で守り、交代で戦う協力バトル。<br>順番は「ホスト → 相方 → ボス」。HP15000は2人で共有。</div>'
   +'<section class="gBlock evCard open evStage" style="--g1:#1a3a5a;--g2:#0a1220;--ga:#7ef0a1"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES[b.card]||"")+')"></div>'
@@ -4512,7 +4590,7 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats","rank"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats","rank","coopLobby"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
@@ -5194,7 +5272,7 @@ function frName(){return (player&&player.name)||"ななし"}
 function frDeck(){try{return loadDeck().filter(id=>by(id))}catch(e){return[]}}
 function frLog(t){fr.log=(fr.log||[]).concat(t).slice(-20);const el=$("frLog");if(el){el.innerHTML=fr.log.map(escH).join("<br>");el.scrollTop=99999}}
 function openFriend(){try{$("frDeckName").textContent=deckSlotName(curSlot())}catch(e){}hideAll();$("friend").classList.remove("hide");$("app").scrollTop=0;sfx("sel");fr={mode:"top"};renderFriend();guideOnce("friend")}
-function renderFriend(msg){const b=$("friendBody");if(!b)return;
+function renderFriend(msg){if(fr&&fr.coop)return renderCoopLobby(msg);const b=$("friendBody");if(!b)return;
  const err=msg?'<div class="frNote frErr">'+escH(msg)+'</div>':"";
  if(fr.mode=="top"){b.innerHTML=
   '<div class="frBox"><h3>部屋を作る</h3><div class="frNote">4桁の部屋コードが出るので、相手に伝えてください。</div>'
@@ -5229,7 +5307,7 @@ async function friendCreate(){renderFriend("接続中…");
    frWatch();renderFriend();sfx("sel");return}
   renderFriend("部屋を作れませんでした。もう一度試してください")}
  catch(e){renderFriend("接続できませんでした："+(e&&e.message||e))}}
-async function friendJoin(){const code=(($("frCodeIn")||{}).value||"").replace(/\D/g,"");
+async function friendJoin(){const code=(((fr&&fr.coop?$("coopCodeIn"):$("frCodeIn"))||{}).value||"").replace(/\D/g,"");
  if(code.length!=4){renderFriend("4桁の数字を入れてください");return}
  renderFriend("接続中…");
  try{const db=await fbInit(),ref=db.ref("cm_rooms/"+code);
@@ -5247,21 +5325,27 @@ async function friendJoin(){const code=(($("frCodeIn")||{}).value||"").replace(/
 // 自分の接続状態を見張る。つながり直したら online:true に戻し、切れたときの印（online:false）も付け直す
 function frPresence(){if(!fbDb||!fr.ref)return;const me=fr.me,ref=fr.ref;
  fr.connRef=fbDb.ref(".info/connected");
- fr.connRef.on("value",snap=>{const ok=snap.val()!==false;fr.online=ok;fmNetBanner();
+ fr.connRef.on("value",snap=>{const ok=snap.val()!==false;fr.online=ok;if(FM.on)fmSelfNet(ok);fmNetBanner();
+  if(!ok&&fr.coop&&fr.me=="host"&&!FM.on&&fr.ref===ref){clearTimeout(fr.lostT);fr.lostT=setTimeout(()=>{if(fr.ref===ref&&fr.online===false&&!FM.on){frStop();try{ref.remove()}catch(e){}fr={mode:"top"};menu();log2Toast("通信が切れたため、部屋を解散しました")}},3000)}
+  if(ok)clearTimeout(fr.lostT);
   if(!ok||!fr.ref||fr.ref!==ref)return;
   ref.child(me+"/online").onDisconnect().set(false);
   ref.child(me).once("value").then(v=>{if(v.val())ref.child(me+"/online").set(true)})})}
 function frWatch(){const ref=fr.ref;if(!ref)return;frPresence();
  fr.onVal=ref.on("value",snap=>{const v=snap.val();
-  if(!v){if(fr.me=="guest"){frStop();if(FM.on)fmEnd();fr={mode:"top"};hideP("resultov");hideAll();$("friend").classList.remove("hide");renderFriend("ホストが部屋を閉じました")}return}
+  if(!v){if(fr.me=="guest"){const co=fr.coop,inM=FM.on,lost=FM.selfLost;frStop();if(FM.on)fmEnd();fr={mode:"top"};hideP("resultov");
+    if(inM){menu();showInfo(lost?FM_NET_END:(co?"相方（ホスト）が退出しました":"相手（ホスト）が退出しました"));return}
+    if(co){menu();log2Toast("ホストが部屋を解散しました")}else{hideAll();$("friend").classList.remove("hide");renderFriend("ホストが部屋を閉じました")}}return}
+  if(fr.coop&&fr.me=="guest"&&!FM.on&&v.host&&v.host.online===false){frStop();try{fr.ref.child("guest").remove()}catch(e){}fr={mode:"top"};menu();log2Toast("ホストの通信が切れたため、部屋を解散しました");return}
   const hadG=!!(fr.room&&fr.room.guest);fr.room=v;
   if(fr.me=="guest"&&v.match&&!FM.on&&v.match.at!==fr.lastMatchAt)return v.mode=="coop"?coopGuestEnter(v):fmGuestEnter(v);
   if(fr.me=="guest"&&!v.match&&FM.on)return fmLeaveGame("ホストが部屋に戻りました");
-  if(FM.on){ if(fr.me=="host"&&!v.guest)fmOppGone();
+  if(FM.on&&v.end&&v.end.at!==FM.endSeen){FM.endSeen=v.end.at;fmNetEnd(v.end.reason,false);return}
+  if(FM.on){ if(fr.me=="host"&&!v.guest)return fmOppGone();
    const opp=fr.me=="host"?v.guest:v.host;fmOppNet(!!opp&&opp.online!==false);return }
   renderFriend();
   if(!hadG&&v.guest&&fr.me=="host"){sfx("win");log2Toast(v.guest.name+"さんが入りました")}
-  if(hadG&&!v.guest&&fr.me=="host")log2Toast("相手が部屋を出ました")});
+  if(hadG&&!v.guest&&fr.me=="host")log2Toast(fr.coop?"相方が部屋を出ました":"相手が部屋を出ました")});
  fr.onPing=ref.child("ping").on("value",snap=>{const p=snap.val();if(!p||p.from==fr.me)return;
   sfx("sel");log2Toast("👋 "+p.name+"さんからあいさつ");frLog("👋 "+p.name+"さんからあいさつが届きました")})}
 function frStop(){try{if(fr.connRef){fr.connRef.off();fr.connRef=null}}catch(e){}
@@ -5297,6 +5381,7 @@ async function fmHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
  fr.ref.child("ans").on("value",snap=>{const v=snap.val();if(!v||v.id!==FM.askId||!FM.askRes)return;
   const r=FM.askRes;FM.askRes=null;r(v.v===undefined?null:v.v)});
  fr.ref.child("acts").on("child_added",snap=>{const a=snap.val();if(!a)return;
+  if(a.t=="leave")return fmOppGone();                   // 相手が退出した
   if(a.t=="resign"){                                     // 降参はすぐ反映（自分のターン中でも）
    if(S&&!S.over){log(FM.oppName+"が降参しました");S.chp=0;render();chk()}
    if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}return}
@@ -5383,33 +5468,54 @@ async function fmDoGuestAction(a){
   S.ccost-=cost;castCpu({c,idx:a.hand,cost});await sleep(700);
   while(FM.askP)await FM.askP;return}
  if(a.t=="attack"){const pos=a.from,t=a.to,m=S.cb[pos];
-  if(!m||m.used||(m.attacks||0)<=0||m.cantAttack)return;
+  if(!m||m.used||(m.attacks||0)<=0||m.cantAttack||isFrozen(m))return;
   if(!(pos==1||t==1||pos+t==2))return;
   if(!S.pb[t]&&!(t==1&&!S.pb[1]))return;
   log(FM.oppName+"："+m.name+"の攻撃！"+(S.pb[t]?"（"+S.pb[t].name+"へ）":"（直接攻撃）"));
   await cpuDoAttack(pos,t);return}}
 // 対戦中、相手の通信が切れたら90秒待つ。戻らなければホストは勝ち・ゲストは部屋へ戻る
 const FM_WAIT_SEC=90;
+/* 通信が切れたとき（フレンド対戦・協力バトル）
+   ・相手が切れた／自分が切れた：90秒待つ。その間は操作・ターン・ボスの行動・効果を全部止める（netPaused）
+   ・90秒以内に戻る：そのまま再開（盤面・手札・ターン・選んでいる途中の状態はそのまま）
+   ・90秒たつ：2人とも同じ理由を出してホームへ（部屋の end に理由を書く）
+   ・自分で「やめる」を押した（退出）は、通信切れとは別：残ったほうに「退出しました」を出して終える */
+const FM_NET_END="通信が90秒以上つながらなかったため、対戦を終了しました";
+function netPaused(){return !!(FM.on&&S&&!S.over&&(FM.netT||FM.selfT))}
+async function netGate(){while(netPaused())await sleep(300)}
 function fmOppNet(ok){if(!FM.on)return;
- if(ok){if(FM.netT){clearInterval(FM.netT);FM.netT=null;FM.netLeft=0;log2Toast("相手の通信が戻りました")}fmNetBanner();return}
+ if(ok){if(FM.netT){clearInterval(FM.netT);FM.netT=null;FM.netLeft=0;log2Toast("通信が復帰しました！");if(FM.role=="host")fmPublishNow()}fmNetBanner();return}
  if(FM.netT||(S&&S.over))return;
  FM.netLeft=FM_WAIT_SEC;
  FM.netT=setInterval(()=>{if(!FM.on){clearInterval(FM.netT);return}
-  FM.netLeft--;fmNetBanner();
-  if(FM.netLeft>0)return;
-  clearInterval(FM.netT);FM.netT=null;
-  if(FM.role=="host"){if(S&&!S.over){log(FM.oppName+"の通信が切れたため勝利");S.chp=0;render();chk()}
-   if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}
-   if(FM.askRes){const r=FM.askRes;FM.askRes=null;r(null)}}
-  else fmLeaveGame("ホストとの通信が切れたため、対戦を終了しました");
-  fmNetBanner()},1000);
+  FM.netLeft--;fmNetBanner();if(FM.netLeft>0)return;
+  clearInterval(FM.netT);FM.netT=null;fmNetEnd(FM_NET_END,true)},1000);
  fmNetBanner()}
+// 自分の通信が切れた／戻った
+function fmSelfNet(ok){if(!FM.on||(S&&S.over))return fmNetBanner();
+ if(ok){if(FM.selfT){clearInterval(FM.selfT);FM.selfT=null;FM.selfLeft=0;log2Toast("通信が復帰しました！");if(FM.role=="host")fmPublishNow()}fmNetBanner();return}
+ if(FM.selfT)return;FM.selfLeft=FM_WAIT_SEC;FM.selfLost=1;
+ FM.selfT=setInterval(()=>{if(!FM.on){clearInterval(FM.selfT);return}
+  FM.selfLeft--;fmNetBanner();if(FM.selfLeft>0)return;
+  clearInterval(FM.selfT);FM.selfT=null;fmNetEnd(FM_NET_END,false)},1000);
+ fmNetBanner()}
+// 対戦を終えて、ホームへ戻る（理由を出す）。write：部屋に理由を書いて、相手にも同じ理由を出す
+async function fmNetEnd(reason,write){const ref=fr&&fr.ref,host=FM.role=="host";
+ try{if(write&&ref)await ref.child("end").set({reason,at:Date.now()})}catch(e){}
+ fmEnd();hideP("resultov");frStop();
+ try{if(ref){if(host)setTimeout(()=>{try{ref.remove()}catch(e){}},1500);else ref.child("guest").remove()}}catch(e){}
+ fr={mode:"top"};menu();showInfo(reason)}
+function showInfo(t){$("infoText").textContent=t;$("infoPop").classList.add("show")}
 function fmNetBanner(){const b=$("fmNet");if(!b)return;let t="";
- if(fr&&fr.ref&&fr.online===false)t="📡 通信が切れました。つながり直すのを待っています…";
- else if(FM.on&&FM.netT)t="📡 相手の通信が切れました（あと"+FM.netLeft+"秒待ちます）";
+ // 対戦中は、画面の中央に待機表示（操作は止まる）
+ const w=$("netWait"),inMatch=FM.on&&S&&!S.over;let wm="",wl="";
+ if(inMatch&&FM.selfT){wm="通信が切れました。<br>再接続しています…";wl=FM.selfLeft+"秒"}
+ else if(inMatch&&FM.netT){wm=(FM.coop?"相方":"相手")+"の再接続を待っています…";wl=FM.netLeft+"秒"}
+ if(w){w.classList.toggle("on",!!wm);if(wm){$("nwMsg").innerHTML=wm;$("nwLeft").textContent=wl}}
+ if(!inMatch&&fr&&fr.ref&&fr.online===false)t="📡 通信が切れました。つながり直すのを待っています…";
  b.textContent=t;b.classList.toggle("show",!!t)}
-function fmOppGone(){if(!FM.on)return;log2Toast(FM.coop?"相方が退出しました":"相手が退出しました");
- if(S&&!S.over){if(FM.coop)S.php=0;else S.chp=0;chk()}}
+function fmOppGone(){if(!FM.on)return;const msg=FM.coop?"相方が退出しました":"相手が退出しました";
+ fmEnd();hideP("resultov");if(fr&&fr.coop){showCoopLobby();renderCoopLobby()}else{hideAll();$("friend").classList.remove("hide");renderFriend()}showInfo(msg)}
 // ---- ゲスト
 function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;completeWelcome("friend1");gcEvent("friend-match");
  FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",oppTitle:(room.host&&room.host.title)||"",sent:false};
@@ -5473,20 +5579,25 @@ function fmGuestAttack(to){if(!fmCanAct()||selA==null)return;const f=selA,a=S.pb
  fmSend({t:"attack",from:f,to});selA=null;log("攻撃！")}
 function fmGuestEnd(){if(!fmCanAct())return;fmSend({t:"end"});selH=selA=null;log("ターン終了")}
 // ---- 終わったあと
-async function fmBackToRoom(){hideP("resultov");
+async function fmBackToRoom(){hideP("resultov");const co=fr&&fr.coop;
  if(FM.role=="host"&&fr.ref){try{await fr.ref.child("match").remove();await fr.ref.child("state").remove();await fr.ref.child("acts").remove()}catch(e){}}
- fmEnd();hideAll();$("friend").classList.remove("hide");renderFriend()}
-function fmLeaveGame(msg){fmEnd();hideP("resultov");hideAll();$("friend").classList.remove("hide");renderFriend();if(msg)log2Toast(msg)}
+ fmEnd();if(co){showCoopLobby();renderCoopLobby();return}hideAll();$("friend").classList.remove("hide");renderFriend()}
+function fmLeaveGame(msg){const co=fr&&fr.coop;fmEnd();hideP("resultov");if(co&&fr.ref){showCoopLobby();renderCoopLobby()}else if(co){menu()}else{hideAll();$("friend").classList.remove("hide");renderFriend()}if(msg)log2Toast(msg)}
 function fmEnd(){try{if(FM.ref){FM.ref.child("state").off();FM.ref.child("acts").off()}}catch(e){}
  if(FM.wait){const f=FM.wait;FM.wait=null;f({t:"end"})}
  if(FM.askRes){const r=FM.askRes;FM.askRes=null;r(null)}
- if(FM.netT)clearInterval(FM.netT);
+ if(FM.netT)clearInterval(FM.netT);if(FM.selfT)clearInterval(FM.selfT);
  try{if(FM.ref){FM.ref.child("ask").off();FM.ref.child("ans").off()}}catch(e){}
  blockAsk=null;discardPick=null;pending=null;
  if(pmPending&&pmPending.go){pmPending=null;$("prematch").classList.remove("on")}
  FM={on:false};S=null;setTimeout(fmNetBanner,0)}
 // 途中でやめる：ゲストは降参を送る（ホストの勝ち）。ホストは部屋に戻る（ゲストにも伝わる）
-function fmQuit(){if(FM.role=="guest"&&S&&!S.over&&FM.ref)FM.ref.child("acts").push({t:"resign",at:Date.now()});fmBackToRoom()}
+async function fmQuit(){const host=FM.role=="host",ref=fr&&fr.ref,over=!S||S.over;
+ if(over)return fmBackToRoom();   // 結果のあとは、今までどおり部屋に戻る
+ fmEnd();hideP("resultov");frStop();
+ try{if(ref){if(host){await ref.child("end").set({reason:(fr.coop?"相方（ホスト）":"相手（ホスト）")+"が退出しました",at:Date.now()});setTimeout(()=>{try{ref.remove()}catch(e){}},1500)}
+  else{await ref.child("acts").push({t:"leave",at:Date.now()});await ref.child("guest").remove()}}}catch(e){}
+ fr={mode:"top"};menu()}
 
 /* ================= 父の説明（画面ごとに、初めて開いたときだけ） =================
    セリフを直すときは GUIDES の文を書き換えるだけでよい。1要素＝1ページ（「次へ」で進む）。
@@ -5523,8 +5634,12 @@ function b2Other(side){return side=="p"?"c":"p"}
 function b2B(side){return side=="p"?S.pb:S.cb}
 function isFrozen(m){return !!(m&&(m.freeze||m.frozenNow))}
 function statusFx(side,i,kind){const s=slot(side,i);if(!s)return;s.classList.add(kind=="freeze"?"fxFreeze":"fxShock");setTimeout(()=>s.classList.remove("fxFreeze","fxShock"),700)}
-function applyFreeze(side,i,src){const m=b2B(side)[i];if(!m)return;m.freeze=1;
- if(S&&S.active===side){m.frozenNow=1;m.used=true;m.attacks=0}   // 自分のターンの途中で凍ったら、そのターンの残りの攻撃もできない（二回攻撃の2回目など）
+// いまが、このモンスターの持ち主のターンか（協力バトルでは、A・Bそれぞれのターン）
+function ownerTurnNow(side,m){return !!(S&&S.active===side&&(!S.coop||side!=="p"||(m.owner||"A")===S.coop.turn))}
+function applyFreeze(side,i,src){const m=b2B(side)[i];if(!m)return;
+ if(ownerTurnNow(side,m)){   // 持ち主のターンの途中で凍った：そのターンの残りの行動ができない（次のターンには持ちこさない）
+  if(!m.frozenNow)m.preFreeze={used:!!m.used,attacks:m.attacks||0};m.frozenNow=1;m.used=true;m.attacks=0}
+ else m.freeze=1;            // 持ち主のターン以外で凍った：次の持ち主のターン全体で行動できない
  if(side=="c"&&S&&!S.over){try{ttAdd("frz",1);const tt=turnTotal();if(S.frzT!==tt){S.frzT=tt;S.frzN=0}S.frzN++;if(S.frzN>=3)ttSet("frz3",1)}catch(e){}}   // 称号：凍結した回数／1ターンに3体
  log((src?src+"：":"")+m.name+"を【凍結】");try{statusFx(side,i,"freeze")}catch(e){}}
 function applyShock(side,i,x,src){const m=b2B(side)[i];if(!m||!x)return;m.shock=Math.max(m.shock||0,x);m.shockLife=(S.active==side)?2:1;
@@ -5543,13 +5658,16 @@ function b2TurnStart(side){const B=b2B(side);
   if(i!==undefined){const c=by(S.phx[side].id);B[i]={...cp(c),uid:Math.random(),used:true,attacks:0,buff:0,defBuff:0};
    const G=side=="p"?S.pg:S.cg,gi=G.findIndex(x=>x&&(x.baseId||x.id)==S.phx[side].id);if(gi>=0)G.splice(gi,1);log("🔥 "+c.name+"が炎の中からよみがえった！")}
   else log("不死鳥はよみがえる場所がなかった")}
- B.forEach(m=>{if(!m)return;m.frozenNow=0;if(m.freeze){m.freeze=0;m.frozenNow=1;m.used=true;m.attacks=0;log(m.name+"は凍っていて動けない")}});
+ B.forEach(m=>{if(!m)return;m.frozenNow=0;m.preFreeze=null;
+  if(m.freeze){m.freeze=0;m.frozenNow=1;m.preFreeze={used:!!m.used,attacks:m.attacks||0};m.used=true;m.attacks=0;log(m.name+"は凍っていて動けない")}
+  if(m.lazy){m.lazy=0;m.used=true;m.attacks=0;log(m.name+"はダルくて、このターン攻撃できない")}});
  B.forEach(m=>{if(m&&m.startActs)doActs(m.startActs,side,m)})}
 // 持ち主のターンの終わり
 function b2TurnEnd(side){
- b2B(side).forEach(m=>{if(m&&m.lsTurn){m.lifesteal=0;m.lsTurn=0}});   // 闇の種：このターンだけの【吸収】
- if(S.rule=="storm"){[S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m)m.stormDef=(m.stormDef||0)+500}));log("🌪 大嵐：全てのモンスターのDEF-500")}const B=b2B(side);B.forEach(m=>{if(m&&m.endActs)doActs(m.endActs,side,m)});
- B.forEach(m=>{if(!m)return;m.frozenNow=0;if(m.shockLife){m.shockLife--;if(m.shockLife<=0)m.shock=0}})}
+ const own=m=>!!m&&(!(S.coop&&side==="p")||(m.owner||"A")===S.coop.turn);   // 協力バトル：そのターンの人のモンスターだけ
+ b2B(side).forEach(m=>{if(own(m)&&m.lsTurn){m.lifesteal=0;m.lsTurn=0}});   // 闇の種：このターンだけの【吸収】
+ if(S.rule=="storm"){[S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m)m.stormDef=(m.stormDef||0)+500}));log("🌪 大嵐：全てのモンスターのDEF-500")}const B=b2B(side);B.forEach(m=>{if(own(m)&&m.endActs)doActs(m.endActs,side,m)});
+ B.forEach(m=>{if(!own(m))return;m.frozenNow=0;m.preFreeze=null;if(m.shockLife){m.shockLife--;if(m.shockLife<=0)m.shock=0}})}
 function b2Cond(a,side){if(!a.if)return true;const me=side=="p"?S.php:S.chp,op=side=="p"?S.chp:S.php,EB=b2B(b2Other(side));
  if(a.if=="enemyOne")return EB.filter(Boolean).length==1;
  if(a.if=="hpLower")return me<op;if(a.if=="hpNotLower")return !(me<op);
@@ -5592,7 +5710,7 @@ function doActs(acts,side,src,opt){if(!S||!acts)return;const os=b2Other(side),MB
   case"freeze":{const idx=EB.map((m,i)=>m?i:-1).filter(i=>i>=0);
    if(a.t=="all")idx.forEach(i=>applyFreeze(os,i,nm));
    else if(a.t=="rand"){if(idx.length)applyFreeze(os,idx[Math.random()*idx.length|0],nm)}break}
-  case"freezeSelf":{const i=MB.findIndex(m=>m&&src&&m.uid===src.uid);if(i>=0){MB[i].freeze=1;log(MB[i].name+"はダルくて、次のターン動けない")}break}
+  case"freezeSelf":{const i=MB.findIndex(m=>m&&src&&m.uid===src.uid);if(i>=0){MB[i].lazy=1;log(MB[i].name+"はダルくて、次のターン攻撃できない")}break}   // 凍結ではない（氷にならず、守護もできる）
   case"shock":EB.forEach((m,i)=>{if(m)applyShock(os,i,a.x,nm)});break;
   case"dmg":heroDmg(os,a.x,side);break;
   case"selfDmg":heroDmg(side,a.x,side);break;
@@ -5611,7 +5729,9 @@ function doActs(acts,side,src,opt){if(!S||!acts)return;const os=b2Other(side),MB
    let bi=-1,bv=-1;G.forEach((c,i)=>{if(c&&c.type==want&&(!src||c.id!==src.id)&&(c.cost||0)>bv){bv=c.cost||0;bi=i}});
    if(bi>=0){const c=G.splice(bi,1)[0];H.push(cp(by(c.id)));log(nm+"：「"+c.name+"」を手札に戻した");if(side=="p"&&src&&(src.baseId||src.id)=="b2f03"){try{ttSet("tsuru",1)}catch(e){}}}break}
   case"search":{const D=side=="p"?S.pd:S.cd,H=side=="p"?S.ph:S.ch,i=D.findIndex(c=>c&&c.id==a.id);if(i>=0){const c=D.splice(i,1)[0];H.push(c);log(nm+"：「"+c.name+"」を山札から手札に")}break}
-  case"cure":MB.forEach(m=>{if(!m)return;m.freeze=0;if(m.frozenNow&&S.active==side){m.frozenNow=0;m.used=false;m.attacks=m.double?2:1}m.frozenNow=0;m.shock=0;m.shockLife=0});log("凍結・感電を治した");break;
+  case"cure":MB.forEach(m=>{if(!m)return;m.freeze=0;
+   if(m.frozenNow&&ownerTurnNow(side,m)&&m.preFreeze){m.used=m.preFreeze.used;m.attacks=m.preFreeze.attacks}   // 凍る前の状態に戻すだけ（攻撃回数は増やさない）
+   m.frozenNow=0;m.preFreeze=null;m.shock=0;m.shockLife=0});log("凍結・感電を治した");break;
   case"spellLock":if(side=="p")S.cLock=true;else S.pLock=true;log((side=="p"?"相手":"あなた")+"は次のターン、呪文を使えない");break;
   case"noAttackSelf":MB.forEach(m=>{if(m){m.used=true;m.attacks=0}});break;
   case"dmgIf":case"healIf":{const has=MB.some(m=>m&&(m.baseId||m.id)==a.id);const n=has?a.y:a.x;   // 見習い：師匠の勇者がいると強くなる
@@ -6773,7 +6893,7 @@ function pick(side,kind,valid,score,cb,refund){
 function resolvePending(side,i){const pd=pending;pending=null;
  if(pd.refund){S.pg.push(pd.refund.card);pd.refund=null}
  pd.cb(side,i);render();chk()}
-function cancelPending(){if(coopIsGuest()){if(S&&S.coopPend&&coopCanAct())fmSend({t:"cancel"});return}if(!pending)return;
+function cancelPending(){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest()){if(S&&S.coopPend&&coopCanAct())fmSend({t:"cancel"});return}if(!pending)return;
  if(pending.fmId){const id=pending.fmId;pending=null;fmAnswer(id,null);log("自動で選びます");render();return}
  if(pending.refund){S.cost+=pending.refund.cost;S.ph.push(pending.refund.card);log("キャンセルしました")}else log("キャンセル");
  pending=null;render()}
@@ -6819,7 +6939,7 @@ function endWarnAns(k){$("endWarnPop").classList.remove("show");const f=endWarnG
 function toggleEndWarn(){store.set("cmEndWarn",store.get("cmEndWarn")=="0"?"1":"0");sfx("sel");renderEndWarnBtn()}
 function renderEndWarnBtn(){if($("ewBtn"))$("ewBtn").textContent=store.get("cmEndWarn")=="0"?"オフ":"オン"}
 function nextPhase(){
- if(coopIsGuest())return coopGuestNext();if(coopHostLocked())return log("相方のターンです");
+if(netPaused())return log2Toast("通信の復帰を待っています"); if(coopIsGuest())return coopGuestNext();if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest"){if(!fmCanAct())return;if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(fmGuestEnd);fmSend({t:"phase"});return}
  if(!S||S.busy||S.over||pending)return;
  if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(endTurn);
@@ -6827,7 +6947,7 @@ function nextPhase(){
 function phaseBtnLabel(){if(!S||!phaseOn()||S.active!="p")return "ターンエンド ▶";
  if(S.phase=="main1"&&anyAttacker("p"))return "アタックフェイズへ ⚔️";
  return "ターンエンド ▶"}
-function ownTap(i){if(S.over)return;if(coopIsGuest())return coopGuestOwnTap(i);const m=S.pb[i];if(!m)return;
+function ownTap(i){if(S.over)return;if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestOwnTap(i);const m=S.pb[i];if(!m)return;
  if(coopHostLocked()&&!blockAsk)return log("相方のターンです");
  if(blockAsk){if(laneFx.guards.includes(i))blockChoose(i);return}
  if(pending){if(validTarget(m,"p"))resolvePending("p",i);return}
@@ -6847,7 +6967,7 @@ function grantCharge(m,force){const sd=sideOfMon(m);
  if(m.acted||m.frozenNow){m.charge=1;return}   // このターンもう攻撃した／凍結中のモンスターは、突撃をもらっても動けない（出したばかりのモンスターだけが動けるようになる）
 
  if(sd&&chargeBlocked(sd)&&m.used&&(m.attacks||0)<=0){m.charge=1;log("パンプキングの威圧："+m.name+"は動けない");return}m.charge=1;if(m.used&&(m.attacks||0)<=0){m.used=false;m.attacks=m.double?2:1}else{m.used=false;m.attacks=Math.max(1,m.attacks||0)}}
-function summon(pos){if(coopIsGuest())return coopGuestSummon(pos);if(coopHostLocked())return log("相方のターンです");
+function summon(pos){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestSummon(pos);if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
  if(!S||S.busy||S.over||pending||selH==null)return;
  const c=S.ph[selH];if(!c)return;
@@ -6931,7 +7051,7 @@ function castCheck(c){const E=c.eff;
  if(E=="finish"&&S.chp>2000)return"相手のHPが2000以下の時のみ使えます";
  if(E=="lowHpHeal5000"&&S.php>3000)return"自分のHPが3000以下の時のみ使えます";
  return null}
-function cast(){if(coopIsGuest())return coopGuestCast();if(coopHostLocked())return log("相方のターンです");
+function cast(){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestCast();if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest")return fmGuestCast();
  if(!S||S.busy||S.over||pending||selH==null)return;
  const c=S.ph[selH];if(!c||c.type!="spell")return;
@@ -7032,7 +7152,7 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
 /* ================= 戦闘 ================= */
 // 守護持ちの位置を返す。1体につき1ターンに1回だけかばえる
 function guards(B,ex){const r=[];B.forEach((m,i)=>{if(i!=ex&&m&&m.guard&&!m.guardTurn&&!isFrozen(m))r.push(i)});return r}   // 凍結中は守護（身代わり）できない
-function enemyTarget(to){if(coopIsGuest())return coopGuestAttack(to);if(coopHostLocked())return log("相方のターンです");
+function enemyTarget(to){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestAttack(to);if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest")return fmGuestAttack(to);
  if(!S||S.over||S.busy)return;
  if(pending)return;
@@ -7097,12 +7217,13 @@ function blockChoose(i){
 }
 
 async function playerAtk(f,to){let a=S.pb[f],d=S.cb[to];if(!a)return;
+ if(isFrozen(a)){log(a.name+"は凍っていて攻撃できない");return}
  const av=at(a,"p");
  if(S.cb.some(m=>m&&m.guard&&isFrozen(m))&&!guards(S.cb,-1).length&&!(d&&d.guard))S.brk=1;   // 称号：凍った守護に止められずに攻撃した
  setLaneFx({atk:{side:"p",i:f},tgt:{side:"c",i:to}});   // 赤＝攻撃元／青＝攻撃先
  await sleep(260);
  // 守護で止めるかは、守る側が決める（CPUは自動・フレンドはゲストに聞く）
- const bi=FM.on&&FM.role=="host"?await fmAskBlock(av,to,a.name,d?d.name:"直接攻撃"):cpuBlockChoice(av,to,f);
+ const bi=FM.on&&FM.role=="host"&&!S.coop?await fmAskBlock(av,to,a.name,d?d.name:"直接攻撃"):cpuBlockChoice(av,to,f);   // 協力バトルのボスは自動で決める
  if(bi>=0&&bi!=to){
   S.cb[bi].guardTurn=true;shield("c",bi);sfx("shield");
   log(S.cb[bi].name+"が守護で受け止めた！");if(S.cb[bi].drawOnBlock&&S.cb[bi].dobT!==S.turn){S.cb[bi].dobT=S.turn;draw("c")}
@@ -7205,7 +7326,7 @@ function resetBoard(side){clearHalloween(side);
 async function turnEndDeaths(side){if(!S||S.over)return;const B=side=="p"?S.pb:S.cb;
  try{b2TurnEnd(side)}catch(e){}
  for(let i=0;i<3;i++){const m=B[i];if(m&&m.choiDie){log(m.name+"は酔いつぶれた（ちょい呑み）");await boomKill(side,i);if(S.over)return}}}
-async function endTurn(){if(coopIsGuest())return coopGuestNext();if(S&&S.coop&&FM.on&&FM.role=="host")return coopEndTurn();
+async function endTurn(){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestNext();if(S&&S.coop&&FM.on&&FM.role=="host")return coopEndTurn();
  if(FM.on&&FM.role=="guest")return fmGuestEnd();
  if(!S||S.busy||S.over)return;
  if(!tutGate("end"))return;
@@ -7382,10 +7503,10 @@ function buffGainOf(E){
  return after-before}
 async function cpuAttacks(){
  for(let loop=0;loop<12;loop++){
-  if(!S||S.over)return;
+  await netGate();if(!S||S.over)return;
   let best=null,bs=0;
   for(const pos of[1,0,2]){const m=S.cb[pos];
-   if(!m||m.used||(m.attacks||0)<=0||m.cantAttack)continue;
+   if(!m||m.used||(m.attacks||0)<=0||m.cantAttack||isFrozen(m))continue;
    for(let t=0;t<3;t++){
     if(!(pos==1||t==1||pos+t==2))continue;
     if(!S.pb[t]&&t!=1)continue;
@@ -7394,10 +7515,10 @@ async function cpuAttacks(){
   if(!best)return;                                       // 得になる攻撃がもうない
   await cpuDoAttack(best.pos,best.t)}}
 // 相手側（c）のモンスターで攻撃する。守るかどうかはプレイヤー（p）に聞く
-async function cpuDoAttack(pos,tgt){const m=S.cb[pos];if(!m)return;const av=at(m,"c");
+async function cpuDoAttack(pos,tgt){const m=S.cb[pos];if(!m)return;if(isFrozen(m)){log(m.name+"は凍っていて攻撃できない");return}const av=at(m,"c");
   setLaneFx({atk:{side:"c",i:pos},tgt:{side:"p",i:tgt}});   // 赤＝相手／青＝狙われている場所
   await sleep(600);
-  const bi=await askBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなた（直接）"));
+  const bi=S.coop&&FM.on?await coopAskBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなたたち（直接）")):await askBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなた（直接）"));
   clearLaneFx();
   if(!S||S.over)return;
   if(bi>=0&&bi!=tgt){
@@ -7429,7 +7550,7 @@ async function cpuTurn(){if(!S||S.over)return;
  resetBoard("c");draw("c");S.phase="main1";log("ターン"+turnTotal()+"　"+((S.opp&&S.opp.name)?fillText(S.opp.name):"相手")+"のターン");phaseCutIn("main1","c");render();await sleep(phaseOn()?1100:800);
  let cc=S.max;
  for(const pl of cpuPlan(cc)){
-  if(!S||S.over)return;
+  await netGate();if(!S||S.over)return;
   const idx=S.ch.indexOf(pl.c);if(idx<0)continue;
   const cost=ec(pl.c,"c");if(cost>cc)continue;
   if(pl.mon){if(cpuLane(pl.c)<0)continue;cc=cpuSummon({c:pl.c,idx,cost},cc);render();await sleep(900)}
