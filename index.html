@@ -260,6 +260,8 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .bt-dr{--bc:#9fdcff}.bt-ht{--bc:#ff9ad8}
 .kwBar{display:flex;flex-wrap:nowrap;gap:5px;margin:6px -4px 2px;padding:0 4px 2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.kwBar::-webkit-scrollbar{display:none}
 .kwB{flex:0 0 auto}
+.kwB.kwS{min-width:40px;font-size:14px}.kwB.kwR{border-color:#ff9a9a;color:#ffb0b0;background:#2a1414}.kwB.kwT.on{background:#4ee3ff;border-color:#4ee3ff;color:#06182b}
+.kwSep{flex:0 0 1px;align-self:stretch;margin:4px 2px;background:#2c4568}
 .srchRow{display:flex;gap:6px;align-items:center;margin-top:6px}
 .srchBox{position:relative;flex:1;min-width:0;display:flex}
 .srchIn{flex:1;width:100%;min-width:0;min-height:40px;padding:0 34px 0 12px;border-radius:10px;border:1px solid #3a5a80;background:#0a1526;color:#eaf2ff;font:inherit;font-size:16px}
@@ -267,7 +269,8 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .srchX{position:absolute;right:4px;top:50%;transform:translateY(-50%);min-width:32px;min-height:32px;border:0;border-radius:99px;background:#2a4466;color:#eaf2ff;font-size:16px;font-weight:900}
 .srchReset{flex:0 0 auto;min-height:40px;padding:0 12px;border-radius:10px;border:1px solid #ffd84a;background:#2a2410;color:#ffd84a;font:inherit;font-size:12px;font-weight:800}
 .acq{padding:4px 2px;text-align:left;width:100%}
-.acqOpen{flex:0 0 auto;align-self:center;min-height:42px;padding:0 18px;border-radius:99px;border:1px solid #ffd84a;background:#2a2410;color:#ffd84a;font:inherit;font-size:13px;font-weight:800}
+.acqOpen{flex:0 0 auto;align-self:center;max-width:100%;min-height:46px;padding:5px 18px;border-radius:14px;border:1px solid #ffd84a;background:#2a2410;color:#ffd84a;font:inherit;display:flex;flex-direction:column;align-items:center;gap:1px}
+.acqOpen small{font-size:10px;font-weight:800;opacity:.8}.acqOpen b{font-size:13px;font-weight:900;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #ov.acqOn{padding-bottom:calc(84px + env(safe-area-inset-bottom))}   /* 図鑑から開いたとき：下のタブに隠れないように */
 #acqPop{z-index:520}.acqPanel{max-height:80vh;overflow-y:auto}
 .acqH{font-size:12px;font-weight:900;color:#ffd84a;margin-bottom:4px}
@@ -1533,6 +1536,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
    時計の帯が細い機種（iPhone SE など）でも、画面の中身がぼかしの下から始まるように、上の余白を最低56pxとる */
 @media (hover:none) and (pointer:coarse){
  #app{padding-top:max(calc(10px + env(safe-area-inset-top)),56px)}
+ .ov{padding-top:max(calc(10px + env(safe-area-inset-top)),56px)}   /* カードの詳細も、時計の帯（ぼかし）の下から */
  #game{min-height:calc(100dvh - 10px - max(calc(10px + env(safe-area-inset-top)),56px) - env(safe-area-inset-bottom))}
  .crystalToast{top:max(calc(env(safe-area-inset-top,0px) + 8px),52px)}
  /* 見出し（デッキ編集など）の色を、増やした上の余白のぶんまで上にのばして、スクロールした中身が透けないように */
@@ -1550,7 +1554,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.27.0</div>
+ <div class="tVer" id="tVer">ver.5.27.1</div>
 </div>
 
 <div id="app">
@@ -1824,8 +1828,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
    <button onclick="clearDeckSlot()">🗑 この枠を空に</button>
   </div>
   <div class="fb"><button id="fAll" onclick="setFilter('all')">全部</button><button id="fMon" onclick="setFilter('monster')">モンスター</button><button id="fSpl" onclick="setFilter('spell')">呪文</button></div>
-  <div class="srchRow"><span class="srchBox"><input id="editSearch" type="search" class="srchIn" placeholder="🔍 カード名・効果で探す" autocomplete="off" enterkeyhint="search" oninput="setEditSearch(this.value)"><button type="button" id="srchX" class="srchX hide" onclick="clearEditSearch()" aria-label="検索をクリア">×</button></span><button type="button" id="filterReset" class="srchReset hide" onclick="resetEditFilters()">条件を解除</button></div>
   <div class="kwBar" id="kwBar"></div>
+  <div class="srchRow hide" id="editSrchRow"><span class="srchBox"><input id="editSearch" type="search" class="srchIn" placeholder="カード名・効果で探す" autocomplete="off" enterkeyhint="search" oninput="setEditSearch(this.value)"><button type="button" id="srchX" class="srchX hide" onclick="clearEditSearch()" aria-label="検索をクリア">×</button></span></div>
   <select id="editSort" class="sortSel" onchange="setSortMode(this.value)">
    <option value="kana">50音順</option>
    <option value="cost">コスト順</option>
@@ -1881,6 +1885,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="editorHead"><h1>図鑑</h1><div id="codexInfo" class="sub"></div>
   <div id="packTabs" class="packTabs"></div>
   <div id="codexGroups" class="codexGroups hide"></div>
+  <div class="kwBar" id="codexKwBar"></div>
+  <div class="srchRow hide" id="codexSrchRow"><span class="srchBox"><input id="codexSearch" type="search" class="srchIn" placeholder="カード名・効果で探す" autocomplete="off" enterkeyhint="search" oninput="setCodexSearch(this.value)"><button type="button" id="codexSrchX" class="srchX hide" onclick="setCodexSearch('');$('codexSearch').value=''" aria-label="検索をクリア">×</button></span></div>
  </div>
  <div id="codexGrid" class="codexGrid"></div>
  <div class="pageNav">
@@ -2115,7 +2121,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.27.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.27.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -4688,15 +4694,23 @@ function setEditKw(k){editKw=editKw==k?null:k;sfx("sel");renderEdit()}
 // 自由入力の検索（カード名・読みがな・効果文）。ひらがな／カタカナ、全角／半角、大文字／小文字はそろえて比べる
 let editQuery="",editQT=null;
 function normQ(t){return String(t||"").normalize("NFKC").toLowerCase().replace(/[\u30a1-\u30f6]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60)).replace(/\s+/g,"")}
-function qMatch(c){if(!editQuery)return true;const q=normQ(editQuery);return normQ(c.name+" "+(c.sortName||"")+" "+(c.text||"")).includes(q)}
+function qMatch(c){return qMatchQ(c,editQuery)}
 function setEditSearch(v){editQuery=String(v||"").trim();clearTimeout(editQT);editQT=setTimeout(renderEdit,120)}
 function clearEditSearch(){editQuery="";const el=$("editSearch");if(el)el.value="";renderEdit()}
-function resetEditFilters(){editQuery="";editKw=null;const el=$("editSearch");if(el)el.value="";sfx("sel");renderEdit()}
-function kwMatch(c){if(!editKw)return true;const t=String(c.text||"");
- if(editKw=="回復")return /HPを\+/.test(t);if(editKw=="ドロー")return /ドロー/.test(t);if(editKw=="ダメージ")return /プレイヤーに\d+ダメージ/.test(t);
- if(editKw=="突撃")return !!(c.charge||c.permCharge)||/突撃/.test(t);if(editKw=="守護")return !!c.guard||/守護/.test(t);
- return t.includes(editKw)}
-function openEdit(){editQuery="";try{$("editSearch").value=""}catch(e){}
+function resetEditFilters(){editQuery="";editKw=null;editSrchOpen=false;const el=$("editSearch");if(el)el.value="";sfx("sel");renderEdit()}
+function kwMatch(c){return kwMatchK(c,editKw)}
+function kwMatchK(c,k){if(!k)return true;const t=String(c.text||"");
+ if(k=="回復")return /HPを\+/.test(t);if(k=="ドロー")return /ドロー/.test(t);if(k=="ダメージ")return /プレイヤーに\d+ダメージ/.test(t);
+ if(k=="突撃")return !!(c.charge||c.permCharge)||/突撃/.test(t);if(k=="守護")return !!c.guard||/守護/.test(t);
+ return t.includes(k)}
+function qMatchQ(c,q){if(!q)return true;return normQ(c.name+" "+(c.sortName||"")+" "+(c.text||"")).includes(normQ(q))}
+// 能力ワードの列：いちばん左に🔍（押すと検索欄が開く）、条件があるときはいちばん右に「✕ 解除」
+function kwBarHtml(open,kw,setFn,toggleFn,resetFn,has,extra){return '<button type="button" class="kwB kwS'+(open?' on':'')+'" onclick="'+toggleFn+'()" aria-label="検索">🔍</button>'+(extra||"")
+ +EDIT_KW.map(k=>'<button type="button" class="kwB'+(kw==k?' on':'')+'" onclick="'+setFn+'(\''+k+'\')">'+k+'</button>').join("")
+ +(has?'<button type="button" class="kwB kwR" onclick="'+resetFn+'()">✕ 解除</button>':'')}
+let editSrchOpen=false;
+function toggleEditSearch(){if(editSrchOpen&&editQuery){$("editSearch").focus();return}editSrchOpen=!editSrchOpen;sfx("sel");renderEdit();if(editSrchOpen)setTimeout(()=>{try{$("editSearch").focus()}catch(e){}},30)}
+function openEdit(){editQuery="";editSrchOpen=false;try{$("editSearch").value=""}catch(e){}
  {const sl=deckSlots()[curSlot()];if(sl&&Array.isArray(sl.cards))deck=sl.cards.filter(id=>by(id))}   // 未完成のデッキも、そのまま続きから編集
  hideAll();$("edit").classList.remove("hide");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit();guideOnce("edit")}
 function renderEditInfo(){const over=deck.length>30,el=$("info");
@@ -4759,8 +4773,9 @@ function renderEdit(){renderEditInfo();
  }
  // --- コレクション：所持カードをカード画像タイルで。タップで1枚足す／長押しで詳細 ---
  let g=$("eg");g.innerHTML="";
- $("kwBar").innerHTML=EDIT_KW.map(k=>'<button type="button" class="kwB'+(editKw==k?' on':'')+'" onclick="setEditKw(\''+k+'\')">'+k+'</button>').join("");
- {const has=!!editQuery||!!editKw;$("srchX").classList.toggle("hide",!editQuery);$("filterReset").classList.toggle("hide",!has)}
+ {const has=!!editQuery||!!editKw,open=editSrchOpen||!!editQuery;
+  $("kwBar").innerHTML=kwBarHtml(open,editKw,"setEditKw","toggleEditSearch","resetEditFilters",has);
+  $("editSrchRow").classList.toggle("hide",!open);$("srchX").classList.toggle("hide",!editQuery)}
  const LIST=sortCards(P.filter(c=>isVisible(c)&&ownedCount(c.id)>0&&(filter=="all"||c.type==filter)&&kwMatch(c)&&qMatch(c)));
  if(!LIST.length){const t=document.createElement("div");t.className="srchNone";t.textContent=(editQuery||editKw)?"条件に合うカードが見つかりませんでした":"カードがありません";$("eg").appendChild(t)}
  LIST.forEach(c=>{
@@ -4796,9 +4811,18 @@ function codexPacks(){
 }
 let codexPack=0,codexPage=0,codexGroup=null;   // codexGroup：第2弾の陣営でしぼりこみ（c/v/f、null=全部）
 const CODEX_PAGE_SIZE=6; // 3列×2段。縦長カード比率のままスクロール無しに収めるため9から変更
-function openCodex(){hideAll();$("codex").classList.remove("hide");$("app").scrollTop=0;codexPack=0;codexPage=0;codexGroup=null;renderCodex();completeWelcome("codex");guideOnce("codex")}
+function openCodex(){codexType="all";codexKw=null;codexQuery="";codexSrchOpen=false;try{$("codexSearch").value=""}catch(e){}hideAll();$("codex").classList.remove("hide");$("app").scrollTop=0;codexPack=0;codexPage=0;codexGroup=null;renderCodex();completeWelcome("codex");guideOnce("codex")}
 function setPack(i){codexPack=i;codexPage=0;codexGroup=null;renderCodex()}
-function codexView(){const all=codexPacks()[codexPack]||[];return (codexPackKeys[codexPack]===92&&codexGroup)?all.filter(c=>c.b2==codexGroup):all}
+// 図鑑の絞りこみ（種類・能力ワード・自由入力）。まだ出会っていないカードは、名前や能力がわからないように、絞りこみ中は出さない
+let codexType="all",codexKw=null,codexQuery="",codexSrchOpen=false,codexQT=null;
+function codexFiltering(){return codexType!="all"||!!codexKw||!!codexQuery}
+function codexView(){const all=codexPacks()[codexPack]||[];let L=(codexPackKeys[codexPack]===92&&codexGroup)?all.filter(c=>c.b2==codexGroup):all;
+ if(codexFiltering())L=L.filter(c=>(hasEncountered(c.id)||ownedCount(c.id)>0)&&(codexType=="all"||c.type==codexType)&&kwMatchK(c,codexKw)&&qMatchQ(c,codexQuery));return L}
+function setCodexType(t){codexType=t;codexPage=0;sfx("sel");renderCodex()}
+function setCodexKw(k){codexKw=codexKw==k?null:k;codexPage=0;sfx("sel");renderCodex()}
+function setCodexSearch(v){codexQuery=String(v||"").trim();codexPage=0;clearTimeout(codexQT);codexQT=setTimeout(renderCodex,120)}
+function toggleCodexSearch(){if(codexSrchOpen&&codexQuery){$("codexSearch").focus();return}codexSrchOpen=!codexSrchOpen;sfx("sel");renderCodex();if(codexSrchOpen)setTimeout(()=>{try{$("codexSearch").focus()}catch(e){}},30)}
+function resetCodexFilters(){codexType="all";codexKw=null;codexQuery="";codexSrchOpen=false;codexPage=0;try{$("codexSearch").value=""}catch(e){}sfx("sel");renderCodex()}
 function setCodexGroup(k){codexGroup=codexGroup==k?null:k;codexPage=0;sfx("sel");renderCodex()}
 function codexPageCount(){const pack=codexView();return Math.max(1,Math.ceil(pack.length/CODEX_PAGE_SIZE))}
 function codexPrevPage(){if(codexPage>0){codexPage--;renderCodex()}}
@@ -4809,7 +4833,11 @@ function renderCodex(){
  packs.forEach((_,i)=>{const b=document.createElement("button");b.className="packTab"+(i==codexPack?" on":"");b.textContent=packLabel(codexPackKeys[i]);b.onclick=()=>setPack(i);tabs.appendChild(b)});
  const fullPack=packs[codexPack]||[],pack=codexView();
  const owned=fullPack.filter(c=>ownedCount(c.id)>0).length;
- $("codexInfo").textContent=`${packLabel(codexPackKeys[codexPack])}　${owned}/${fullPack.length}種類`;
+ $("codexInfo").textContent=`${packLabel(codexPackKeys[codexPack])}　${owned}/${fullPack.length}種類`+(codexFiltering()?`　（絞りこみ中 ${pack.length}件）`:"");
+ {const open=codexSrchOpen||!!codexQuery,T=[["all","全部"],["monster","モンスター"],["spell","呪文"]];
+  $("codexKwBar").innerHTML=kwBarHtml(open,codexKw,"setCodexKw","toggleCodexSearch","resetCodexFilters",codexFiltering(),
+   T.map(([k,l])=>'<button type="button" class="kwB kwT'+(codexType==k?' on':'')+'" onclick="setCodexType(\''+k+'\')">'+l+'</button>').join("")+'<span class="kwSep"></span>');
+  $("codexSrchRow").classList.toggle("hide",!open);$("codexSrchX").classList.toggle("hide",!codexQuery)}
  // 第2弾：陣営ごとの見出し（押すとその陣営の最初のページへ）と、パックごとの集まり具合
  {const gb=$("codexGroups"),is2=codexPackKeys[codexPack]===92;gb.classList.toggle("hide",!is2);
   if(is2){const G=[["c","🌀 嵐の境目"],["v","⚡ ボルテア"],["f","❄️ フロスティア"]];
@@ -4822,6 +4850,7 @@ function renderCodex(){
    const u=gb.querySelector(".cgPacks u");if(u)u.addEventListener("click",()=>{codexGroup=null;codexPage=0;renderCodex()})}}
  const start=codexPage*CODEX_PAGE_SIZE,items=pack.slice(start,start+CODEX_PAGE_SIZE);
  const g=$("codexGrid");g.innerHTML="";
+ if(!items.length&&codexFiltering()){const t=document.createElement("div");t.className="srchNone";t.textContent="条件に合うカードが見つかりませんでした（まだ出会っていないカードは出ません）";g.appendChild(t)}
  // 非CRだけで通し番号を振る（CR解禁で他の番号がズレない）。CRは元カードの番号に -c を付ける
  let _pos=0;const _num={};fullPack.forEach(c=>{if(c.rarity!=="CR"){_pos++;_num[c.id]=_pos}});let _tot=_pos;
  if(codexPackKeys[codexPack]===0){pack.forEach(c=>{if(c.no&&c.rarity!=="CR")_num[c.id]=c.no});P.forEach(c=>{if(c.no)_num[c.id]=c.no});_tot=PROMO_TOTAL}   // プロモは決まった番号
@@ -6933,7 +6962,8 @@ function cardSources(c){const L=[],vis=visibleGachas();
  if(c.rarity=="CR"&&!c.event&&!c.promo&&!c.passS&&!c.bossOnly)L.push({ic:"🛒",label:"ショップ：CR交換",cond:"1枚持っていると、もう1枚を🔹"+SHOP_CR_PRICE.toLocaleString()+"で交換できる",go:{k:"shop"}});
  return L}
 // 詳細の下に置くボタン（押すと一覧の窓が開く）
-function acqBtnHtml(c){const n=cardSources(c).length;return '<button type="button" class="acqOpen" onclick="event.stopPropagation();openAcq(\''+c.id+'\')">📦 入手方法'+(n?'（'+n+'）':'：未設定')+'</button>'}
+function acqBtnHtml(c){const L=cardSources(c),n=L.length,main=n?L[0].label+(n>1?' ほか'+(n-1)+'件':''):'入手方法未設定';
+ return '<button type="button" class="acqOpen" onclick="event.stopPropagation();openAcq(\''+c.id+'\')"><small>📦 入手方法</small><b>'+escH(main)+(n?' ▶':'')+'</b></button>'}
 function openAcq(id){const c=by(id);if(!c)return;$("acqTitle").textContent=c.name;$("acqBody").innerHTML=acqHtml(c);$("acqPop").classList.add("show");sfx("sel")}
 function acqHtml(c){const L=cardSources(c);
  const btn=g=>g?'<button type="button" class="acqGo" onclick="event.stopPropagation();acqGo(\''+g.k+'\',\''+(g.a||"")+'\')">'+(g.t||"移動")+' ▶</button>':"";
