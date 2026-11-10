@@ -258,7 +258,25 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .stEmpty{font-size:12px;color:#9fb6d6;padding:4px 0}
 /* ひとりで・ドラフト */
 .bt-dr{--bc:#9fdcff}.bt-ht{--bc:#ff9ad8}
-.kwBar{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 2px}
+.kwBar{display:flex;flex-wrap:nowrap;gap:5px;margin:6px -4px 2px;padding:0 4px 2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.kwBar::-webkit-scrollbar{display:none}
+.kwB{flex:0 0 auto}
+.srchRow{display:flex;gap:6px;align-items:center;margin-top:6px}
+.srchBox{position:relative;flex:1;min-width:0;display:flex}
+.srchIn{flex:1;width:100%;min-width:0;min-height:40px;padding:0 34px 0 12px;border-radius:10px;border:1px solid #3a5a80;background:#0a1526;color:#eaf2ff;font:inherit;font-size:16px}
+.srchIn::-webkit-search-cancel-button{display:none}
+.srchX{position:absolute;right:4px;top:50%;transform:translateY(-50%);min-width:32px;min-height:32px;border:0;border-radius:99px;background:#2a4466;color:#eaf2ff;font-size:16px;font-weight:900}
+.srchReset{flex:0 0 auto;min-height:40px;padding:0 12px;border-radius:10px;border:1px solid #ffd84a;background:#2a2410;color:#ffd84a;font:inherit;font-size:12px;font-weight:800}
+.acq{padding:4px 2px;text-align:left;width:100%}
+.acqOpen{flex:0 0 auto;align-self:center;min-height:42px;padding:0 18px;border-radius:99px;border:1px solid #ffd84a;background:#2a2410;color:#ffd84a;font:inherit;font-size:13px;font-weight:800}
+#ov.acqOn{padding-bottom:calc(84px + env(safe-area-inset-bottom))}   /* 図鑑から開いたとき：下のタブに隠れないように */
+#acqPop{z-index:520}.acqPanel{max-height:80vh;overflow-y:auto}
+.acqH{font-size:12px;font-weight:900;color:#ffd84a;margin-bottom:4px}
+.acqRow{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid #1c3050}.acqRow:first-of-type{border-top:0}
+.acqIc{font-size:18px;flex:0 0 auto}.acqT{flex:1;min-width:0}.acqT b{display:block;font-size:12px;color:#eaf2ff}.acqT small{display:block;font-size:11px;color:#9fb6d6;line-height:1.4}
+.acqB{display:flex;flex-direction:column;gap:4px;flex:0 0 auto}
+.acqGo{min-height:34px;padding:0 10px;border-radius:99px;border:1px solid #4ee3ff;background:#0d2a44;color:#cfefff;font:inherit;font-size:11px;font-weight:800;white-space:nowrap}
+.gBlock.acqFlash{box-shadow:0 0 0 3px #ffd84a,0 0 24px #ffd84a88;transition:box-shadow .3s}
+.srchNone{grid-column:1/-1;text-align:center;color:#9fb6d6;font-size:13px;padding:24px 0}
 .kwB{min-height:32px;padding:0 10px;border-radius:99px;border:1px solid #3a5a80;background:#10203a;color:#cfe0f5;font:inherit;font-size:12px;font-weight:700}
 .kwB.on{background:#ffd84a;color:#1a1a1a;border-color:#ffd84a}
 .drHead{text-align:center;font-weight:800;margin:6px 0 8px}
@@ -1532,7 +1550,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.26.0</div>
+ <div class="tVer" id="tVer">ver.5.27.0</div>
 </div>
 
 <div id="app">
@@ -1768,6 +1786,10 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 <nav id="tabBar" class="tabBar hide" aria-label="メイン"><button type="button" id="tab_home" class="tabBtn" onclick="tabGo('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 11 L12 4 L20 11 V20 H14 V14 H10 V20 H4 Z"/></svg><span>ホーム</span><span class="tabBadge hide"></span></button><button type="button" id="tab_story" class="tabBtn" onclick="tabGo('story')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 5 H10 a2 2 0 0 1 2 2 V20 a2 2 0 0 0 -2 -2 H4 Z"/><path d="M20 5 H14 a2 2 0 0 0 -2 2 V20 a2 2 0 0 1 2 -2 H20 Z"/></svg><span>ストーリー</span><span class="tabBadge hide"></span></button><button type="button" id="tab_battle" class="tabBtn" onclick="tabGo('battle')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5 19 L15 9"/><path d="M15 9 L19 5 L19 9 Z"/><path d="M19 19 L9 9"/><path d="M9 9 L5 5 L5 9 Z"/></svg><span>対戦</span><span class="tabBadge hide"></span></button><button type="button" id="tab_gacha" class="tabBtn" onclick="tabGo('gacha')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4 H17 L21 9 L12 20 L3 9 Z"/><path d="M3 9 H21"/><path d="M12 20 L8 9 L10 4"/><path d="M12 20 L16 9 L14 4"/></svg><span class="tabLong">ガチャ・ショップ</span><span class="tabBadge hide"></span></button><button type="button" id="tab_more" class="tabBtn" onclick="tabGo('more')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg><span>メニュー</span><span class="tabBadge hide"></span></button></nav>
 <div id="fmNet" class="fmNet"></div>
 <div id="netWait" class="netWait"><div class="nwBox"><div class="nwSpin"></div><div id="nwMsg" class="nwMsg"></div><div id="nwLeft" class="nwLeft"></div></div></div>
+<div id="acqPop" class="pov" onclick="hideP('acqPop')"><div class="panel acqPanel" onclick="event.stopPropagation()">
+ <div class="phead"><span id="acqTitle"></span><button class="s" onclick="hideP('acqPop')">閉じる</button></div>
+ <div id="acqBody"></div>
+</div></div>
 <div id="infoPop" class="pov"><div class="confirmBox"><div id="infoText" class="askTitle"></div><div class="confirmBtns" style="margin-top:14px"><button type="button" class="gold" onclick="hideP('infoPop')">OK</button></div></div></div>
 <div id="battleTip" class="battleTip"></div>
 <div id="phaseCut" class="phaseCut"></div>
@@ -1802,6 +1824,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
    <button onclick="clearDeckSlot()">🗑 この枠を空に</button>
   </div>
   <div class="fb"><button id="fAll" onclick="setFilter('all')">全部</button><button id="fMon" onclick="setFilter('monster')">モンスター</button><button id="fSpl" onclick="setFilter('spell')">呪文</button></div>
+  <div class="srchRow"><span class="srchBox"><input id="editSearch" type="search" class="srchIn" placeholder="🔍 カード名・効果で探す" autocomplete="off" enterkeyhint="search" oninput="setEditSearch(this.value)"><button type="button" id="srchX" class="srchX hide" onclick="clearEditSearch()" aria-label="検索をクリア">×</button></span><button type="button" id="filterReset" class="srchReset hide" onclick="resetEditFilters()">条件を解除</button></div>
   <div class="kwBar" id="kwBar"></div>
   <select id="editSort" class="sortSel" onchange="setSortMode(this.value)">
    <option value="kana">50音順</option>
@@ -2092,7 +2115,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.26.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.27.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -4662,11 +4685,18 @@ function setFilter(f){filter=f;renderEdit()}
 const EDIT_KW=["突撃","守護","二回攻撃","貫通されない","凍結","感電","回復","ドロー","ダメージ"];
 let editKw=null;
 function setEditKw(k){editKw=editKw==k?null:k;sfx("sel");renderEdit()}
+// 自由入力の検索（カード名・読みがな・効果文）。ひらがな／カタカナ、全角／半角、大文字／小文字はそろえて比べる
+let editQuery="",editQT=null;
+function normQ(t){return String(t||"").normalize("NFKC").toLowerCase().replace(/[\u30a1-\u30f6]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60)).replace(/\s+/g,"")}
+function qMatch(c){if(!editQuery)return true;const q=normQ(editQuery);return normQ(c.name+" "+(c.sortName||"")+" "+(c.text||"")).includes(q)}
+function setEditSearch(v){editQuery=String(v||"").trim();clearTimeout(editQT);editQT=setTimeout(renderEdit,120)}
+function clearEditSearch(){editQuery="";const el=$("editSearch");if(el)el.value="";renderEdit()}
+function resetEditFilters(){editQuery="";editKw=null;const el=$("editSearch");if(el)el.value="";sfx("sel");renderEdit()}
 function kwMatch(c){if(!editKw)return true;const t=String(c.text||"");
  if(editKw=="回復")return /HPを\+/.test(t);if(editKw=="ドロー")return /ドロー/.test(t);if(editKw=="ダメージ")return /プレイヤーに\d+ダメージ/.test(t);
  if(editKw=="突撃")return !!(c.charge||c.permCharge)||/突撃/.test(t);if(editKw=="守護")return !!c.guard||/守護/.test(t);
  return t.includes(editKw)}
-function openEdit(){
+function openEdit(){editQuery="";try{$("editSearch").value=""}catch(e){}
  {const sl=deckSlots()[curSlot()];if(sl&&Array.isArray(sl.cards))deck=sl.cards.filter(id=>by(id))}   // 未完成のデッキも、そのまま続きから編集
  hideAll();$("edit").classList.remove("hide");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit();guideOnce("edit")}
 function renderEditInfo(){const over=deck.length>30,el=$("info");
@@ -4730,7 +4760,10 @@ function renderEdit(){renderEditInfo();
  // --- コレクション：所持カードをカード画像タイルで。タップで1枚足す／長押しで詳細 ---
  let g=$("eg");g.innerHTML="";
  $("kwBar").innerHTML=EDIT_KW.map(k=>'<button type="button" class="kwB'+(editKw==k?' on':'')+'" onclick="setEditKw(\''+k+'\')">'+k+'</button>').join("");
- sortCards(P.filter(c=>isVisible(c)&&ownedCount(c.id)>0&&(filter=="all"||c.type==filter)&&kwMatch(c))).forEach(c=>{
+ {const has=!!editQuery||!!editKw;$("srchX").classList.toggle("hide",!editQuery);$("filterReset").classList.toggle("hide",!has)}
+ const LIST=sortCards(P.filter(c=>isVisible(c)&&ownedCount(c.id)>0&&(filter=="all"||c.type==filter)&&kwMatch(c)&&qMatch(c)));
+ if(!LIST.length){const t=document.createElement("div");t.className="srchNone";t.textContent=(editQuery||editKw)?"条件に合うカードが見つかりませんでした":"カードがありません";$("eg").appendChild(t)}
+ LIST.forEach(c=>{
   const n=deck.filter(x=>x==c.id).length,own=ownedCount(c.id),fam=familyId(c.id);
   const famCount=deck.filter(x=>familyId(x)==fam).length;
   const full=(n>=own)||(famCount>=2)||(deck.length>=40);
@@ -4805,7 +4838,7 @@ function renderCodex(){
    const img=CARD_IMAGES[c.id];
    d.className="ctile"+(c.type=="spell"?" spellface":"")+rarityEdge(c)+(c.rarity=="CR"?" crframe":"")+(n<=0?" unowned":"");
    d.innerHTML=`<div class=cost>${c.cost}</div>${rarityHex(c,"chex")}<div class=cart>${img?`<img src="${img}">`:(c.type=="monster"?"👾":"✨")}</div><div class=cnum>${numLabel}</div>${n>0?`<div class=owned>×${n}</div>`:""}`;
-   d.onclick=()=>showD(c);
+   d.onclick=()=>showD(c,"codex");
   }
   g.appendChild(d)});
  $("codexPageLabel").textContent=(codexPage+1)+" / "+codexPageCount();
@@ -6854,7 +6887,8 @@ function showD(c,ctx){const img=CARD_IMAGES[c.id];
  $("dc").className="dc"+(c.type=="spell"?" spellface":"")+(c.rarity=="CR"?" cr":"")+rarityEdge(c)
   +" rar-"+(c.rarity||"N").toLowerCase();
  const loreHtml="";
- let btns="";
+ let btns=ctx==="codex"?acqBtnHtml(c):"";   // 図鑑から開いたときだけ、入手方法のボタンを出す
+ $("ov").classList.toggle("acqOn",ctx==="codex");
  $("dc").innerHTML=`<div class=dstage><div class=dwrap>
    <div class=dtop><div class=dcost>${c.cost}</div><div class=dname>${nameRuby(c)}<span class=dnm>${c.name}</span></div><div class=dhexWrap>${rarityHex(c,"dhex")}</div></div>
    ${img?`<div class=dart style="background:#fff"><img src="${img}"></div>`:`<div class=dart>${c.type=="monster"?"👾":"✨"}</div>`}
@@ -6865,6 +6899,54 @@ function showD(c,ctx){const img=CARD_IMAGES[c.id];
  $("ov").classList.add("show");
  try{fitDetail();requestAnimationFrame(()=>{try{fitDetail()}catch(e){}})}catch(e){}}
 function showDById(id){const c=by(id);if(c){showD(c);$("ov").classList.add("topmost")}}
+/* ===== 図鑑：カードの入手方法 =====
+   カードごとに、実際のデータから調べる（名前やレア度からは決めない）。
+   ・ガチャ：そのパックの抽選の対象か（ガチャの抽選と同じ判定）　・ステップアップのおまけ　・はじめのデッキ
+   ・ストーリーのごほうび　・シーズンパスの段　・プレミアムパック　・かけら交換所（日替わり）　・ショップのCR交換
+   どれにも当てはまらなければ「入手方法未設定」 */
+function packHasCard(pid,c){return (packOf(c)==pid||(c.packs&&c.packs.includes(pid)))&&!c.unreleased&&!c.bossOnly&&!c.gItem}
+function cardSources(c){const L=[],vis=visibleGachas();
+ // ガチャ（パックごとに1つ）
+ PACKS.forEach(pk=>{if(!packHasCard(pk.id,c))return;const gs=GACHAS.filter(g=>g.pack==pk.id),g=gs.find(x=>vis.includes(x));
+  const ev=EVENTS.find(e=>e.gachaPack==pk.id),evOn=!!(ev&&ev.open&&eventInPeriod(ev));
+  const tk=pk.cost=="ticket"&&TICKETS[pk.ticket]?TICKETS[pk.ticket]:null;
+  L.push({ic:"🎰",label:pk.name,cond:(tk?tk.icon+tk.name+"で引く":"💎で引く")+(ev?"（イベント「"+(ev.name||ev.title)+"」）":"")+(g?"":"　※今は引けません"),
+   go:g?{k:"gacha",a:g.id}:null,go2:evOn?{k:"event",a:ev.id,t:"イベントへ"}:null})});
+ // ステップアップのおまけ
+ PACKS.forEach(pk=>{if(pk.noStep)return;const arr=STEP_GACHA_BY_PACK[pk.id]||STEP_GACHA;const k=arr.findIndex(x=>x.card===c.id);if(k<0)return;
+  const g=GACHAS.find(x=>x.pack==pk.id&&visibleGachas().includes(x));
+  L.push({ic:"🪜",label:"ステップアップガチャ（"+pk.name+"）",cond:"初回だけ。"+(k+1)+"段目のおまけでもらえる",go:g?{k:"gacha",a:g.id}:null})});
+ // はじめのデッキ
+ if(STARTER_DECK.includes(c.id))L.push({ic:"🎁",label:"はじめのデッキ",cond:"ゲームを始めたときに"+STARTER_DECK.filter(x=>x===c.id).length+"枚もらえる",go:null});
+ // ストーリーのごほうび
+ Object.entries(STORY_REWARDS).forEach(([key,r])=>{if(r.card!==c.id)return;const [ci,ei]=key.split("-").map(Number),ch=STORY[ci],ep=ch&&ch.episodes[ei];
+  L.push({ic:"📖",label:"ストーリーのごほうび",cond:(ch?ch.title:"")+(ep?"　第"+(ei+1)+"話「"+ep.title+"」":""),go:{k:"story"}})});
+ // シーズンパス
+ SEASONS.forEach(se=>{Object.entries(se.lanes||{}).forEach(([lk,ln])=>{const tiers=Object.entries(ln.rw||{}).filter(([t,id])=>id===c.id).map(([t])=>+t).sort((a,b)=>a-b);if(!tiers.length)return;
+  const on=(()=>{try{const cur=passSeason();return !!(cur&&cur.id===se.id)}catch(e){return false}})();
+  L.push({ic:"🎫",label:se.name+"　"+ln.name,cond:tiers.join("・")+"段でもらえる"+(on?"":"　※このシーズンは終了しました"),go:on?{k:"pass"}:null})})});
+ // プレミアムパック
+ PREMIUM.forEach(x=>{if(x.card!==c.id)return;L.push({ic:"💎",label:"ショップ：プレミアムパック「"+x.name+"」",cond:"💎"+x.price.toLocaleString()+"で2枚（1回だけ）"+(x.need&&!x.need()?"　※覚醒 蝕樹のコモクに勝つと並ぶ":""),go:{k:"shop"}})});
+ // かけら交換所（日替わりで並ぶ対象）
+ if(!c.promo&&!c.event&&["N","R","SR","UR"].includes(c.rarity))L.push({ic:"🔹",label:"かけら交換所",cond:"日替わりで並ぶことがある",go:{k:"exchange"}});
+ // ショップのCR交換
+ if(c.rarity=="CR"&&!c.event&&!c.promo&&!c.passS&&!c.bossOnly)L.push({ic:"🛒",label:"ショップ：CR交換",cond:"1枚持っていると、もう1枚を🔹"+SHOP_CR_PRICE.toLocaleString()+"で交換できる",go:{k:"shop"}});
+ return L}
+// 詳細の下に置くボタン（押すと一覧の窓が開く）
+function acqBtnHtml(c){const n=cardSources(c).length;return '<button type="button" class="acqOpen" onclick="event.stopPropagation();openAcq(\''+c.id+'\')">📦 入手方法'+(n?'（'+n+'）':'：未設定')+'</button>'}
+function openAcq(id){const c=by(id);if(!c)return;$("acqTitle").textContent=c.name;$("acqBody").innerHTML=acqHtml(c);$("acqPop").classList.add("show");sfx("sel")}
+function acqHtml(c){const L=cardSources(c);
+ const btn=g=>g?'<button type="button" class="acqGo" onclick="event.stopPropagation();acqGo(\''+g.k+'\',\''+(g.a||"")+'\')">'+(g.t||"移動")+' ▶</button>':"";
+ return '<div class="acq">'+(L.length?L.map(x=>'<div class="acqRow"><span class="acqIc">'+x.ic+'</span><div class="acqT"><b>'+escH(x.label)+'</b><small>'+escH(x.cond)+'</small></div><div class="acqB">'+btn(x.go)+btn(x.go2)+'</div></div>').join("")
+  :'<div class="acqRow"><div class="acqT"><small>入手方法未設定</small></div></div>')+'</div>'}
+// 入手先へ移動
+function acqGo(k,a){hideP("acqPop");hideD();
+ if(k=="gacha"){openGacha();try{setGachaMode(false)}catch(e){}setTimeout(()=>{const el=$("gb_"+a);if(el){el.scrollIntoView({block:"start",behavior:"smooth"});el.classList.add("acqFlash");setTimeout(()=>el.classList.remove("acqFlash"),1600)}},80);return}
+ if(k=="event")return openEventDetail(a);
+ if(k=="story")return openStory();
+ if(k=="pass")return openPass();
+ if(k=="shop"){openGacha();try{setGachaMode(true)}catch(e){}return}
+ if(k=="exchange")return openExchange()}
 // 詳細カードを「説明文が必ず見える」大きさに合わせる。絵の高さ＝空き−説明文−上下の部品
 function fitDetail(){
  const ov=$("ov"),dc=$("dc");if(!ov||!dc||!ov.classList.contains("show"))return;
@@ -6873,7 +6955,8 @@ function fitDetail(){
  const cs=getComputedStyle(ov),avail=ov.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
  const ss=getComputedStyle(st),pad=parseFloat(ss.paddingTop)+parseFloat(ss.paddingBottom);
  const gap=parseFloat(getComputedStyle(dc).rowGap)||12;
- const maxH=avail-ef.offsetHeight-gap-pad-6;          // 6 は .dc:after の余白
+ const ac=dc.querySelector&&dc.querySelector(".acqOpen");
+ const maxH=avail-ef.offsetHeight-(ac?ac.offsetHeight+gap:0)-gap-pad-6;          // 6 は .dc:after の余白。図鑑の入手方法の欄のぶんも引く
  const byW=dc.clientWidth/.72;
  const h=Math.max(120,Math.min(byW,maxH));
  w.style.height=h+"px";w.style.width=(h*.72)+"px"}
