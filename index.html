@@ -1676,6 +1676,21 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 .bt2 .pBadge{position:absolute;top:6px;left:6px;z-index:2}
 .bt2Big{grid-column:1/-1;min-height:clamp(118px,19vh,170px)}.bt2Big .bt2Cp b{font-size:20px}
 .bt2Tall{min-height:clamp(150px,26vh,220px)}
+
+/* ===== メニュー：デザインA（グループ） ===== */
+.mtProf{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border-radius:16px;border:1px solid #2f5880;background:linear-gradient(135deg,#10243acc,#081423cc);color:#eaf2ff;font:inherit;text-align:left;margin-bottom:4px}
+.mtAv{flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:2px solid #f0c76a;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0b1b2d}.mtAv .pIcon{border:0!important}
+.mtPm{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.mtNm{font-size:17px;font-weight:900;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mtLv{display:flex;align-items:center;gap:6px;width:100%}.mtLv b{font-size:11px;color:#f0c76a}
+.mtGo{flex:0 0 auto;color:#59d9ff;font-size:13px;font-weight:900}
+.mtSec{font-size:11px;font-weight:900;letter-spacing:.14em;color:#75efaa;margin:12px 2px 6px}
+#menuTab .mtGrid{display:grid;gap:8px}#menuTab .mt4{grid-template-columns:repeat(4,1fr)}#menuTab .mt3{grid-template-columns:repeat(3,1fr)}
+#menuTab .mtBtn{position:relative;min-height:74px;border-radius:14px;border:1px solid var(--c,#2f5880);background:linear-gradient(#0d1e33,#08131f);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 2px}
+#menuTab .mtE{font-size:24px;line-height:1}#menuTab .mtT{font-size:12px;font-weight:900}#menuTab .mtS{font-size:9px;color:#9fb6d6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+#menuTab .mtBtn .pBadge{position:absolute;top:-5px;right:-4px}
+@media (max-height:620px){#menuTab .mtBtn{min-height:60px;padding:4px 2px}#menuTab .mtE{font-size:20px}.mtSec{margin:8px 2px 4px}.mtProf{padding:7px 10px}.mtAv{width:44px;height:44px}}
+.mtMini{width:78%;height:4px;border-radius:9px;background:#1b2c44;overflow:hidden;margin-top:1px}.mtMini i{display:block;height:100%;width:0;background:#75efaa}
 </style>
 <!-- 遊ばれている回数を数える（GoatCounter：個人情報・クッキーなし） -->
 <script data-goatcounter="https://coremon.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
@@ -1686,7 +1701,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.35.0</div>
+ <div class="tVer" id="tVer">ver.5.36.0</div>
 </div>
 
 <div id="app">
@@ -1913,17 +1928,29 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 
 <div id="menuTab" class="hide">
  <div class="editorHead"><h1>メニュー</h1></div>
- <div class="mtGrid">
-  <button type="button" class="mtBtn" onclick="menuGo(7)"><span class="mtT">タスク</span><span class="mtS" id="mtTasks">毎日・毎週</span><span class="pBadge hide" id="mtTasksB"></span></button>
-  <button type="button" class="mtBtn" onclick="sfx('sel');openStats()"><span class="mtT">戦績</span><span class="mtS">勝率・よく使うカード</span></button>
-  <button type="button" class="mtBtn" onclick="menuGo(10)"><span class="mtT">称号</span><span class="mtS" id="mtTitles"></span><span class="pBadge hide" id="mtTitlesB"></span></button>
-  <button type="button" class="mtBtn" onclick="menuGo(4)"><span class="mtT">図鑑</span><span class="mtS" id="mtCodex"></span></button>
-  <button type="button" class="mtBtn" onclick="menuGo(5)"><span class="mtT">石版</span><span class="mtS">用語集</span></button>
-  <button type="button" class="mtBtn" onclick="menuGo(3)"><span class="mtT">デッキ</span><span class="mtS" id="mtDeck"></span></button>
-  <button type="button" class="mtBtn" onclick="sfx('sel');openExchange()"><span class="mtT">交換所</span><span class="mtS">かけら</span></button>
-  <button type="button" class="mtBtn" onclick="sfx('sel');openPresents()"><span class="mtT">プレゼント</span><span class="mtS">受け取り</span></button>
-  <button type="button" class="mtBtn" onclick="sfx('sel');openNews()"><span class="mtT">お知らせ</span><span class="mtS">運営から</span></button>
-  <button type="button" class="mtBtn" onclick="openAbout()"><span class="mtT">設定</span><span class="mtS">演出・データ</span></button>
+ <button type="button" class="mtProf" onclick="sfx('sel');openStats()">
+  <span class="mtAv" id="mtAv"></span>
+  <span class="mtPm"><span class="mtNm" id="mtName"></span><span id="mtTitleTag"></span><span class="mtLv"><b id="mtLv">Lv.1</b><span class="hmXp"><i id="mtXp"></i></span></span></span>
+  <span class="mtGo">戦績 ▶</span>
+ </button>
+ <div class="mtSec">あそびの記録</div>
+ <div class="mtGrid mt4">
+  <button type="button" class="mtBtn" style="--c:#ffd23e" onclick="menuGo(7)"><span class="mtE">✅</span><span class="mtT">タスク</span><span class="mtS" id="mtTasks">毎日・毎週</span><span class="pBadge hide" id="mtTasksB"></span></button>
+  <button type="button" class="mtBtn" style="--c:#c29bff" onclick="menuGo(10)"><span class="mtE">🏅</span><span class="mtT">称号</span><span class="mtS" id="mtTitles"></span><span class="pBadge hide" id="mtTitlesB"></span></button>
+  <button type="button" class="mtBtn" style="--c:#75efaa" onclick="menuGo(4)"><span class="mtE">📖</span><span class="mtT">図鑑</span><span class="mtMini"><i id="mtCodexBar"></i></span><span class="mtS" id="mtCodex"></span></button>
+  <button type="button" class="mtBtn" style="--c:#7fd8ff" onclick="sfx('sel');openStats()"><span class="mtE">📊</span><span class="mtT">戦績</span><span class="mtS" id="mtStats"></span></button>
+ </div>
+ <div class="mtSec">カード</div>
+ <div class="mtGrid mt3">
+  <button type="button" class="mtBtn" onclick="menuGo(3)"><span class="mtE">🃏</span><span class="mtT">デッキ</span><span class="mtS" id="mtDeck"></span></button>
+  <button type="button" class="mtBtn" onclick="sfx('sel');openExchange()"><span class="mtE">🔹</span><span class="mtT">交換所</span><span class="mtS">かけら</span></button>
+  <button type="button" class="mtBtn" onclick="menuGo(5)"><span class="mtE">🪨</span><span class="mtT">石版</span><span class="mtS">用語集</span></button>
+ </div>
+ <div class="mtSec">お知らせ・設定</div>
+ <div class="mtGrid mt3">
+  <button type="button" class="mtBtn" onclick="sfx('sel');openPresents()"><span class="mtE">🎁</span><span class="mtT">プレゼント</span><span class="mtS">受け取り</span><span class="pBadge hide" id="mtPresB"></span></button>
+  <button type="button" class="mtBtn" onclick="sfx('sel');openNews()"><span class="mtE">📢</span><span class="mtT">お知らせ</span><span class="mtS">運営から</span></button>
+  <button type="button" class="mtBtn" onclick="openAbout()"><span class="mtE">⚙️</span><span class="mtT">設定</span><span class="mtS">演出・データ</span></button>
  </div>
  <div class="mtFoot"><span>プレイヤーID　<b id="mtPid"></b></span><span id="mtVer"></span></div>
 </div>
@@ -2271,7 +2298,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.35.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.36.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3491,7 +3518,11 @@ function openMenuTab(){hideAll();$("menuTab").classList.remove("hide");$("app").
 function renderMenuTab(){
  try{const n=taskReadyCount();$("mtTasksB").textContent=n;$("mtTasksB").classList.toggle("hide",!n)}catch(e){}
  try{const o=tState();$("mtTitles").textContent=Object.keys(o.got).filter(id=>titleById(id)).length+" / "+TITLES.length;const n=titleReadyN();$("mtTitlesB").textContent=n;$("mtTitlesB").classList.toggle("hide",!n)}catch(e){}
- try{$("mtCodex").textContent=Math.round(ttOwnedPct()*100)+"%"}catch(e){}
+ try{const pc=Math.round(ttOwnedPct()*100);$("mtCodex").textContent=pc+"%";$("mtCodexBar").style.width=pc+"%"}catch(e){}
+ try{const t=titleEquipped();$("mtName").innerHTML=titleNameHtml((player&&player.name)||"",t);$("mtTitleTag").innerHTML=titleTagHtml(t);$("mtAv").innerHTML=iconHtml(myIcon(),48)}catch(e){}
+ try{const li=levelInfo();$("mtLv").textContent="Lv."+li.lv;$("mtXp").style.width=(li.max?100:Math.round(li.cur/Math.max(1,li.need)*100))+"%"}catch(e){}
+ try{$("mtStats").textContent=(ttStats().wins||0)+"勝"}catch(e){}
+ try{const n=presentsActive().length;$("mtPresB").textContent=n>99?"99+":n;$("mtPresB").classList.toggle("hide",!n)}catch(e){}
  $("mtDeck").textContent=deckSlotName(curSlot());
  $("mtPid").textContent=playerId();$("mtVer").textContent=($("aboutVer")||{}).textContent||""}
 /* ===== 使うデッキを選ぶ（対戦タブ・対戦前・フレンドマッチ） ===== */
