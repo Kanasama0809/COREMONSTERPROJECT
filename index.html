@@ -1630,6 +1630,52 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 #menu .m4pair .m4.big .m4nm{font-size:21px}
 #menu .m4pair .m4.big .m4sub{font-size:10px;color:#fff;opacity:.9}
 @media (max-height:620px){#menu .hbTrack{height:108px}.hmAv{width:42px;height:42px}#menu .homeName .hmNm{font-size:17px}}
+
+/* ===== ストーリー（デザインC） ===== */
+#story .editorHead .sub{display:none}
+.stHd{display:flex;align-items:baseline;justify-content:space-between;margin:2px 2px 8px;font-size:12px;color:#9fb6d6;font-weight:700}.stHd b{color:#eaf2ff}
+.stCars{position:relative;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -10px;padding:2px 10px 10px;scrollbar-width:none}.stCars::-webkit-scrollbar{display:none}
+.stCar{flex:0 0 78%;scroll-snap-align:center;position:relative;border-radius:18px;overflow:hidden;min-height:clamp(140px,24vh,190px);border:2px solid #2f5880;display:flex;align-items:flex-end;padding:0;background:#0b1626;color:#fff;font:inherit;text-align:left}
+.stCar.sel{border-color:#f0c76a;box-shadow:0 0 16px #f0c76a55}
+.stArt{position:absolute;inset:0;background-size:cover;background-position:center 20%}
+.stCar::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#050912f0 10%,transparent 70%)}
+.stCar.lock .stArt{filter:grayscale(1) brightness(.45)}
+.stLk{position:absolute;top:10px;right:12px;z-index:2;font-size:20px}
+.stCp{position:relative;z-index:1;padding:12px;width:100%;display:flex;flex-direction:column;gap:6px}
+.stCp b{font-size:17px;text-shadow:0 2px 8px #000}.stCp small{font-weight:900;color:#75efaa;font-size:11px}.stCar.lock .stCp small{color:#9fb6d6}
+.stBar{height:6px;border-radius:9px;background:#1b2c44;overflow:hidden}.stBar i{display:block;height:100%;background:linear-gradient(90deg,#75efaa,#c8ffd9)}
+.stList{border-radius:14px;border:1px solid #2c4568;background:#0b1626;padding:4px 10px}
+.stLockMsg{padding:18px 6px;text-align:center;color:#9fb6d6;font-size:13px;font-weight:700}
+.stEp{display:flex;align-items:center;gap:10px;padding:9px 6px;border-top:1px solid #1c3050;font-size:13px;cursor:pointer}.stEp:first-child{border-top:0}
+.stN{width:26px;height:26px;border-radius:50%;background:#14304f;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex:0 0 auto}
+.stM{flex:1;min-width:0}.stM b{display:block;font-weight:800}.stM small{color:#9fb6d6;font-size:11px}
+.stEp.done .stN{background:#1f6b45}.stEp.now{background:#2a240f;border-radius:10px;border-top-color:transparent}.stEp.now .stN{background:#f0c76a;color:#2a1a00}
+.stMk{font-size:15px;color:#75efaa;flex:0 0 auto;background:none;padding:0}.stEp.now .stMk{color:#f0c76a}.stEp.lk{opacity:.4;cursor:default}
+.stBoss{display:inline-block;font-size:9px;font-weight:900;padding:1px 6px;border-radius:99px;background:#5a1a1a;color:#ffb0b0;margin-left:5px;vertical-align:1px}
+.stRw{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 2px;border-radius:99px;background:#2a2410;border:1px solid #ffd84a88;font-size:10px;font-weight:800;color:#ffe2a0;flex:0 0 auto;max-width:42%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.stRw img{width:20px;height:20px;border-radius:50%;object-fit:cover}
+.stGoWrap{text-align:center;margin-top:10px}.stGo{min-height:48px;padding:0 18px;font-size:15px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ===== 対戦タブ（デザインC） ===== */
+#battleTab .btHead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#battleTab .btHead h1{margin:0}
+.btDeck{min-height:36px;padding:0 12px;border-radius:99px;border:1px solid #2f5880;background:#0b1b2dcc;color:#eaf2ff;font:inherit;font-size:12px;font-weight:800;white-space:nowrap;max-width:62%;overflow:hidden;text-overflow:ellipsis}
+.btDeck i{font-style:normal;color:#f0c76a}
+.btSeg{display:flex;gap:4px;padding:4px;border-radius:14px;background:#0b1b2d;border:1px solid #2f5880;margin:8px 0 10px}
+.btSeg button{position:relative;flex:1;min-height:44px;border:0;border-radius:10px;background:none;color:#cfe0f5;font:inherit;font-size:15px;font-weight:900}
+#btSegSolo.on{background:linear-gradient(#ffd96a,#c99a24);color:#2a1a00}#btSegDare.on{background:linear-gradient(#7fd8ff,#2a8ac0);color:#04223a}
+.btSeg .pBadge{position:absolute;top:2px;right:8px}
+.btGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bt2{position:relative;border-radius:14px;overflow:hidden;border:2px solid var(--c,#2f5880);background:#0b1626;color:#fff;font:inherit;text-align:left;padding:0;display:flex;align-items:flex-end;min-height:clamp(96px,15vh,140px)}
+.bt2Art{position:absolute;inset:0;background-size:cover;background-position:center 22%;opacity:.85}
+.bt2::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#050912f2 8%,#05091255 55%,transparent);pointer-events:none}
+.bt2Cp{position:relative;z-index:1;padding:8px 10px;width:100%;display:flex;flex-direction:column;gap:1px}
+.bt2Cp b{font-size:16px;text-shadow:0 2px 6px #000}.bt2Cp small{font-size:10px;color:#dce9f7;font-weight:700}
+.bt2St{position:absolute;top:6px;right:6px;z-index:2;font-size:10px;font-weight:900;padding:2px 8px;border-radius:99px;background:#000a;color:#f0c76a}
+.bt2St:empty{display:none}
+.bt2 .pBadge{position:absolute;top:6px;left:6px;z-index:2}
+.bt2Big{grid-column:1/-1;min-height:clamp(118px,19vh,170px)}.bt2Big .bt2Cp b{font-size:20px}
+.bt2Tall{min-height:clamp(150px,26vh,220px)}
 </style>
 <!-- 遊ばれている回数を数える（GoatCounter：個人情報・クッキーなし） -->
 <script data-goatcounter="https://coremon.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
@@ -1640,7 +1686,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.33.0</div>
+ <div class="tVer" id="tVer">ver.5.35.0</div>
 </div>
 
 <div id="app">
@@ -1818,12 +1864,19 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 </div>
 
 <div id="battleTab" class="hide">
- <div class="editorHead"><h1>対戦</h1><div class="sub">どこで戦うか選ぼう</div></div>
- <div class="btList">
-  <button type="button" class="btCard bt-cpu" onclick="openSolo()"><span class="btTtl">ひとりで</span><span class="btSub">ランダムバトル・ストーリー・イベント・ドラフト</span><span id="btSoloBadge" class="pBadge hide">!</span></button>
-  <button type="button" class="btCard bt-fr" onclick="openDare()"><span class="btTtl">だれかと</span><span class="btSub">フレンドマッチ・協力バトル</span></button>
+ <div class="editorHead btHead"><h1>対戦</h1><button type="button" class="btDeck" onclick="openDeckPick()">🃏 <span id="btDeckName"></span> <i>変える ▶</i></button></div>
+ <div class="btSeg"><button type="button" id="btSegSolo" onclick="setBtSeg('solo')">ひとりで<span id="btSoloBadge" class="pBadge hide">!</span></button><button type="button" id="btSegDare" onclick="setBtSeg('dare')">だれかと</button></div>
+ <div id="btSolo" class="btGrid">
+  <button type="button" class="bt2 bt2Big" style="--c:#c29bff" onclick="menuGo(2)"><span class="bt2Art" id="btEvArt"></span><span class="bt2St" id="btEvSt"></span><span id="btEvBadge2" class="pBadge hide">!</span><span class="bt2Cp"><b>イベント</b><small id="btEvSub2"></small></span></button>
+  <button type="button" class="bt2" style="--c:#ffd23e" onclick="openRank()"><span class="bt2Art" data-art="b2v_raika_cr"></span><span class="bt2St" id="btRkSt"></span><span class="bt2Cp"><b>ランク戦</b><small>月末に💎</small></span></button>
+  <button type="button" class="bt2" style="--c:#7fd8ff" onclick="menuGo(1)"><span class="bt2Art" data-art="hien_cr"></span><span class="bt2Cp"><b>ランダムバトル</b><small>好きなデッキで</small></span></button>
+  <button type="button" class="bt2" style="--c:#ff8ad8" onclick="htStart()"><span class="bt2Art" data-art="hw01cr"></span><span class="bt2St" id="btHtSt"></span><span class="bt2Cp"><b>へんてこバトル</b><small>毎回ちがうルール</small></span></button>
+  <button type="button" class="bt2" style="--c:#75efaa" onclick="openDraft()"><span class="bt2Art" data-art="chronoga_cr"></span><span class="bt2St" id="btDrSt"></span><span class="bt2Cp"><b>ドラフト</b><small>3枚から選ぶ</small></span></button>
  </div>
- <button type="button" class="deckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="btDeckName"></span><span class="dlGo">変える ▶</span></button>
+ <div id="btDare" class="btGrid hide">
+  <button type="button" class="bt2 bt2Big bt2Tall" style="--c:#75efaa" onclick="openCoopPage()"><span class="bt2Art" id="btCoopArt"></span><span class="bt2St" id="btCoopSt"></span><span class="bt2Cp"><b>協力バトル</b><small id="btCoopSub"></small></span></button>
+  <button type="button" class="bt2 bt2Big" style="--c:#7fb8ff" onclick="menuGo(9)"><span class="bt2Art" data-art="b2f_setsu_cr"></span><span class="bt2Cp"><b>フレンドマッチ</b><small>部屋コードで友だちと1対1</small></span></button>
+ </div>
 </div>
 
 <div id="soloHub" class="hide">
@@ -2218,7 +2271,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.33.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.35.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3413,9 +3466,23 @@ function syncTab(){const bar=$("tabBar");if(!bar)return;const sc=curScreen();
  let ev=0;try{ev=evMisReadyCount()}catch(e){}
  badge("more",more);badge("battle",ev)}
 setInterval(()=>{try{syncTab()}catch(e){}},300);
-function openBattleTab(){hideAll();$("battleTab").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
-function openSolo(){if(!isIntroDone()){sfx("no");log2Toast("序章をクリアすると解放されます");return}hideAll();$("soloHub").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
-function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());try{$("btDeckName2").textContent=deckSlotName(curSlot());const n=evMisReadyCount();$("btSoloBadge").classList.toggle("hide",!n);$("btDrSub").textContent=draftSub();$("btHtSub").textContent=htSub();$("btRkSub").textContent="今："+rankInfo(rankSt().pts).name}catch(e){}
+/* 対戦タブ（デザインC）：「ひとりで｜だれかと」を切りかえて、遊び方のタイルを出す */
+let btSeg="solo";
+function openBattleTab(seg){if(seg)btSeg=seg;hideAll();$("battleTab").classList.remove("hide");$("app").scrollTop=0;renderBattleTab();syncTab()}
+function setBtSeg(k){if(k!==btSeg){btSeg=k;sfx("sel")}renderBattleTab()}
+function openSolo(){if(!isIntroDone()){sfx("no");log2Toast("序章をクリアすると解放されます");return}openBattleTab("solo")}
+function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());
+ try{const so=btSeg!=="dare";$("btSolo").classList.toggle("hide",!so);$("btDare").classList.toggle("hide",so);$("btSegSolo").classList.toggle("on",so);$("btSegDare").classList.toggle("on",!so);
+  document.querySelectorAll("#battleTab [data-art]").forEach(e=>{if(!e.style.backgroundImage)e.style.backgroundImage="url("+(CARD_IMAGES[e.dataset.art]||"")+")"});
+  $("btRkSt").textContent=rankInfo(rankSt().pts).name;
+  const ho=htSt();$("btHtSt").textContent="💎 "+Math.min(ho.wins,HT_DAILY)+"/"+HT_DAILY;
+  const dr=draftSt();$("btDrSt").textContent=dr.run&&dr.run.deck?"挑戦中":dr.used?"練習":"💎 今日1回";
+  const evs=eventsActive(),ev=evs[0];$("btEvArt").style.backgroundImage=ev?"url("+(eventArtImg(ev)||"")+")":"";
+  $("btEvSt").textContent=evs.length?evs.length+"つ開催中":"";$("btEvSt").classList.toggle("hide",!evs.length);
+  $("btEvSub2").textContent=ev?(ev.title||ev.name)+(evs.length>1?" ほか":""):"開催中のイベントはありません";
+  $("btEvBadge2").classList.toggle("hide",!evMisReadyCount());
+  const cb=coopBossToday(),co=coopSt();$("btCoopArt").style.backgroundImage="url("+(CARD_IMAGES[cb.card]||"")+")";
+  $("btCoopSub").textContent="今日のボス："+cb.name;$("btCoopSt").textContent="💎 "+Math.min(co.wins||0,COOP.daily)+"/"+COOP.daily}catch(e){}try{$("btDeckName2").textContent=deckSlotName(curSlot());const n=evMisReadyCount();$("btSoloBadge").classList.toggle("hide",!n);$("btDrSub").textContent=draftSub();$("btHtSub").textContent=htSub();$("btRkSub").textContent="今："+rankInfo(rankSt().pts).name}catch(e){}
  try{const ev=eventsActive()[0];if(ev){const im=eventArtImg(ev);$("btEvImg").src=im||"";$("btEvImg").classList.toggle("hide",!im);$("btEvSub").textContent=(ev.title||ev.name)+(eventsActive().length>1?" ほか":"")}
   else{$("btEvImg").classList.add("hide");$("btEvSub").textContent="開催中のイベントはありません"}}catch(e){}
  try{const n=evMisReadyCount();$("btEvBadge").classList.toggle("hide",!n)}catch(e){}
@@ -4159,7 +4226,7 @@ function renderCoopLobby(msg){const b=$("coopLobbyBody");if(!b)return;const err=
 function coopLobbyStart(){const R=fr.room||{};if(!(R.host&&R.guest&&R.host.online!==false&&R.guest.online!==false)){sfx("no");return}coopHostStart()}
 // 作戦基地を出る：ホストは部屋を解散、ゲストは部屋を出るだけ。どちらもホームへ
 async function coopLobbyLeave(){const host=fr.me=="host";await friendLeave(false);fr={mode:"top"};menu();if(host)log2Toast("部屋を解散しました")}
-function openDare(){if(!isIntroDone()){sfx("no");log2Toast("序章をクリアすると解放されます");return}hideAll();$("dareHub").classList.remove("hide");$("app").scrollTop=0;
+function openDare(){if(!isIntroDone()){sfx("no");log2Toast("序章をクリアすると解放されます");return}openBattleTab("dare");return;
  try{const b=coopBossToday();$("dhCoopImg").style.backgroundImage="url("+(CARD_IMAGES[b.card]||"")+")";$("dhCoopSub").textContent="今日のボス："+b.name}catch(e){}syncTab()}
 function openCoopPage(){hideAll();$("coopPage").classList.remove("hide");$("app").scrollTop=0;renderCoopPage();syncTab()}
 function renderCoopPage(){const b=coopBossToday(),d=coopDeckIds(),o=coopSt();
@@ -6553,25 +6620,41 @@ function exBuy(i){
 let storyLine=[],storyLineIdx=0,storyAfter=null;
 function openStory(){
  if(!player){openPlayerSetup();return}
- hideAll();$("story").classList.remove("hide");$("app").scrollTop=0;renderStoryList();
+ hideAll();$("story").classList.remove("hide");$("app").scrollTop=0;storySel=null;renderStoryList();   // 開くたびに、次に読む話のある章へ
 }
+/* ===== ストーリー画面（デザインC：章のカード） =====
+   上に章のカードを横に並べ（スワイプで切りかえ）、下に選んだ章の話の一覧。次に読む話は金色＋「はじめる」ボタン
+   まだ開いていない章は、カードを白黒にして話の一覧は出さない（何話あるか隠す）。今の章のまだ読めない話は「？？？」 */
+const STORY_ART=["fukurou","komoku_cr","b2v_raika_cr","b2f_setsu_cr","b2c01_cr","b2f02_cr"];
+let storySel=null;
+function storyEnemyName(ep){try{const E=STORY_ENEMIES[ep.enemy];return E?fillText(E.name):""}catch(e){return ""}}
 function renderStoryList(){
- const wrap=$("storyList");wrap.innerHTML="";
- STORY.forEach((chapter,chIdx)=>{
-  const eps=chapter.episodes.map((ep,epIdx)=>({ep,epIdx})).filter(o=>isStoryUnlocked(chIdx,o.epIdx));
-  if(!eps.length)return; // 解放済みの話が無い章は出さない（何話あるか隠す）
-  const chDiv=document.createElement("div");chDiv.className="storyChapter";
-  chDiv.innerHTML=`<div class=storyChTitle>${chapter.title.replace(/[：:].*/,"")}</div>`;
-  eps.forEach(({ep,epIdx})=>{
-   const cleared=isStoryClear(chapter.ch,epIdx);
-   const row=document.createElement("div");
-   row.className="storyEp"+(cleared?" cleared":"");
-   row.innerHTML=`<span class=storyEpNo>${epIdx+1}</span><span class=storyEpTitle>${ep.title}</span><span class=storyEpMark>${cleared?"✓":"▶"}</span>`;
-   row.onclick=()=>startStoryEpisode(chIdx,epIdx);
-   chDiv.appendChild(row);
-  });
-  wrap.appendChild(chDiv);
- });
+ const wrap=$("storyList");if(!wrap)return;
+ const chs=STORY.map((c,ci)=>ci).filter(ci=>storyChOpen(ci));
+ const nx=nextStory();if(storySel==null||!chs.includes(storySel))storySel=nx?nx.ci:chs[chs.length-1];
+ const done=ci=>STORY[ci].episodes.filter((e,ei)=>isStoryClear(STORY[ci].ch,ei)).length;
+ const total=chs.reduce((a,ci)=>a+STORY[ci].episodes.length,0),cl=chs.reduce((a,ci)=>a+done(ci),0);
+ const lockedCh=ci=>!isStoryUnlocked(ci,0);
+ let h='<div class="stHd"><span>世界一の宝石を求める旅</span><b>'+cl+' / '+total+'話</b></div><div class="stCars" id="stCars">';
+ chs.forEach(ci=>{const c=STORY[ci],lk=lockedCh(ci),d=done(ci),n=c.episodes.length,im=CARD_IMAGES[STORY_ART[ci]]||"";
+  h+='<button type="button" class="stCar'+(ci==storySel?' sel':'')+(lk?' lock':'')+'" onclick="storySel='+ci+';sfx(\'sel\');renderStoryList()">'
+   +'<span class="stArt" style="background-image:url('+im+')"></span>'+(lk?'<span class="stLk">🔒</span>':'')
+   +'<span class="stCp"><b>'+escH(c.title)+'</b><span class="stBar"><i style="width:'+Math.round(d/n*100)+'%"></i></span>'
+   +'<small>'+(lk?'前の章をクリアすると開く':d>=n?'✓ クリア':d+' / '+n+'話')+'</small></span></button>'});
+ h+='</div>';
+ const ci=storySel,c=STORY[ci];
+ if(lockedCh(ci)){h+='<div class="stList"><div class="stLockMsg">🔒 前の章をクリアすると、この章のお話が読めます</div></div>'}
+ else{h+='<div class="stList">';
+  c.episodes.forEach((ep,ei)=>{const op=isStoryUnlocked(ci,ei),clr=isStoryClear(c.ch,ei),now=op&&!clr,nm=storyEnemyName(ep),rw=STORY_REWARDS[ci+"-"+ei],rc=rw&&rw.card&&by(rw.card);
+   h+='<div class="stEp'+(clr?' done':now?' now':' lk')+'"'+(op?' onclick="startStoryEpisode('+ci+','+ei+')"':'')+'>'
+    +'<span class="stN">'+(ei+1)+'</span><span class="stM"><b>'+(op?escH(ep.title):'？？？')+(op&&ep.boss?'<span class="stBoss">BOSS</span>':'')+'</b>'
+    +'<small>'+(op?(nm?'vs '+escH(nm):'お話だけ'):'？？？')+'</small></span>'
+    +(op&&rc?'<span class="stRw"><img src="'+(CARD_IMAGES[rw.card]||"")+'" alt="">'+escH(rc.name)+'</span>':'')
+    +'<span class="stMk">'+(clr?'✓':now?'▶':'🔒')+'</span></div>'});
+  h+='</div>';
+  if(nx&&nx.ci==ci)h+='<div class="stGoWrap"><button type="button" class="gold stGo" onclick="startStoryEpisode('+nx.ci+','+nx.ei+')">▶ '+(nx.ei+1)+'話「'+escH(nx.ep.title)+'」をはじめる</button></div>'}
+ wrap.innerHTML=h;
+ setTimeout(()=>{const cs=$("stCars"),el=cs&&cs.querySelector(".stCar.sel");if(el)cs.scrollLeft=(el.offsetLeft-cs.offsetLeft)-(cs.clientWidth-el.clientWidth)/2},30);
 }
 function startStoryEpisode(chIdx,epIdx){playStoryPhase(chIdx,epIdx,"pre")}
 // STORYの外でも会話を流せるようにする（チュートリアル用）
