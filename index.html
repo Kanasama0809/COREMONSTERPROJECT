@@ -1567,7 +1567,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.29.0</div>
+ <div class="tVer" id="tVer">ver.5.30.1</div>
 </div>
 
 <div id="app">
@@ -2137,7 +2137,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.29.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.30.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3431,6 +3431,11 @@ function renderMenuLock(){try{titleCheck(!isIntroDone())}catch(e){}renderWheel()
      period を書くとその文字を出す。省略すると「〜10/31まで」か「常設」を自動で出す */
 const EVENTS=[
  // ===== ハロウィン（10月）=====
+ {id:"zsolo",kind:"zsolo",open:true,icon:"🎲",tag:"11/11",
+  name:"禁断の召喚士 ゾロ目",title:"禁断の召喚士 ゾロ目",sub:"11/11だけの特別ボス",
+  theme:["#3a1a5a","#0a0614"],accent:"#ffd84a",start:"2026-11-11",end:"2026-11-11",startAt:[2026,10,11,11,11],period:"11/11 11:11〜23:59",
+  desc:"1が4つ並ぶ日にだけ現れる、禁断の召喚士。コスト1の手下を3体そろえて、切り札を呼び出そうとしてくる。",
+  boss:{name:"禁断の召喚士 ゾロ目",card:"zr_zorome"}},
  {id:"coop",kind:"coop",open:true,icon:"🤝",tag:"協力",
   name:"協力バトル",title:"協力バトル",sub:"2人で覚醒ボスに挑む",
   theme:["#1a3a5a","#0a1220"],accent:"#7ef0a1",start:"",end:"",
@@ -3526,7 +3531,9 @@ const EVENTS=[
  // 例: {id:"welcome",kind:"login",open:false,icon:"🎁",tag:"はじめての方へ",name:"ウェルカムイベント",desc:"準備中",...}
 ];
 function eventById(id){return EVENTS.find(e=>e.id==id)}
-function eventInPeriod(e,day){day=day||todayStr();return (!e.start||day>=e.start)&&(!e.end||day<=e.end)}
+function eventInPeriod(e,day){day=day||todayStr();
+ if(e.startAt&&day===todayStr()&&Date.now()<new Date(...e.startAt).getTime())return false;   // 時刻から始まるイベント（ゾロ目の1人版：11:11から）
+ return (!e.start||day>=e.start)&&(!e.end||day<=e.end)}
 function eventsShown(){return EVENTS.filter(e=>eventInPeriod(e)&&e.kind!=="coop")}   // 協力バトルは「だれかと」に置く              // 一覧に出るもの（準備中も含む）
 function eventsActive(){return EVENTS.filter(e=>e.open&&eventInPeriod(e)&&e.kind!=="coop")}     // 遊べるもの
 function eventPeriodText(e){if(!e.open)return"準備中";if(e.period)return e.period;
@@ -3603,6 +3610,7 @@ function renderEventDetail(){
  if(e.kind=="dragon")return renderDragonDetail(e);
  if(e.kind=="raid")return renderRaidDetail(e);
  if(e.kind=="coop")return renderCoopDetail(e);
+ if(e.kind=="zsolo")return renderZsoloDetail(e);
  const tk=eventTicket(e),got=ticketToday(tk),cap=(e.reward&&e.reward.dailyCap)||0;
  const capOver=cap&&got>=cap;
  const misN=(e.missions||[]).length,misReady=(e.missions||[]).filter(m=>!evMisOf(e.id).got.includes(m.id)&&evMisProg(e,m)>=m.goal).length;
@@ -6135,7 +6143,7 @@ const TITLES=[
  {id:"t_skall",name:"闇を払う光",c:"rainbow",cond:"蝕まれし世界樹のイベントミッションを全部達成する",ok:()=>{try{const e=eventById("shokuju");return evMisOf("shokuju").got.length>=(e.missions||[]).length}catch(x){return false}},limited:1},
  {id:"t_kimiboku",name:"君は僕？",c:"rainbow",cond:"木の勇者 コモクのCRと、蝕樹のコモクのCRを入れたデッキで、蝕樹のコモクに勝つ",ok:()=>!!T().kimiboku,secret:1},
  {id:"t_coop1",name:"最高の相棒",c:"gold",cond:"協力バトルで勝つ",ok:()=>(T().coopWin||0)>=1},
- {id:"t_zorome",name:"ゾロ目の覇者",c:"rainbow",cond:"11/11の特別ボス 禁断の召喚士 ゾロ目に勝つ",ok:()=>!!T().zoromeWin,limited:1},
+ {id:"t_zorome",name:"ゾロ目の覇者",c:"rainbow",cond:"11/11の特別ボス 禁断の召喚士 ゾロ目に勝つ（協力でも1人でも）",ok:()=>!!(T().zoromeWin||T().zoromeSolo),limited:1},
  {id:"t_vol1",name:"定めを覆す者",c:"jet",cond:"第3章で、HP22000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol1},
  {id:"t_vol2",name:"不可能を可能にする者",c:"rainbow",cond:"第5章で、HP25000の氷雷龍ボルブリザに勝つ",ok:()=>!!T().vol2},
  {id:"t_volbriza",name:"龍を鎮めし者",c:"jet",cond:"ストーリーで氷雷龍ボルブリザ（最終決戦）に勝つ",ok:()=>storyProgress().includes("5-4")},
@@ -6662,7 +6670,8 @@ function start(personality,fixed){
  if(S.rule)htSetupAfter();
  {const ep=storyContext?(((STORY[storyContext.chIdx]||{}).episodes||[])[storyContext.epIdx]||null):null;
   if(ep&&ep.ally)ep.ally.forEach(id=>{const c=by(id);if(c){S.ph.push({...cp(c),uid:Math.random()});log("「"+c.name+"」が力を貸してくれた！")}})}
- log(`対戦相手：${opp.name}「${fillText(opp.tagline||"")}」`);render()
+ log(`対戦相手：${opp.name}「${fillText(opp.tagline||"")}」`);render();
+ if(opp.zorome&&!FM.on){S.zrSaid={0:1};setTimeout(()=>{if(S&&!S.over)bossSayShow(0)},900)}   // ゾロ目（1人版）：登場のセリフ
 }
 function log(t){if(FM.on&&FM.role=="host")t=String(t).replace(/CPU/g,FM.coop?((S&&S.opp&&S.opp.name)||"ボス"):FM.oppName);
  logs.push(`T${S?S.turn:"?"}｜${t}`);if($("log"))$("log").textContent=t}
@@ -7775,6 +7784,24 @@ function bossSayShow(n){const L=ZR_LINES[n];if(!L)return;
   setTimeout(()=>{$("bossCut").classList.remove("on");go()},1400)}else go()}
 function zrSay(n){if(!zrOn())return;S.zrSaid=S.zrSaid||{};if(S.zrSaid[n]&&!ZR_LINES[n].again)return;S.zrSaid[n]=1;
  bossSayShow(n);if(FM.on&&FM.role=="host")fmFx("say",[n])}
+/* ===== 11/11 特別ボス「禁断の召喚士 ゾロ目」1人版（ひとりで → イベント、11:11〜23:59）
+   ボスHP11,111・自分のHP10,000。デッキとセリフは協力版と同じ。勝つと称号「ゾロ目の覇者」（💎はなし） */
+const ZSOLO_HP=11111;
+function renderZsoloDetail(e){const b=ZOROME_BOSS,got=!!(T().zoromeWin||T().zoromeSolo);
+ $("evdBody").innerHTML='<p class="cpEye">11/11 SPECIAL BOSS</p><p class="cpIntro">'+escH(e.desc)+'</p>'
+  +'<section class="cpCard"><div class="cpHero"><div class="cpArt" style="background-image:url('+(CARD_IMAGES[b.card]||"")+')"></div>'
+  +'<div class="cpCopy"><span class="cpTag">🎉 11/11 11:11〜23:59</span><h2>'+escH(b.name)+'</h2><div class="cpHp">HP '+ZSOLO_HP.toLocaleString()+'</div></div></div>'
+  +'<div class="cpStats"><div class="cpStat"><span class="cpIc">❤️</span><div><div class="cpL">自分のHP</div><div class="cpV">10,000</div></div></div>'
+  +'<div class="cpStat"><span class="cpIc">🏅</span><div><div class="cpL">称号</div><div class="cpV" style="font-size:14px">'+(got?'獲得ずみ':'未獲得')+'</div></div></div></div>'
+  +'<div class="cpRules"><b>コンボに注意</b>　コスト1の手下が3体そろうと、「禁断召喚」で切り札が出てくる<br>手下を倒して、コンボを止めよう</div>'
+  +'<div class="cpActs"><button type="button" class="cpAct cpGold cpDeck" onclick="zsoloStart()">⚔　挑戦する</button></div>'
+  +'<div class="cpReward">🏅 勝つと称号「ゾロ目の覇者」</div></section>'}
+function zsoloStart(){const e=eventById("zsolo");if(!e||!eventInPeriod(e)){log2Toast("開催期間ではありません");return}
+ eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;raidCtx=null;rankCtx=null;
+ const b=ZOROME_BOSS,line=String(b.line||"");
+ prematch({...b,id:"ev_zorome_solo",hp:ZSOLO_HP,deck:[...b.deck],tagline:line.replace(/[「」]/g,""),bossCard:b.card,bossLine:line})}
+function zsoloResult(won){if(won){const t=ttStats();t.zoromeSolo=1;ttSave(t);try{titleCheck()}catch(e){}}   // 1人版の勝ちは別の印（協力版の初勝利💎1111を消さないように）
+ bossSayShow(won?5:6);setTimeout(()=>$("resultov").classList.add("show"),3600)}
 /* ===== 11/11 特別ボス「禁断の召喚士 ゾロ目」のCPU =====
    コンボ：3レーンをコスト1でうめる → 禁断召喚 → 十一神 イレブンス（このターンだけコスト1）
    ・切り札が手札になく、場のコスト1が少ないときは、ゾロ目で山札から持ってくる
@@ -7891,6 +7918,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  try{htOnResult(w===true)}catch(e){}
  try{raidOnResult(w)}catch(e){}
  try{rankOnResult(w===true)}catch(e){}
+ if(S.opp&&S.opp.id==="ev_zorome_solo"){zsoloResult(w===true);return}
  if(storyContext){
   const ctx=storyContext;
   if(w===true){
