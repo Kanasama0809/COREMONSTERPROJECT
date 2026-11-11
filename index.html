@@ -1579,7 +1579,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 #menu .passBanner .cTtl{margin-top:0;font-size:13px;flex:0 0 auto}
 #menu .passBanner .cIco{font-size:16px}
 #menu .menu4{gap:7px;padding:7px 8px 8px;justify-content:flex-start;flex:1 1 auto}
-#menu .m4pair{flex:1 1 auto;min-height:92px;max-height:220px}   /* 空いた高さは「ひとりで」「だれかと」を大きくして使う */
+#menu .m4pair{flex:1 1 auto;min-height:92px;max-height:300px}   /* 空いた高さは「ひとりで」「だれかと」を大きくして使う */
 #menu .m4pair .m4.big{padding:10px 6px;gap:2px}
 #menu .m4pair .m4.big .m4em{font-size:28px}
 #menu .m4pair .m4.big .m4nm{font-size:18px}
@@ -1589,6 +1589,47 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 @media (hover:none) and (pointer:coarse){
  body.hasTab #menu{height:calc(100dvh - 10px - max(calc(10px + env(safe-area-inset-top)),56px) - var(--tabH));min-height:0}
 }
+
+/* ===== ホーム：デザインA（ヒーロー） ===== */
+#menu .menuTitle{display:none}
+#menu .menuTop{gap:6px;padding:0 2px}
+.hmTop{display:flex;align-items:center;gap:10px}
+.hmAv{flex:0 0 auto;padding:0;border:2px solid #f0c76a;border-radius:50%;background:#0b1b2d;width:50px;height:50px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hmAv .pIcon{border:0!important}
+#menu .homeName{flex:1;min-width:0;margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left}
+#menu .homeName .hmNm{font-size:19px;font-weight:900;line-height:1.2;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#menu .homeName .hmTt .tTag{font-size:10px}
+.hmTools{display:flex;gap:6px;flex:0 0 auto}
+.hmTools .sndToggle{width:36px;height:36px;margin:0}
+#menu .menuTools{gap:6px;align-items:center}
+#menu .menuTools #menuLevel{flex:0 0 auto}
+.hmXp{flex:1 1 auto;height:6px;border-radius:9px;background:#1b2c44;overflow:hidden;min-width:40px}
+.hmXp i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f0c76a,#ffe9a8);transition:width .4s}
+#menu .menuTools .shardBadge,#menu .menuTools .crystalBadge{flex:0 0 auto;padding:4px 10px}
+/* バナー：絵を全面に、文字は下に重ねる */
+#menu .hbTrack{height:clamp(124px,22vh,210px)}
+#menu .hbImg{width:100%;object-position:50% 22%}
+#menu .hbSlide{border-color:var(--hba)}
+#menu .hbSlide::after{background:linear-gradient(0deg,#050912f0 0%,#05091288 38%,transparent 72%)}
+#menu .hbTx{top:auto;bottom:10px;left:36px;right:36px;width:auto;gap:2px}
+#menu .hbTtl{font-size:19px}
+#menu .hbSub{margin-top:0}
+#menu .hbDots{position:absolute;top:8px;right:12px;margin:0;z-index:3}
+/* シーズンパス：進み具合のバー */
+#menu .passBanner{border-color:#b48cff88;background:linear-gradient(90deg,#2b2246,#121a30)}
+#menu .passBanner .cTx{flex:0 1 auto}
+.psBar{flex:1 1 auto;height:6px;border-radius:9px;background:#1b2c44;overflow:hidden;min-width:40px;margin:0 2px}
+.psBar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#b48cff,#ffd84a)}
+/* 対戦ボタン：カードの絵つき */
+#menu .m4pair .m4.big{position:relative;overflow:hidden;justify-content:flex-end;align-items:flex-start;text-align:left;padding:10px 12px}
+.m4art{position:absolute;inset:0;background-size:cover;background-position:center 20%;opacity:.88}
+#menu .m4pair .m4.big::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#1a1000f0 6%,transparent 70%);pointer-events:none}
+#menu .m4pair .m4.big.friendT::after{background:linear-gradient(0deg,#041a30f0 6%,transparent 70%)}
+#menu .m4pair .m4.big .m4em{display:none}
+#menu .m4pair .m4.big .m4nm,#menu .m4pair .m4.big .m4sub{position:relative;z-index:1;text-shadow:0 2px 8px #000}
+#menu .m4pair .m4.big .m4nm{font-size:21px}
+#menu .m4pair .m4.big .m4sub{font-size:10px;color:#fff;opacity:.9}
+@media (max-height:620px){#menu .hbTrack{height:108px}.hmAv{width:42px;height:42px}#menu .homeName .hmNm{font-size:17px}}
 </style>
 <!-- 遊ばれている回数を数える（GoatCounter：個人情報・クッキーなし） -->
 <script data-goatcounter="https://coremon.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
@@ -1599,7 +1640,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.32.0</div>
+ <div class="tVer" id="tVer">ver.5.33.0</div>
 </div>
 
 <div id="app">
@@ -1663,9 +1704,14 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  </svg>
  <div class="menuTop">
   <h1 class="menuTitle dot">CORE MONSTERS</h1>
-  <button type="button" id="homeName" class="homeName" onclick="if(isIntroDone())openTitles()" aria-label="称号"></button>
+  <div class="hmTop">
+   <button type="button" id="homeAvatar" class="hmAv" onclick="if(isIntroDone())openStats()" aria-label="アイコン"></button>
+   <button type="button" id="homeName" class="homeName" onclick="if(isIntroDone())openTitles()" aria-label="称号"></button>
+   <div class="hmTools" id="hmTools"></div>
+  </div>
   <div class="menuTools">
    <button type="button" id="menuLevel" class="lvBadge" onclick="openLevelInfo()">Lv.1</button>
+   <span class="hmXp" onclick="openLevelInfo()"><i id="homeXpBar"></i></span>
    <div id="menuShard" class="shardBadge">🔹 0</div>
    <div id="menuCrystal" class="crystalBadge">💎 0</div>
    <button type="button" id="presentBtn" class="sndToggle presentBtn" onclick="openPresents()" aria-label="プレゼント">🎁<span id="presentBadge" class="pBadge hide">0</span></button>
@@ -1684,6 +1730,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <button type="button" id="passBanner" class="contPanel passBanner hide" onclick="openPass()">
   <span class="cIco">🎟</span>
   <span class="cTx"><span class="cSub" id="passBnSub">シーズンパス</span><span class="cTtl" id="passBnTtl"></span></span>
+  <span class="psBar"><i id="passBnFill"></i></span>
   <span class="cGo">▶</span><span id="passBadge" class="pBadge hide">!</span>
  </button>
 
@@ -1695,8 +1742,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 
  <div class="menu4">
   <div class="m4pair">
-   <button class="m4 big" id="m4_battle" onclick="sfx('sel');openSolo()"><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">CPUと対戦</span></button>
-   <button class="m4 big friendT" id="m4_friend" onclick="sfx('sel');openDare()"><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンド・協力</span></button>
+   <button class="m4 big" id="m4_battle" onclick="sfx('sel');openSolo()"><span class="m4art" id="m4artSolo"></span><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">ランク戦・イベント・ストーリー</span></button>
+   <button class="m4 big friendT" id="m4_friend" onclick="sfx('sel');openDare()"><span class="m4art" id="m4artDare"></span><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンド・協力バトル</span></button>
   </div>
   <div class="m4grid3">
    <button class="m4" id="m4_codex" onclick="menuGo(4)"><span class="m4em">📖</span><span class="m4nm">図鑑</span></button>
@@ -2171,7 +2218,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.32.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.33.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3425,6 +3472,9 @@ function hbSwipeInit(){const t=$("hbTrack");if(!t||t._sw)return;t._sw=1;let x0=n
  t.addEventListener("touchstart",e=>{const p=e.touches[0];x0=p.clientX;y0=p.clientY},{passive:true});
  t.addEventListener("touchend",e=>{if(x0==null)return;const p=e.changedTouches[0],dx=p.clientX-x0,dy=p.clientY-y0;x0=null;
   if(Math.abs(dx)>35&&Math.abs(dx)>Math.abs(dy)){hbSwiped=Date.now();hbStep(dx<0?1:-1)}},{passive:true})}
+// ホームの対戦ボタンの絵：ひとりで＝炎の勇者ヒエン、だれかと＝今日の協力バトルのボス
+function renderHomeArt(){const a=$("m4artSolo"),b=$("m4artDare");if(a)a.style.backgroundImage="url("+(CARD_IMAGES.hien_cr||"")+")";
+ if(b){let im="";try{im=CARD_IMAGES[coopBossToday().card]||""}catch(e){}b.style.backgroundImage="url("+(im||CARD_IMAGES.b2f02_cr||"")+")"}}
 function homeBannerShow(i,manual){if(manual)hbHold=Date.now()+8000;hbIdx=i;const t=$("hbTrack"),d=$("hbDots");if(!t)return;
  [...t.children].forEach((el,j)=>el.classList.toggle("on",j==i));if(d)[...d.children].forEach((el,j)=>el.classList.toggle("on",j==i))}
 function homeBannerGo(i){if(Date.now()-hbSwiped<400)return;const x=hbList[i];if(x&&x.go)x.go()}
@@ -3463,7 +3513,7 @@ function continueStory(){
  if(nx)startStoryEpisode(nx.ci,nx.ei);else openStory();
 }
 
-function renderMenuLock(){try{titleCheck(!isIntroDone())}catch(e){}renderWheel();renderTreeGlow();renderContinue();try{renderPassBanner()}catch(e){}try{renderHomeBanner()}catch(e){}try{renderHomeName()}catch(e){}}
+function renderMenuLock(){try{titleCheck(!isIntroDone())}catch(e){}renderWheel();renderTreeGlow();renderContinue();try{renderPassBanner()}catch(e){}try{renderHomeBanner()}catch(e){}try{renderHomeArt()}catch(e){}try{renderHomeName()}catch(e){}}
 /* ===== イベント =====
    ★イベントを増やすときは EVENTS に1つ足すだけ★
    open:false にすると「準備中」として並びだけ出る。
@@ -4549,6 +4599,7 @@ function closeLevelInfo(){$("lvPop").classList.remove("show")}
 function renderLevelDisplays(){
  const li=levelInfo();
  const b=$("menuLevel");if(b)b.textContent="Lv."+li.lv;
+ if($("homeXpBar"))$("homeXpBar").style.width=(li.max?100:Math.round(li.cur/Math.max(1,li.need)*100))+"%";
  if($("xpLv"))$("xpLv").textContent=li.lv;
  if($("xpNum"))$("xpNum").textContent=li.max?"MAX":(li.cur+" / "+li.need);
  if($("xpBar"))$("xpBar").style.width=(li.max?100:Math.round(li.cur/li.need*100))+"%";
@@ -6241,7 +6292,10 @@ function titleTap(id){const o=tState(),t=titleById(id);if(!t||!o.got[id])return;
  if(!o.claimed[id]){o.claimed[id]=Date.now();tSave(o);addCrystal(TITLE_REWARD[t.c],"称号「"+t.name+"」");sfx("win");renderTitles();renderMenuBadge();return}
  o.eq=o.eq==id?null:id;tSave(o);sfx("sel");log2Toast(o.eq?"称号「"+t.name+"」を装着しました":"称号を外しました");renderTitles();renderHomeName()}
 function renderHomeName(){const el=$("homeName");if(!el)return;if(!player){el.innerHTML="";return}
- const t=titleEquipped();el.innerHTML=titleTagHtml(t)+titleNameHtml(player.name,t)}
+ const t=titleEquipped();el.innerHTML='<span class="hmNm">'+titleNameHtml(player.name,t)+'</span>'+(t?'<span class="hmTt">'+titleTagHtml(t)+'</span>':'');
+ try{const a=$("homeAvatar");if(a)a.innerHTML=iconHtml(myIcon(),46)}catch(e){}
+ try{const box=$("hmTools");if(box&&!box.children.length)["presentBtn","newsBtn"].forEach(id=>{const b=$(id);if(b)box.appendChild(b)});
+  const ab=document.querySelector('#menu .menuTools button[onclick="openAbout()"]');if(ab&&box)box.appendChild(ab)}catch(e){}}
 // 対戦の結果を記録する（勝ち負け・とどめ・ボスなど）
 function statMode(friend){return friend?"friend":rankCtx?"rank":draftCtx?"draft":(drCtx||eventBattleId||(S&&S.raid))?"event":storyContext?"story":(S&&S.rule)?"henteko":"random"}
 function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
@@ -6329,7 +6383,8 @@ function renderPassBanner(){const b=$("passBanner");if(!b)return;const se=passSe
  const show=!!(se&&player&&isIntroDone());b.classList.toggle("hide",!show);if(!show)return;
  $("passBnSub").textContent="シーズンパス　"+se.name.replace(/^シーズン\d+/,"").trim();
  const opened=Object.keys(se.lanes).filter(k=>st.open[k]).map(k=>se.lanes[k].name.replace("のシーズンパス","")).join("・");
- $("passBnTtl").textContent=passTierN(st)+"段 / "+se.tiers+(opened?"　"+opened+"を解放中":(passFreeLeft(se,st)?"　1つ無料で解放できます":""));
+ $("passBnTtl").textContent=passTierN(st)+" / "+se.tiers;
+ if($("passBnFill"))$("passBnFill").style.width=Math.round(passTierN(st)/Math.max(1,se.tiers)*100)+"%";
  $("passBadge").classList.toggle("hide",!passReady(st)&&!(passFreeLeft(se,st)&&!Object.values(st.open).some(Boolean)))}
 function openPass(){const se=passSeason();if(!se)return log2Toast("今はシーズンパスの期間ではありません");
  hideAll();$("pass").classList.remove("hide");$("app").scrollTop=0;sfx("sel");renderPass()}
