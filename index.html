@@ -1691,6 +1691,27 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 #menuTab .mtBtn .pBadge{position:absolute;top:-5px;right:-4px}
 @media (max-height:620px){#menuTab .mtBtn{min-height:60px;padding:4px 2px}#menuTab .mtE{font-size:20px}.mtSec{margin:8px 2px 4px}.mtProf{padding:7px 10px}.mtAv{width:44px;height:44px}}
 .mtMini{width:78%;height:4px;border-radius:9px;background:#1b2c44;overflow:hidden;margin-top:1px}.mtMini i{display:block;height:100%;width:0;background:#75efaa}
+
+/* ===== ガチャ（デザインA） ===== */
+#gacha .editorHead .sub{display:none}
+#gacha .footLinks{display:none}   /* かけら交換はショップの「カード交換」から */
+#gacha .gSec{display:none}
+#gacha .gBlock.gHide{display:none}
+.gpPick{display:flex;gap:8px;overflow-x:auto;margin:6px -8px 10px;padding:2px 8px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.gpPick::-webkit-scrollbar{display:none}
+#gacha.shopMode .gpPick{display:none}
+.gpCard{flex:0 0 auto;width:86px;padding:0;border-radius:12px;border:2px solid #2c4568;background:#0b1626;overflow:hidden;color:#fff;font:inherit;display:flex;flex-direction:column}
+.gpCard.on{border-color:var(--ga,#f0c76a);box-shadow:0 0 0 2px #f0c76a44}
+.gpTh{display:block;height:52px;background:center 25%/cover}
+.gpNm{display:block;font-size:10px;font-weight:800;padding:4px 2px 5px;line-height:1.25;height:32px;overflow:hidden;text-align:center;white-space:nowrap}
+.shopNav{display:flex;gap:6px;overflow-x:auto;margin:2px -8px 8px;padding:0 8px;scrollbar-width:none}.shopNav::-webkit-scrollbar{display:none}
+.shopNav button{flex:0 0 auto;min-height:36px;padding:0 12px;border-radius:99px;border:1px solid #2f5880;background:#0b1b2d;color:#cfe0f5;font:inherit;font-size:12px;font-weight:800}
+
+/* ===== 不自然な改行をなくす ===== */
+.cNm,.shopNm,.prLbl,.gbTitle,.stCp>b,.aboutSnd>span,.m4sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.aboutSnd>span{min-width:0;flex:1 1 auto}
+/* 長めの説明文：最後の行に1〜2文字だけ残らないように、行の長さをそろえる */
+.td,.tabletHint,.aboutNote,.gbSub,.evStory,.cpIntro,.frNote,.evRw,.pEmpty,.stLockMsg,.nwMsg,.askTitle,.ewNote{text-wrap:pretty}
+.cpCopy h2,.ban h2{text-wrap:balance}
 </style>
 <!-- 遊ばれている回数を数える（GoatCounter：個人情報・クッキーなし） -->
 <script data-goatcounter="https://coremon.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
@@ -1701,7 +1722,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.36.0</div>
+ <div class="tVer" id="tVer">ver.5.37.1</div>
 </div>
 
 <div id="app">
@@ -1803,7 +1824,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 
  <div class="menu4">
   <div class="m4pair">
-   <button class="m4 big" id="m4_battle" onclick="sfx('sel');openSolo()"><span class="m4art" id="m4artSolo"></span><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">ランク戦・イベント・ストーリー</span></button>
+   <button class="m4 big" id="m4_battle" onclick="sfx('sel');openSolo()"><span class="m4art" id="m4artSolo"></span><span class="m4em">⚔️</span><span class="m4nm">ひとりで</span><span class="m4sub">ランク戦・イベント</span></button>
    <button class="m4 big friendT" id="m4_friend" onclick="sfx('sel');openDare()"><span class="m4art" id="m4artDare"></span><span class="m4em">👥</span><span class="m4nm">だれかと</span><span class="m4sub">フレンド・協力バトル</span></button>
   </div>
   <div class="m4grid3">
@@ -2079,6 +2100,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="gmTabs"><button type="button" id="gmGacha" class="gmTab on" onclick="setGachaMode(false)">ガチャ</button><button type="button" id="gmShop" class="gmTab" onclick="setGachaMode(true)">ショップ</button></div>
  <div id="shopView" class="shopView"></div>
  <div id="gachaPackTabs" class="packPick hide"></div>
+ <div id="gpPick" class="gpPick lOnly"></div>
  <div id="gachaList" class="gachaList lOnly"></div>
  <div class="gachaStage rOnly">
   
@@ -2298,12 +2320,12 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.36.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.37.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
  <div class="aboutSnd"><span>サウンド</span><button type="button" class="sec mini" id="sndA" onclick="toggleSound()">🔊 オン</button></div>
- <div class="aboutSnd"><span>ホームのバナーの自動切り替え</span><button type="button" class="sec mini" id="hbAutoBtn" onclick="toggleHbAuto()">オン</button></div>
+ <div class="aboutSnd"><span>バナーの自動切り替え</span><button type="button" class="sec mini" id="hbAutoBtn" onclick="toggleHbAuto()">オン</button></div>
  <div class="aboutSnd"><span>ターンエンドの確認</span><button type="button" class="sec mini" id="ewBtn" onclick="toggleEndWarn()">オン</button></div>
  <div class="aboutSnd"><span>プレイヤーID</span><button type="button" class="sec mini" id="pidBtn" onclick="copyPlayerId()">------</button></div>
  <div class="aboutSnd"><span>演出を減らす</span><button type="button" class="sec mini" id="calmBtn" onclick="toggleCalm()">オフ</button></div>
@@ -4353,8 +4375,10 @@ function buyPremium(pid){const x=PREMIUM.find(q=>q.id==pid);if(!x||premiumGot().
 function shopCrList(){return P.filter(c=>c.rarity=="CR"&&!c.event&&!c.promo&&!c.passS&&!c.bossOnly&&ownedCount(c.id)>=1)}
 let gachaShopMode=false;
 function setGachaMode(shop){gachaShopMode=!!shop;sfx("sel");$("gacha").classList.toggle("shopMode",gachaShopMode);$("gmGacha").classList.toggle("on",!gachaShopMode);$("gmShop").classList.toggle("on",gachaShopMode);if(gachaShopMode)renderShop()}
+function shopJump(id){const el=$(id);if(el){el.scrollIntoView({block:"start",behavior:"smooth"});sfx("sel")}}
 function renderShop(){const own=extraIcons(),pg=premiumGot();
- $("shopView").innerHTML='<div class="stH" style="margin:4px 2px 6px">プレミアムパック</div><div class="pmList">'
+ $("shopView").innerHTML='<div class="shopNav"><button type="button" onclick="shopJump(\'shPrem\')">プレミアム</button><button type="button" onclick="shopJump(\'shIcon\')">アイコン</button><button type="button" onclick="shopJump(\'shCr\')">CR交換</button><button type="button" onclick="sfx(\'sel\');openExchange()">カード交換</button></div>'
+  +'<div class="stH" id="shPrem" style="margin:4px 2px 6px">プレミアムパック</div><div class="pmList">'
   +premiumList().map(x=>{const got=pg.includes(x.id),im=CARD_IMAGES[x.card]||"";
    return '<div class="pmCard'+(got?' got':'')+(x.need?' pmDark':'')+'">'
     +'<div class="pmArt" style="background-image:url('+im+')"><span class="pmRib">PREMIUM</span><span class="pmShine"></span>'
@@ -4362,10 +4386,10 @@ function renderShop(){const own=extraIcons(),pg=premiumGot();
     +'<div class="pmBody"><div class="pmIn"><div class="pmGet"><span class="pmMini" style="background-image:url('+im+')"></span><span class="pmMini pmMini2" style="background-image:url('+im+')"></span><b>CR×2</b></div>'
     +'<span class="pmPlus">＋</span><div class="pmGet">'+iconHtml(x.card,40)+'<b>アイコン</b></div></div>'
     +(got?'':'<button type="button" class="gold pmBuy" onclick="buyPremium(\''+x.id+'\')">💎'+x.price.toLocaleString()+'</button>')+'</div></div>'}).join("")+'</div>'
-  +'<div class="stH" style="margin:14px 2px 6px">アイコン（🔹かけらで交換）</div><div class="shopGrid">'
+  +'<div class="stH" id="shIcon" style="margin:14px 2px 6px">アイコン（🔹かけらで交換）</div><div class="shopGrid">'
   +SHOP_ICONS.filter(x=>!x[2]||x[2]()).map(([id,pr])=>{const c=by(id);if(!c)return"";const got=own.includes(id);return '<div class="shopItem">'+iconHtml(id,64)+'<div class="shopNm">'+escH(c.name)+(c.rarity=="CR"?' <span class="shopCr">CR</span>':'')+'</div>'
    +(got?'<div class="shopGot">交換済み</div>':'<button type="button" class="gold shopBuy" onclick="shopBuy(\''+id+'\','+pr+')">🔹'+pr+'</button>')+'</div>'}).join("")+'</div>'
-  +'<div class="stH" style="margin:14px 2px 6px">CR交換（🔹'+SHOP_CR_PRICE.toLocaleString()+'）</div>'+(()=>{const L=shopCrList();return L.length?'<div class="shopGrid">'+L.map(c=>{const n=ownedCount(c.id),full=n>=2;
+  +'<div class="stH" id="shCr" style="margin:14px 2px 6px">CR交換（🔹'+SHOP_CR_PRICE.toLocaleString()+'）</div>'+(()=>{const L=shopCrList();return L.length?'<div class="shopGrid">'+L.map(c=>{const n=ownedCount(c.id),full=n>=2;
    return '<div class="shopItem">'+(CARD_IMAGES[c.id]?'<img class="shopCard" src="'+CARD_IMAGES[c.id]+'" alt="">':'')+'<div class="shopNm">'+escH(c.name)+'</div><div class="shopOwn">所持 '+n+'枚</div>'
    +(full?'<div class="shopGot">2枚そろっています</div>':'<button type="button" class="gold shopBuy" onclick="shopBuyCr(\''+c.id+'\')">🔹'+SHOP_CR_PRICE.toLocaleString()+'</button>')+'</div>'}).join("")+'</div>':'<div class="evRw">ガチャで当てたCRを、もう1枚交換できます（イベントのCRはのぞく）。</div>'})()
   +'<div class="stH" style="margin:14px 2px 6px">カード交換</div><button type="button" class="sec evGoBtn" onclick="openExchange()">🔹 かけらでカードを交換する ▶</button>'
@@ -4406,7 +4430,7 @@ function raidOnResult(w){const box=$("rRaid"),btns=$("rBtns");if(!raidCtx||!S||!
 function renderRaidDetail(e){const o=raidSt(),left=Math.round(o.hp/RAID.hp*100),can=raidCanTry();
  const msRow=RAID.ms.map(([pc,g])=>'<div class="drStep">'+pc+'%削る<span>'+(o.ms[pc]?'✓ 受け取り済み':'💎'+g)+'</span></div>').join("");
  $("evdBody").innerHTML='<div class="evList"><div class="evStory">'+e.boss.story.replace(/\n/g,"<br>")+'</div>'
-  +'<section class="gBlock evCard open evStage" style="--g1:#5a1a2a;--g2:#120818;--ga:#ff7a7a"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES.b2c01_cr||"")+')"></div><div class="gbPeriod">'+(o.cleared?"撃破済み ✓":"1日1回")+'</div><div class="gbTitle">暴走 氷雷龍ボルブリザ</div><div class="gbSub">HP '+RAID.hp.toLocaleString()+'・'+RAID.limit+'ターン制限・HPは持ち越し</div></div>'
+  +'<section class="gBlock evCard open evStage" style="--g1:#5a1a2a;--g2:#120818;--ga:#ff7a7a"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES.b2c01_cr||"")+')"></div><div class="gbPeriod">'+(o.cleared?"撃破済み ✓":"1日1回")+'</div><div class="gbTitle">暴走 氷雷龍ボルブリザ</div><div class="gbSub">HP'+(RAID.hp>=10000?(RAID.hp/10000)+'万':RAID.hp.toLocaleString())+'・'+RAID.limit+'ターン制限・HP持ち越し</div></div>'
   +'<div class="gBody"><div class="drRes">残りHP <b>'+o.hp.toLocaleString()+'</b>（'+left+'%）</div><div class="raidBar"><span style="width:'+left+'%"></span></div>'
   +'<div class="evStat"><div><div class="sK">今日の挑戦</div><div class="sV">'+(o.day===todayStr()?"済":"まだ")+'</div></div><div><div class="sK">最高ダメージ</div><div class="sV">'+(o.best||0).toLocaleString()+'</div></div><div><div class="sK">挑戦回数</div><div class="sV">'+(o.tries||0)+'</div></div></div>'
   +'<div class="drSteps">'+msRow+'<div class="drStep">撃破<span>'+(o.cleared?'✓':'💎'+RAID.gem+'＋称号＋CRアイコン')+'</span></div></div>'
@@ -5493,7 +5517,22 @@ function renderGachaList(){
    +(G.pity?'<div class="gLeft">'+pityLabel(G)+'確定まで あと <b>'+pityLeft(G)+'</b> 回</div>':"")
    +'<div class="gBtns">'+gachaBlockBtns(G)+'</div>'
    +'<button class="rateLink" onclick="openRatesFor(\''+G.id+'\')">提供割合</button></div></section>'}).join("");
+ renderGachaPick();
 }
+/* ガチャ（デザインA）：上にパックを横に並べて、選んだパックだけを大きく出す */
+let gachaPickId=null;
+function gachaThumb(G){if(G.art)return TREE_BASE_URL+G.art;if(G.banner)return TREE_BASE_URL+G.banner;
+ const ev=EVENTS.find(e=>e.gachaPack==G.pack);if(ev){const im=eventArtImg(ev);if(im)return im}
+ const pc=P.find(c=>(packOf(c)==G.pack||(c.packs&&c.packs.includes(G.pack)))&&c.rarity=="CR"&&CARD_IMAGES[c.id]);if(pc)return CARD_IMAGES[pc.id];
+ return G.bg?TREE_BASE_URL+G.bg:""}
+// パックの短い名前（「パック」を省いて、番号は2行目に。言葉の途中で折れないように）
+function gachaShortName(G){const t=String(G.title).replace("パック","").trim();const m=t.match(/^(.*?)(-\w+)$/);return m?escH(m[1])+'<br>'+escH(m[2]):escH(t)}
+function renderGachaPick(){const L=visibleGachas(),box=$("gpPick");if(!box)return;
+ if(!L.some(G=>G.id===gachaPickId)){const ev=L.find(G=>G.whenEvent);gachaPickId=(ev||L[0]||{}).id||null}
+ box.innerHTML=L.map(G=>'<button type="button" class="gpCard'+(G.id===gachaPickId?' on':'')+'" style="--ga:'+G.accent+'" onclick="pickGacha(\''+G.id+'\')"><span class="gpTh" style="background-image:url('+gachaThumb(G)+')"></span><span class="gpNm">'+gachaShortName(G)+'</span></button>').join("");
+ document.querySelectorAll("#gachaList .gBlock").forEach(b=>b.classList.toggle("gHide",b.id!=="gb_"+gachaPickId));
+ const on=box.querySelector(".gpCard.on");if(on)setTimeout(()=>{box.scrollLeft=on.offsetLeft-box.offsetLeft-(box.clientWidth-on.clientWidth)/2},0)}
+function pickGacha(id){if(id!==gachaPickId){gachaPickId=id;sfx("sel")}renderGachaPick()}
 // ガチャのバナーに、そのパックのSR以上のカードをランダムで3枚並べる（開くたびに変わる）
 function gachaShowcase(G){const RO=RARITY_ORDER;
  const pool=P.filter(c=>(packOf(c)==G.pack||(c.packs&&c.packs.includes(G.pack)))&&!c.unreleased&&!c.bossOnly&&CARD_IMAGES[c.id]&&(RO[c.rarity]||0)>=(RO.SR||0)&&c.rarity!="CR");   // CRは出さない
@@ -6016,8 +6055,12 @@ function guideReset(){store.set("cmGuide","[]");closeAbout();log2Toast("父の�
 function b2Other(side){return side=="p"?"c":"p"}
 function b2B(side){return side=="p"?S.pb:S.cb}
 // 文字を1行で枠に収める（長いボスの名前など）。収まらなければ少しずつ小さくする
-function fitLabel(el){if(!el)return;el.style.fontSize="";const base=parseFloat(getComputedStyle(el).fontSize)||11;let f=base;
- for(let k=0;k<12&&el.scrollWidth>el.clientWidth+1&&f>8;k++){f-=.5;el.style.fontSize=f+"px"}}   // 8pxより小さくはしない（入らなければ「…」）
+function fitLabel(el,min){if(!el)return;min=min||8;el.style.fontSize="";const base=parseFloat(getComputedStyle(el).fontSize)||11;let f=base;
+ for(let k=0;k<24&&el.scrollWidth>el.clientWidth&&f>min;k++){f-=.5;el.style.fontSize=f+"px"}}
+// 不自然な改行をなくす：名前（カード・イベント・章・パス・ショップ）は1行にして、入らなければ少し小さくする
+const FIT1=".cNm,.shopNm,.prLbl,.gbTitle,.stCp>b,.aboutSnd>span,.m4sub";
+let fitQ=0;function fitNamesSoon(){if(fitQ)return;fitQ=requestAnimationFrame(()=>{fitQ=0;document.querySelectorAll(FIT1).forEach(el=>{if(el.offsetParent&&el.scrollWidth>el.clientWidth)fitLabel(el,9)})})}
+try{new MutationObserver(fitNamesSoon).observe(document.getElementById("app")||document.body,{childList:true,subtree:true});addEventListener("resize",fitNamesSoon)}catch(e){}   // 8pxより小さくはしない（入らなければ「…」）
 function isFrozen(m){return !!(m&&(m.frz||m.freeze||m.frozenNow))}
 /* 凍結のルール（統一）：凍結させた人の、次のターンの初めまで凍る。凍っている間は攻撃も守護もできない
    m.frz に「凍結させた人」を入れる（1人用：p／c、協力バトル：A／B／c）。その人のターンの初めに溶ける（frzExpire） */
@@ -7255,7 +7298,7 @@ function acqHtml(c){const L=cardSources(c);
   :'<div class="acqRow"><div class="acqT"><small>入手方法未設定</small></div></div>')+'</div>'}
 // 入手先へ移動
 function acqGo(k,a){hideP("acqPop");hideD();
- if(k=="gacha"){openGacha();try{setGachaMode(false)}catch(e){}setTimeout(()=>{const el=$("gb_"+a);if(el){el.scrollIntoView({block:"start",behavior:"smooth"});el.classList.add("acqFlash");setTimeout(()=>el.classList.remove("acqFlash"),1600)}},80);return}
+ if(k=="gacha"){gachaPickId=a;openGacha();try{setGachaMode(false)}catch(e){}setTimeout(()=>{const el=$("gb_"+a);if(el){el.classList.add("acqFlash");setTimeout(()=>el.classList.remove("acqFlash"),1600)}},80);return}
  if(k=="event")return openEventDetail(a);
  if(k=="story")return openStory();
  if(k=="pass")return openPass();
