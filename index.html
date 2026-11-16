@@ -541,8 +541,12 @@ body.calm .tCard{animation:none}
 #prematch .pmBot:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0000 45%,#000b 92%)}
 .pmAces .ace{position:absolute;inset:0;background:center 30%/cover;animation:pmAceIn .5s ease-out both}
 .pmAces .ace:nth-child(2){animation-delay:.12s}.pmAces .ace:nth-child(3){animation-delay:.24s}
-.ace.s2a{clip-path:polygon(0 0,62% 0,38% 100%,0 100%)}.ace.s2b{clip-path:polygon(62% 0,100% 0,100% 100%,38% 100%)}
-.ace.s3a{clip-path:polygon(0 0,44% 0,26% 100%,0 100%)}.ace.s3b{clip-path:polygon(44% 0,78% 0,60% 100%,26% 100%)}.ace.s3c{clip-path:polygon(78% 0,100% 0,100% 100%,60% 100%)}
+/* 絵は「見えている帯」の大きさに合わせる（顔が帯のまん中に来るように） */
+.ace.s2a{right:38%;clip-path:polygon(0 0,100% 0,61.3% 100%,0 100%)}.ace.s2b{left:38%;clip-path:polygon(38.7% 0,100% 0,100% 100%,0 100%)}
+.ace.s3a{right:56%;clip-path:polygon(0 0,100% 0,59.1% 100%,0 100%)}.ace.s3b{left:26%;right:22%;clip-path:polygon(34.6% 0,100% 0,65.4% 100%,0 100%)}.ace.s3c{left:60%;clip-path:polygon(45% 0,100% 0,100% 100%,0 100%)}
+.pmAces .ace{background-position:center 12%}
+.pmAces:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0000 45%,#060f1e99 72%,#060f1ee6)}
+#prematch .pmMe .tName{text-shadow:0 2px 0 #000,0 0 10px #000,0 0 18px #000}
 .pmSlash{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.pmSlash line{stroke:#fff;stroke-width:.8}
 @keyframes pmAceIn{from{opacity:0;transform:translateY(20px)}}
 #prematch .pmBoss{display:none!important}
@@ -896,6 +900,11 @@ img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit
 .fx-spore .tFx{bottom:-20px;width:6px;height:6px;border-radius:50%;background:#c58cff;box-shadow:0 0 10px #b45cff;animation:tSpore linear infinite}
 @keyframes tLeaf{to{transform:translate(var(--dx),110vh) rotate(720deg)}}@keyframes tSpore{to{transform:translate(var(--dx),-110vh);opacity:0}}
 body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
+#gvBody.gvGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 6px;white-space:normal;text-align:left;max-height:56dvh;overflow:auto;padding:2px}
+.gvC{position:relative;aspect-ratio:3/4;border:0;border-radius:8px;padding:0;background:#22375a center/cover;box-shadow:0 0 0 1px #fff3,0 3px 8px #0008;color:#fff;overflow:hidden}
+.gvC b{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#0b1a30;font-size:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px #fff6}
+.gvC span{position:absolute;inset:auto 2px 4px;font-size:9px;line-height:1.2}
+.gvN{grid-column:1/-1;font-size:10px;color:#9fb6d3;margin-top:4px}
 /* ===== 対戦の設定 ===== */
 .bsetRow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 2px;border-bottom:1px solid #ffffff14;font-size:13px;text-align:left}
 .bsetRow small{display:block;font-size:10px;color:#9fb6d3;margin-top:2px}
@@ -1950,7 +1959,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.44.0</div>
+ <div class="tVer" id="tVer">ver.5.44.2</div>
 </div>
 
 <div id="app">
@@ -2572,7 +2581,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.44.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.44.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -6759,7 +6768,7 @@ function sayPop(img,who,t){const el=$("bossSay"),x=$("bsTxt"),tp=document.queryS
  zrTY=setInterval(()=>{x.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(zrTY)},40);
  clearTimeout(zrTT);zrTT=setTimeout(()=>el.classList.remove("on"),2600+t.length*40)}
 // 6章：ふしぎなバリア。はじめて本体を攻撃したときに、はじかれる演出
-function barrierFx(){const b=$("chpBox");if(b){b.classList.remove("b3bar");void b.offsetWidth;b.classList.add("b3bar")}
+function barrierFx(){const b=heroBox("c");if(b){b.classList.remove("b3bar");void b.offsetWidth;b.classList.add("b3bar")}
  if(S.barrierSaid)return;S.barrierSaid=1;log("ふしぎなバリアに、攻撃がはじかれた！");
  setTimeout(()=>{if(S&&!S.over)sayPop("",fillText("{name}"),"攻撃が……はじかれた！？")},350)}
 // 10章：自分のターンの初めに、ライバルが強化の呪文を1つ使ってくれる
@@ -7748,7 +7757,12 @@ function cutIn(c){const o=$("cutin");if(!o||!c)return;const img=CARD_IMAGES[c.id
  $("cutinName").textContent=c.name;
  o.classList.remove("show");void o.offsetWidth;o.classList.add("show");
  clearTimeout(_cutT);_cutT=setTimeout(()=>o.classList.remove("show"),1050)}
+let gvList=[];
+// 新しい対戦画面では、HPの数字のところでダメージの数字やゆれを出す
+function heroBox(side){const g=$("game");if(g&&g.classList.contains("nb"))return $(side=="p"?"nbPHp":"nbOHp").parentElement;return $(side=="p"?"phpBox":"chpBox")}
 function showGrave(side){const G=side=="p"?S.pg:S.cg;$("gvTitle").textContent=(side=="p"?"自分":"相手")+"の墓地（"+G.length+"枚）";
+ const nb=$("game").classList.contains("nb");$("gvBody").classList.toggle("gvGrid",nb&&G.length>0);
+ if(nb){gvList=G.slice().reverse();$("gvBody").innerHTML=G.length?gvList.map((c,i)=>'<button type="button" class="gvC" onclick="showD(gvList['+i+'])" style="'+(CARD_IMAGES[c.id]?'background-image:url('+CARD_IMAGES[c.id]+')':'')+'"><b>'+(c.cost||0)+'</b>'+(CARD_IMAGES[c.id]?'':'<span>'+escH(c.name)+'</span>')+'</button>').join("")+'<div class="gvN">新しく墓地に行ったカードが左上。押すと、くわしく見られます</div>':'まだカードがありません';$("graveov").classList.add("show");return}
  $("gvBody").textContent=G.length?G.slice().reverse().map(c=>`${c.type=="monster"?"👾":"✨"} ${c.name}（コスト${c.cost}）`).join("\n"):"（空）";
  $("graveov").classList.add("show")}
 function draw(side,quiet){let D=side=="p"?S.pd:S.cd,H=side=="p"?S.ph:S.ch;
@@ -7838,9 +7852,9 @@ function heroDmg(side,n,from){if(n<=0||S.over)return;
  if(side=="c"){const src=S.pb.find(m=>m&&m.id==S.curSrc);S.lastHitChoi=!!(src&&src.choiDie);S.lastHitLim=!!(src&&src.tMul);S.lastHitGattai=!!(src&&src.gattai)}
  if(side=="p"){S.pHurt=1;if(S.php<=1000&&S.php>0)S.pLow=1}
  floatHero(side,"-"+n,"red");sfx("hit");
- const b=$(side=="p"?"phpBox":"chpBox");if(b){b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}
+ const b=heroBox(side);if(b){b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}
  render()}
-function floatHero(side,v,cl){const b=$(side=="p"?"phpBox":"chpBox");if(!b)return;const r=b.getBoundingClientRect();mkFloat(r.left+r.width/2,r.top+r.height/2,v,cl)}
+function floatHero(side,v,cl){const b=heroBox(side);if(!b)return;const r=b.getBoundingClientRect();mkFloat(r.left+r.width/2,r.top+r.height/2,v,cl)}
 function mkFloat(x,y,v,cl){const e=document.createElement("div");e.className="float "+cl;e.textContent=v;e.style.left=x+"px";e.style.top=y+"px";document.body.appendChild(e);setTimeout(()=>e.remove(),850)}
 function float(side,i,v,cl){try{const r=slot(side,i).getBoundingClientRect();mkFloat(r.left+r.width/2,r.top+r.height/2,v,cl)}catch(e){}}
 
