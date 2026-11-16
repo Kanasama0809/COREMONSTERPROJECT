@@ -1752,7 +1752,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.40.1</div>
+ <div class="tVer" id="tVer">ver.5.41.0</div>
 </div>
 
 <div id="app">
@@ -2350,7 +2350,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.40.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.41.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -6506,12 +6506,12 @@ function doActs(acts,side,src,opt){if(!S||!acts)return;const os=b2Other(side),MB
    if(L.length){const c=D.splice(L[Math.random()*L.length|0],1)[0];H.push(c);log(nm+"：山札から「"+c.name+"」を手札に")}else log(nm+"：山札に当てはまるカードがない");break}
   case"deckSummonQ":{const B=b2B(side),D=side=="p"?S.pd:S.cd,pos=[1,0,2].find(i=>!B[i]);if(pos==null){log("空いているレーンがない");break}
    const L=D.map((c,i)=>i).filter(i=>D[i]&&D[i].type=="monster"&&(D[i].cost||0)<=a.maxCost&&(!a.name||linkNameHit(a.name,D[i])));if(!L.length){log(nm+"：山札に出せるモンスターがいない");break}
-   const c=D.splice(L[Math.random()*L.length|0],1)[0],m={...c,uid:c.uid||Math.random(),used:!c.charge,attacks:c.charge?(c.double?2:1):0,buff:0,defBuff:0};B[pos]=m;sfx("summon");
+   const c=D.splice(L[Math.random()*L.length|0],1)[0],m={...c,uid:c.uid||Math.random(),used:!c.charge,attacks:c.charge?(c.double?2:1):0,buff:0,defBuff:0};if(a.gat)m.gattai=1;B[pos]=m;sfx("summon");
    log(nm+"：山札から「"+c.name+"」を出した");try{summonEff(m,side);afterSummon(m,side);encounterCard(c.id)}catch(e){}break}
   case"gattai":{const B=b2B(side),L=B.map((m,i)=>m&&linkNameHit(a.name,m)?i:-1).filter(i=>i>=0);
    if(L.length<2){log(nm+"：「"+a.name+"」が2体いない");break}
    L.sort((x,y)=>monVal(B[x],side)-monVal(B[y],side)).slice(0,2).forEach(i=>{if(B[i])kill(side,i)});
-   doActs([{a:"deckSummonQ",maxCost:a.maxCost,name:a.name}],side,src);break}
+   doActs([{a:"deckSummonQ",maxCost:a.maxCost,name:a.name,gat:1}],side,src);break}
   case"shuffleDraw":{const D=side=="p"?S.pd:S.cd;askDiscard(side,{need:1,toDeck:1},n=>{if(!S)return;draw(side);render()});break}
   case"debuffAll":EB.forEach(m=>{if(m)m.curse=Math.max(m.curse||0,a.atk)});S.curseBy=side;log("相手のモンスター全てのATK-"+a.atk);break;
   case"zrSay":if(side=="c")zrSay(a.n);break;
@@ -6616,13 +6616,13 @@ function ttAdd(k,n){const o=ttStats();o[k]=(o[k]||0)+(n||1);ttSave(o);return o[k
 function ttSet(k,v){const o=ttStats();o[k]=v;ttSave(o)}
 function ttFin(id){const o=ttStats();return ((o.fin||{})[id])||0}
 // 図鑑の集まり具合を弾ごとに（CR・イベント・プロモは数えない）。1＝はじまりパック-01、2＝第2弾（共通・ボルテア・フロスティア）
-function ttSetPct(n){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased&&!c.event&&!c.baseId&&c.rarity!="CR"&&(n==2?!!c.b2:(!c.b2&&packOf(c)==1)));return L.length?L.filter(c=>m[c.id]>0).length/L.length:0}
+function ttSetPct(n){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased&&!c.event&&!c.baseId&&c.rarity!="CR"&&(n==3?!!c.b3:n==2?!!c.b2:(!c.b2&&!c.b3&&packOf(c)==1)));return L.length?L.filter(c=>m[c.id]>0).length/L.length:0}
 function ttOwnedPct(){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased);return L.length?L.filter(c=>m[c.id]>0).length/L.length:0}
 // 弾ごと：1＝第1弾（はじまりパック）、2＝第2弾（ブリザルト）。プロモ・イベントは入らない
 // ドラゴン：名前に「ドラゴン」か「龍」が入るモンスター（氷雷龍ボルブリザなど）
 function isDragon(c){const b=c.baseId?by(c.baseId)||c:c;return b.type=="monster"&&/ドラゴン|龍/.test(b.name)&&!b.dkKnight}
 function storyChDone(ch){const c=STORY.find(x=>x.ch===ch);return !!c&&c.episodes.every((e,i)=>storyProgress().includes(ch+"-"+i))}
-function ttInSet(c,n){return n==2?!!c.b2:(!c.b2&&packOf(c)==1&&!c.event&&!c.promo)}
+function ttInSet(c,n){return n==3?!!c.b3:n==2?!!c.b2:(!c.b2&&packOf(c)==1&&!c.event&&!c.promo)}
 function ttOwnedRSet(r,n){const m=ownedMap();return P.filter(c=>!c.bossOnly&&!c.unreleased&&c.rarity==r&&ttInSet(c,n)&&m[c.id]>0).length}
 function ttOwnedR(r){const m=ownedMap();return P.filter(c=>!c.bossOnly&&c.rarity==r&&m[c.id]>0).length}
 function ttAll(f){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased&&f(c));return L.length>0&&L.every(c=>m[c.id]>0)}
@@ -6775,6 +6775,42 @@ const TITLES=[
  {id:"t_s2water",name:"水の継承者",c:"rainbow",cond:"水のシーズンパスを30段まで進める（シーズン2）",ok:()=>ttPassDone("water","s2"),limited:1},
  {id:"t_s2both",name:"湯けむりの向こう",c:"rainbow",cond:"両方のシーズンパスを30段まで進める（シーズン2）",ok:()=>ttPassDone("fire","s2")&&ttPassDone("water","s2"),limited:1},
  {id:"t_hwall",name:"ハロウィン・ナイト",c:"rainbow",cond:"ハロウィンのイベントミッションを全部達成する",ok:()=>{try{const e=eventById("halloween");return evMisOf("halloween").got.length>=(e.missions||[]).length}catch(x){return false}},limited:1},
+ // ===== 第3弾 =====
+ {id:"t_ch6",name:"旅を止めない者",c:"green",cond:"第6章をクリアする",ok:()=>storyChDone(6)},
+ {id:"t_ch7",name:"機巧島の客人",c:"green",cond:"第7章をクリアする",ok:()=>storyChDone(7)},
+ {id:"t_ch8",name:"闇を照らす者",c:"green",cond:"第8章をクリアする",ok:()=>storyChDone(8)},
+ {id:"t_ch9",name:"光を取り戻す者",c:"green",cond:"第9章をクリアする",ok:()=>storyChDone(9)},
+ {id:"t_ch10",name:"五つのCOREの守り手",c:"gold",cond:"第10章をクリアする",ok:()=>storyChDone(10)},
+ {id:"t_barrier",name:"攻撃が……はじかれた！？",c:"white",cond:"ふしぎなバリアに攻撃をはじかれる",ok:()=>!!T().barrier},
+ {id:"t_duo2",name:"息ぴったり",c:"silver",cond:"第10章の2対2で、HPを10000以上残して勝つ",ok:()=>!!T().duo2},
+ {id:"t_b3sr10",name:"明暗のSRハンター",c:"bronze",cond:"第3弾のSRを10種類集める",ok:()=>ttOwnedRSet("SR",3)>=10},
+ {id:"t_b3ur5",name:"機巧のUR使い",c:"silver",cond:"第3弾のURを5種類集める",ok:()=>ttOwnedRSet("UR",3)>=5},
+ {id:"t_b3cr1",name:"明暗のCRに愛されし者",c:"silver",cond:"第3弾のCRを手に入れる",ok:()=>ttOwnedRSet("CR",3)>=1},
+ {id:"t_b3crall",name:"機巧のCRマスター",c:"gold",cond:"第3弾のCRを全部集める",ok:()=>ttAll(c=>c.rarity=="CR"&&ttInSet(c,3))},
+ {id:"t_b3sol",name:"ソレイユの騎士",c:"bronze",cond:"光の国ソレイユのカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.b3=="s"&&c.rarity!="CR")},
+ {id:"t_b3lun",name:"ルナールの住人",c:"bronze",cond:"闇の地下街ルナールのカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.b3=="l"&&c.rarity!="CR")},
+ {id:"t_b3meian",name:"明暗の蒐集家",c:"gold",cond:"明暗の都パック-03aのカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.pack==96&&c.rarity!="CR")},
+ {id:"t_b3kikou",name:"歯車の蒐集家",c:"gold",cond:"機巧仕掛けの絆パック-03bのカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.pack==97&&c.rarity!="CR")},
+ {id:"t_b3chainall",name:"鎖の蒐集家",c:"bronze",cond:"チェインを持つモンスターを全種類集める（CRはのぞく）",ok:()=>ttAll(c=>c.chain&&c.rarity!="CR")},
+ {id:"t_codex3_50",name:"メカニカ探検家",c:"silver",cond:"図鑑の第3弾を50%うめる",ok:()=>ttSetPct(3)>=.5},
+ {id:"t_codex3_100",name:"機巧の博士",c:"gold",cond:"図鑑の第3弾を100%うめる",ok:()=>ttSetPct(3)>=1},
+ {id:"t_link100",name:"つながる力",c:"blue",cond:"リンクを100回つなげる",ok:()=>(T().link||0)>=100},
+ {id:"t_link500",name:"絆の達人",c:"silver",cond:"リンクを500回つなげる",ok:()=>(T().link||0)>=500},
+ {id:"t_chain3",name:"絆の連結",c:"purple",cond:"チェインを3体そろえた試合で勝つ",ok:()=>!!T().chain3},
+ {id:"t_chain3w10",name:"鎖の王",c:"silver",cond:"チェインを3体そろえた試合で10勝する",ok:()=>(T().chain3w||0)>=10},
+ {id:"t_oyako",name:"親子でつなぐ",c:"purple",cond:"マキナとギアを同時に場に出した試合で勝つ",ok:()=>!!T().oyako},
+ {id:"t_nyanwan",name:"なかよしペット",c:"green",cond:"メカにゃんとメカわんを同時に場に出す",ok:()=>!!T().nyanwan},
+ {id:"t_neji3",name:"ネジ三兄弟",c:"green",cond:"ネジたろう・ネジネズミ・ネジまわリスを同時に場に出す",ok:()=>!!T().neji3},
+ {id:"t_meka3",name:"メカだらけ",c:"red",cond:"自分の場に「メカ」のモンスターが3体いる状態で勝つ",ok:()=>!!T().meka3},
+ {id:"t_even10",name:"陽だまりの勝者",c:"bronze",cond:"自分の偶数回目のターンに10回勝つ",ok:()=>(T().evenW||0)>=10},
+ {id:"t_odd10",name:"月夜の勝者",c:"bronze",cond:"自分の奇数回目のターンに10回勝つ",ok:()=>(T().oddW||0)>=10},
+ {id:"t_limit",name:"限界突破",c:"red",cond:"「リミッター解除」で強くしたモンスターでとどめを刺す",ok:()=>!!T().limKO},
+ {id:"t_gattai",name:"合体成功",c:"red",cond:"「メカ合体」で出したモンスターでとどめを刺す",ok:()=>!!T().gattaiKO},
+ {id:"t_pegasus",name:"朝を運ぶ翼",c:"gold",cond:"「ペガサンシャイン」でとどめを刺す",ok:()=>ttFin("b3s25")+ttFin("b3s25cr")>=1},
+ {id:"t_panther",name:"夜の足音",c:"purple",cond:"「夜を渡る黒豹」でとどめを刺す",ok:()=>ttFin("b3l25")+ttFin("b3l25cr")>=1},
+ {id:"t_kiryu",name:"機竜の咆哮",c:"red",cond:"「ギアドラグーン・機竜」でとどめを刺す",ok:()=>ttFin("b3m07")+ttFin("b3m07cr")>=1},
+ {id:"t_mecanon",name:"発射用意",c:"red",cond:"「機巧砲台 メカノン」でとどめを刺す",fin:"b3m42"},
+ {id:"t_chainreact",name:"連鎖反応",c:"purple",cond:"「チェインリアクション」でとどめを刺す",fin:"b3m91"},
  // レベル
  {id:"t_lv10",name:"一人前",c:"white",cond:"レベル10になる",ok:()=>playerLevel()>=10},
  {id:"t_lv20",name:"熟練の勇者",c:"bronze",cond:"レベル20になる",ok:()=>playerLevel()>=20},
@@ -6840,9 +6876,16 @@ function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
   if(S.usedMake)o.make=1;
   if(S.used){if(S.used.hontou)o.hontouWin=1;if(S.used.kokoikku)o.haikuWin=1}
   if(S.lastHitChoi)o.choiKO=1;
+  // 第3弾
+  if(S.lastHitLim)o.limKO=1;if(S.lastHitGattai)o.gattaiKO=1;
+  if(S.ch3){o.chain3=1;o.chain3w=(o.chain3w||0)+1}if(S.oyako)o.oyako=1;
+  if((S.pb||[]).filter(m=>m&&linkNameHit("メカ",m)).length>=3)o.meka3=1;
+  {const tn=(typeof pturn=="function")?pturn():0;if(tn>0){if(tn%2==0)o.evenW=(o.evenW||0)+1;else o.oddW=(o.oddW||0)+1}}
+  try{if(storyContext){const ep=STORY[storyContext.chIdx].episodes[storyContext.epIdx];if(ep&&ep.enemy=="b3_kouan"&&S.php>=10000)o.duo2=1}}catch(e){}
   const f=S.lastHitId;if(f){o.fin=o.fin||{};o.fin[f]=(o.fin[f]||0)+1;const c=by(f);
    if(c&&c.type=="spell")o.spellKO=(o.spellKO||0)+1;else if(c&&(c.charge||c.permCharge))o.chargeKO=(o.chargeKO||0)+1}
   const m=/^ev_(\w+?)_awake$/.exec(oppId||"");if(m)o["awake_"+m[1]]=(o["awake_"+m[1]]||0)+1}
+ if(!friend){o.link=(o.link||0)+(S.lkCnt||0);if(S.nyanwan)o.nyanwan=1;if(S.neji3)o.neji3=1;if(S.barrierSaid)o.barrier=1}   // 第3弾：勝ち負けに関係なく
  ttSave(o);titleCheck()}
 
 /* ================= シーズンパス =================
@@ -7425,7 +7468,7 @@ function heroDmg(side,n,from){if(n<=0||S.over)return;
  if(side=="p")S.php-=n;else S.chp-=n;
  if(side=="c")S.lastHitSpell=!!S.castingSpell;   // イベントミッション「呪文でとどめ」用
  if(side=="c")S.lastHitId=S.curSrc||null;          // 称号「〇〇でとどめ」用
- if(side=="c"){const src=S.pb.find(m=>m&&m.id==S.curSrc);S.lastHitChoi=!!(src&&src.choiDie)}
+ if(side=="c"){const src=S.pb.find(m=>m&&m.id==S.curSrc);S.lastHitChoi=!!(src&&src.choiDie);S.lastHitLim=!!(src&&src.tMul);S.lastHitGattai=!!(src&&src.gattai)}
  if(side=="p"){S.pHurt=1;if(S.php<=1000&&S.php>0)S.pLow=1}
  floatHero(side,"-"+n,"red");sfx("hit");
  const b=$(side=="p"?"phpBox":"chpBox");if(b){b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake")}
@@ -7646,7 +7689,10 @@ function b3Overlay(e,B,side){const R=e.getBoundingClientRect();if(!R.width)retur
   const st=(lk?"L":"")+(chained[i]?"C"+cn:""),pv=b3Prev[m.uid]||"";
   if(st!==pv){if(chained[i]&&cn>(+(pv.split("C")[1])||1))burst=cn>=3?["⛓️ チェイン×3！","#ffcf5a"]:["⛓️ チェイン！","#c79bff"];
    else if(lk&&!pv.includes("L")&&!burst)burst=["🔗 リンク！","#4ee3ff"];
+   if(side=="p"&&lk&&!pv.includes("L"))S.lkCnt=(S.lkCnt||0)+1;   // 称号：リンクをつないだ回数
    b3Prev[m.uid]=st}});
+ if(side=="p"){const has=id=>B.some(m=>m&&(m.baseId||m.id)==id);   // 称号：場にそろえた組み合わせ
+  if(cn>=3)S.ch3=1;if(has("b3m09")&&has("b3m10"))S.oyako=1;if(has("b3m15")&&has("b3m16"))S.nyanwan=1;if(has("b3m11")&&has("b3m45")&&has("b3m46"))S.neji3=1}
  // くさり：となりどうし（左と右だけのときは弧でつなぐ）
  const bar=(a,b)=>{const x=rc(a),y=rc(b),lf=Math.min(x.l+x.w,y.l+y.w),rt=Math.max(x.l,y.l);
   html+='<div class="b3chain'+(cn>=3?" gold":"")+'" style="left:'+(lf-6)+'px;width:'+(rt-lf+12)+'px;top:'+(Math.min(x.t,y.t)+Math.min(x.h,y.h)*.46)+'px"></div>'};
