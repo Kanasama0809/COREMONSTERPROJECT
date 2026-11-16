@@ -535,17 +535,17 @@ body.calm .tCard{animation:none}
 #prematch .pmTop,#prematch .pmBot{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
 #prematch .pmOArt,#prematch .pmAces{position:absolute;inset:0}
 #prematch .pmOArt{inset:-4%;height:auto;background:radial-gradient(120% 90% at 50% 30%,#4a1a2a,#14070d) center 28%/cover;animation:pmZoom 6s ease-out both;clip-path:polygon(0 0,100% 0,100% 88%,0 100%)}
-#prematch .pmTop:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 55%,#0009 96%);clip-path:polygon(0 0,100% 0,100% 88%,0 100%)}
+#prematch .pmOArt:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 45%,#000a 92%)}
 @keyframes pmZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
 #prematch .pmAces{clip-path:polygon(0 12%,100% 0,100% 100%,0 100%);background:radial-gradient(120% 100% at 50% 80%,#12345e,#060f1e)}
-#prematch .pmBot:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0000 45%,#000b 92%)}
+
 .pmAces .ace{position:absolute;inset:0;background:center 30%/cover;animation:pmAceIn .5s ease-out both}
 .pmAces .ace:nth-child(2){animation-delay:.12s}.pmAces .ace:nth-child(3){animation-delay:.24s}
 /* 絵は「見えている帯」の大きさに合わせる（顔が帯のまん中に来るように） */
 .ace.s2a{right:38%;clip-path:polygon(0 0,100% 0,61.3% 100%,0 100%)}.ace.s2b{left:38%;clip-path:polygon(38.7% 0,100% 0,100% 100%,0 100%)}
 .ace.s3a{right:56%;clip-path:polygon(0 0,100% 0,59.1% 100%,0 100%)}.ace.s3b{left:26%;right:22%;clip-path:polygon(34.6% 0,100% 0,65.4% 100%,0 100%)}.ace.s3c{left:60%;clip-path:polygon(45% 0,100% 0,100% 100%,0 100%)}
 .pmAces .ace{background-position:center 12%}
-.pmAces:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0000 45%,#060f1e99 72%,#060f1ee6)}
+.pmAces:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0000 50%,#000a 80%,#000d)}
 #prematch .pmMe .tName{text-shadow:0 2px 0 #000,0 0 10px #000,0 0 18px #000}
 .pmSlash{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.pmSlash line{stroke:#fff;stroke-width:.8}
 @keyframes pmAceIn{from{opacity:0;transform:translateY(20px)}}
@@ -794,6 +794,13 @@ body.calm .tCard{animation:none}
 @keyframes tgtSoft{0%,100%{box-shadow:0 0 6px #ffd23e55}50%{box-shadow:0 0 12px #ffd23e99}}
 /* 対戦中の盤面のカードは、レア度の光をゆらさない（チカチカを減らす） */
 #game .card.rr-sr,#game .card.rr-ur,#game .card.crframe{animation:none}
+/* 動くのは「場に出したとき」と「攻撃するとき」の、そのカードだけ（レア度に関係なく） */
+#game .card{animation:none}
+#game .hand .card.deal{animation:dealin .3s ease-out}
+#game .board .card.pop{animation:popin .32s ease-out}
+#game .board .card.shockC{animation:shockZap 2.2s infinite}
+#game .board .card.atkframe{animation:lunge .45s}
+body.calm #game .board .card.shockC{animation:none}
 #game .card.rr-sr{box-shadow:0 0 8px #a06be088}
 #game .card.rr-ur{box-shadow:0 0 8px #e0b64a88}
 #game .card.crframe{box-shadow:0 0 9px #f0c76a99}
@@ -884,6 +891,8 @@ img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit
 .kiFr{display:block;font-size:9px;color:#9fb6d3;margin-top:2px;white-space:nowrap}
 .kiIt.lock .kiTh,.kiIt.lock .kiCb{filter:grayscale(.75) brightness(.5)}.kiIt.lock .kiFr{color:#7fdcff;font-weight:800}
 .kiCk{position:absolute;z-index:2;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:#2aa8ff;font-size:11px;font-weight:900;display:none;align-items:center;justify-content:center}.kiIt.on .kiCk{display:flex}
+.shopSub{font-size:11px;color:#9fb6d3;margin:6px 2px 4px}
+.shopSlv{width:46px;margin:2px auto 6px}.shopMat{width:100%;height:54px;border-radius:8px;background:#06101f center/cover;margin-bottom:6px;box-shadow:0 0 0 1px #fff2}
 .kiSoon{grid-column:1/-1;font-size:10.5px;color:#9fb6d3;padding:8px 4px}
 .dkRow .dkFan{width:138px}.dkFan .cvB{position:absolute;left:76px;bottom:8px;width:54px;margin:0;transform:rotate(16deg);border-radius:7px}.dkFan .cvB:after{font-size:9px}
 .gCardBack.slvBack{background:var(--sb);border-width:3px}.gCardBack.slvBack::after{display:flex;align-items:center;justify-content:center;width:1.6em;height:1.6em;border-radius:50%;background:#000a;box-shadow:0 0 12px currentColor;text-shadow:0 0 8px currentColor}
@@ -920,7 +929,7 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 /* ===== 新しい対戦画面（#game.nb） ===== */
 #game.nb>.top,#game.nb>.ztLine{display:none}
 #game.nb .nbOnly{display:revert!important}
-#game.nb>.bfield{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:auto auto minmax(0,1fr) 30px minmax(0,1fr) auto;gap:4px;padding:6px;border-radius:16px;box-shadow:inset 0 0 0 2px #ffffff33;background:#00000033;margin-top:4px}
+#game.nb>.bfield{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:auto auto minmax(0,1fr) 48px minmax(0,1fr) auto;gap:4px;padding:6px;border-radius:16px;box-shadow:inset 0 0 0 2px #ffffff33;background:#00000033;margin-top:4px}
 #game.nb .nbHead{display:flex!important;justify-content:space-between;align-items:center;gap:8px;padding:0 2px}
 #game.nb .nbName{font-size:11px;font-weight:700;color:#9fb6d3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #game.nb .nbEx{font-size:10px;color:#9fb6d3;white-space:nowrap}
@@ -931,22 +940,25 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 #game.nb .hpb i,#game.nb .hpb u{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
 #game.nb .hpb i{transition:width .5s}#game.nb .hpb u{background:#fff8;transition:width 1.2s .3s}
 #game.nb .nbHp.o .hpb i{background:linear-gradient(90deg,#ff4d6d,#ff9a6b)}#game.nb .nbHp.m .hpb i{background:linear-gradient(90deg,#2a8dff,#6be3ff)}
-#game.nb .nbZone{display:grid;grid-template-columns:minmax(0,1fr) 40px;gap:6px;min-height:0}
-#game.nb .nbZone>.board{min-height:0;height:100%;gap:6px}
-#game.nb .slot{min-height:0;border:1px solid #ffffff33;background:#0003;border-radius:9px;container-type:size;color:transparent}
+#game.nb .nbZone{display:block;min-height:0;container-type:size}
+/* わくはカードと同じ3:4。幅と高さの小さいほうに合わせて、カードがわくいっぱいになる */
+#game.nb .nbZone>.board{display:flex;justify-content:center;align-items:center;min-height:0;height:100%;gap:6px}
+#game.nb .slot{flex:0 0 auto;width:min((100cqw - 12px)/3,100cqh*.75);height:auto;aspect-ratio:3/4;min-height:0;border:0;box-shadow:inset 0 0 0 1px #ffffff33;background:#0003;border-radius:9px;color:transparent;display:flex;align-items:center;justify-content:center}
 #game.nb.lbl .slot{color:#ffffff40}
 #game.nb .slot.center{border-color:#6bc8ff66;box-shadow:none}
-#game.nb .board .card{width:min(100cqw - 6px,(100cqh - 6px)*.75);height:auto;aspect-ratio:3/4}
-#game.nb .nbPiles{display:flex!important;flex-direction:column;align-items:center;justify-content:center;min-height:0;padding-top:6px}
-#game.nb .pile{position:relative;width:34px;height:46px}
+#game.nb .board .card{width:100%;height:100%;aspect-ratio:auto;border-radius:9px}
+#game.nb .nbPg{position:relative;z-index:1;display:flex;align-items:center;gap:7px;padding:3px 7px 3px 5px;border-radius:10px;background:#0009}
+#game.nb .nbPg.op{box-shadow:inset 0 0 0 1px #ff8a9a77}#game.nb .nbPg.me{box-shadow:inset 0 0 0 1px #6bc8ff77}
+#game.nb .nbPg .who{writing-mode:vertical-rl;font-size:8px;font-weight:900;letter-spacing:.1em;line-height:1}#game.nb .nbPg.op .who{color:#ff9aa8}#game.nb .nbPg.me .who{color:#8ad0ff}
+#game.nb .pile{position:relative;width:29px;height:39px}
 #game.nb .pile i{position:absolute;inset:0;border-radius:5px;background:linear-gradient(135deg,#3a2a7a,#1a1040) center/cover;border:1.5px solid #c9a6ff}
 #game.nb .pile i:nth-child(2){transform:translate(2px,-2px)}#game.nb .pile i:nth-child(3){transform:translate(4px,-4px)}
-#game.nb .pile b{position:absolute;right:-4px;bottom:-6px;z-index:2;font-size:10px;padding:0 5px;border-radius:99px;background:#000;color:#fff}
-#game.nb .pile.g{margin-top:4px;cursor:pointer}#game.nb .pile.g i{background-color:#22375a;border-color:#ffffff55}
+#game.nb .pile b{position:absolute;right:-6px;bottom:-5px;z-index:2;font-size:9px;padding:0 4px;border-radius:99px;background:#000;color:#fff}
+#game.nb .pile.g{cursor:pointer}#game.nb .pile.g i{background-color:#22375a;border-color:#ffffff55}
 #game.nb .pl{font-size:8px;color:#ffffff88;text-align:center;margin-top:4px}
-#game.nb .nbMid{position:relative;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr)) 40px;align-items:center;gap:6px;cursor:pointer}
+#game.nb .nbMid{position:relative;display:flex!important;align-items:center;justify-content:space-between;gap:8px;padding:0 2px}
 #game.nb .nbMid:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,#ffffff33,transparent)}
-#game.nb .nbTn{position:relative;justify-self:center;display:flex;height:26px;border-radius:99px;overflow:hidden;box-shadow:0 0 0 1px #ffffff44,0 3px 8px #0009;background:#0b1a30}
+#game.nb .nbTn{position:relative;flex:0 0 auto;display:flex;height:26px;border-radius:99px;overflow:hidden;box-shadow:0 0 0 1px #ffffff44,0 3px 8px #0009;background:#0b1a30}
 #game.nb .nbTn b{width:38px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#cfe0f5;background:#0006}
 #game.nb .nbTn span{width:58px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.04em;background:linear-gradient(90deg,#1d6fe0,#3aa0ff);color:#fff}
 #game.nb .nbTn.op span{background:linear-gradient(90deg,#c0304a,#ff5a7a)}#game.nb .nbTn.ally span{background:linear-gradient(90deg,#1e8a4a,#3fd07a)}
@@ -969,6 +981,7 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 #game.nb>.hand .card{flex:0 0 calc((100% - 15px)/4);width:auto;max-width:96px}
 @media (max-width:350px){#game.nb .ctrlbar #btnEnd{padding:0 7px;font-size:11px}#game.nb .ctrlbar .pauseBtn,#game.nb .nbLogBtn{min-width:32px;padding:0 7px;font-size:11px}
  #game.nb .nbCost{padding:0 6px;gap:4px}#game.nb .ctrlbar #gems{gap:2px}#game.nb .ctrlbar #gems .gem{width:7px;height:7px}#game.nb .nbCostN{font-size:12px}
+ #game.nb .nbPg{gap:5px;padding:3px 5px}#game.nb .pile{width:25px;height:34px}
  #game.nb .nbTn b{width:30px;font-size:11px}#game.nb .nbTn span{width:50px;font-size:10px}#game.nb .nbHp{grid-template-columns:54px minmax(0,1fr)}#game.nb .nbHp .num{font-size:16px}}
 /* ===== 対戦レイアウトC（下部集約バー：CPU｜中央⏸/END/コア/ログ｜自分） ===== */
 #game>.ztLine{flex:0 0 auto;text-align:center;color:#62d8ff;font-weight:900;font-size:11px;letter-spacing:1px;margin:3px 0}
@@ -995,7 +1008,7 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
  border:3px solid #0f1b2d;border-radius:13px;color:#111;overflow:hidden;cursor:pointer;
  box-shadow:0 0 0 2px var(--gold) inset,0 4px 10px #0009;animation:dealin .3s ease-out}
 @keyframes dealin{from{opacity:0;transform:translateY(14px) scale(.9)}to{opacity:1;transform:none}}
-.board .card{flex:none;animation:popin .28s ease-out}
+.board .card{flex:none}
 @keyframes popin{from{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}to{transform:scale(1);opacity:1}}
 .card.spellface{background:linear-gradient(#e2f7ee,#bee8d6);box-shadow:0 0 0 2px #3aa682 inset,0 4px 10px #0009}
 .card.crframe,.ctile.crframe{border-color:var(--gold2);animation:crCardGlow 1.7s ease-in-out infinite}
@@ -1961,7 +1974,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.44.3</div>
+ <div class="tVer" id="tVer">ver.5.45.1</div>
 </div>
 
 <div id="app">
@@ -2084,7 +2097,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div id="dkCover" class="dkCover"></div>
  <div id="dkInfo" class="dkInfo"></div>
  <div id="dkCards" class="dkCards"></div>
- <div class="dkTools"><button type="button" onclick="dkRename()">✎ 名前</button><button type="button" id="dkCovBtn" onclick="dkCoverMode()">⭐ 切り札</button><button type="button" onclick="dkSleevePick()">👕 スリーブ</button><button type="button" onclick="dkCopy()">⧉ 複製</button><button type="button" onclick="dkDelete()">🗑 削除</button></div>
+ <div class="dkTools"><button type="button" onclick="dkRename()">✎ 名前</button><button type="button" id="dkCovBtn" onclick="dkCoverMode()">⭐ 切り札</button><button type="button" id="dkSlvBtn" onclick="dkSleevePick()">👕 スリーブ</button><button type="button" onclick="dkCopy()">⧉ 複製</button><button type="button" onclick="dkDelete()">🗑 削除</button></div>
  <div class="confirmBtns"><button type="button" class="sec" onclick="dkClose()">閉じる</button><button type="button" class="sec" onclick="dkEdit()">編集する</button><button type="button" id="dkUseBtn" class="pri" onclick="dkUse()">このデッキを使う</button></div>
 </div></div>
 <div id="titles" class="hide">
@@ -2258,9 +2271,9 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div id="bfield" class="bfield">
   <div class="nbOnly nbHead"><span id="nbOName" class="nbName"></span><span id="nbOHand" class="nbEx"></span></div>
   <div class="nbOnly nbHp o"><span id="nbOHp" class="num"></span><span class="hpb"><u id="nbOHpU"></u><i id="nbOHpI"></i></span></div>
-  <div class="nbZone"><div id="cb" class="board"></div><div class="nbOnly nbPiles" id="nbCPiles"></div></div>
-  <div class="nbOnly nbMid" onclick="nbStatePop()"><div class="sts l" id="nbStL"></div><div class="nbTn" id="nbTn"><b id="nbTnN"></b><span id="nbTnW"></span></div><div class="sts r" id="nbStR"></div><div></div></div>
-  <div class="nbZone"><div id="pb" class="board"></div><div class="nbOnly nbPiles" id="nbPPiles"></div></div>
+  <div class="nbZone"><div id="cb" class="board"></div></div>
+  <div class="nbOnly nbMid"><div class="nbPg op" id="nbCPiles"></div><div class="nbTn" id="nbTn"><b id="nbTnN"></b><span id="nbTnW"></span></div><div class="nbPg me" id="nbPPiles"></div></div>
+  <div class="nbZone"><div id="pb" class="board"></div></div>
   <div class="nbOnly nbHp m"><span id="nbPHp" class="num"></span><span class="hpb"><u id="nbPHpU"></u><i id="nbPHpI"></i></span></div>
  </div>
  <div class="ctrlbar">
@@ -2583,7 +2596,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.44.3</div>
+  <div class="aboutVer" id="aboutVer">ver.5.45.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2633,7 +2646,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="confirmBtns" style="margin-top:10px"><button class="sec" onclick="hideP('kisePop')">閉じる</button></div>
 </div></div>
 <div id="dkSlvPop" class="pov" onclick="hideP('dkSlvPop')"><div class="confirmBox" onclick="event.stopPropagation()"><h3>このデッキのスリーブ</h3><div class="kiGrid" id="dkSlvG"></div>
- <div class="kiNote">ほかのスリーブは「👕 きせかえ」で手に入ります</div><div class="confirmBtns" style="margin-top:10px"><button class="sec" onclick="hideP('dkSlvPop')">閉じる</button></div></div></div>
+ <div class="kiNote">ほかのスリーブは、ショップの「きせかえ」で交換できます</div><div class="confirmBtns" style="margin-top:10px"><button class="sec" onclick="hideP('dkSlvPop')">閉じる</button></div></div></div>
 <div id="bsetPop" class="pov" onclick="closeBattleSet()"><div class="confirmBox" onclick="event.stopPropagation()">
  <h3>対戦の設定</h3>
  <div class="bsetRow"><span>新しい対戦画面<small>オフにすると、今までの画面になります</small></span><button type="button" class="tgl" id="bsetNew" onclick="toggleBattleSet('new')"></button></div>
@@ -4050,6 +4063,7 @@ function renderDeckDetail(){const s=deckSlots()[dkIdx];if(!s){dkClose();return}
  $("dkInfo").textContent=dkPick?"切り札にするカードを3枚までえらんでね（対戦前の画面に大きく出るよ）":(ok?"30枚・モンスター"+mons+"・呪文"+(cards.length-mons)+"・平均コスト"+avg:"未完成（"+cards.length+"/30枚）");
  $("dkCards").classList.toggle("pick",dkPick);
  $("dkCards").innerHTML=ids.map(c=>'<button type="button" class="dkC'+(cv.includes(c.id)&&(s.cover||[]).includes(c.id)?" cov":"")+'" style="background-image:url('+(CARD_IMAGES[c.id]||"")+')" onclick="dkCardTap(\''+c.id+'\')"><b>'+(c.cost||0)+'</b>'+(cnt[c.id]>1?'<i>×'+cnt[c.id]+'</i>':"")+'</button>').join("");
+ if($("dkSlvBtn"))$("dkSlvBtn").classList.toggle("hide",SLEEVES.length<2);
  $("dkCovBtn").classList.toggle("on",dkPick);$("dkCovBtn").textContent=dkPick?"✓ 決定":"⭐ 切り札";
  $("dkUseBtn").disabled=!ok||dkIdx==curSlot();$("dkUseBtn").textContent=dkIdx==curSlot()?"使用中":"このデッキを使う"}
 function dkCardTap(id){if(!dkPick){const c=by(id);if(c)showD(c);return}
@@ -4892,12 +4906,15 @@ function buyPremium(pid){const x=PREMIUM.find(q=>q.id==pid);if(!x||premiumGot().
   const g=premiumGot();g.push(pid);store.set("cmPremium",JSON.stringify(g));if(x.title)kiseGive(x.title);sfx("summon");log2Toast("「"+x.name+"」のプロモCR×2とアイコン"+(x.title?"と起動画面":"")+"を手に入れた！");renderShop()})}
 /* ===== きせかえ（起動画面・プレイマット・スリーブ） 保存 cmKise
    スリーブはデッキごと（slot.sleeve）。ガチャの裏は使用中のデッキのスリーブ */
-const SLEEVES=[{id:"std",name:"いつもの",free:1},{id:"forest",name:"森",price:800},{id:"dark",name:"闇",price:800},{id:"gear",name:"歯車",price:800},{id:"rainbow",name:"レインボー",price:2000}];
-const KISE_MATS=[{id:"none",name:"なし",free:1}].concat(GACHAS.filter((g,i,a)=>g.bg&&a.findIndex(x=>x.bg==g.bg)==i).map(g=>({id:"m_"+g.id,name:g.title.replace(/パック.*$/,""),bg:g.bg,price:1000})));
+// スリーブ・マットは専用の絵ができるまで販売停止（前に交換した分も消す：kiseClean）
+const SLEEVES=[{id:"std",name:"いつもの",free:1}];
+const KISE_MATS=[{id:"none",name:"なし",free:1}];
 // 起動画面：絵のものはプレミアムパック（PREMIUM の title）で手に入る。fx は舞うもの（leaf / spore）
 const TITLE_SKINS=[{id:"std",name:"いつもの",free:1}];
 function kise(){let o=null;try{o=JSON.parse(store.get("cmKise")||"null")}catch(e){}o=o&&typeof o=="object"?o:{};if(!Array.isArray(o.own))o.own=[];return o}
 function kiseSave(o){store.set("cmKise",JSON.stringify(o))}
+(function kiseClean(){try{const ok=TITLE_SKINS.concat(SLEEVES,KISE_MATS).map(x=>x.id),o=kise(),n=o.own.length;o.own=o.own.filter(id=>ok.includes(id));
+ if(!KISE_MATS.some(m=>m.id==o.mat))delete o.mat;if(o.own.length!=n||o.mat===undefined)kiseSave(o)}catch(e){}})();
 function kiseHas(id,L){const x=L.find(q=>q.id==id);return !!x&&(!!x.free||kise().own.includes(id))}
 function kiseGive(id){const o=kise();if(!o.own.includes(id)){o.own.push(id);kiseSave(o)}}
 function matUrl(m){return !m||!m.bg?"":(m.bg.indexOf("http")==0?m.bg:TREE_BASE_URL+m.bg)}
@@ -4915,18 +4932,15 @@ function renderKise(){const o=kise(),T=[["起動画面",TITLE_SKINS],["プレイ
  else{const k=TITLE_SKINS.find(x=>x.id==cur);pv=(k&&k.img?'<div class="kiMat" style="background-image:url('+k.img+')"></div>':'')+'<div class="kiLogo">CORE<br>MONSTERS</div>'}
  $("kiPv").innerHTML=pv;
  $("kiNote").textContent=kiTab==2?"使用中のデッキ「"+deckSlotName(curSlot())+"」のスリーブ（デッキごとに変えられます）":kiTab==1?"対戦画面（新しい画面）の、場のうしろに出ます":"アプリを開いたときの画面";
- $("kiGrid").innerHTML=L.map(x=>{const own=kiseHas(x.id,L);let th;
+ const mine=L.filter(x=>kiseHas(x.id,L));
+ $("kiGrid").innerHTML=mine.map(x=>{const own=true;let th;
   if(kiTab==2)th='<div class="kiCb '+slvCls(x.id)+'"></div>';
   else if(kiTab==1)th='<div class="kiTh" style="'+(x.bg?'background-image:url('+matUrl(x)+')':'')+'"></div>';
   else th='<div class="kiTh tall" style="'+(x.img?'background-image:url('+x.img+')':'')+'">'+(x.img?'':'CORE<br>MONSTERS')+'</div>';
   return '<button type="button" class="kiIt'+(own?'':' lock')+(cur==x.id?' on':'')+'" onclick="kisePick(\''+x.id+'\')"><span class="kiCk">✓</span>'+th+'<span class="kiNm">'+escH(x.name)+'</span><span class="kiFr">'+(own?(cur==x.id?'使用中':'もっている'):x.price?'🔹'+x.price.toLocaleString():escH(x.from||'これから'))+'</span></button>'}).join("")
-  +(kiTab==0?'<div class="kiSoon">新しい起動画面は、これからのプレミアムパックに入ります</div>':'');
+  +'<div class="kiSoon">'+(kiTab==0?'新しい起動画面は、これからのプレミアムパックに入ります':'ほかの'+["","プレイマット","スリーブ"][kiTab]+'は、ショップの「きせかえ」で交換できます')+'</div>';
  $("kiRnd").classList.toggle("hide",kiTab!=0);$("kiRndBtn").classList.toggle("on",!!o.titleRnd)}
-function kisePick(id){const L=[TITLE_SKINS,KISE_MATS,SLEEVES][kiTab],x=L.find(q=>q.id==id);if(!x)return;
- if(!kiseHas(id,L)){if(!x.price){sfx("no");return}
-  if(shard<x.price){sfx("no");log2Toast("🔹かけらが足りません（"+x.price.toLocaleString()+"必要）");return}
-  askYesNo("「"+x.name+"」の"+["起動画面","プレイマット","スリーブ"][kiTab]+"を、🔹かけら"+x.price.toLocaleString()+"で交換しますか？",()=>{if(!spendShard(x.price))return;kiseGive(id);sfx("summon");log2Toast("「"+x.name+"」を手に入れた！");kiseUse(id);renderKise()});return}
- kiseUse(id);sfx("sel");renderKise()}
+function kisePick(id){const L=[TITLE_SKINS,KISE_MATS,SLEEVES][kiTab];if(!kiseHas(id,L))return;kiseUse(id);sfx("sel");renderKise()}
 function kiseUse(id){if(kiTab==2){const a=deckSlots(),i=curSlot();if(!a[i])a[i]={name:"デッキ"+(i+1),cards:[...deck]};a[i].sleeve=id;saveSlots(a);try{renderDeckList()}catch(e){}return}
  const o=kise();if(kiTab==1)o.mat=id;else o.title=id;kiseSave(o)}
 function kiseRnd(){const o=kise();o.titleRnd=!o.titleRnd;kiseSave(o);sfx("sel");renderKise()}
@@ -4938,12 +4952,18 @@ function dkSleeveSet(id){const a=deckSlots(),s=a[dkIdx];if(!s)return;s.sleeve=id
 function titleSkin(){const o=kise(),own=TITLE_SKINS.filter(x=>kiseHas(x.id,TITLE_SKINS));
  if(o.titleRnd&&own.length>1)return own[Math.random()*own.length|0];
  return own.find(x=>x.id==o.title)||TITLE_SKINS[0]}
+function shopKiseItem(x,th){const got=kiseHas(x.id,SLEEVES.concat(KISE_MATS));return '<div class="shopItem">'+th+'<div class="shopNm">'+escH(x.name)+'</div>'
+ +(got?'<div class="shopGot">交換済み</div>':'<button type="button" class="gold shopBuy" onclick="shopKise(\''+x.id+'\')">🔹'+x.price.toLocaleString()+'</button>')+'</div>'}
+function shopKise(id){const x=SLEEVES.concat(KISE_MATS).find(q=>q.id==id);if(!x||kiseHas(id,SLEEVES.concat(KISE_MATS)))return;
+ if(shard<x.price){sfx("no");log2Toast("🔹かけらが足りません（"+x.price.toLocaleString()+"必要）");return}
+ const kind=SLEEVES.includes(x)?"スリーブ":"プレイマット";
+ askYesNo("「"+x.name+"」の"+kind+"を、🔹かけら"+x.price.toLocaleString()+"で交換しますか？",()=>{if(!spendShard(x.price))return;kiseGive(id);sfx("summon");log2Toast(kind+"「"+x.name+"」を手に入れた！");renderShop()})}
 function shopCrList(){return P.filter(c=>c.rarity=="CR"&&!c.event&&!c.promo&&!c.passS&&!c.bossOnly&&ownedCount(c.id)>=1)}
 let gachaShopMode=false;
 function setGachaMode(shop){gachaShopMode=!!shop;sfx("sel");$("gacha").classList.toggle("shopMode",gachaShopMode);$("gmGacha").classList.toggle("on",!gachaShopMode);$("gmShop").classList.toggle("on",gachaShopMode);if(gachaShopMode)renderShop()}
 function shopJump(id){const el=$(id);if(el){el.scrollIntoView({block:"start",behavior:"smooth"});sfx("sel")}}
 function renderShop(){const own=extraIcons(),pg=premiumGot();
- $("shopView").innerHTML='<div class="shopNav"><button type="button" onclick="shopJump(\'shPrem\')">プレミアム</button><button type="button" onclick="shopJump(\'shIcon\')">アイコン</button><button type="button" onclick="shopJump(\'shCr\')">CR交換</button><button type="button" onclick="openKise(2)">きせかえ</button><button type="button" onclick="sfx(\'sel\');openExchange()">カード交換</button></div>'
+ $("shopView").innerHTML='<div class="shopNav"><button type="button" onclick="shopJump(\'shPrem\')">プレミアム</button><button type="button" onclick="shopJump(\'shIcon\')">アイコン</button><button type="button" onclick="shopJump(\'shCr\')">CR交換</button><button type="button" onclick="sfx(\'sel\');openExchange()">カード交換</button></div>'
   +'<div class="stH" id="shPrem" style="margin:4px 2px 6px">プレミアムパック</div><div class="pmList">'
   +premiumList().map(x=>{const got=pg.includes(x.id),im=CARD_IMAGES[x.card]||"";
    return '<div class="pmCard'+(got?' got':'')+(x.need?' pmDark':'')+'">'
@@ -4958,7 +4978,11 @@ function renderShop(){const own=extraIcons(),pg=premiumGot();
   +'<div class="stH" id="shCr" style="margin:14px 2px 6px">CR交換（🔹'+SHOP_CR_PRICE.toLocaleString()+'）</div>'+(()=>{const L=shopCrList();return L.length?'<div class="shopGrid">'+L.map(c=>{const n=ownedCount(c.id),full=n>=2;
    return '<div class="shopItem">'+(CARD_IMAGES[c.id]?'<img class="shopCard" src="'+CARD_IMAGES[c.id]+'" alt="">':'')+'<div class="shopNm">'+escH(c.name)+'</div><div class="shopOwn">所持 '+n+'枚</div>'
    +(full?'<div class="shopGot">2枚そろっています</div>':'<button type="button" class="gold shopBuy" onclick="shopBuyCr(\''+c.id+'\')">🔹'+SHOP_CR_PRICE.toLocaleString()+'</button>')+'</div>'}).join("")+'</div>':'<div class="evRw">ガチャで当てたCRを、もう1枚交換できます（イベントのCRはのぞく）。</div>'})()
-  +'<div class="stH" style="margin:14px 2px 6px">きせかえ</div><button type="button" class="sec evGoBtn" onclick="openKise(2)">👕 スリーブ・プレイマットを見る ▶</button>'
+  +(SLEEVES.concat(KISE_MATS).some(x=>!x.free)?'<div class="stH" id="shKise" style="margin:14px 2px 6px">きせかえ（🔹かけらで交換）</div><div class="shopSub">スリーブ</div><div class="shopGrid">'
+   +SLEEVES.filter(x=>!x.free).map(x=>shopKiseItem(x,'<div class="kiCb shopSlv '+slvCls(x.id)+'"></div>')).join("")+'</div>'
+  +'<div class="shopSub">プレイマット</div><div class="shopGrid">'
+   +KISE_MATS.filter(x=>!x.free).map(x=>shopKiseItem(x,'<div class="shopMat" style="background-image:url('+matUrl(x)+')"></div>')).join("")+'</div>'
+  +'<div class="evRw">交換したものは、メニューの「👕 きせかえ」で入れかえられます。スリーブはデッキごとに選べます。</div>':'')
   +'<div class="stH" style="margin:14px 2px 6px">カード交換</div><button type="button" class="sec evGoBtn" onclick="openExchange()">🔹 かけらでカードを交換する ▶</button>'
   +'<div class="evRw">交換したアイコンは、メニューの「戦績」→「アイコン」から選べます。</div>'}
 function shopBuyCr(id){const c=by(id);if(!c||ownedCount(id)<1||ownedCount(id)>=2)return;if(shard<SHOP_CR_PRICE){sfx("no");log2Toast("🔹かけらが足りません（"+SHOP_CR_PRICE.toLocaleString()+"必要）");return}
@@ -5322,7 +5346,7 @@ function renderCrystalDisplays(){["menuCrystal","gachaCrystal","tasksCrystal"].f
  try{renderShardDisplays()}catch(e){}}
 function log2Toast(msg){const el=$("crystalToast");if(!el)return;el.textContent=msg;
  // 対戦中は、上のHP・TURNの枠に重ならないよう、その下に出す
- try{const g=$("game");if(g&&!g.classList.contains("hide")){const t=g.querySelector(".top");el.style.top=(t.getBoundingClientRect().bottom+6)+"px"}else el.style.top=""}catch(e){}
+ try{const g=$("game");if(g&&!g.classList.contains("hide"))el.style.top=(battleTopY()+6)+"px";else el.style.top=""}catch(e){}
  el.classList.add("show");
  clearTimeout(window._toastT);window._toastT=setTimeout(()=>el.classList.remove("show"),1800)}
 
@@ -6764,7 +6788,7 @@ function b3Buff(m,a){
  if(a.lazy){m.lazy=1;m.lazyMsg="オーバーヒートで"}}
 // セリフの吹き出し（顔は画像か、名前の1文字）
 function sayPop(img,who,t){const el=$("bossSay"),x=$("bsTxt"),tp=document.querySelector("#game .top");if(!el||!x)return;
- el.style.top=((tp?tp.getBoundingClientRect().bottom:110)+6)+"px";
+ el.style.top=(battleTopY()+6)+"px";
  const f=$("bsFace");if(f){f.style.backgroundImage=img?"url("+img+")":"none";f.textContent=img?"":String(who||"").slice(0,1);f.classList.toggle("txtFace",!img)}
  $("bsWho").textContent=who;el.classList.remove("big");el.classList.add("on");x.textContent="";clearInterval(zrTY);let i=0;
  zrTY=setInterval(()=>{x.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(zrTY)},40);
@@ -7761,6 +7785,8 @@ function cutIn(c){const o=$("cutin");if(!o||!c)return;const img=CARD_IMAGES[c.id
  clearTimeout(_cutT);_cutT=setTimeout(()=>o.classList.remove("show"),1050)}
 let gvList=[];
 // 新しい対戦画面では、HPの数字のところでダメージの数字やゆれを出す
+// 対戦中の通知・セリフを出す高さ（上の帯（ぼかし）より下）
+function battleTopY(){const g=$("game");let y=110;try{const t=g&&g.classList.contains("nb")?heroBox("c"):g.querySelector(".top");if(t){const r=t.getBoundingClientRect();if(r.height)y=r.bottom}}catch(e){}return Math.max(y,66)}
 function heroBox(side){const g=$("game");if(g&&g.classList.contains("nb"))return $(side=="p"?"nbPHp":"nbOHp").parentElement;return $(side=="p"?"phpBox":"chpBox")}
 function showGrave(side){const G=side=="p"?S.pg:S.cg;$("gvTitle").textContent=(side=="p"?"自分":"相手")+"の墓地（"+G.length+"枚）";
  const nb=$("game").classList.contains("nb");$("gvBody").classList.toggle("gvGrid",nb&&G.length>0);
@@ -7984,15 +8010,15 @@ function render(){if(!S)return;try{b2Watch()}catch(e){}try{pasRefresh()}catch(e)
  }catch(e){}
  gems();rBoard("cb",S.cb,false);rBoard("pb",S.pb,true);try{applyBattleSet();nbRender()}catch(e){}
  const h=$("hand");h.innerHTML="";
- const HH=coopDispHand();
+ const HH=coopDispHand(),hk=c=>c.uid!=null?c.uid:c.id,newH=new Set(HH.map(hk));
  HH.forEach((c,index)=>{const d=document.createElement("div");
-  d.className="card"+(c.type=="spell"?" spellface":"")+(c.rarity=="CR"?" crframe":"")+rarityEdge(c)+(selH==index?" sel":"");
+  d.className="card"+(handSeen.has(hk(c))?"":" deal")+(c.type=="spell"?" spellface":"")+(c.rarity=="CR"?" crframe":"")+rarityEdge(c)+(selH==index?" sel":"");
   d.innerHTML=htmlCard(c,"p");
   bindPress(d,c,()=>{if(S.over)return;
    if(discardPick){discardTap(index);return}
    selH=index;selA=selE=null;sfx("sel");render()});
   if(discardPick&&discardPick.sel.includes(index))d.classList.add("picked");
-  h.appendChild(d)});
+  h.appendChild(d)});handSeen=newH;
  if(!HH.length){const t=document.createElement("div");t.style.cssText="color:#7b93b5;padding:24px;font-weight:900";t.textContent="手札なし";h.appendChild(t)}
  try{
   const sel=getSel();
@@ -8029,8 +8055,8 @@ function nbStatePop(){if(!S)return;const a=nbStates("p"),b=nbStates("c");
  $("nbStateBody").innerHTML='<h3>場の状態</h3>'+sec("自分にかかっている",a,"me")+sec("相手にかかっている",b,"op");$("nbStatePop").classList.add("show");sfx("sel")}
 function nbPiles(side){const D=side=="p"?S.pd:S.cd,G=side=="p"?S.pg:S.cg,top=G[G.length-1],img=top&&CARD_IMAGES[top.id];
  const sv=slvCls(side=="p"?slotSleeve():"std");
- return '<div class="pile d '+sv+'"><i></i><i></i><i></i><b>'+D.length+'</b></div><div class="pl">山札</div>'
-  +'<div class="pile g" onclick="event.stopPropagation();showGrave(\''+side+'\')">'+(img?'<i style="background-image:url('+img+')"></i>':'<i></i>')+'<b>'+G.length+'</b></div><div class="pl">墓地</div>'}
+ return '<span class="who">'+(side=="p"?"自分":"相手")+'</span><div class="pile d '+sv+'"><i></i><i></i><i></i><b>'+D.length+'</b></div>'
+  +'<div class="pile g" onclick="showGrave(\''+side+'\')">'+(img?'<i style="background-image:url('+img+')"></i>':'<i></i>')+'<b>'+G.length+'</b></div>'}
 function nbRender(){const g=$("game");if(!S||!g||!g.classList.contains("nb"))return;
  const mu=matUrl(curMat()),bf=$("bfield");if(bf){bf.classList.toggle("hasMat",!!mu);bf.style.setProperty("--mat",mu?"url("+mu+")":"none")}
  const nm=S.coop?"BOSS":((S.opp&&S.opp.name)?fillText(S.opp.name):"相手");$("nbOName").textContent=(S.opp&&S.opp.name)?fillText(S.opp.name):nm;
@@ -8038,7 +8064,6 @@ function nbRender(){const g=$("game");if(!S||!g||!g.classList.contains("nb"))ret
  const hp=(k,v,mx)=>{const w=Math.max(0,Math.min(100,v/mx*100))+"%";$(k).textContent=Math.max(0,v);$(k+"I").style.width=w;$(k+"U").style.width=w};
  hp("nbOHp",S.chp,S.cMax||10000);hp("nbPHp",S.php,S.pMax||10000);
  const w=nbTurnWho();$("nbTn").className="nbTn "+w[1];$("nbTnN").textContent="T"+turnTotal();$("nbTnW").textContent=w[0];
- $("nbStL").innerHTML=nbChips(nbStates("p"),"me");$("nbStR").innerHTML=nbChips(nbStates("c"),"op");
  $("nbCPiles").innerHTML=nbPiles("c");$("nbPPiles").innerHTML=nbPiles("p");
  $("nbCostN").innerHTML=Math.max(0,Math.min(S.cost,S.max))+"<small>/10</small>";
  const b=$("btnEnd");if(b&&/^ターンエンド/.test(b.textContent))b.innerHTML='<span class="et">ターン<br>エンド</span><span class="ea">▶</span>'}
@@ -8058,9 +8083,13 @@ function bindPress(el,card,tapFn){
  el.addEventListener("pointerleave",cancel);
  el.onclick=e=>{if(e&&e.stopPropagation)e.stopPropagation();if(fired){fired=false;return}tapFn(e)};
 }
+// わくごとに、前に出ていたカードを覚えておく（ちがうカードが来たときだけ「ポンッ」と出す）
+const popLane={p:[null,null,null],c:[null,null,null]};
+let handSeen=new Set();   // 手札：前に出ていたカード（新しく来たカードだけ下からスッと入る）
 function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
  B.forEach((c,i)=>{const s=document.createElement("div");
-  const sd=isP?"p":"c";
+  const sd=isP?"p":"c";let pop=false;
+  if(!c)popLane[sd][i]=null;else{const k=c.uid!=null?c.uid:c.id;if(popLane[sd][i]!==k){popLane[sd][i]=k;pop=true}}
   s.className="slot"+(i==1?" center":"")
    +(laneFx.atk&&laneFx.atk.side==sd&&laneFx.atk.i==i?" laneAtk":"")
    +(laneFx.tgt&&laneFx.tgt.side==sd&&laneFx.tgt.i==i?" laneTgt":"")
@@ -8071,7 +8100,7 @@ function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
    if(!isP&&selA!=null&&i==1&&!S.cb[1])s.classList.add("targetable");
   }else{
    const side=isP?"p":"c",d=document.createElement("div");
-   d.className="card"+(c.used?" used":"")
+   d.className="card"+(pop?" pop":"")+(c.used?" used":"")
     +((isP&&selA==i)||(!isP&&selE==i)?" sel":"")
     +(S.atkSide==side&&S.atkI==i?" atkframe":"")
     +(c.rarity=="CR"?" crframe":"")
@@ -8940,7 +8969,7 @@ function zrOn(){return !!(S&&((S.opp&&S.opp.zorome)||(S.coop&&S.coop.boss&&S.coo
 let zrTT,zrTY;
 function bossSayShow(n){const L=ZR_LINES[n];if(!L)return;
  const go=()=>{const el=$("bossSay"),x=$("bsTxt"),tp=document.querySelector("#game .top");
-  el.style.top=((tp?tp.getBoundingClientRect().bottom:110)+6)+"px";
+  el.style.top=(battleTopY()+6)+"px";
   $("bsFace").style.backgroundImage="url("+(CARD_IMAGES.zr_zorome||"")+")";$("bsFace").textContent="";$("bsFace").classList.remove("txtFace");$("bsWho").textContent="禁断の召喚士 ゾロ目";
   el.classList.toggle("big",!!L.big);el.classList.add("on");x.textContent="";clearInterval(zrTY);let i=0;
   zrTY=setInterval(()=>{x.textContent=L.t.slice(0,++i);if(i>=L.t.length)clearInterval(zrTY)},45);
