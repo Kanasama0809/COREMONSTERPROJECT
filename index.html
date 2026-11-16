@@ -191,7 +191,38 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .pmCard.got .pmArt{filter:saturate(.7)}.shopCard{width:70%;max-width:110px;aspect-ratio:.72;object-fit:cover;border-radius:8px;border:2px solid #c29bff}.shopOwn{font-size:11px;color:#9fb6d6}
 .ewNote{text-align:center;font-size:13px;color:#9fb6d6;margin-top:6px}
 .ewToday{display:block;margin:10px auto 0;min-height:40px;background:none;border:0;color:#8fd8ff;font:inherit;font-size:12px;text-decoration:underline}
-#edit.coopEdit .slotBar,#edit.coopEdit .slotTools{display:none}
+#edit .slotBar,#edit .slotTools{display:none}
+/* ===== デッキ編集（新しい形） ===== */
+#edit .eHead2{padding:8px 6px 8px;box-shadow:0 6px 14px #0009}
+.eBar{display:flex;align-items:center;gap:8px}
+.eBack{width:36px;height:36px;flex:0 0 auto;border-radius:50%;border:1px solid #2c4568;background:#0d1e33;color:#cfe0f5;font-size:15px;padding:0}
+.eName{flex:1;min-width:0;border:0;background:none;color:#fff;font-weight:900;font-size:17px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0;box-shadow:none}
+.eName small{font-size:11px;color:#7f9cc0;margin-left:4px}
+.eSave{flex:0 0 auto;padding:8px 16px;border-radius:99px;border:0;background:linear-gradient(#f6cf6b,#d49a1c);color:#3a2700;font-weight:900;font-size:13px;box-shadow:none}
+.eSave:disabled{background:#2b3f57;color:#7f9cc0;opacity:1}
+.eStat{display:flex;align-items:center;gap:10px;width:100%;margin:8px 0 0;padding:8px 10px;border-radius:12px;border:1px solid #2c4568;background:#0d1e33;font-size:12px;color:#9fb6d3;text-align:left;box-shadow:none;font-weight:400}
+#edit.dOpen .eStat{border-color:#4ee3ff}
+.eCnt{font-size:20px;font-weight:900;color:#fff;white-space:nowrap}.eCnt.full{color:#7ee0a1}.eCnt.over{color:#ff6b6b}.eCnt small{font-size:12px;color:#9fb6d3}
+.cbar{flex:1;display:flex;height:6px;border-radius:9px;overflow:hidden;background:#0a1628}.cbar i{display:block}
+.eAvg{white-space:nowrap}.eFold{color:#4ee3ff;font-size:11px;font-weight:700;white-space:nowrap}
+#edit .dGrid{display:none;grid-template-columns:repeat(10,1fr);gap:3px;margin-top:6px}#edit.dOpen .dGrid{display:grid}
+.dcl{position:relative;aspect-ratio:3/4;border-radius:5px;background:#22375a center/cover;box-shadow:0 0 0 1px #fff3;display:flex;align-items:center;justify-content:center}
+.dcl b{position:absolute;left:1px;top:1px;width:13px;height:13px;border-radius:50%;background:#0c1830e6;color:#fff;font-size:8px;display:flex;align-items:center;justify-content:center}
+.dcl.e{background:none;box-shadow:inset 0 0 0 1px #2c4568}
+.eInfo{margin-top:4px;font-size:11px}
+.eFil{padding:8px 4px 0}
+.sortRow{display:flex;gap:6px;margin-top:6px}.sortRow .sortSel{flex:1;margin:0}
+.sortDir{flex:0 0 auto;padding:6px 14px;border-radius:99px;border:1px solid #4ee3ff;background:#0b2a3a;color:#4ee3ff;font-weight:700;font-size:12px;white-space:nowrap;box-shadow:none}
+#edit .eGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px 4px 110px}
+.eK{position:relative;aspect-ratio:3/4;border-radius:9px;background:#22375a center/cover;box-shadow:0 0 0 1px #fff2,0 3px 8px #0008;overflow:hidden;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.eK.max{filter:brightness(.45)}
+.ekC{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#0c1830e6;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center}
+.ekO{position:absolute;right:3px;bottom:3px;font-size:9px;font-weight:900;padding:1px 5px;border-radius:99px;background:#000c;color:#cfe0f5}
+.ekD{position:absolute;left:0;right:0;bottom:0;padding:3px 0 14px;font-size:10px;font-weight:900;text-align:center;background:linear-gradient(transparent,#0a6b3add);color:#fff}
+.ekA{position:absolute;right:3px;top:3px;display:flex;gap:2px}.ekA span{font-size:9px;padding:1px 3px;border-radius:6px;background:#0c1830cc}
+.ekN{position:absolute;left:4px;right:4px;bottom:20px;font-size:9px;text-align:center}
+.eFlyC{position:fixed;z-index:200;pointer-events:none;border-radius:6px;background:center/cover;transition:all .35s cubic-bezier(.4,1.4,.6,1)}
+#edit .eFoot{display:flex;gap:8px;justify-content:center}#edit .eFoot button{flex:1;max-width:200px}   /* 枠の切り替え・名前・複製・削除はデッキ一覧で */
 /* だれかと */
 .dhSec{font-size:11px;font-weight:900;letter-spacing:.16em;color:#75efaa;margin:14px 4px 8px}
 .bt-co{--bc:#75efaa}.btCard .dhImg{position:absolute;right:0;top:0;bottom:0;width:46%;background-size:cover;background-position:center 22%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%);opacity:.95;pointer-events:none}
@@ -499,6 +530,38 @@ body.calm .tCard{animation:none}
  align-items:center;justify-content:center;gap:0;padding:24px;text-align:center;
  background:radial-gradient(120% 80% at 50% 30%,#0d2144,#050b18 72%)}
 #prematch.on{display:flex!important}
+/* ===== 対戦前（大きい絵） ===== */
+#prematch{padding:0;justify-content:stretch;align-items:stretch;background:#000}
+#prematch .pmTop,#prematch .pmBot{position:relative;flex:1;overflow:hidden;display:flex;flex-direction:column}
+#prematch .pmOArt,#prematch .pmAces{position:absolute;inset:0}
+#prematch .pmOArt{inset:-4%;height:auto;background:radial-gradient(120% 90% at 50% 30%,#4a1a2a,#14070d) center 28%/cover;animation:pmZoom 6s ease-out both;clip-path:polygon(0 0,100% 0,100% 88%,0 100%)}
+#prematch .pmTop:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 55%,#0009 96%);clip-path:polygon(0 0,100% 0,100% 88%,0 100%)}
+@keyframes pmZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+#prematch .pmAces{clip-path:polygon(0 12%,100% 0,100% 100%,0 100%);background:radial-gradient(120% 100% at 50% 80%,#12345e,#060f1e)}
+#prematch .pmBot:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0000 45%,#000b 92%)}
+.pmAces .ace{position:absolute;inset:0;background:center 30%/cover;animation:pmAceIn .5s ease-out both}
+.pmAces .ace:nth-child(2){animation-delay:.12s}.pmAces .ace:nth-child(3){animation-delay:.24s}
+.ace.s2a{clip-path:polygon(0 0,62% 0,38% 100%,0 100%)}.ace.s2b{clip-path:polygon(62% 0,100% 0,100% 100%,38% 100%)}
+.ace.s3a{clip-path:polygon(0 0,44% 0,26% 100%,0 100%)}.ace.s3b{clip-path:polygon(44% 0,78% 0,60% 100%,26% 100%)}.ace.s3c{clip-path:polygon(78% 0,100% 0,100% 100%,60% 100%)}
+.pmSlash{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.pmSlash line{stroke:#fff;stroke-width:.8}
+@keyframes pmAceIn{from{opacity:0;transform:translateY(20px)}}
+#prematch .pmBoss{display:none!important}
+#prematch .pmOppTx{position:relative;z-index:2;margin-top:auto;padding:0 16px 15%;text-align:left}
+#prematch .pmName{text-align:left;margin-top:2px;text-shadow:0 2px 12px #000;line-height:1.15;word-break:break-word}
+#prematch .pmTag,#prematch .pmBossLine{text-align:left;color:#ffd7d7;text-shadow:0 1px 6px #000;margin-top:4px;max-width:none;opacity:1;animation:none}
+#prematch .pmBossLine:empty{display:none}
+#prematch .pmTitleTag{text-align:left;margin:0}
+#prematch .pmMeTx{position:relative;z-index:2;margin-top:auto;padding:0 16px 16px}
+#prematch .pmMe{align-items:flex-start;margin:0}
+#prematch .pmDeck{display:block;width:100%;margin:10px 0 0;text-align:left;background:#000a;border-radius:12px}
+#prematch .pmDeck.hide{display:none}
+#prematch .pmRow{display:flex;gap:8px;margin-top:10px;align-items:stretch}
+#prematch .pmFlip{flex:0 0 auto;width:74px;height:auto;min-height:52px;font-size:18px;border-radius:14px;background:#000a}
+#prematch .pmBtn{flex:1;width:auto;margin:0;font-size:18px;letter-spacing:.08em;border-radius:14px}
+#prematch .pmVsLine{position:absolute;left:-5%;right:-5%;top:50%;z-index:4;height:4px;transform:translateY(-50%) rotate(-7deg);background:linear-gradient(90deg,transparent,#ff5a7a,#ffd36b,#5ab8ff,transparent);box-shadow:0 0 20px #ffd36b;pointer-events:none}
+#prematch .pmVs{position:absolute;left:50%;top:50%;z-index:5;margin:0;transform:translate(-50%,-50%) rotate(-7deg);font-size:54px;font-weight:900;font-style:italic;letter-spacing:-3px;text-indent:0;color:#fff;text-shadow:0 0 20px #ffd36b,0 4px 0 #b6431c,0 8px 18px #000;pointer-events:none;animation:pmVsIn .5s .35s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pmVsIn{from{transform:translate(-50%,-50%) rotate(-7deg) scale(2.8);opacity:0}}
+#prematch .pmGap{display:none}
 /* ボス戦：ボスのカードを大きく出してからルーレット */
 #prematch.boss{background:radial-gradient(ellipse at 50% 32%,#3a2708 0%,#120818 52%,#020409 100%)}
 #prematch.boss .pmGap{height:14px}
@@ -791,6 +854,71 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 /* ===== cards ===== */
 .hand{display:flex;gap:11px;overflow-x:auto;padding:12px 10px;min-height:174px;background:linear-gradient(#1b2334,#131a29);border-radius:18px;align-items:flex-start;margin-top:6px;border:1px solid #2a3a55}
 
+/* ===== 対戦の設定 ===== */
+.bsetRow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 2px;border-bottom:1px solid #ffffff14;font-size:13px;text-align:left}
+.bsetRow small{display:block;font-size:10px;color:#9fb6d3;margin-top:2px}
+.tgl{flex:0 0 auto;width:46px;height:26px;border-radius:99px;border:0;padding:0;background:#2b3f57;position:relative;box-shadow:none}
+.tgl:after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.tgl.on{background:#2aa8ff}.tgl.on:after{left:23px}
+.sh{font-size:11px;color:#9fb6d3;margin:10px 0 4px;text-align:left}.si{font-size:13px;padding:7px 10px;border-radius:10px;background:#0d1e33;margin-bottom:4px;text-align:left}
+.si.me{box-shadow:inset 3px 0 0 #6bc8ff}.si.op{box-shadow:inset 3px 0 0 #ff8a9a}
+/* 今までの画面：新しい部品は出さない（場のまとまりも、ふつうの並びのまま） */
+.bfield,.nbZone,.nbCost{display:contents}
+.nbOnly{display:none!important}
+#game>.bfield>.nbZone>.board{flex:1 1 96px;min-height:104px}
+/* ===== 新しい対戦画面（#game.nb） ===== */
+#game.nb>.top,#game.nb>.ztLine{display:none}
+#game.nb .nbOnly{display:revert!important}
+#game.nb>.bfield{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:auto auto minmax(0,1fr) 30px minmax(0,1fr) auto;gap:4px;padding:6px;border-radius:16px;box-shadow:inset 0 0 0 2px #ffffff33;background:#00000033;margin-top:4px}
+#game.nb .nbHead{display:flex!important;justify-content:space-between;align-items:center;gap:8px;padding:0 2px}
+#game.nb .nbName{font-size:11px;font-weight:700;color:#9fb6d3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#game.nb .nbEx{font-size:10px;color:#9fb6d3;white-space:nowrap}
+#game.nb .nbHp{display:grid!important;grid-template-columns:62px minmax(0,1fr);align-items:center;gap:6px;padding:0 2px}
+#game.nb .nbHp .num{font-size:19px;font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+#game.nb .nbHp.o .num{color:#ff9aa8}#game.nb .nbHp.m .num{color:#8ad0ff}
+#game.nb .hpb{position:relative;display:block;height:12px;border-radius:99px;background:#0009;box-shadow:inset 0 0 0 1px #ffffff2a;overflow:hidden}
+#game.nb .hpb i,#game.nb .hpb u{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
+#game.nb .hpb i{transition:width .5s}#game.nb .hpb u{background:#fff8;transition:width 1.2s .3s}
+#game.nb .nbHp.o .hpb i{background:linear-gradient(90deg,#ff4d6d,#ff9a6b)}#game.nb .nbHp.m .hpb i{background:linear-gradient(90deg,#2a8dff,#6be3ff)}
+#game.nb .nbZone{display:grid;grid-template-columns:minmax(0,1fr) 40px;gap:6px;min-height:0}
+#game.nb .nbZone>.board{min-height:0;height:100%;gap:6px}
+#game.nb .slot{min-height:0;border:1px solid #ffffff33;background:#0003;border-radius:9px;container-type:size;color:transparent}
+#game.nb.lbl .slot{color:#ffffff40}
+#game.nb .slot.center{border-color:#6bc8ff66;box-shadow:none}
+#game.nb .board .card{width:min(100cqw - 6px,(100cqh - 6px)*.75);height:auto;aspect-ratio:3/4}
+#game.nb .nbPiles{display:flex!important;flex-direction:column;align-items:center;justify-content:center;min-height:0;padding-top:6px}
+#game.nb .pile{position:relative;width:34px;height:46px}
+#game.nb .pile i{position:absolute;inset:0;border-radius:5px;background:linear-gradient(135deg,#3a2a7a,#1a1040) center/cover;border:1.5px solid #c9a6ff}
+#game.nb .pile i:nth-child(2){transform:translate(2px,-2px)}#game.nb .pile i:nth-child(3){transform:translate(4px,-4px)}
+#game.nb .pile b{position:absolute;right:-4px;bottom:-6px;z-index:2;font-size:10px;padding:0 5px;border-radius:99px;background:#000;color:#fff}
+#game.nb .pile.g{margin-top:4px;cursor:pointer}#game.nb .pile.g i{background-color:#22375a;border-color:#ffffff55}
+#game.nb .pl{font-size:8px;color:#ffffff88;text-align:center;margin-top:4px}
+#game.nb .nbMid{position:relative;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr)) 40px;align-items:center;gap:6px;cursor:pointer}
+#game.nb .nbMid:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,#ffffff33,transparent)}
+#game.nb .nbTn{position:relative;justify-self:center;display:flex;height:26px;border-radius:99px;overflow:hidden;box-shadow:0 0 0 1px #ffffff44,0 3px 8px #0009;background:#0b1a30}
+#game.nb .nbTn b{width:38px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#cfe0f5;background:#0006}
+#game.nb .nbTn span{width:58px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.04em;background:linear-gradient(90deg,#1d6fe0,#3aa0ff);color:#fff}
+#game.nb .nbTn.op span{background:linear-gradient(90deg,#c0304a,#ff5a7a)}#game.nb .nbTn.ally span{background:linear-gradient(90deg,#1e8a4a,#3fd07a)}
+#game.nb .sts{position:relative;display:flex;gap:4px;min-width:0;overflow:hidden}#game.nb .sts.r{justify-content:flex-end}
+#game.nb .sc{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:10px;font-weight:700;padding:3px 7px;border-radius:99px;white-space:nowrap;background:#000b;box-shadow:inset 0 0 0 1px #ffffff33}
+#game.nb .sc.me{box-shadow:inset 0 0 0 1px #6bc8ff99;color:#bfe6ff}#game.nb .sc.op{box-shadow:inset 0 0 0 1px #ff8a9a99;color:#ffd0d6}#game.nb .sc.more{flex:0 0 auto;color:#9fb6d3}
+#game.nb>.ctrlbar{display:block;margin:6px 0 2px}
+#game.nb .ctrlbar .side,#game.nb .ctrlbar #log{display:none}
+#game.nb .ctrlbar .cmid{display:flex;flex-direction:row;align-items:center;gap:6px}
+#game.nb .ctrlbar .cmtop{display:contents}
+#game.nb .nbCost{display:flex;order:-1;flex:1;min-width:0;height:44px;align-items:center;gap:6px;padding:0 9px;border-radius:12px;background:#0009;box-shadow:inset 0 0 0 1px #4ee3ff55}
+#game.nb .ctrlbar #gems{display:flex;flex:0 1 auto;min-width:0;gap:3px;border:0;padding:0;background:none}
+#game.nb .ctrlbar #gems .gem{flex:0 0 auto;width:9px;height:9px;aspect-ratio:auto;transform:rotate(45deg);border-radius:2px;box-shadow:0 0 6px #2ed4ff}
+#game.nb .ctrlbar #gems .gem.off{box-shadow:none}
+#game.nb .nbCostN{display:inline!important;flex:0 0 auto;font-size:14px;font-weight:900;color:#bff3ff;white-space:nowrap}#game.nb .nbCostN small{font-size:11px;color:#9fb6d3}
+#game.nb .ctrlbar .pauseBtn,#game.nb .nbLogBtn{flex:0 0 auto;height:44px;min-width:38px;border-radius:12px;border:1px solid #ffffff33;background:#0009;color:#fff;font-size:13px;font-weight:900;padding:0 10px}
+#game.nb .ctrlbar #btnEnd{flex:0 0 auto;display:flex;align-items:center;gap:4px;height:44px;line-height:1.15;font-size:12px;white-space:nowrap;padding:0 9px 0 10px;border-radius:12px}
+#game.nb #btnEnd .et{text-align:left}#game.nb #btnEnd .ea{font-size:13px}
+#game.nb>.hand{min-height:0;padding:8px 2px 10px;gap:5px;background:none;border:0;margin-top:2px}
+#game.nb>.hand .card{flex:0 0 calc((100% - 15px)/4);width:auto;max-width:96px}
+@media (max-width:350px){#game.nb .ctrlbar #btnEnd{padding:0 7px;font-size:11px}#game.nb .ctrlbar .pauseBtn,#game.nb .nbLogBtn{min-width:32px;padding:0 7px;font-size:11px}
+ #game.nb .nbCost{padding:0 6px;gap:4px}#game.nb .ctrlbar #gems{gap:2px}#game.nb .ctrlbar #gems .gem{width:7px;height:7px}#game.nb .nbCostN{font-size:12px}
+ #game.nb .nbTn b{width:30px;font-size:11px}#game.nb .nbTn span{width:50px;font-size:10px}#game.nb .nbHp{grid-template-columns:54px minmax(0,1fr)}#game.nb .nbHp .num{font-size:16px}}
 /* ===== 対戦レイアウトC（下部集約バー：CPU｜中央⏸/END/コア/ログ｜自分） ===== */
 #game>.ztLine{flex:0 0 auto;text-align:center;color:#62d8ff;font-weight:900;font-size:11px;letter-spacing:1px;margin:3px 0}
 #game>.ctrlbar{flex:0 0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:6px 8px;align-items:start;margin:6px 0}
@@ -1278,6 +1406,34 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 .pmMe .tName{font-family:'Dela Gothic One',sans-serif;font-size:26px;letter-spacing:2px}
 #pmName .tName{font:inherit}
 #titles{padding-bottom:110px}
+/* デッキ一覧（ポケポケ風：デッキの箱を2列で並べる） */
+#deckList{padding-bottom:110px}
+.dkGrid{display:flex;flex-direction:column;gap:10px;padding:10px 12px}
+.dkRow{display:flex;align-items:center;gap:10px;width:100%;padding:10px;border:0;border-radius:16px;background:linear-gradient(100deg,#1b3357,#0c1830);box-shadow:0 0 0 1px #2c4568;color:#eaf2ff;font:inherit;text-align:left;font-weight:400}
+.dkRow.on{box-shadow:0 0 0 2px #f0c76a,0 0 14px #f0c76a55}
+.dkFan{position:relative;width:118px;height:84px;flex:0 0 auto;display:block}
+.dkFan .cv{position:absolute;bottom:0;width:58px;aspect-ratio:3/4;border-radius:8px;background:#22375a center/cover;box-shadow:0 4px 10px #000a;border:2px solid #fffc}
+.dkFan .cv:nth-child(1){left:0;transform:rotate(-10deg)}.dkFan .cv:nth-child(2){left:30px;z-index:1}.dkFan .cv:nth-child(3){left:60px;transform:rotate(10deg);z-index:2}
+.dkTx{flex:1;min-width:0;display:block}
+.dkName{display:block;font-weight:900;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dkUse{display:inline-block;margin-left:6px;font-size:10px;font-weight:900;padding:3px 8px;border-radius:99px;background:#f0c76a;color:#3a2700;vertical-align:2px}
+.dkSub{display:block;font-size:11px;color:#9fb6d3;margin-top:3px}.dkSub.wip{color:#ffb36b}
+.dkTx .cbar{display:flex;margin-top:6px}
+.dkRow.new{justify-content:center;min-height:64px;background:transparent;box-shadow:inset 0 0 0 2px #2c4568;color:#7f9cc0;font-weight:700}
+.dkBox{max-width:420px;width:94vw;max-height:88vh;overflow:auto}
+.dkHead{font-weight:900;font-size:17px;text-align:center;margin-bottom:6px}
+.dkCover{display:flex;justify-content:center;gap:10px;margin:4px 0 8px}
+.dkCover .cv{width:74px;aspect-ratio:1/1.35;border-radius:10px;background:#22375a center/cover no-repeat;border:2px solid #fff;box-shadow:0 4px 10px #000a}
+.dkInfo{font-size:12px;color:#9fb6d3;text-align:center;margin-bottom:8px}
+.dkCards{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.dkC{position:relative;aspect-ratio:1/1.35;border-radius:7px;border:0;padding:0;background:#22375a center/cover no-repeat;box-shadow:0 0 0 1px #ffffff22}
+.dkC i{position:absolute;right:2px;bottom:2px;font-style:normal;font-size:10px;font-weight:900;padding:1px 5px;border-radius:99px;background:#000c;color:#fff}
+.dkC b{position:absolute;left:2px;top:2px;font-size:10px;font-weight:900;width:17px;height:17px;border-radius:50%;background:#0c1830e6;color:#fff;display:flex;align-items:center;justify-content:center}
+.dkC.cov{box-shadow:0 0 0 3px #f0c76a}
+.dkCards.pick .dkC:not(.cov){opacity:.65}
+.dkTools{display:flex;gap:6px;margin:10px 0 2px}
+.dkTools button{flex:1;padding:7px 4px;font-size:12px;border-radius:10px;background:#0d1e33;border:1px solid #2c4568;color:#cfe0f5;font:inherit;font-size:12px}
+.dkTools button.on{border-color:#f0c76a;color:#f0c76a}
 .titleNow{margin:10px 14px;padding:12px;border-radius:14px;background:#13233c;border:1px solid #f0c76a;display:flex;flex-direction:column;align-items:center;gap:4px}
 .tnLbl{font-size:11px;color:#9fb6d6}.tNone{font-size:12px;color:#9fb6d6}
 .tnName .tName{font-family:'Dela Gothic One',sans-serif;font-size:24px}
@@ -1752,7 +1908,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.41.0</div>
+ <div class="tVer" id="tVer">ver.5.43.1</div>
 </div>
 
 <div id="app">
@@ -1865,6 +2021,19 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  </div>
 </div>
 
+<div id="deckList" class="hide">
+ <div class="lhead"><h2>デッキ</h2><div class="lsub" id="dkCount"></div></div>
+ <div id="dkGrid" class="dkGrid"></div>
+ <div class="foot"><button type="button" class="sec" onclick="menu()">戻る</button></div>
+</div>
+<div id="dkPop" class="pov" onclick="dkClose()"><div class="confirmBox dkBox" onclick="event.stopPropagation()">
+ <div id="dkHead" class="dkHead"></div>
+ <div id="dkCover" class="dkCover"></div>
+ <div id="dkInfo" class="dkInfo"></div>
+ <div id="dkCards" class="dkCards"></div>
+ <div class="dkTools"><button type="button" onclick="dkRename()">✎ 名前</button><button type="button" id="dkCovBtn" onclick="dkCoverMode()">⭐ 切り札</button><button type="button" onclick="dkCopy()">⧉ 複製</button><button type="button" onclick="dkDelete()">🗑 削除</button></div>
+ <div class="confirmBtns"><button type="button" class="sec" onclick="dkClose()">閉じる</button><button type="button" class="sec" onclick="dkEdit()">編集する</button><button type="button" id="dkUseBtn" class="pri" onclick="dkUse()">このデッキを使う</button></div>
+</div></div>
 <div id="titles" class="hide">
  <div class="lhead"><h2>称号</h2><div class="lsub" id="titleCount"></div></div>
  <div id="titleNow" class="titleNow"></div>
@@ -2009,7 +2178,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 <div id="deckPickPop" class="pov"><div class="confirmBox dpBox" onclick="event.stopPropagation()">
  <div class="srTag">使うデッキをえらぶ</div>
  <div id="deckPickList" class="dpList"></div>
- <div class="confirmBtns" style="margin-top:10px"><button class="sec" onclick="sfx('sel');openEdit();hideP('deckPickPop')">デッキを編集</button><button class="sec" onclick="hideP('deckPickPop')">閉じる</button></div>
+ <div class="confirmBtns" style="margin-top:10px"><button class="sec" onclick="sfx('sel');hideP('deckPickPop');openDeckList()">デッキ一覧</button><button class="sec" onclick="hideP('deckPickPop')">閉じる</button></div>
 </div></div>
 
 <nav id="tabBar" class="tabBar hide" aria-label="メイン"><button type="button" id="tab_home" class="tabBtn" onclick="tabGo('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 11 L12 4 L20 11 V20 H14 V14 H10 V20 H4 Z"/></svg><span>ホーム</span><span class="tabBadge hide"></span></button><button type="button" id="tab_story" class="tabBtn" onclick="tabGo('story')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 5 H10 a2 2 0 0 1 2 2 V20 a2 2 0 0 0 -2 -2 H4 Z"/><path d="M20 5 H14 a2 2 0 0 0 -2 2 V20 a2 2 0 0 1 2 -2 H20 Z"/></svg><span>ストーリー</span><span class="tabBadge hide"></span></button><button type="button" id="tab_battle" class="tabBtn" onclick="tabGo('battle')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5 19 L15 9"/><path d="M15 9 L19 5 L19 9 Z"/><path d="M19 19 L9 9"/><path d="M9 9 L5 5 L5 9 Z"/></svg><span>対戦</span><span class="tabBadge hide"></span></button><button type="button" id="tab_gacha" class="tabBtn" onclick="tabGo('gacha')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4 H17 L21 9 L12 20 L3 9 Z"/><path d="M3 9 H21"/><path d="M12 20 L8 9 L10 4"/><path d="M12 20 L16 9 L14 4"/></svg><span class="tabLong">ガチャ・ショップ</span><span class="tabBadge hide"></span></button><button type="button" id="tab_more" class="tabBtn" onclick="tabGo('more')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg><span>メニュー</span><span class="tabBadge hide"></span></button></nav>
@@ -2032,13 +2201,19 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
   <div class="box" id="phpBox"><small>自分 HP</small><div id="php" class="hp">10000</div><div class="hpbar"><i id="phpBar"></i></div></div>
  </div>
  <div class="ztLine"><span id="cpuHandInfo">相手の手札：0枚</span></div>
- <div id="cb" class="board"></div>
- <div id="pb" class="board"></div>
+ <div id="bfield" class="bfield">
+  <div class="nbOnly nbHead"><span id="nbOName" class="nbName"></span><span id="nbOHand" class="nbEx"></span></div>
+  <div class="nbOnly nbHp o"><span id="nbOHp" class="num"></span><span class="hpb"><u id="nbOHpU"></u><i id="nbOHpI"></i></span></div>
+  <div class="nbZone"><div id="cb" class="board"></div><div class="nbOnly nbPiles" id="nbCPiles"></div></div>
+  <div class="nbOnly nbMid" onclick="nbStatePop()"><div class="sts l" id="nbStL"></div><div class="nbTn" id="nbTn"><b id="nbTnN"></b><span id="nbTnW"></span></div><div class="sts r" id="nbStR"></div><div></div></div>
+  <div class="nbZone"><div id="pb" class="board"></div><div class="nbOnly nbPiles" id="nbPPiles"></div></div>
+  <div class="nbOnly nbHp m"><span id="nbPHp" class="num"></span><span class="hpb"><u id="nbPHpU"></u><i id="nbPHpI"></i></span></div>
+ </div>
  <div class="ctrlbar">
   <div class="side" onclick="showGrave('c')"><div class="who" id="cWho">相手</div><div class="dk">山<b id="cd">0</b></div><div class="dk">墓<b id="cgN">0</b></div></div>
   <div class="cmid">
-   <div class="cmtop"><button class="pauseBtn" onclick="openPause()" aria-label="ポーズ">⏸</button><button id="btnEnd" onclick="nextPhase()">ターンエンド ▶</button></div>
-   <div id="gems" class="gemrow"></div>
+   <div class="cmtop"><button class="pauseBtn" onclick="openPause()" aria-label="ポーズ">⏸</button><button type="button" class="nbOnly nbLogBtn" onclick="showLogs()">ログ</button><button id="btnEnd" onclick="nextPhase()">ターンエンド ▶</button></div>
+   <div class="nbCost"><div id="gems" class="gemrow"></div><span class="nbOnly nbCostN" id="nbCostN"></span></div>
   </div>
   <div class="side" onclick="showGrave('p')"><div class="who">自分</div><div class="dk">山<b id="pd">0</b></div><div class="dk">墓<b id="pgN">0</b></div></div>
   <div id="log" class="log" onclick="showLogs()">開始</div>
@@ -2048,31 +2223,34 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 </div>
 
 <div id="edit" class="hide">
- <div class="editorHead"><h1>デッキ編集</h1><div id="info" class="sub"></div>
+ <div class="editorHead eHead2">
+  <div class="eBar"><button type="button" class="eBack" onclick="editBack()" aria-label="戻る">◀</button><button type="button" class="eName" onclick="eRename()"><span id="eNm"></span><small>✎</small></button><button type="button" class="eSave" id="eSave" onclick="saveDeck()">保存</button></div>
+  <button type="button" class="eStat" onclick="toggleDeckOpen()"><span class="eCnt" id="eCnt"></span><span class="cbar" id="eBar"></span><span class="eAvg" id="eAvg"></span><span class="eFold" id="eFold"></span></button>
+  <div id="deckStrip" class="dGrid"></div>
+  <div id="info" class="sub eInfo"></div>
   <div id="slotBar" class="slotBar"></div>
   <div class="slotTools">
    <button onclick="renameDeckSlot()">✎ 名前</button>
    <button onclick="copyDeckSlot()">⧉ 複製</button>
    <button onclick="clearDeckSlot()">🗑 この枠を空に</button>
   </div>
+ </div>
+ <div class="eFil">
   <div class="fb"><button id="fAll" onclick="setFilter('all')">全部</button><button id="fMon" onclick="setFilter('monster')">モンスター</button><button id="fSpl" onclick="setFilter('spell')">呪文</button></div>
   <div class="kwBar" id="kwBar"></div>
   <div class="srchRow hide" id="editSrchRow"><span class="srchBox"><input id="editSearch" type="search" class="srchIn" placeholder="カード名・効果で探す" autocomplete="off" enterkeyhint="search" oninput="setEditSearch(this.value)"><button type="button" id="srchX" class="srchX hide" onclick="clearEditSearch()" aria-label="検索をクリア">×</button></span></div>
-  <select id="editSort" class="sortSel" onchange="setSortMode(this.value)">
+  <div class="sortRow"><select id="editSort" class="sortSel" onchange="setSortMode(this.value)">
    <option value="kana">50音順</option>
    <option value="cost">コスト順</option>
    <option value="rarity">レア度順</option>
    <option value="atk">ATK順</option>
    <option value="def">DEF順</option>
-  </select>
+  </select><button type="button" id="sortDir" class="sortDir" onclick="toggleSortDir()"></button></div>
  </div>
- <div id="deckStrip" class="deckStrip"></div>
- <div id="eg" class="grid"></div>
- <div class="foot">
-  <button type="button" class="bad" onclick="clearDeck()">全解除</button>
-  <button class="sec" onclick="autoFill()">おまかせ</button>
-  <button class="gold" onclick="saveDeck()">保存</button>
-  <button class="sec" onclick="editBack()">戻る</button>
+ <div id="eg" class="grid eGrid"></div>
+ <div class="foot eFoot">
+  <button class="sec" onclick="autoFill()">✨ おまかせ</button>
+  <button type="button" class="bad" onclick="clearDeck()">全部はずす</button>
  </div>
 </div>
 
@@ -2239,19 +2417,20 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 <button id="cast" class="popbtn castb" onclick="cast()">✨ 発動</button>
 <button id="detail" class="popbtn detailb" onclick="detailSel()">🔍 詳細を見る</button>
 <div id="prematch">
- <div id="pmBoss" class="pmBoss hide">
-  <div class="pmBossCard" onclick="if(pmBossId)showDById(pmBossId)"><img id="pmBossImg" alt=""></div>
-  <div id="pmBossLine" class="pmBossLine"></div>
+ <!-- 上半分：相手の絵を大きく。下半分：自分の切り札（1〜3枚をななめに分ける） -->
+ <div class="pmTop" onclick="if(pmBossId)showDById(pmBossId)"><div class="pmOArt" id="pmOppArt"></div>
+  <div id="pmBoss" class="pmBoss hide"><div class="pmBossCard"><img id="pmBossImg" alt=""></div></div>
+  <div class="pmOppTx"><div id="pmOppTitle" class="pmTitleTag"></div><div id="pmName" class="pmName"></div><div id="pmBossLine" class="pmBossLine"></div><div id="pmTag" class="pmTag"></div></div>
  </div>
- <div id="pmOppTitle" class="pmTitleTag"></div>
- <div id="pmName" class="pmName"></div>
- <div id="pmTag" class="pmTag"></div>
- <div class="pmVs">VS</div>
- <div id="pmMe" class="pmMe"></div>
- <button type="button" id="pmDeck" class="pmDeck" onclick="openDeckPick()"></button>
+ <div class="pmBot"><div class="pmAces" id="pmAces"></div>
+  <div class="pmMeTx">
+   <div id="pmMe" class="pmMe"></div>
+   <button type="button" id="pmDeck" class="pmDeck" onclick="openDeckPick()"></button>
+   <div class="pmRow"><div id="pmFlip" class="pmFlip">先攻</div><button type="button" id="pmBtn" class="gold pmBtn" onclick="prematchGo()">バトル開始</button></div>
+  </div>
+ </div>
+ <div class="pmVsLine"></div><div class="pmVs">VS</div>
  <div class="pmGap"></div>
- <div id="pmFlip" class="pmFlip">先攻</div>
- <button type="button" id="pmBtn" class="gold pmBtn" onclick="prematchGo()">対戦開始 ▶</button>
 </div>
 
 <div id="blockPop" class="blockPop"><div class="blockBox">
@@ -2350,7 +2529,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.41.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.43.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2358,6 +2537,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="aboutSnd"><span>バナーの自動切り替え</span><button type="button" class="sec mini" id="hbAutoBtn" onclick="toggleHbAuto()">オン</button></div>
  <div class="aboutSnd"><span>ターンエンドの確認</span><button type="button" class="sec mini" id="ewBtn" onclick="toggleEndWarn()">オン</button></div>
  <div class="aboutSnd"><span>プレイヤーID</span><button type="button" class="sec mini" id="pidBtn" onclick="copyPlayerId()">------</button></div>
+ <div class="aboutSnd"><span>対戦の設定</span><button type="button" class="sec mini" onclick="openBattleSet()">⚙ ひらく</button></div>
  <div class="aboutSnd"><span>演出を減らす</span><button type="button" class="sec mini" id="calmBtn" onclick="toggleCalm()">オフ</button></div>
  <div class="aboutSnd"><span>父の説明</span><button type="button" class="sec mini" onclick="guideReset()">もう一度見る</button></div>
  <div class="saveLinks"><button class="sec mini" onclick="openSaveExport()">データを書き出す</button><button class="sec mini" onclick="openSaveImport()">データを読み込む</button></div>
@@ -2392,6 +2572,14 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="confirmBtns" style="margin-top:14px"><button class="gold" onclick="closeLvup()">受け取る</button></div>
 </div></div>
 
+<div id="bsetPop" class="pov" onclick="closeBattleSet()"><div class="confirmBox" onclick="event.stopPropagation()">
+ <h3>対戦の設定</h3>
+ <div class="bsetRow"><span>新しい対戦画面<small>オフにすると、今までの画面になります</small></span><button type="button" class="tgl" id="bsetNew" onclick="toggleBattleSet('new')"></button></div>
+ <div class="bsetRow"><span>わくに「左・中・右」を出す<small>カードがいないわくに、うすく文字が出ます</small></span><button type="button" class="tgl" id="bsetLbl" onclick="toggleBattleSet('lbl')"></button></div>
+ <div class="confirmBtns" style="margin-top:12px"><button class="sec" onclick="closeBattleSet()">閉じる</button></div>
+</div></div>
+<div id="nbStatePop" class="pov" onclick="this.classList.remove('show')"><div class="confirmBox" onclick="event.stopPropagation()"><div id="nbStateBody"></div>
+ <div class="confirmBtns" style="margin-top:12px"><button class="sec" onclick="hideP('nbStatePop')">閉じる</button></div></div></div>
 <div id="pausePop" class="pov" onclick="closePause()"><div class="confirmBox" onclick="event.stopPropagation()">
  <h3>ポーズ</h3>
  <div class="pauseMenu">
@@ -3227,7 +3415,7 @@ const STORY=[
 {"ch": 9, "title": "第9章：決闘！光の勇者コウ", "episodes": [{"title": "ルミと再戦", "pre": [{"t": "n", "text": "井戸の階段を上ると、ソレイユのまぶしい光が目にしみた。広場で、ルミが待っていた。"}, {"t": "s", "who": "ルミ", "text": "{name}！ ……聞いたよ。コウさまが、{name}のCOREを持っていったって"}, {"t": "s", "who": "ルミ", "text": "うそだよね？ コウさまが、そんなことするはずないよね……？"}, {"t": "s", "who": "{name}", "text": "……本当だよ。でも、何か理由があるんだと思う"}, {"t": "s", "who": "ルミ", "text": "……わたし、自分の目で確かめたい。だから、{name}が神殿に行くなら、わたしに勝ってから行って！"}, {"t": "s", "who": "ルミ", "text": "もし{name}が、コウさまをこらしめに行くだけの人なら、ここで止める！"}], "post": [{"t": "s", "who": "ルミ", "text": "……強くなってる。前よりずっと"}, {"t": "s", "who": "ルミ", "text": "{name}の目、怒ってるんじゃなくて、知りたいって目だ。……それなら、行っていいよ"}, {"t": "s", "who": "ルミ", "text": "そのかわり、コウさまの理由、あとでわたしにも教えてね！"}], "enemy": "b3_lumi9"}, {"title": "騎士団長ソル", "pre": [{"t": "n", "text": "城の前の大階段。騎士団長ソルが、剣を地面に立てて待っていた。"}, {"t": "s", "who": "ソル", "text": "来たか、{name}"}, {"t": "s", "who": "{name}", "text": "ソルさんは、知ってたの？ コウがCOREを持ってるって"}, {"t": "s", "who": "ソル", "text": "……私が知ったのは、つい最近だ。コウさまは、何でも一人で背負うお方だからな"}, {"t": "s", "who": "ソル", "text": "だが、騎士団長として、コウさまの決めた道を守るのが私の務めだ"}, {"t": "s", "who": "ソル", "text": "神殿へ行きたければ、私を越えてゆけ"}], "post": [{"t": "s", "who": "ソル", "text": "……見事。もはや、止める理由はない"}, {"t": "s", "who": "ソル", "text": "神殿の扉は、審判者が守っている。光の国でいちばん古い番人だ。気をつけろ"}], "enemy": "b3_sol9"}, {"title": "太陽神殿の審判者", "pre": [{"t": "n", "text": "丘の上の太陽神殿。白い柱のあいだを、光の粒がただよっている。扉の前に、金の霧をまとった大きな騎士が立っていた。"}, {"t": "s", "who": "審判者", "text": "光を求める者よ。名を名乗れ"}, {"t": "s", "who": "{name}", "text": "{name}。COREを取り返しに来た"}, {"t": "s", "who": "審判者", "text": "……コウより聞いている。汝が、すべてを失っても戻ってきた者か"}, {"t": "s", "who": "審判者", "text": "我は審判者。この扉をくぐる者が、光にふさわしいかを裁く"}, {"t": "s", "who": "審判者", "text": "偶数回目のターン、我がカードは裁きの光を放つ。心してかかれ"}], "post": [{"t": "s", "who": "審判者", "text": "……その光、たしかに見た。扉を開けよう"}], "enemy": "b3_judge"}, {"title": "決闘！光の勇者コウ", "pre": [{"t": "n", "text": "神殿のいちばん奥。ステンドグラスから差しこむ光の中に、コウが立っていた。"}, {"t": "s", "who": "コウ", "text": "待ってたよ、{name}。……お家には帰らなかったんだね"}, {"t": "s", "who": "{name}", "text": "ペリドットを返してもらう。それと――理由も聞かせて"}, {"t": "s", "who": "コウ", "text": "もちろん。……ただし、僕に勝てたらね"}, {"t": "s", "who": "コウ", "text": "最初に戦ったとき、僕は本気じゃなかった。今日はちがうよ"}, {"t": "s", "who": "コウ", "text": "光の勇者コウ、全力でいくよ！"}], "post": [{"t": "s", "who": "コウ", "text": "……すごいや。完敗だよ、{name}"}, {"t": "n", "text": "コウが差し出した緑の光を、{name}はそっと受け取った。ペリドット、アトモス、クォーツが、並んで光を放つ。"}, {"t": "s", "who": "{name}", "text": "ペリドット……！ よかった……"}, {"t": "s", "who": "コウ", "text": "そのCOREたち、前よりずっと強く光ってるでしょ。それが、僕たちが確かめたかったことなんだ"}, {"t": "s", "who": "{name}", "text": "確かめたかったこと……？"}, {"t": "s", "who": "コウ", "text": "理由を話すって約束したね。……でも、話すべき人が、もうすぐここに来る"}, {"t": "n", "text": "神殿の外で、大きな音がした。ゴウン、ゴウンと、重い歯車が回るような音。"}, {"t": "s", "who": "{name}", "text": "この音……メカニカの……！？"}, {"t": "s", "who": "コウ", "text": "アンも呼んであるよ。……境目の広場へ行こう"}], "enemy": "b3_kou9", "boss": true}]},
 {"ch": 10, "title": "第10章：それぞれの光", "episodes": [{"title": "師匠", "pre": [{"t": "n", "text": "光の国と闇の街のちょうど境目、古い井戸のある広場。空から、大きな鉄の船がゆっくりと降りてきた。"}, {"t": "s", "who": "{rival}", "text": "あれ、メカニカの船じゃない！？"}, {"t": "s", "who": "アン", "text": "……相変わらず、目立つ登場だな"}, {"t": "n", "text": "船の扉が開き、マキナとギアが降りてきた。"}, {"t": "s", "who": "{name}", "text": "マキナさん！ ギアも！"}, {"t": "s", "who": "マキナ", "text": "がっはっは！ うまくいったようじゃな、コウ、アン"}, {"t": "s", "who": "{name}", "text": "……え？"}, {"t": "s", "who": "コウ", "text": "{name}。僕とアンにCOREのことを頼んだのは、師匠――マキナさんなんだ"}, {"t": "s", "who": "ギア", "text": "オレも今朝聞いたんだぞ！ ひでぇよ、親父！"}], "post": [{"t": "s", "who": "マキナ", "text": "すまなかったのう。つらい思いをさせた。順番に話そう"}]}, {"title": "すべての理由", "pre": [{"t": "s", "who": "マキナ", "text": "メカニカの真ん中には、島を動かす大きな心臓――機巧の心臓がある。それが、止まりかけておる"}, {"t": "s", "who": "マキナ", "text": "心臓をもう一度動かすには、いくつものCOREの力を『つなぐ』必要がある"}, {"t": "s", "who": "マキナ", "text": "だがCOREは、だれの手でもつながるわけではない。国をこえて、人とつながってきた者の手の中でだけ、手を取り合うんじゃ"}, {"t": "s", "who": "アン", "text": "で、師匠は俺たちに頼んだ。『そういうやつを見つけたら、本物かどうか確かめてくれ』ってな"}, {"t": "s", "who": "コウ", "text": "国のちがうCOREを二つも託された{name}は、まさにその人かもしれなかった"}, {"t": "s", "who": "コウ", "text": "だから、確かめたんだ。全部うばわれても、あきらめないか。一人で戦わずに、だれかとつながれるか。それから――"}, {"t": "s", "who": "アン", "text": "光と闇を、見た目だけで決めつけないか、だ"}, {"t": "s", "who": "{name}", "text": "……だから、『用なし』なんて言ったんだ"}, {"t": "s", "who": "コウ", "text": "うん。ひどいことを言って、ごめん。……でも君は、ライカとセツを頼って、メカニカまでたどり着いた"}, {"t": "s", "who": "アン", "text": "……悪かった"}, {"t": "s", "who": "マキナ", "text": "ふぉっふぉっ。ライカとセツは何も知らん。お前さんが自分でたどり着いたんじゃ"}], "post": [{"t": "s", "who": "{name}", "text": "（そうだったんだ……。全部、つながってたんだ）"}]}, {"title": "再戦！光と闇", "pre": [{"t": "s", "who": "アン", "text": "……さて。師匠の話は終わりだ"}, {"t": "s", "who": "コウ", "text": "最後に、もう一度だけ。あの日の続きをしよう、{name}"}, {"t": "s", "who": "アン", "text": "今度はバリアなしだ。全力で来い"}, {"t": "s", "who": "{rival}", "text": "待って。二対一は、ずるいって"}, {"t": "s", "who": "{rival}", "text": "こっちも二人。{ri}も入れて"}, {"t": "s", "who": "コウ", "text": "ふふ、望むところだよ"}, {"t": "n", "text": "光の勇者と闇の勇者。そして、{name}と{rival}。四人のカードが、広場の真ん中で向かい合った。"}, {"t": "n", "text": "{rival}は、{name}のターンの初めに、強化の呪文で助けてくれる。"}], "post": [{"t": "s", "who": "アン", "text": "……はっ。完敗だ"}, {"t": "s", "who": "コウ", "text": "あの日とは、くらべものにならないね"}], "enemy": "b3_kouan", "boss": true}, {"title": "それぞれの光", "pre": [{"t": "s", "who": "コウ", "text": "{name}。これを、受け取ってほしい"}, {"t": "n", "text": "コウが差し出したのは、朝日のような黄金色の宝石だった。"}, {"t": "s", "who": "コウ", "text": "COREシトリン。ソレイユの光を、ずっと守ってきたCOREだよ"}, {"t": "s", "who": "アン", "text": "俺からはこれだ。COREアメジスト。ルナールの夜を照らしてきた石だ"}, {"t": "n", "text": "アンの手の中で、紫の宝石が、月の光のように静かに輝いた。"}, {"t": "s", "who": "{name}", "text": "でも、これは二人の国の……"}, {"t": "s", "who": "コウ", "text": "だからこそだよ。光にも闇にも、それぞれの光がある。君はそれを見てくれた"}, {"t": "s", "who": "アン", "text": "メカニカの心臓が止まったら、海の向こうも、ここも、無事じゃすまねえ。……持ってけ"}, {"t": "s", "who": "{name}", "text": "……分かった。二人の光、たしかに預かる"}, {"t": "n", "text": "ペリドット、アトモス、クォーツ、シトリン、アメジスト。五つのCOREが、{name}の手の中で、互いを呼び合うように光った。"}, {"t": "s", "who": "マキナ", "text": "おお……！ やはり、つながりおった"}, {"t": "s", "who": "{rival}", "text": "……{ri}のルビーとサファイアも、貸してあげる。今回だけだからね"}, {"t": "s", "who": "マキナ", "text": "さあ、わしの船に乗れ！ メカニカの心臓を動かすのは、お前さんたちじゃ！"}, {"t": "s", "who": "ギア", "text": "よっしゃあ！ 帰ろうぜ、{name}！"}, {"t": "s", "who": "ルミ", "text": "{name}ー！ コウさまの理由、ちゃんと聞いたからねー！ いってらっしゃーい！"}], "post": [{"t": "n", "text": "五つのCOREを胸に、{name}たちを乗せた鉄の船が、光と闇の空へと浮かび上がった。歯車の島、メカニカへ――"}]}]}
 ];
-DECK_SLOTS=3;   // 枠の数を先に決める（これより前に loadDeck が動くと、いつも1番の枠になっていた）
+DECK_SLOTS=10;   // 枠の数を先に決める（これより前に loadDeck が動くと、いつも1番の枠になっていた）
 let deck=loadDeck(),filter="all",S=null,selH=null,selA=null,selE=null,pending=null,logs=[];
 /* ===== ゲーム内の入力・確認ダイアログ ===== */
 let askCb=null,yesnoCb=null;
@@ -3247,7 +3435,7 @@ function yesnoClose(){$("yesnoPop").classList.remove("show");yesnoCb=null}
    保存形式は cmDeckSlots = [{name, cards[30]} | null] × DECK_SLOTS。
    古い cmdeck100（1つだけの保存）は、初回に1番の枠へ移す。
    対戦で使うのは「今選んでいる枠」で、従来どおり cmdeck100 にも書き出す。 */
-var DECK_SLOTS=3;   // deck の初期化より前に参照されるので var
+var DECK_SLOTS=10;   // deck の初期化より前に参照されるので var
 function validDeck(d){return Array.isArray(d)&&d.length==30&&d.every(id=>by(id))}
 function deckSlots(){
  let a=null;
@@ -3614,7 +3802,7 @@ const WHEEL=[
  {id:"story", icon:"story",  name:"ストーリー", desc:"旅を進める",              go:()=>openStory()},
  {id:"battle",icon:"battle", name:"ランダム対戦", desc:"好きなデッキで一戦",     go:()=>tryRandomBattle(), lock:()=>!isIntroDone(), lockDesc:"序章をクリアすると解放"},
  {id:"events",icon:"events", name:"イベント",   desc:"期間限定の挑戦に挑む",    go:()=>tryEvents(), lock:()=>EVENTS_LOCKED||!isIntroDone(), lockDesc:EVENTS_LOCKED?"近日公開":"序章をクリアすると解放"},
- {id:"deck",  icon:"deck",   name:"デッキ編集", desc:"30枚を組み直す",          go:()=>openEdit()},
+ {id:"deck",  icon:"deck",   name:"デッキ編集", desc:"30枚を組み直す",          go:()=>openDeckList()},
  {id:"codex", icon:"codex",  name:"図鑑",       desc:"集めたカードを見る",      go:()=>openCodex()},
  {id:"tablet",icon:"tablet", name:"石版",       desc:"読み解いた言葉を見る",    go:()=>openTablet()},
  {id:"gacha", icon:"gacha",  name:"ガチャ",     desc:"💎を使って引く",          go:()=>openGacha()},
@@ -3769,10 +3957,55 @@ function renderMenuTab(){
  try{const n=presentsActive().length;$("mtPresB").textContent=n>99?"99+":n;$("mtPresB").classList.toggle("hide",!n)}catch(e){}
  $("mtDeck").textContent=deckSlotName(curSlot());
  $("mtPid").textContent=playerId();$("mtVer").textContent=($("aboutVer")||{}).textContent||""}
+/* ===== デッキ一覧（ポケポケ風）。デッキの箱を2列で並べ、押すと中身と「使う・編集する」が出る =====
+   切り札：枠の cover に3枚まで（選んでいなければ、コストの高いモンスターから）。デッキ一覧・対戦前の画面に大きく出る */
+function deckCover(s,n){n=n||3;const cards=(s&&s.cards)||[];const cv=((s&&s.cover)||[]).filter(id=>cards.includes(id)&&CARD_IMAGES[id]);
+ if(cv.length)return cv.slice(0,n);
+ const L=[...new Set(cards)].map(by).filter(c=>c&&CARD_IMAGES[c.id]).sort((x,y)=>((y.type=="monster")-(x.type=="monster"))||((y.cost||0)-(x.cost||0))||((RARITY_ORDER[y.rarity]||0)-(RARITY_ORDER[x.rarity]||0)));
+ return L.slice(0,n).map(c=>c.id)}
+function deckTraits(cards){const L=(cards||[]).map(by).filter(Boolean),t=[];
+ if(L.some(c=>c.link))t.push("🔗");if(L.some(c=>c.chain))t.push("⛓️");if(L.some(c=>c.guard))t.push("🛡");if(L.some(c=>c.charge))t.push("⚡");return t.slice(0,3)}
+function openDeckList(){editMode="";hideAll();$("deckList").classList.remove("hide");$("app").scrollTop=0;sfx("sel");renderDeckList()}
+function renderDeckList(){const a=deckSlots(),cur=curSlot();let shownNew=false;
+ $("dkCount").textContent=a.filter(Boolean).length+" / "+DECK_SLOTS;
+ $("dkGrid").innerHTML=a.map((s,i)=>{
+  if(!s){if(shownNew)return"";shownNew=true;return '<button type="button" class="dkRow new" onclick="dkNew('+i+')">＋ 新しいデッキ</button>'}
+  const cards=s.cards||[],ok=validDeck(cards),cv=deckCover(s,3),mons=cards.map(by).filter(c=>c&&c.type=="monster").length;
+  return '<button type="button" class="dkRow'+(i==cur?" on":"")+'" onclick="openDeckDetail('+i+')"><span class="dkFan">'+cv.map(id=>'<span class="cv" style="background-image:url('+CARD_IMAGES[id]+')"></span>').join("")+'</span>'
+   +'<span class="dkTx"><span class="dkName">'+escH(deckSlotName(i))+(i==cur?'<span class="dkUse">使用中</span>':"")+'</span>'
+   +'<span class="dkSub'+(ok?"":" wip")+'">'+(ok?"モンスター"+mons+"・呪文"+(cards.length-mons):"未完成（"+cards.length+"/30枚）")+'　'+deckTraits(cards).join(" ")+'</span>'
+   +'<span class="cbar">'+costBarHtml(cards)+'</span></span></button>'}).join("")}
+let dkIdx=0,dkPick=false;
+function dkNew(i){const a=deckSlots();a[i]={name:"デッキ"+(i+1),cards:[]};saveSlots(a);setCurSlot(i);deck=[];store.set("cmdeck100",JSON.stringify(deck));sfx("sel");openEdit()}
+function openDeckDetail(i){dkIdx=i;dkPick=false;sfx("sel");renderDeckDetail();$("dkPop").classList.add("show")}
+function renderDeckDetail(){const s=deckSlots()[dkIdx];if(!s){dkClose();return}
+ const cards=s.cards||[],ok=validDeck(cards),cv=deckCover(s),cnt={};cards.forEach(id=>cnt[id]=(cnt[id]||0)+1);
+ const ids=Object.keys(cnt).map(by).filter(Boolean).sort((x,y)=>((y.type=="monster")-(x.type=="monster"))||((x.cost||0)-(y.cost||0))||String(x.sortName||x.name).localeCompare(String(y.sortName||y.name),"ja"));
+ const mons=cards.map(by).filter(c=>c&&c.type=="monster").length,avg=cards.length?(cards.reduce((t,id)=>t+((by(id)||{}).cost||0),0)/cards.length).toFixed(1):"0";
+ $("dkHead").textContent=deckSlotName(dkIdx)+(dkIdx==curSlot()?"（使用中）":"");
+ $("dkCover").innerHTML=deckCover(s,3).map(id=>'<span class="cv" style="background-image:url('+CARD_IMAGES[id]+')"></span>').join("")||'<span class="dkInfo">カードがありません</span>';
+ $("dkInfo").textContent=dkPick?"切り札にするカードを3枚までえらんでね（対戦前の画面に大きく出るよ）":(ok?"30枚・モンスター"+mons+"・呪文"+(cards.length-mons)+"・平均コスト"+avg:"未完成（"+cards.length+"/30枚）");
+ $("dkCards").classList.toggle("pick",dkPick);
+ $("dkCards").innerHTML=ids.map(c=>'<button type="button" class="dkC'+(cv.includes(c.id)&&(s.cover||[]).includes(c.id)?" cov":"")+'" style="background-image:url('+(CARD_IMAGES[c.id]||"")+')" onclick="dkCardTap(\''+c.id+'\')"><b>'+(c.cost||0)+'</b>'+(cnt[c.id]>1?'<i>×'+cnt[c.id]+'</i>':"")+'</button>').join("");
+ $("dkCovBtn").classList.toggle("on",dkPick);$("dkCovBtn").textContent=dkPick?"✓ 決定":"⭐ 切り札";
+ $("dkUseBtn").disabled=!ok||dkIdx==curSlot();$("dkUseBtn").textContent=dkIdx==curSlot()?"使用中":"このデッキを使う"}
+function dkCardTap(id){if(!dkPick){const c=by(id);if(c)showD(c);return}
+ const a=deckSlots(),s=a[dkIdx];if(!s)return;let cv=(s.cover||[]).filter(x=>s.cards.includes(x));
+ if(cv.includes(id))cv=cv.filter(x=>x!=id);else{cv.push(id);if(cv.length>3)cv.shift()}
+ s.cover=cv;saveSlots(a);sfx("sel");renderDeckDetail();renderDeckList()}
+function dkCoverMode(){dkPick=!dkPick;sfx("sel");renderDeckDetail()}
+function dkClose(){hideP("dkPop");dkPick=false}
+function dkUse(){const s=deckSlots()[dkIdx];if(!s||!validDeck(s.cards))return;setCurSlot(dkIdx);deck=[...s.cards];store.set("cmdeck100",JSON.stringify(deck));
+ sfx("sel");log2Toast("「"+deckSlotName(dkIdx)+"」を使います");renderDeckDetail();renderDeckList();try{renderBattleTab()}catch(e){}}
+function dkEdit(){const s=deckSlots()[dkIdx];if(!s)return;setCurSlot(dkIdx);deck=[...(s.cards||[])].filter(id=>by(id));store.set("cmdeck100",JSON.stringify(deck));hideP("dkPop");openEdit()}
+function dkRename(){setCurSlot(dkIdx);const s=deckSlots()[dkIdx];if(s)deck=[...s.cards];renameDeckSlot()}
+function dkCopy(){setCurSlot(dkIdx);const s=deckSlots()[dkIdx];if(!s)return;deck=[...s.cards];copyDeckSlot();dkIdx=curSlot();renderDeckList();renderDeckDetail()}
+function dkDelete(){setCurSlot(dkIdx);const s=deckSlots()[dkIdx];if(!s)return;deck=[...s.cards];clearDeckSlot()}
+
 /* ===== 使うデッキを選ぶ（対戦タブ・対戦前・フレンドマッチ） ===== */
 function deckSlotName(i){const s=deckSlots()[i];return (s&&s.name)||("デッキ"+(i+1))}
 function openDeckPick(){const a=deckSlots(),cur=curSlot();
- $("deckPickList").innerHTML=a.map((s,i)=>{const cards=(s&&s.cards)||[],ok=validDeck(cards);
+ $("deckPickList").innerHTML=a.map((s,i)=>{if(!s)return"";const cards=(s&&s.cards)||[],ok=validDeck(cards);
   const mons=cards.map(by).filter(c=>c&&c.type=="monster"),spl=cards.map(by).filter(c=>c&&c.type=="spell").length;
   const key=[...mons].sort((x,y)=>(y.cost||0)-(x.cost||0)).find(c=>CARD_IMAGES[c.id]);
   return '<button type="button" class="dpRow'+(i==cur?" on":"")+'" '+(ok?'onclick="pickDeckSlot('+i+')"':"disabled")+'>'
@@ -5163,16 +5396,16 @@ function autoFill(){let guard=0;const pool=P.filter(c=>isVisible(c));while(deck.
 function familyId(id){const c=by(id);return(c&&c.baseId)?c.baseId:id}
 function add(id){if(deck.length>=40)return log2("40枚までです");const own=ownedCount(id);if(own<=0)return log2("所持していないカードです");const fam=familyId(id);if(deck.filter(x=>familyId(x)==fam).length>=2)return log2("同名2枚までです");if(deck.filter(x=>x==id).length>=own)return log2(`所持数（${own}枚）までです`);deck.push(id);if(deck.length===31)log2Toast("⚠️ 30枚を超えました。保存・退出は30枚以下にしてください");renderEdit()}
 function rem(id){let i=deck.indexOf(id);if(i>=0)deck.splice(i,1);renderEdit()}
-function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてから戻ってください（現在"+deck.length+"枚）");if(editMode=="coop")return coopEditClose();menu()}
+function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてから戻ってください（現在"+deck.length+"枚）");if(editMode=="coop")return coopEditClose();openDeckList()}
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats","rank","coopLobby","dareHub","coopPage"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats","rank","coopLobby","dareHub","coopPage","deckList"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
 // 絞りこみ（能力の言葉）。もう一度押すと外れる
-const EDIT_KW=["突撃","守護","二回攻撃","貫通されない","凍結","感電","回復","ドロー","ダメージ"];
+const EDIT_KW=["突撃","守護","二回攻撃","吸収","貫通されない","凍結","感電","リンク","チェイン","回復","ドロー","ダメージ"];
 let editKw=null;
 function setEditKw(k){editKw=editKw==k?null:k;sfx("sel");renderEdit()}
 // 自由入力の検索（カード名・読みがな・効果文）。ひらがな／カタカナ、全角／半角、大文字／小文字はそろえて比べる
@@ -5185,7 +5418,8 @@ function resetEditFilters(){editQuery="";editKw=null;editSrchOpen=false;const el
 function kwMatch(c){return kwMatchK(c,editKw)}
 function kwMatchK(c,k){if(!k)return true;const t=String(c.text||"");
  if(k=="回復")return /HPを\+/.test(t);if(k=="ドロー")return /ドロー/.test(t);if(k=="ダメージ")return /プレイヤーに\d+ダメージ/.test(t);
- if(k=="突撃")return !!(c.charge||c.permCharge)||/突撃/.test(t);if(k=="守護")return !!c.guard||/守護/.test(t);
+ if(k=="突撃")return !!(c.charge||c.permCharge)||/突撃/.test(t);
+ if(k=="リンク")return !!c.link||/リンク/.test(t);if(k=="チェイン")return !!c.chain||/チェイン/.test(t);if(k=="吸収")return !!c.lifesteal||/吸収/.test(t);if(k=="守護")return !!c.guard||/守護/.test(t);
  return t.includes(k)}
 function qMatchQ(c,q){if(!q)return true;return normQ(c.name+" "+(c.sortName||"")+" "+(c.text||"")).includes(normQ(q))}
 // 能力ワードの列：いちばん左に🔍（押すと検索欄が開く）、条件があるときはいちばん右に「✕ 解除」
@@ -5194,11 +5428,11 @@ function kwBarHtml(open,kw,setFn,toggleFn,resetFn,has,extra){return '<button typ
  +(has?'<button type="button" class="kwB kwR" onclick="'+resetFn+'()">✕ 解除</button>':'')}
 let editSrchOpen=false;
 function toggleEditSearch(){if(editSrchOpen&&editQuery){$("editSearch").focus();return}editSrchOpen=!editSrchOpen;sfx("sel");renderEdit();if(editSrchOpen)setTimeout(()=>{try{$("editSearch").focus()}catch(e){}},30)}
-function openEdit(){editQuery="";editSrchOpen=false;try{$("editSearch").value=""}catch(e){}
+function openEdit(){editQuery="";editSrchOpen=false;deckOpen=false;try{$("editSearch").value=""}catch(e){}
  {const sl=deckSlots()[curSlot()];if(sl&&Array.isArray(sl.cards))deck=sl.cards.filter(id=>by(id))}   // 未完成のデッキも、そのまま続きから編集
  hideAll();$("edit").classList.remove("hide");$("app").scrollTop=0;$("editSort").value=sortMode;renderEdit();guideOnce("edit")}
 function renderEditInfo(){const over=deck.length>30,el=$("info");
- el.textContent=(editMode=="coop"?"🤝協力用　":"")+(over?`⚠️ ${deck.length}枚（30枚超過！30枚以下にしてください）`:`${deck.length}/30枚　平均コスト ${deckAvgCost()}　同名2枚まで`);
+ el.textContent=(editMode=="coop"?"🤝協力用　":"")+(over?`⚠️ ${deck.length}枚（30枚超過！30枚以下にしてください）`:`同じ名前のカードは2枚まで`);
  el.classList.toggle("over",over);
  try{renderSlotBar()}catch(e){}}
 function ownedMap(){try{return JSON.parse(store.get("cmOwned")||"{}")||{}}catch(e){return{}}}
@@ -5228,32 +5462,36 @@ function hasEncountered(id){return encounteredSet().has(id)}
 /* ================= 並び替え ================= */
 const RARITY_ORDER={N:0,R:1,SR:2,UR:3,CR:4};
 let sortMode="kana";
+// 並び方：sortDesc で「大きい順（ん→あ）」。並びの種類を変えると、その種類のふつうの向きにもどる
+let sortDesc=false;
+const SORT_DEF_DESC={kana:false,cost:false,rarity:true,atk:true,def:true};
 function sortCards(arr){
- const a=[...arr];
- if(sortMode=="cost")a.sort((x,y)=>x.cost-y.cost||kanaSort(x,y));
- else if(sortMode=="rarity")a.sort((x,y)=>(RARITY_ORDER[y.rarity]||0)-(RARITY_ORDER[x.rarity]||0)||kanaSort(x,y));
- else if(sortMode=="atk")a.sort((x,y)=>(y.atk||0)-(x.atk||0)||kanaSort(x,y));
- else if(sortMode=="def")a.sort((x,y)=>(y.def||0)-(x.def||0)||kanaSort(x,y));
- else a.sort(kanaSort);
+ const a=[...arr],k=c=>sortMode=="cost"?(c.cost||0):sortMode=="rarity"?(RARITY_ORDER[c.rarity]||0):sortMode=="atk"?(c.atk||0):sortMode=="def"?(c.def||0):0;
+ if(sortMode=="kana"||!SORT_DEF_DESC.hasOwnProperty(sortMode))a.sort((x,y)=>sortDesc?kanaSort(y,x):kanaSort(x,y));
+ else a.sort((x,y)=>(sortDesc?k(y)-k(x):k(x)-k(y))||kanaSort(x,y));
  return a}
-function setSortMode(v){sortMode=v;
+function sortDirLabel(){return sortMode=="kana"?(sortDesc?"ん→あ ▼":"あ→ん ▲"):(sortDesc?"大きい順 ▼":"小さい順 ▲")}
+function toggleSortDir(){sortDesc=!sortDesc;sfx("sel");if(!$("edit").classList.contains("hide"))renderEdit();if(!$("list").classList.contains("hide"))openList(true)}
+function setSortMode(v){sortMode=v;sortDesc=!!SORT_DEF_DESC[v];
  if(!$("edit").classList.contains("hide")){$("editSort").value=v;renderEdit()}
  if(!$("list").classList.contains("hide")){$("listSort").value=v;openList(true)}}
 
-function renderEdit(){renderEditInfo();
+function renderEdit(){try{if($("dkPop").classList.contains("show")){renderDeckList();renderDeckDetail()}}catch(e){}renderEditInfo();
  [["fAll","all"],["fMon","monster"],["fSpl","spell"]].forEach(([b,f])=>$(b).classList.toggle("on",filter==f));
- // --- デッキ帯：今のデッキをカード画像で。タップで1枚外す／長押しで詳細 ---
+ // --- 上：デッキの名前・枚数・コストのバー。数のところを押すと30マスが開く（カードを押すと抜ける／長押しで詳細） ---
+ {const sl=deckSlots()[curSlot()];$("eNm").textContent=editMode=="coop"?"🤝 協力用デッキ":((sl&&sl.name)||deckSlotName(curSlot()));
+  const n=deck.length;$("eCnt").className="eCnt"+(n==30?" full":n>30?" over":"");$("eCnt").innerHTML=n+"<small> / 30</small>";
+  $("eBar").innerHTML=costBarHtml(deck);$("eAvg").textContent="平均 "+deckAvgCost();
+  $("eFold").textContent=deckOpen?"とじる ▲":"デッキを見る ▼";$("edit").classList.toggle("dOpen",deckOpen);
+  const dirty=editDirty();$("eSave").disabled=!dirty;$("eSave").textContent=dirty?"保存":"保存ずみ"}
  const strip=$("deckStrip");
  if(strip){strip.innerHTML="";
-  const counts={},order=[];
-  deck.forEach(id=>{counts[id]=(counts[id]||0)+1;if(!order.includes(id))order.push(id)});
-  order.sort((a,b)=>{const x=by(a),y=by(b);return (!x||!y)?0:(x.cost-y.cost)||kanaSort(x,y)});   // デッキはコストの低い順
-  if(!order.length){strip.innerHTML='<div class="deckEmpty">下からカードを選んでデッキを作ろう（30枚）</div>';}
-  else order.forEach(id=>{const c=by(id);if(!c)return;const img=CARD_IMAGES[id];
-   const t=document.createElement("div");t.className="dChip rr-"+(c.rarity||"N").toLowerCase();
-   t.innerHTML=(img?`<img src="${img}" alt="">`:`<span class="dChipEmo">${c.type=="monster"?"👾":"✨"}</span>`)
-    +(counts[id]>1?`<span class="dChipN">×${counts[id]}</span>`:"");
+  const order=[...deck].sort((a,b)=>{const x=by(a),y=by(b);return (!x||!y)?0:((y.type=="monster")-(x.type=="monster"))||(x.cost-y.cost)||kanaSort(x,y)});
+  order.forEach(id=>{const c=by(id);if(!c)return;const img=CARD_IMAGES[id];
+   const t=document.createElement("div");t.className="dcl";if(img)t.style.backgroundImage="url("+img+")";
+   t.innerHTML='<b>'+(c.cost||0)+'</b>'+(img?"":'<span class="dChipEmo">'+(c.type=="monster"?"👾":"✨")+'</span>');
    bindPress(t,c,()=>rem(id));strip.appendChild(t)});
+  for(let k=order.length;k<Math.max(30,Math.ceil(order.length/10)*10);k++){const e=document.createElement("span");e.className="dcl e";strip.appendChild(e)}
  }
  // --- コレクション：所持カードをカード画像タイルで。タップで1枚足す／長押しで詳細 ---
  let g=$("eg");g.innerHTML="";
@@ -5262,17 +5500,33 @@ function renderEdit(){renderEditInfo();
   $("editSrchRow").classList.toggle("hide",!open);$("srchX").classList.toggle("hide",!editQuery)}
  const LIST=sortCards(P.filter(c=>isVisible(c)&&ownedCount(c.id)>0&&(filter=="all"||c.type==filter)&&kwMatch(c)&&qMatch(c)));
  if(!LIST.length){const t=document.createElement("div");t.className="srchNone";t.textContent=(editQuery||editKw)?"条件に合うカードが見つかりませんでした":"カードがありません";$("eg").appendChild(t)}
+ $("sortDir").textContent=sortDirLabel();
+ // 押すとデッキに入る（上へ飛んでいく）／長押しで詳細。入れられないカードは暗くなる
  LIST.forEach(c=>{
   const n=deck.filter(x=>x==c.id).length,own=ownedCount(c.id),fam=familyId(c.id);
   const famCount=deck.filter(x=>familyId(x)==fam).length;
   const full=(n>=own)||(famCount>=2)||(deck.length>=40);
   const img=CARD_IMAGES[c.id];
   const d=document.createElement("div");
-  d.className="cTile rr-"+(c.rarity||"N").toLowerCase()+(n?" inDeck":"");
-  d.innerHTML=`<div class="cArt" onclick="detailCard('${c.id}')">${img?`<img src="${img}" alt="">`:`<span class="cEmo">${c.type=="monster"?"👾":"✨"}</span>`}<span class="cCost">${c.cost}</span><span class="cOwn">所持${own}</span></div>`
-   +`<div class="cNm">${c.name}</div>`
-   +`<div class="cCtl"><button class="cBtn cMinus" onclick="rem('${c.id}')"${n?"":" disabled"}>-</button><span class="cN">${n}</span><button class="cBtn cPlus" onclick="add('${c.id}')"${full?" disabled":""}>+</button></div>`;
+  d.className="eK rr-"+(c.rarity||"N").toLowerCase()+(full?" max":"");
+  if(img)d.style.backgroundImage="url("+img+")";
+  const ab=[c.link?"🔗":"",c.chain?"⛓️":""].filter(Boolean);
+  d.innerHTML='<b class="ekC">'+(c.cost||0)+'</b>'+(img?"":'<span class="cEmo">'+(c.type=="monster"?"👾":"✨")+'</span><span class="ekN">'+escH(c.name)+'</span>')
+   +(ab.length?'<span class="ekA">'+ab.map(x=>"<span>"+x+"</span>").join("")+'</span>':"")
+   +'<span class="ekO">所持'+own+'</span>'+(n?'<span class="ekD">デッキに '+n+'</span>':"");
+  bindPress(d,c,()=>{const before=deck.length;add(c.id);if(deck.length>before)eFly(d,img)});
   g.appendChild(d)})}
+// ---- デッキ編集の小物 ----
+let deckOpen=false;
+function toggleDeckOpen(){deckOpen=!deckOpen;sfx("sel");renderEdit()}
+function editSaved(){try{if(editMode=="coop")return JSON.parse(store.get("cmCoopDeck")||"[]")||[];const sl=deckSlots()[curSlot()];return (sl&&sl.cards)||[]}catch(e){return[]}}
+function editDirty(){return JSON.stringify([...deck].sort())!==JSON.stringify([...editSaved()].sort())}
+function costBarHtml(cards){const cs=[0,0,0];(cards||[]).forEach(id=>{const c=by(id);if(!c)return;const k=c.cost<=3?0:c.cost<=6?1:2;cs[k]++});
+ return '<i style="flex:'+cs[0]+';background:#4ab3ff"></i><i style="flex:'+cs[1]+';background:#f0c76a"></i><i style="flex:'+cs[2]+';background:#ff6b6b"></i>'}
+function eRename(){if(editMode=="coop")return;const i=curSlot(),a=deckSlots();if(!a[i]){a[i]={name:"デッキ"+(i+1),cards:[...deck]};saveSlots(a)}renameDeckSlot()}
+function eFly(el,img){try{if(!img)return;const r=el.getBoundingClientRect(),g=(deckOpen?$("deckStrip"):$("eCnt")).getBoundingClientRect();
+ const f=document.createElement("div");f.className="eFlyC";f.style.cssText="left:"+r.left+"px;top:"+r.top+"px;width:"+r.width+"px;height:"+r.height+"px;background-image:url("+img+")";
+ document.body.appendChild(f);requestAnimationFrame(()=>{f.style.left=(g.left+g.width/2-15)+"px";f.style.top=(g.top+4)+"px";f.style.width="30px";f.style.height="40px";f.style.opacity=".3"});setTimeout(()=>f.remove(),380)}catch(e){}}
 function openList(keepScroll){hideAll();$("list").classList.remove("hide");if(!keepScroll)$("app").scrollTop=0;$("listSort").value=sortMode;
  let g=$("lg");g.innerHTML="";
  sortCards(P.filter(c=>isVisible(c))).forEach(c=>{let st=c.type=="monster"?`（${c.atk}/${c.def}）`:"";
@@ -7252,13 +7506,22 @@ let pmBossId=null;
 function pmBossShow(id,line){const box=$("pmBoss"),pm=$("prematch");
  pmBossId=id||null;
  const img=id&&CARD_IMAGES[id];
- if(!id||!img){box.classList.add("hide");pm.classList.remove("boss");return false}
+ if(!id||!img){box.classList.add("hide");pm.classList.remove("boss");$("pmBossLine").textContent="";return false}
  $("pmBossImg").src=img;$("pmBossLine").textContent=line||"";
  // アニメーションを毎回最初から
  const cd=box.querySelector(".pmBossCard");box.classList.add("hide");void box.offsetWidth;box.classList.remove("hide");
  if(cd){cd.style.animation="none";void cd.offsetWidth;cd.style.animation=""}
  const ln=$("pmBossLine");ln.style.animation="none";void ln.offsetWidth;ln.style.animation="";
  pm.classList.add("boss");return true}
+// 対戦前の大きい絵：相手はボスのカード（なければデッキでいちばん重いモンスター）、自分はデッキの切り札
+function pmTopCard(deckIds){const L=[...new Set(deckIds||[])].map(by).filter(c=>c&&CARD_IMAGES[c.id]).sort((x,y)=>((y.type=="monster")-(x.type=="monster"))||((y.cost||0)-(x.cost||0))||((RARITY_ORDER[y.rarity]||0)-(RARITY_ORDER[x.rarity]||0)));return L.length?L[0].id:null}
+function pmArtSet(id){const el=$("pmOppArt");if(!el)return;const img=id&&CARD_IMAGES[id];el.style.backgroundImage=img?"url("+img+")":"none";el.classList.toggle("none",!img);el.style.animation="none";void el.offsetWidth;el.style.animation=""}
+function pmAcesSet(){const el=$("pmAces");if(!el)return;let ids=[];
+ const dr=pmPending&&pmPending.personality&&pmPending.personality.pDeck;
+ if(dr){const t=pmTopCard(dr);if(t)ids=[t]}else{try{ids=deckCover(deckSlots()[curSlot()],3)}catch(e){}if(!ids.length){const t=pmTopCard(deck);if(t)ids=[t]}}
+ const n=ids.length,cls=n==1?["s1"]:n==2?["s2a","s2b"]:["s3a","s3b","s3c"];
+ const ln=n==2?'<line x1="62" y1="0" x2="38" y2="100"/>':n==3?'<line x1="44" y1="0" x2="26" y2="100"/><line x1="78" y1="0" x2="60" y2="100"/>':"";
+ el.innerHTML=ids.map((id,i)=>'<div class="ace '+cls[i]+'" style="background-image:url('+CARD_IMAGES[id]+')"></div>').join("")+(ln?'<svg class="pmSlash" viewBox="0 0 100 100" preserveAspectRatio="none">'+ln+'</svg>':"")}
 function prematch(personality,fixed){
  const opp=personality||PERSONALITIES[Math.random()*PERSONALITIES.length|0];
  const name=(opp.name&&opp.name.includes("{"))?fillText(opp.name):opp.name;
@@ -7267,6 +7530,8 @@ function prematch(personality,fixed){
  $("pmName").textContent=boss&&by(opp.bossCard)?by(opp.bossCard).name:name;
  $("pmTag").textContent=fillText(opp.tagline||"");
  $("pmOppTitle").innerHTML="";renderPmMe();renderPmDeck(true);
+ pmArtSet(boss?opp.bossCard:pmTopCard(opp.deck||[]));
+ if(boss&&opp.bossLine&&String(opp.bossLine).replace(/[「」]/g,"")==fillText(opp.tagline||""))$("pmTag").textContent="";
  $("pmBtn").classList.remove("show");
  const second=Math.random()<.5;
  if(boss){                                        // ボスのカードが出きってからルーレット
@@ -7276,7 +7541,7 @@ function prematch(personality,fixed){
  else pmSpin(second);
 }
 // 先攻・後攻のルーレット。結果（second）は呼ぶ側で決めておく（フレンドマッチは2台で同じ結果を出すため）
-function renderPmDeck(show){const b=$("pmDeck");if(!b)return;const dr=pmPending&&pmPending.personality&&pmPending.personality.pDeck;b.classList.toggle("hide",!show||!!dr);if(show)b.innerHTML='使うデッキ：<b>'+escH(deckSlotName(curSlot()))+'</b>　変える ▶'}
+function renderPmDeck(show){try{pmAcesSet()}catch(e){}const b=$("pmDeck");if(!b)return;const dr=pmPending&&pmPending.personality&&pmPending.personality.pDeck;b.classList.toggle("hide",!show||!!dr);if(show)b.innerHTML='使うデッキ：<b>'+escH(deckSlotName(curSlot()))+'</b>　変える ▶'}
 function rankChip(){try{const ri=rankInfo(rankSt().pts);return '<span class="rkChip" style="--rk:'+ri.color+'">'+ri.name+'</span>'}catch(e){return""}}
 function renderPmMe(){const t=titleEquipped(),tg=titleTagHtml(t);
  $("pmMe").innerHTML=(tg?'<div class="pmT">'+tg+'</div>':'')+'<div class="pmN">'+(myIcon()?iconHtml(myIcon(),36):'')+'<span>'+titleNameHtml((player&&player.name)||"あなた",t)+'</span></div>'}
@@ -7305,7 +7570,7 @@ function pmSpin(second){
 function fmRoulette(name,second,go){
  pmPending={go,second:false};pmBossShow(null);
  $("pmName").innerHTML=titleNameHtml(name,FM.oppTitle?titleById(FM.oppTitle):null);$("pmTag").textContent="フレンドマッチ";
- $("pmOppTitle").innerHTML=titleTagHtml(FM.oppTitle?titleById(FM.oppTitle):null);renderPmMe();renderPmDeck(false);
+ $("pmOppTitle").innerHTML=titleTagHtml(FM.oppTitle?titleById(FM.oppTitle):null);renderPmMe();renderPmDeck(false);pmArtSet(null);
  $("pmBtn").classList.remove("show");
  pmSpin(second)}
 async function prematchGo(){
@@ -7599,7 +7864,7 @@ function render(){if(!S)return;try{b2Watch()}catch(e){}try{pasRefresh()}catch(e)
   if($("chpLabel")&&S.opp){$("chpLabel").textContent=S.opp.name;fitLabel($("chpLabel"))}
   $("turnN").textContent=turnTotal();if($("btnEnd"))$("btnEnd").textContent=phaseBtnLabel();$("whose").textContent=S.coop&&S.active=="p"?S.coop.names[S.coop.turn]:S.active=="p"?((player&&player.name)||"YOU"):((S.opp&&S.opp.name)?fillText(S.opp.name):("相手"));
  }catch(e){}
- gems();rBoard("cb",S.cb,false);rBoard("pb",S.pb,true);
+ gems();rBoard("cb",S.cb,false);rBoard("pb",S.pb,true);try{applyBattleSet();nbRender()}catch(e){}
  const h=$("hand");h.innerHTML="";
  const HH=coopDispHand();
  HH.forEach((c,index)=>{const d=document.createElement("div");
@@ -7618,6 +7883,45 @@ function render(){if(!S)return;try{b2Watch()}catch(e){}try{pasRefresh()}catch(e)
   $("cancel").classList.toggle("show",(!!pending||(coopIsGuest()&&!!S.coopPend))&&!S.over);
  }catch(e){}
  try{tutHi()}catch(e){}}
+/* ===== 新しい対戦画面（設定で今までの画面にもどせる） =====
+   見た目だけ。場・手札・コストなどの中身は今までと同じものを出す */
+function bsetGet(k){const v=store.get(k=="new"?"cmBNew":"cmBLbl");return k=="new"?v!="0":v=="1"}
+function applyBattleSet(){const g=$("game");if(!g)return;g.classList.toggle("nb",bsetGet("new"));g.classList.toggle("lbl",bsetGet("lbl"))}
+function openBattleSet(){renderBattleSet();$("bsetPop").classList.add("show");sfx("sel")}
+function closeBattleSet(){hideP("bsetPop")}
+function renderBattleSet(){$("bsetNew").classList.toggle("on",bsetGet("new"));$("bsetLbl").classList.toggle("on",bsetGet("lbl"))}
+function toggleBattleSet(k){if(k=="new")store.set("cmBNew",bsetGet("new")?"0":"1");else store.set("cmBLbl",bsetGet("lbl")?"0":"1");applyBattleSet();renderBattleSet();sfx("sel");try{if(S)render()}catch(e){}}
+// ターンの表示：自分はYOU、フレンドの相手はRIVAL、協力の相方はALLY・ボスはBOSS、それ以外はENEMY
+function nbTurnWho(){if(!S)return["YOU","me"];
+ if(S.active=="p"){if(S.coop&&S.coop.turn!==coopMe())return["ALLY","ally"];return["YOU","me"]}
+ if(S.coop||S.raid)return["BOSS","op"];if(FM.on)return["RIVAL","op"];return["ENEMY","op"]}
+// まん中の線に出す「かかっている状態」
+function nbStates(side){const L=[],os=side=="p"?"c":"p",B=side=="p"?S.pb:S.cb;
+ const n=B.filter(m=>m&&m.chain).length;if(n>=2)L.push("⛓️ チェイン×"+n);
+ if(side=="p"?S.pShield:S.cShield)L.push("🛡 ダメージ1回無効");
+ if(S.sumTax&&S.sumTax[side])L.push("⏳ 次の召喚コスト+"+S.sumTax[side]);
+ if(S.xDraw&&S.xDraw[side])L.push("📜 次のターン"+S.xDraw[side]+"枚多くドロー");
+ if(side=="c"&&S.opp&&S.opp.barrier)L.push("🌑 ふしぎなバリア");
+ if(side=="p"&&S.opp&&S.opp.rivalAid)L.push("🤝 "+fillText("{rival}")+"の応援");
+ if(B.some(m=>m&&isFrozen(m)))L.push("❄️ 凍結あり");
+ return L}
+function nbChips(L,cls){if(!L.length)return"";return '<span class="sc '+cls+'">'+escH(L[0])+'</span>'+(L.length>1?'<span class="sc more">+'+(L.length-1)+'</span>':"")}
+function nbStatePop(){if(!S)return;const a=nbStates("p"),b=nbStates("c");
+ const sec=(t,L,c)=>'<div class="sh">'+t+'</div>'+(L.length?L.map(x=>'<div class="si '+c+'">'+escH(x)+'</div>').join(""):'<div class="si">なし</div>');
+ $("nbStateBody").innerHTML='<h3>場の状態</h3>'+sec("自分にかかっている",a,"me")+sec("相手にかかっている",b,"op");$("nbStatePop").classList.add("show");sfx("sel")}
+function nbPiles(side){const D=side=="p"?S.pd:S.cd,G=side=="p"?S.pg:S.cg,top=G[G.length-1],img=top&&CARD_IMAGES[top.id];
+ return '<div class="pile"><i></i><i></i><i></i><b>'+D.length+'</b></div><div class="pl">山札</div>'
+  +'<div class="pile g" onclick="event.stopPropagation();showGrave(\''+side+'\')">'+(img?'<i style="background-image:url('+img+')"></i>':'<i></i>')+'<b>'+G.length+'</b></div><div class="pl">墓地</div>'}
+function nbRender(){const g=$("game");if(!S||!g||!g.classList.contains("nb"))return;
+ const nm=S.coop?"BOSS":((S.opp&&S.opp.name)?fillText(S.opp.name):"相手");$("nbOName").textContent=(S.opp&&S.opp.name)?fillText(S.opp.name):nm;
+ $("nbOHand").textContent="手札 "+S.ch.length;
+ const hp=(k,v,mx)=>{const w=Math.max(0,Math.min(100,v/mx*100))+"%";$(k).textContent=Math.max(0,v);$(k+"I").style.width=w;$(k+"U").style.width=w};
+ hp("nbOHp",S.chp,S.cMax||10000);hp("nbPHp",S.php,S.pMax||10000);
+ const w=nbTurnWho();$("nbTn").className="nbTn "+w[1];$("nbTnN").textContent="T"+turnTotal();$("nbTnW").textContent=w[0];
+ $("nbStL").innerHTML=nbChips(nbStates("p"),"me");$("nbStR").innerHTML=nbChips(nbStates("c"),"op");
+ $("nbCPiles").innerHTML=nbPiles("c");$("nbPPiles").innerHTML=nbPiles("p");
+ $("nbCostN").innerHTML=Math.max(0,Math.min(S.cost,S.max))+"<small>/10</small>";
+ const b=$("btnEnd");if(b&&/^ターンエンド/.test(b.textContent))b.innerHTML='<span class="et">ターン<br>エンド</span><span class="ea">▶</span>'}
 function gems(){const g=$("gems");g.innerHTML="";for(let i=0;i<10;i++){const d=document.createElement("div");d.className="gem"+(i>=S.cost||i>=S.max?" off":"");g.appendChild(d)}}
 function slot(side,i){return $(side=="p"?"pb":"cb").children[i]}
 function validTarget(m,side){return pending&&m&&((pending.kind=="ally"&&side=="p")||(pending.kind=="enemy"&&side=="c")||pending.kind=="any")&&(!pending.valid||pending.valid(m,side))}
