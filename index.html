@@ -869,7 +869,7 @@ img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit
 .kiCb{position:relative;display:block;width:52%;aspect-ratio:3/4;margin:0 auto 5px;border-radius:6px;border:2px solid var(--sc);background:var(--sb);box-shadow:0 3px 8px #0008;overflow:hidden}
 .kiCb:after{content:"CM";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;color:#fffc;text-shadow:0 0 6px #000}
 .kiCb.big{width:auto;height:84%;margin:0;border-width:3px;border-radius:9px}.kiCb.big:after{font-size:20px}
-.kiBox{max-height:88dvh;display:flex;flex-direction:column}
+.kiBox{max-height:calc(100dvh - 100px);display:flex;flex-direction:column}
 .kiTabs{display:flex;gap:6px;margin:4px 0 8px}.kiTabs button{flex:1;border:1px solid #ffffff33;background:#0d1e33;color:#cfe0f5;border-radius:99px;padding:7px 2px;font-size:12px;font-weight:800;box-shadow:none}.kiTabs button.on{background:#2aa8ff;border-color:#2aa8ff;color:#fff}
 .kiPv{position:relative;flex:0 0 auto;height:min(22dvh,150px);border-radius:12px;overflow:hidden;background:#0d1e33;box-shadow:inset 0 0 0 1px #ffffff22;display:flex;align-items:center;justify-content:center;gap:10px}
 .kiMat{position:absolute;inset:0;background:center/cover}
@@ -1789,7 +1789,9 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  #app{padding-top:max(calc(10px + env(safe-area-inset-top)),56px)}
  .ov{padding-top:max(calc(10px + env(safe-area-inset-top)),56px)}   /* カードの詳細も、時計の帯（ぼかし）の下から */
  #game{min-height:calc(100dvh - 10px - max(calc(10px + env(safe-area-inset-top)),56px) - env(safe-area-inset-bottom))}
- .crystalToast{top:max(calc(env(safe-area-inset-top,0px) + 8px),52px)}
+ .crystalToast{top:max(calc(env(safe-area-inset-top,0px) + 12px),66px)}   /* 上の帯（ぼかし）に重ならない高さに出す */
+ .fmNet{top:max(calc(env(safe-area-inset-top,0px) + 6px),60px)}
+ .pov{padding-top:max(calc(18px + env(safe-area-inset-top)),62px)}
  /* 見出し（デッキ編集など）の色を、増やした上の余白のぶんまで上にのばして、スクロールした中身が透けないように */
  .editorHead{box-shadow:0 calc(10px - max(calc(10px + env(safe-area-inset-top)),56px)) 0 #08162c}
 }
@@ -1959,7 +1961,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.44.2</div>
+ <div class="tVer" id="tVer">ver.5.44.3</div>
 </div>
 
 <div id="app">
@@ -2581,7 +2583,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.44.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.44.3</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
