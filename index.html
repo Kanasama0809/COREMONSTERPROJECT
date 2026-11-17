@@ -799,6 +799,8 @@ body.calm .tCard{animation:none}
 #game .hand .card.deal{animation:dealin .3s ease-out}
 #game .board .card.pop{animation:popin .32s ease-out}
 #game .board .card.shockC{animation:shockZap 2.2s infinite}
+#game .board .card.hit{animation:zunHit .45s ease-out}
+@keyframes zunHit{0%{transform:none}15%{transform:translateX(-6px) scale(.93)}35%{transform:translateX(6px) scale(.97)}55%{transform:translateX(-4px)}75%{transform:translateX(2px)}100%{transform:none}}
 #game .board .card.atkframe{animation:lunge .45s}
 body.calm #game .board .card.shockC{animation:none}
 #game .card.rr-sr{box-shadow:0 0 8px #a06be088}
@@ -930,6 +932,18 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 #game.nb>.top,#game.nb>.ztLine{display:none}
 #game.nb .nbOnly{display:revert!important}
 #game.nb>.bfield{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:auto auto minmax(0,1fr) 48px minmax(0,1fr) auto;gap:4px;padding:6px;border-radius:16px;box-shadow:inset 0 0 0 2px #ffffff33;background:#00000033;margin-top:4px}
+#game.nb>.bfield{position:relative}
+#game.nb .nbBan{position:absolute;left:0;right:0;top:50%;z-index:30;pointer-events:none;opacity:0;text-align:center;padding:8px 0 9px;transform:translateY(-50%);
+ background:linear-gradient(90deg,transparent,#1d6fe0e6 20%,#1d6fe0e6 80%,transparent);box-shadow:0 0 0 0 transparent}
+#game.nb .nbBan b{display:block;font-size:26px;font-weight:900;font-style:italic;letter-spacing:.06em;color:#fff;text-shadow:0 2px 8px #000a}
+#game.nb .nbBan small{display:block;font-size:11px;font-weight:800;color:#ffffffcc;margin-top:1px}
+#game.nb .nbBan.op{background:linear-gradient(90deg,transparent,#c0304ae6 20%,#c0304ae6 80%,transparent)}
+#game.nb .nbBan.ally{background:linear-gradient(90deg,transparent,#1e8a4ae6 20%,#1e8a4ae6 80%,transparent)}
+#game.nb .nbBan.show{animation:nbBanA 1.4s ease-out}
+@keyframes nbBanA{0%{opacity:0;transform:translateY(-50%) scaleY(.2)}12%{opacity:1;transform:translateY(-50%) scaleY(1)}78%{opacity:1;transform:translateY(-50%)}100%{opacity:0;transform:translateY(-50%)}}
+#game.nb .nbBan.show b{animation:nbBanT 1.4s ease-out}
+@keyframes nbBanT{0%{transform:translateX(-40px)}15%{transform:translateX(0)}80%{transform:translateX(0)}100%{transform:translateX(30px)}}
+body.calm #game.nb .nbBan.show b{animation:none}
 #game.nb .nbHead{display:flex!important;justify-content:space-between;align-items:center;gap:8px;padding:0 2px}
 #game.nb .nbName{font-size:11px;font-weight:700;color:#9fb6d3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #game.nb .nbEx{font-size:10px;color:#9fb6d3;white-space:nowrap}
@@ -942,11 +956,19 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 #game.nb .nbHp.o .hpb i{background:linear-gradient(90deg,#ff4d6d,#ff9a6b)}#game.nb .nbHp.m .hpb i{background:linear-gradient(90deg,#2a8dff,#6be3ff)}
 #game.nb .nbZone{display:block;min-height:0;container-type:size}
 /* わくはカードと同じ3:4。幅と高さの小さいほうに合わせて、カードがわくいっぱいになる */
-#game.nb .nbZone>.board{display:flex;justify-content:center;align-items:center;min-height:0;height:100%;gap:6px}
+#game.nb .nbZone>.board{display:flex;justify-content:space-evenly;align-items:center;min-height:0;height:100%;gap:0}
 #game.nb .slot{flex:0 0 auto;width:min((100cqw - 12px)/3,100cqh*.75);height:auto;aspect-ratio:3/4;min-height:0;border:0;box-shadow:inset 0 0 0 1px #ffffff33;background:#0003;border-radius:9px;color:transparent;display:flex;align-items:center;justify-content:center}
 #game.nb.lbl .slot{color:#ffffff40}
-#game.nb .slot.center{border-color:#6bc8ff66;box-shadow:none}
+#game.nb .slot.center{box-shadow:inset 0 0 0 1px #6bc8ff88}
 #game.nb .board .card{width:100%;height:100%;aspect-ratio:auto;border-radius:9px}
+/* カードの中の数字は、わくの大きさに合わせて大きさを変える（小さい画面でも数字が切れない） */
+#game.nb .slot{container-type:size}
+#game.nb .board .card .stats{font-size:clamp(6.5px,9cqw,13px);height:clamp(14px,19cqw,24px);left:3px;right:3px;bottom:3px;gap:1px}
+#game.nb .board .card .cost{width:clamp(16px,22cqw,28px);height:clamp(16px,22cqw,28px);font-size:clamp(9px,13cqw,16px)}
+#game.nb .board .card .kicon span{width:clamp(16px,22cqw,28px);height:clamp(16px,22cqw,28px);font-size:clamp(8px,11cqw,15px)}
+#game.nb .board .card .spelltag{font-size:clamp(8px,10cqw,12px);padding:1px 8px}
+#game.nb>.hand{container-type:inline-size}
+#game.nb>.hand .card .stats{font-size:clamp(6.5px,2.3cqw,11px);left:3px;right:3px;gap:1px}
 #game.nb .nbPg{position:relative;z-index:1;display:flex;align-items:center;gap:7px;padding:3px 7px 3px 5px;border-radius:10px;background:#0009}
 #game.nb .nbPg.op{box-shadow:inset 0 0 0 1px #ff8a9a77}#game.nb .nbPg.me{box-shadow:inset 0 0 0 1px #6bc8ff77}
 #game.nb .nbPg .who{writing-mode:vertical-rl;font-size:8px;font-weight:900;letter-spacing:.1em;line-height:1}#game.nb .nbPg.op .who{color:#ff9aa8}#game.nb .nbPg.me .who{color:#8ad0ff}
@@ -970,9 +992,12 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 #game.nb .ctrlbar .cmid{display:flex;flex-direction:row;align-items:center;gap:6px}
 #game.nb .ctrlbar .cmtop{display:contents}
 #game.nb .nbCost{display:flex;order:-1;flex:1;min-width:0;height:44px;align-items:center;gap:6px;padding:0 9px;border-radius:12px;background:#0009;box-shadow:inset 0 0 0 1px #4ee3ff55}
-#game.nb .ctrlbar #gems{display:flex;flex:0 1 auto;min-width:0;gap:3px;border:0;padding:0;background:none}
-#game.nb .ctrlbar #gems .gem{flex:0 0 auto;width:9px;height:9px;aspect-ratio:auto;transform:rotate(45deg);border-radius:2px;box-shadow:0 0 6px #2ed4ff}
-#game.nb .ctrlbar #gems .gem.off{box-shadow:none}
+/* 🔷は枠いっぱいに10こ並べる（ひし形は clip-path なので、見た目と場所がずれない） */
+#game.nb .ctrlbar #gems{display:flex;flex:1 1 auto;min-width:0;align-items:center;justify-content:space-between;gap:3px;border:0;padding:0;background:none;filter:drop-shadow(0 0 3px #2ed4ff99)}
+#game.nb .ctrlbar #gems .gem{position:relative;flex:1 1 0;min-width:0;max-width:18px;height:auto;aspect-ratio:4/5;transform:none;border:0;border-radius:0;box-shadow:none;
+ clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:linear-gradient(160deg,#e6fdff,#5fe6ff 45%,#0a8cc4)}
+#game.nb .ctrlbar #gems .gem.off{background:#3b6a8f}
+#game.nb .ctrlbar #gems .gem.off:after{content:"";position:absolute;inset:1.5px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:#0b1a30}
 #game.nb .nbCostN{display:inline!important;flex:0 0 auto;font-size:14px;font-weight:900;color:#bff3ff;white-space:nowrap}#game.nb .nbCostN small{font-size:11px;color:#9fb6d3}
 #game.nb .ctrlbar .pauseBtn,#game.nb .nbLogBtn{flex:0 0 auto;height:44px;min-width:38px;border-radius:12px;border:1px solid #ffffff33;background:#0009;color:#fff;font-size:13px;font-weight:900;padding:0 10px}
 #game.nb .ctrlbar #btnEnd{flex:0 0 auto;display:flex;align-items:center;gap:4px;height:44px;line-height:1.15;font-size:12px;white-space:nowrap;padding:0 9px 0 10px;border-radius:12px}
@@ -980,7 +1005,7 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 #game.nb>.hand{min-height:0;padding:8px 2px 10px;gap:5px;background:none;border:0;margin-top:2px}
 #game.nb>.hand .card{flex:0 0 calc((100% - 15px)/4);width:auto;max-width:96px}
 @media (max-width:350px){#game.nb .ctrlbar #btnEnd{padding:0 7px;font-size:11px}#game.nb .ctrlbar .pauseBtn,#game.nb .nbLogBtn{min-width:32px;padding:0 7px;font-size:11px}
- #game.nb .nbCost{padding:0 6px;gap:4px}#game.nb .ctrlbar #gems{gap:2px}#game.nb .ctrlbar #gems .gem{width:7px;height:7px}#game.nb .nbCostN{font-size:12px}
+ #game.nb .nbCost{padding:0 6px;gap:4px}#game.nb .ctrlbar #gems{gap:2px}#game.nb .nbCostN{font-size:12px}
  #game.nb .nbPg{gap:5px;padding:3px 5px}#game.nb .pile{width:25px;height:34px}
  #game.nb .nbTn b{width:30px;font-size:11px}#game.nb .nbTn span{width:50px;font-size:10px}#game.nb .nbHp{grid-template-columns:54px minmax(0,1fr)}#game.nb .nbHp .num{font-size:16px}}
 /* ===== 対戦レイアウトC（下部集約バー：CPU｜中央⏸/END/コア/ログ｜自分） ===== */
@@ -1974,7 +1999,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.45.1</div>
+ <div class="tVer" id="tVer">ver.5.45.4</div>
 </div>
 
 <div id="app">
@@ -2274,6 +2299,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
   <div class="nbZone"><div id="cb" class="board"></div></div>
   <div class="nbOnly nbMid"><div class="nbPg op" id="nbCPiles"></div><div class="nbTn" id="nbTn"><b id="nbTnN"></b><span id="nbTnW"></span></div><div class="nbPg me" id="nbPPiles"></div></div>
   <div class="nbZone"><div id="pb" class="board"></div></div>
+  <div class="nbOnly nbBan" id="nbBan"></div>
   <div class="nbOnly nbHp m"><span id="nbPHp" class="num"></span><span class="hpb"><u id="nbPHpU"></u><i id="nbPHpI"></i></span></div>
  </div>
  <div class="ctrlbar">
@@ -2596,7 +2622,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.45.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.45.4</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -7652,7 +7678,7 @@ function pmBossShow(id,line){const box=$("pmBoss"),pm=$("prematch");
  pm.classList.add("boss");return true}
 // 対戦前の大きい絵：相手はボスのカード（なければデッキでいちばん重いモンスター）、自分はデッキの切り札
 function pmTopCard(deckIds){const L=[...new Set(deckIds||[])].map(by).filter(c=>c&&CARD_IMAGES[c.id]).sort((x,y)=>((y.type=="monster")-(x.type=="monster"))||((y.cost||0)-(x.cost||0))||((RARITY_ORDER[y.rarity]||0)-(RARITY_ORDER[x.rarity]||0)));return L.length?L[0].id:null}
-function pmArtSet(id){const el=$("pmOppArt");if(!el)return;const img=id&&CARD_IMAGES[id];el.style.backgroundImage=img?"url("+img+")":"none";el.classList.toggle("none",!img);el.style.animation="none";void el.offsetWidth;el.style.animation=""}
+function pmArtSet(id){const el=$("pmOppArt");if(!el)return;const img=id&&CARD_IMAGES[id];el.style.backgroundImage=img?"url("+img+")":"";el.classList.toggle("none",!img);el.style.animation="none";void el.offsetWidth;el.style.animation=""}
 function pmAcesSet(){const el=$("pmAces");if(!el)return;let ids=[];
  const dr=pmPending&&pmPending.personality&&pmPending.personality.pDeck;
  if(dr){const t=pmTopCard(dr);if(t)ids=[t]}else{try{ids=deckCover(deckSlots()[curSlot()],3)}catch(e){}if(!ids.length){const t=pmTopCard(deck);if(t)ids=[t]}}
@@ -7667,7 +7693,7 @@ function prematch(personality,fixed){
  $("pmName").textContent=boss&&by(opp.bossCard)?by(opp.bossCard).name:name;
  $("pmTag").textContent=fillText(opp.tagline||"");
  $("pmOppTitle").innerHTML="";renderPmMe();renderPmDeck(true);
- pmArtSet(boss?opp.bossCard:pmTopCard(opp.deck||[]));
+ pmArtSet(boss?opp.bossCard:null);   // 絵のない相手は、色だけ（カードの絵は使わない）
  if(boss&&opp.bossLine&&String(opp.bossLine).replace(/[「」]/g,"")==fillText(opp.tagline||""))$("pmTag").textContent="";
  $("pmBtn").classList.remove("show");
  const second=Math.random()<.5;
@@ -7884,7 +7910,7 @@ function heroDmg(side,n,from){if(n<=0||S.over)return;
  render()}
 function floatHero(side,v,cl){const b=heroBox(side);if(!b)return;const r=b.getBoundingClientRect();mkFloat(r.left+r.width/2,r.top+r.height/2,v,cl)}
 function mkFloat(x,y,v,cl){const e=document.createElement("div");e.className="float "+cl;e.textContent=v;e.style.left=x+"px";e.style.top=y+"px";document.body.appendChild(e);setTimeout(()=>e.remove(),850)}
-function float(side,i,v,cl){try{const r=slot(side,i).getBoundingClientRect();mkFloat(r.left+r.width/2,r.top+r.height/2,v,cl)}catch(e){}}
+function float(side,i,v,cl){hitFx(side,i);try{const r=slot(side,i).getBoundingClientRect();mkFloat(r.left+r.width/2,r.top+r.height/2,v,cl)}catch(e){}}
 
 /* ================= 描画 ================= */
 /* ===== 石版の画面 =====
@@ -8057,13 +8083,18 @@ function nbPiles(side){const D=side=="p"?S.pd:S.cd,G=side=="p"?S.pg:S.cg,top=G[G
  const sv=slvCls(side=="p"?slotSleeve():"std");
  return '<span class="who">'+(side=="p"?"自分":"相手")+'</span><div class="pile d '+sv+'"><i></i><i></i><i></i><b>'+D.length+'</b></div>'
   +'<div class="pile g" onclick="showGrave(\''+side+'\')">'+(img?'<i style="background-image:url('+img+')"></i>':'<i></i>')+'<b>'+G.length+'</b></div>'}
+// ターンが変わったら、まん中に「YOUR TURN」などを出す
+let nbTurnKey=null;
+function nbBanner(w){const b=$("nbBan");if(!b)return;b.innerHTML='<b>'+(w[0]=="YOU"?"YOUR":w[0])+' TURN</b><small>ターン '+turnTotal()+'</small>';
+ b.className="nbOnly nbBan "+w[1];void b.offsetWidth;b.classList.add("show")}
 function nbRender(){const g=$("game");if(!S||!g||!g.classList.contains("nb"))return;
  const mu=matUrl(curMat()),bf=$("bfield");if(bf){bf.classList.toggle("hasMat",!!mu);bf.style.setProperty("--mat",mu?"url("+mu+")":"none")}
  const nm=S.coop?"BOSS":((S.opp&&S.opp.name)?fillText(S.opp.name):"相手");$("nbOName").textContent=(S.opp&&S.opp.name)?fillText(S.opp.name):nm;
  $("nbOHand").textContent="手札 "+S.ch.length;
  const hp=(k,v,mx)=>{const w=Math.max(0,Math.min(100,v/mx*100))+"%";$(k).textContent=Math.max(0,v);$(k+"I").style.width=w;$(k+"U").style.width=w};
  hp("nbOHp",S.chp,S.cMax||10000);hp("nbPHp",S.php,S.pMax||10000);
- const w=nbTurnWho();$("nbTn").className="nbTn "+w[1];$("nbTnN").textContent="T"+turnTotal();$("nbTnW").textContent=w[0];
+ const w=nbTurnWho();$("nbTn").className="nbTn "+w[1];
+ const tk=S.active+":"+turnTotal()+":"+(S.coop?S.coop.turn:"");if(nbTurnKey!==tk){nbTurnKey=tk;if(!S.over)nbBanner(w)}$("nbTnN").textContent="T"+turnTotal();$("nbTnW").textContent=w[0];
  $("nbCPiles").innerHTML=nbPiles("c");$("nbPPiles").innerHTML=nbPiles("p");
  $("nbCostN").innerHTML=Math.max(0,Math.min(S.cost,S.max))+"<small>/10</small>";
  const b=$("btnEnd");if(b&&/^ターンエンド/.test(b.textContent))b.innerHTML='<span class="et">ターン<br>エンド</span><span class="ea">▶</span>'}
@@ -8085,11 +8116,18 @@ function bindPress(el,card,tapFn){
 }
 // わくごとに、前に出ていたカードを覚えておく（ちがうカードが来たときだけ「ポンッ」と出す）
 const popLane={p:[null,null,null],c:[null,null,null]};
-let handSeen=new Set();   // 手札：前に出ていたカード（新しく来たカードだけ下からスッと入る）
+let handSeen=new Set();
+// 攻撃された・呪文などで数値や状態が変わったモンスターは「ズンッ」とゆれる
+const hitAt={p:[0,0,0],c:[0,0,0]},laneSig={p:[null,null,null],c:[null,null,null]};
+function hitSig(c){try{return [c.buff||0,c.defBuff||0,c.atk||0,c.def||0,c.dmg||0,c.shock||0,isFrozen(c)?1:0,c.guard?1:0].join(",")}catch(e){return ""}}
+function hitFx(side,i){hitAt[side][i]=Date.now();try{const d=slot(side,i).querySelector(".card");if(d){d.classList.remove("hit");void d.offsetWidth;d.style.animationDelay="";d.classList.add("hit")}}catch(e){}}   // 手札：前に出ていたカード（新しく来たカードだけ下からスッと入る）
 function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
  B.forEach((c,i)=>{const s=document.createElement("div");
   const sd=isP?"p":"c";let pop=false;
-  if(!c)popLane[sd][i]=null;else{const k=c.uid!=null?c.uid:c.id;if(popLane[sd][i]!==k){popLane[sd][i]=k;pop=true}}
+  let hit=0;
+  if(!c){popLane[sd][i]=null;laneSig[sd][i]=null}else{const k=c.uid!=null?c.uid:c.id,sg=hitSig(c);if(popLane[sd][i]!==k){popLane[sd][i]=k;pop=true}
+   else if(laneSig[sd][i]!==null&&laneSig[sd][i]!==sg)hitAt[sd][i]=Date.now();
+   laneSig[sd][i]=sg;const el=Date.now()-hitAt[sd][i];if(!pop&&el<450)hit=el+1}
   s.className="slot"+(i==1?" center":"")
    +(laneFx.atk&&laneFx.atk.side==sd&&laneFx.atk.i==i?" laneAtk":"")
    +(laneFx.tgt&&laneFx.tgt.side==sd&&laneFx.tgt.i==i?" laneTgt":"")
@@ -8100,13 +8138,13 @@ function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
    if(!isP&&selA!=null&&i==1&&!S.cb[1])s.classList.add("targetable");
   }else{
    const side=isP?"p":"c",d=document.createElement("div");
-   d.className="card"+(pop?" pop":"")+(c.used?" used":"")
+   d.className="card"+(pop?" pop":"")+(hit?" hit":"")+(c.used?" used":"")
     +((isP&&selA==i)||(!isP&&selE==i)?" sel":"")
     +(S.atkSide==side&&S.atkI==i?" atkframe":"")
     +(c.rarity=="CR"?" crframe":"")
     +((c.buff||0)>0||(c.defBuff||0)>0?" buffed":((c.defBuff||0)<0?" debuffed":""))
     +b3Cls(c,side);
-   d.innerHTML=htmlCard(c,side);
+   d.innerHTML=htmlCard(c,side);if(hit)d.style.animationDelay="-"+hit+"ms";
    if(isFrozen(c)||c.shock){const bd=document.createElement("div");bd.className="b2st";
     bd.innerHTML=(isFrozen(c)?'<span class="stF">❄️</span>':'')+(c.shock?'<span class="stS">⚡'+c.shock+'</span>':'');d.appendChild(bd);
     if(isFrozen(c))d.classList.add("frozenC");if(c.shock)d.classList.add("shockC")}
@@ -8335,7 +8373,7 @@ function pick(side,kind,valid,score,cb,refund){
  cb(bSide,best)}
 function resolvePending(side,i){const pd=pending;pending=null;
  if(pd.refund){S.pg.push(pd.refund.card);pd.refund=null}
- pd.cb(side,i);render();chk()}
+ hitFx(side,i);pd.cb(side,i);render();chk()}
 function cancelPending(){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest()){if(S&&S.coopPend&&coopCanAct())fmSend({t:"cancel"});return}if(!pending)return;
  if(pending.fmId){const id=pending.fmId;pending=null;fmAnswer(id,null);log("自動で選びます");render();return}
  if(pending.refund){S.cost+=pending.refund.cost;S.ph.push(pending.refund.card);log("キャンセルしました")}else log("キャンセル");
