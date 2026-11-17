@@ -31,6 +31,9 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%}
+/* 長押しで文字の選択・コピーが出ないように（入力欄は別） */
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,[contenteditable]{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
 body{background:#020409;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;overscroll-behavior:none}
 .dot{font-family:'Dela Gothic One',sans-serif}
 #app{max-width:560px;height:100dvh;margin:auto;overflow:auto;padding:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom));position:relative;
@@ -2037,7 +2040,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.46.1</div>
+ <div class="tVer" id="tVer">ver.5.46.2</div>
 </div>
 
 <div id="app">
@@ -2668,7 +2671,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.46.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.46.2</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -4719,9 +4722,9 @@ function renderTower(){const o=towerSt(),r=o.run;$("twSub").textContent="最高 
    +(r.phase=="draft"?'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'ドラフトをやめますか？（今日の1回は使ったことになります）\',towerQuit)">やめる</button>':'')}
  else if(r.phase=="swap"){const U=[...new Set(r.deck)];
   h='<div class="twLv"><span>デッキの入れかえ</span>'+towerHearts(r)+'</div>'
-   +'<div class="twH">手に入れたカード（押して選ぶ）</div><div class="twDk">'+r.pool.map((id,k)=>'<button type="button" class="twDc'+(towerSel===k?' sel':'')+'" style="background-image:url('+(CARD_IMAGES[id]||"")+')" onclick="towerSwapPick('+k+')"><b>×2</b><span>'+escH((by(id)||{}).name||"")+'</span></button>').join("")+'</div>'
-   +'<div class="twH">デッキ 30枚（'+(towerSel==null?'上のカードを選んでから押すと入れかえ':'押したカードと入れかえ')+'）</div><div class="twDk">'
-   +U.map(id=>'<button type="button" class="twDc" style="background-image:url('+(CARD_IMAGES[id]||"")+')" onclick="towerSwap(\''+id+'\')"><b>×2</b><span>'+escH((by(id)||{}).name||"")+'</span></button>').join("")+'</div>'
+   +'<div class="twH">手に入れたカード（押して選ぶ・長押しでくわしく）</div><div class="twDk" id="twPool">'+r.pool.map((id,k)=>'<button type="button" class="twDc'+(towerSel===k?' sel':'')+'" style="background-image:url('+(CARD_IMAGES[id]||"")+')" data-id="'+id+'" data-k="'+k+'"><b>×2</b><span>'+escH((by(id)||{}).name||"")+'</span></button>').join("")+'</div>'
+   +'<div class="twH">デッキ 30枚（'+(towerSel==null?'上のカードを選んでから押すと入れかえ':'押したカードと入れかえ')+'）</div><div class="twDk" id="twDeck">'
+   +U.map(id=>'<button type="button" class="twDc" style="background-image:url('+(CARD_IMAGES[id]||"")+')" data-id="'+id+'"><b>×2</b><span>'+escH((by(id)||{}).name||"")+'</span></button>').join("")+'</div>'
    +'<button type="button" class="gold evGoBtn" onclick="towerDone()">これで決定 ▶</button>'}
  else{const F=TOWER_FLOORS.map((x,i)=>{const c=RANK_CPUS.find(q=>q.id==x[0]);const f=i+1;
    return '<div class="twFl'+(f<r.floor?' done':f==r.floor?' now':'')+(x[1]=="中ボス"?' boss':'')+(x[1]=="塔の主"?' top':'')+'"><span class="n">'+f+'F</span><span class="o">'+(x[1]?x[1]+'：':'')+escH(c?c.name:"？")+'</span><span class="rw">💎'+TOWER_GEM[i]+'</span></div>'}).reverse().join("");
@@ -4730,7 +4733,9 @@ function renderTower(){const o=towerSt(),r=o.run;$("twSub").textContent="最高 
    +(r.pool.length?'<button type="button" class="sec evGoBtn" onclick="(function(){const o=towerSt();o.run.phase=\'swap\';towerSave(o);renderTower()})()">デッキを見る・入れかえ</button>':'')
    +'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'タワーの挑戦を終わりにしますか？\',towerQuit)">挑戦を終える</button>'}
  $("twBody").innerHTML=h;
- const pk=$("twPick");if(pk)[...pk.children].forEach(b=>{const i=+b.dataset.i,id=towerOffer[i];bindPress(b,by(id),()=>towerPick(i))})}
+ const pk=$("twPick");if(pk)[...pk.children].forEach(b=>{const i=+b.dataset.i,id=towerOffer[i];bindPress(b,by(id),()=>towerPick(i))});
+ const pl=$("twPool");if(pl)[...pl.children].forEach(b=>bindPress(b,by(b.dataset.id),()=>towerSwapPick(+b.dataset.k)));
+ const dk=$("twDeck");if(dk)[...dk.children].forEach(b=>bindPress(b,by(b.dataset.id),()=>{if(towerSel==null){showD(by(b.dataset.id));return}towerSwap(b.dataset.id)}))}
 /* ===== ランク戦のCPU（ブロンズ→マスター、各ランク2人）。強さはシミュレーションで上のランクほど強くなる順に並べた。
    ランク戦はまだ作っていないので、今はデータだけ */
 const RANK_TIERS=[["bronze","ブロンズ"],["silver","シルバー"],["gold","ゴールド"],["platinum","プラチナ"],["diamond","ダイヤ"],["master","マスター"]];
