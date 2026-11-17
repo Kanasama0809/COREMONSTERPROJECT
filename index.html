@@ -315,6 +315,34 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 .kwB{min-height:32px;padding:0 10px;border-radius:99px;border:1px solid #3a5a80;background:#10203a;color:#cfe0f5;font:inherit;font-size:12px;font-weight:700}
 .kwB.on{background:#ffd84a;color:#1a1a1a;border-color:#ffd84a}
 .drHead{text-align:center;font-weight:800;margin:6px 0 8px}
+/* ドラフトタワー */
+.twHero{border-radius:16px;padding:14px;background:linear-gradient(160deg,#3a2a6a,#121a33);box-shadow:inset 0 0 0 1px #c9a6ff55;margin:6px 0 10px}
+.twHero b{font-size:20px;display:block}.twHero p{font-size:12px;line-height:1.7;margin:6px 0 0;color:#d7e6ff}
+.twRules{display:grid;gap:6px;margin-bottom:6px}.twRules>div{display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:9px 10px;border-radius:12px;background:#0d1e33;box-shadow:inset 0 0 0 1px #fff1;text-align:left}.twRules i{font-style:normal;font-size:16px}
+.twLv{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 8px;font-size:13px;font-weight:800}
+.twHearts{font-size:17px;letter-spacing:1px}.twHearts .off{filter:grayscale(1) brightness(.4)}
+.twProg{height:8px;border-radius:99px;background:#0009;overflow:hidden;margin:0 2px 6px;box-shadow:inset 0 0 0 1px #fff2}.twProg i{display:block;height:100%;background:linear-gradient(90deg,#7ef0a1,#2aa8ff)}
+.twNote{font-size:11px;color:#9fb6d3;margin:0 2px 8px;text-align:left}
+.twPick3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.twPc{display:block;border:0;border-radius:12px;background:#0d1e33;padding:6px;box-shadow:inset 0 0 0 1px #fff2;text-align:left;color:#eaf6ff;font:inherit;min-width:0}
+.twPc.rr-sr{box-shadow:inset 0 0 0 2px #c29bff}.twPc.rr-ur{box-shadow:inset 0 0 0 2px #f0c76a,0 0 12px #f0c76a66}
+.twAr{position:relative;display:block;aspect-ratio:3/4;border-radius:8px;background:#06101f center/cover}
+.twEm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px}
+.twCo{position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff3d6;color:#4a3000;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid #d9a441}
+.twRr{position:absolute;right:3px;top:3px;font-size:9px;font-weight:900;padding:1px 5px;border-radius:99px;background:#000b;color:#cfd8e3}.twRr.rR{color:#8fd0ff}.twRr.rSR{color:#d3acff}.twRr.rUR{color:#ffe39a}
+.twNm{display:block;font-size:10.5px;font-weight:800;margin-top:5px;line-height:1.25;height:2.5em;overflow:hidden}.twSt{display:block;font-size:10px;color:#9fb6d3}
+.twTw{display:flex;flex-direction:column;gap:5px;margin-bottom:6px}
+.twFl{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:#0d1e33;box-shadow:inset 0 0 0 1px #fff1;font-size:13px;text-align:left}
+.twFl .n{width:36px;font-weight:900;color:#9fb6d3}.twFl .o{flex:1;font-weight:800;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.twFl .rw{font-size:11px;color:#ffe08a}
+.twFl.done{opacity:.55}.twFl.done .n:after{content:" ✓";color:#7ef0a1}
+.twFl.now{background:linear-gradient(90deg,#1d6fe0,#3aa0ff);box-shadow:0 0 0 2px #bfe6ff,0 0 16px #3aa0ff88}.twFl.now .n{color:#fff}
+.twFl.boss .o{color:#ffb0bb}.twFl.top{background:linear-gradient(90deg,#3a1a5a,#7a2a5a);box-shadow:0 0 0 1px #ffd54a99}.twFl.top .o{color:#ffe08a}.twFl.now.boss .o,.twFl.now.top .o{color:#fff}
+.twH{font-size:11px;color:#9fb6d3;margin:10px 2px 6px;text-align:left}
+.twDk{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.twDc{position:relative;display:block;aspect-ratio:3/4;border:0;padding:0;border-radius:7px;background:#06101f center/cover;box-shadow:0 0 0 1px #fff3;overflow:hidden}
+.twDc b{position:absolute;right:2px;bottom:2px;font-size:9px;padding:0 4px;border-radius:99px;background:#000c;color:#fff}
+.twDc span{position:absolute;left:0;right:0;top:0;font-size:8px;line-height:1.2;padding:2px 3px;background:linear-gradient(#000c,#0000);color:#fff;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.twDc.sel{box-shadow:0 0 0 2px #ffd54a,0 0 12px #ffd54a}
 .drPicks{display:flex;flex-direction:column;gap:8px}
 .drPick{display:flex;gap:10px;align-items:stretch;text-align:left;padding:8px;border-radius:12px;border:2px solid #3a5a80;background:#10203a;color:#eaf2ff;font:inherit;min-height:44px}
 .drPick.rr-sr{border-color:#c29bff}.drPick.rr-ur{border-color:#f6cf6b}.drPick.rr-r{border-color:#6bc8ff}
@@ -799,6 +827,16 @@ body.calm .tCard{animation:none}
 #game .hand .card.deal{animation:dealin .3s ease-out}
 #game .board .card.pop{animation:popin .32s ease-out}
 #game .board .card.shockC{animation:shockZap 2.2s infinite}
+/* 選んでいるカード：少し上がって、金色の光がふちを回る＋▼ */
+#game .card.sel{outline:0;border-color:#ffd54a;box-shadow:0 0 0 2px #ffd54a,0 0 20px #ffd54acc,0 8px 14px #000a!important;transform:translateY(-10px) scale(1.04);z-index:4;transition:transform .15s}
+#game .board .card.sel{transform:translateY(-5px) scale(1.04)}
+.selRing{position:absolute;inset:0;z-index:20;pointer-events:none;border-radius:inherit;padding:3px;background:conic-gradient(from var(--selA),#ffd54a,#fff,#ff9a3c,#ffd54a);
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:selSpin 1.6s linear infinite}
+.selArw{position:absolute;z-index:21;left:50%;top:2px;transform:translateX(-50%);font-style:normal;font-size:14px;line-height:1;color:#ffd54a;text-shadow:0 0 6px #000,0 0 10px #ffd54a;pointer-events:none;animation:selBob .8s ease-in-out infinite}
+@property --selA{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes selSpin{to{--selA:360deg}}@keyframes selBob{50%{top:6px}}
+body.calm .selRing,body.calm .selArw{animation:none}
+#game.nb>.hand{padding-top:14px}
 #game .board .card.hit{animation:zunHit .45s ease-out}
 @keyframes zunHit{0%{transform:none}15%{transform:translateX(-6px) scale(.93)}35%{transform:translateX(6px) scale(.97)}55%{transform:translateX(-4px)}75%{transform:translateX(2px)}100%{transform:none}}
 #game .board .card.atkframe{animation:lunge .45s}
@@ -1999,7 +2037,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.45.4</div>
+ <div class="tVer" id="tVer">ver.5.46.1</div>
 </div>
 
 <div id="app">
@@ -2198,6 +2236,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
   <button type="button" class="bt2" style="--c:#7fd8ff" onclick="menuGo(1)"><span class="bt2Art" data-art="hien_cr"></span><span class="bt2Cp"><b>ランダムバトル</b><small>好きなデッキで</small></span></button>
   <button type="button" class="bt2" style="--c:#ff8ad8" onclick="htStart()"><span class="bt2Art" data-art="hw01cr"></span><span class="bt2St" id="btHtSt"></span><span class="bt2Cp"><b>へんてこバトル</b><small>毎回ちがうルール</small></span></button>
   <button type="button" class="bt2" style="--c:#75efaa" onclick="openDraft()"><span class="bt2Art" data-art="chronoga_cr"></span><span class="bt2St" id="btDrSt"></span><span class="bt2Cp"><b>ドラフト</b><small>3枚から選ぶ</small></span></button>
+  <button type="button" class="bt2 bt2Big" style="--c:#c9a6ff" onclick="openTower()"><span class="bt2Art" data-art="b3m42"></span><span class="bt2St" id="btTwSt"></span><span class="bt2Cp"><b>🗼 ドラフトタワー</b><small>N・Rでドラフトして10階をめざす（1日1回）</small></span></button>
  </div>
  <div id="btDare" class="btGrid hide">
   <button type="button" class="bt2 bt2Big bt2Tall" style="--c:#75efaa" onclick="openCoopPage()"><span class="bt2Art" id="btCoopArt"></span><span class="bt2St" id="btCoopSt"></span><span class="bt2Cp"><b>協力バトル</b><small id="btCoopSub"></small></span></button>
@@ -2214,6 +2253,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
   <button type="button" class="btCard bt-ev" onclick="menuGo(2)"><img id="btEvImg" class="btImg" alt=""><span class="btTtl">イベント</span><span class="btSub" id="btEvSub">ボスバトル</span><span id="btEvBadge" class="pBadge hide">!</span></button>
   <button type="button" class="btCard bt-ht" onclick="htStart()"><span class="btTtl">へんてこバトル</span><span class="btSub" id="btHtSub">毎回ランダムなルールで戦う</span></button>
   <button type="button" class="btCard bt-dr" onclick="openDraft()"><span class="btTtl">ドラフトチャレンジ</span><span class="btSub" id="btDrSub">その場でデッキを作って連勝をめざす</span></button>
+  <button type="button" class="btCard bt-dr" onclick="openTower()"><span class="btTtl">🗼 ドラフトタワー</span><span class="btSub">N・Rでドラフトして、勝つたびにカードを足して10階をめざす</span></button>
  </div>
  <button type="button" class="deckLine" onclick="openDeckPick()"><span class="dlLbl">使うデッキ</span><span class="dlName" id="btDeckName2"></span><span class="dlGo">変える ▶</span></button>
  <div class="foot"><button type="button" class="sec" onclick="openBattleTab()">戻る</button></div>
@@ -2234,6 +2274,12 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 <div id="draft" class="hide">
  <div class="editorHead"><h1>ドラフトチャレンジ</h1><div class="sub" id="drSub"></div></div>
  <div id="drBody"></div>
+ <div class="foot"><button type="button" class="sec" onclick="openSolo()">戻る</button></div>
+</div>
+
+<div id="tower" class="hide">
+ <div class="editorHead"><h1>🗼 ドラフトタワー</h1><div class="sub" id="twSub"></div></div>
+ <div id="twBody"></div>
  <div class="foot"><button type="button" class="sec" onclick="openSolo()">戻る</button></div>
 </div>
 
@@ -2622,7 +2668,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.45.4</div>
+  <div class="aboutVer" id="aboutVer">ver.5.46.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2713,6 +2759,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <button type="button" id="rStoryGo" class="gold hide" style="width:100%;margin-bottom:8px" onclick="storyGoOnAfterLose()">▶ 先に進む</button>
  <div id="rDragon" class="rDragon hide"></div>
  <div id="rDraft" class="rDragon hide"></div>
+ <div id="rTower" class="rDragon hide"></div>
  <div id="rRaid" class="rDragon hide"></div>
  <div id="rRank" class="rDragon hide"></div>
  <div class="rbtns" id="rBtns"><button onclick="hideP('resultov');rematchLast()">🔁 もう一度対戦</button><button class="sec" onclick="hideP('resultov');if(FM.on)fmQuit();else menu()">メニューへ</button></div>
@@ -4012,7 +4059,7 @@ function treeBurst(){
 
 /* ===== 下のタブ（ホーム・ストーリー・対戦・ガチャ・メニュー） =====
    タブの画面と、そこから開く画面で出す。対戦中・会話・チュートリアル・序章クリア前は隠す */
-const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",stats:"more",rank:"battle",coopLobby:"battle",dareHub:"battle",coopPage:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
+const TAB_OF={menu:"home",story:"story",battleTab:"battle",soloHub:"battle",draft:"battle",tower:"battle",stats:"more",rank:"battle",coopLobby:"battle",dareHub:"battle",coopPage:"battle",events:"battle",eventDetail:"battle",friend:"battle",list:"battle",
  gacha:"gacha",exchange:"gacha",menuTab:"more",tasks:"more",titles:"more",codex:"more",tablet:"more",presents:"more",news:"more",edit:"more",pass:"home"};
 function tabGo(k){if(!isIntroDone())return;sfx("sel");
  if(k=="home")menu();else if(k=="story")menuGo(0);else if(k=="battle")openBattleTab();else if(k=="gacha")menuGo(6);else if(k=="more")openMenuTab();syncTab()}
@@ -4036,6 +4083,7 @@ function renderBattleTab(){$("btDeckName").textContent=deckSlotName(curSlot());
   document.querySelectorAll("#battleTab [data-art]").forEach(e=>{if(!e.style.backgroundImage)e.style.backgroundImage="url("+(CARD_IMAGES[e.dataset.art]||"")+")"});
   $("btRkSt").textContent=rankInfo(rankSt().pts).name;
   const ho=htSt();$("btHtSt").textContent="💎 "+Math.min(ho.wins,HT_DAILY)+"/"+HT_DAILY;
+  try{const tw=towerSt();$("btTwSt").textContent=tw.run?"挑戦中 "+tw.run.floor+"F":tw.used?"また明日":"今日1回"}catch(e){}
   const dr=draftSt();$("btDrSt").textContent=dr.run&&dr.run.deck?"挑戦中":dr.used?"練習":"💎 今日1回";
   const evs=eventsActive(),ev=evs[0];$("btEvArt").style.backgroundImage=ev?"url("+(eventArtImg(ev)||"")+")":"";
   $("btEvSt").textContent=evs.length?evs.length+"つ開催中":"";$("btEvSt").classList.toggle("hide",!evs.length);
@@ -4321,7 +4369,9 @@ function tryEvents(){
  openEvents();
 }
 function renderEvents(){
- const L=eventsShown(),n=eventsActive().length;
+ // もう終わった（総力戦でボスを倒した）イベントは、いちばん下へ
+ const evDone=e=>{try{return e.kind=="raid"&&!!raidSt().cleared}catch(x){return false}};
+ const L=eventsShown().map((e,i)=>[e,i]).sort((a,b)=>(evDone(a[0])-evDone(b[0]))||(a[1]-b[1])).map(x=>x[0]),n=eventsActive().length;
  $("eventsInfo").textContent=n?("開催中 "+n+"件"):"現在ひらいているイベントはありません";
  $("eventList").innerHTML=L.length?L.map(e=>{
   const th=e.theme||["#1d5aa6","#0a1d3c"],ac=e.accent||"#f0c76a";
@@ -4457,7 +4507,7 @@ function drStartTenpen(){if(!drTenpenOpen())return;drRun={mode:"tenpen",idx:0,hp
 function drGive(n,why){const left=Math.max(0,DR_TIX_CAP-ticketToday("dragon")),g=Math.min(n,left);
  if(g<=0){log2Toast("今日の龍の券はもらいきりました");return 0}bumpTicketToday(g,"dragon");addTicket(g,why,"dragon");return g}
 // 結果画面：次へ進むボタン
-function drOnResult(won){const box=$("rDragon"),btns=$("rBtns");if(!drCtx){box.classList.add("hide");if(!draftCtx)btns.classList.remove("hide");return}
+function drOnResult(won){const box=$("rDragon"),btns=$("rBtns");if(!drCtx){box.classList.add("hide");if(!draftCtx&&!towerCtx)btns.classList.remove("hide");return}
  const r=drRun;drCtx=null;box.classList.remove("hide");btns.classList.add("hide");
  const back='<button class="sec" onclick="hideP(\'resultov\');drRun=null;openEventDetail(\'dragon\')">イベントへ戻る</button>';
  if(!r){box.innerHTML=back;return}
@@ -4569,7 +4619,7 @@ function draftPick(i){const o=draftSt(),r=o.run;if(!r||r.deck||!draftOffer)retur
 function draftOpp(streak){const L=PERSONALITIES;const b=L[Math.random()*L.length|0];
  return {...b,id:"draft_"+b.id,hp:10000+streak*500,tagline:b.tagline,pDeck:null}}
 function draftFight(){const o=draftSt(),r=o.run;if(!r||!r.deck)return;const opp=draftOpp(r.streak);opp.pDeck=[...r.deck];
- draftCtx={streak:r.streak};eventBattleId=null;storyContext=null;drCtx=null;prematch(opp)}
+ draftCtx={streak:r.streak};towerCtx=null;eventBattleId=null;storyContext=null;drCtx=null;prematch(opp)}
 function draftOnResult(won){const box=$("rDraft"),btns=$("rBtns");if(!draftCtx){box.classList.add("hide");return}
  draftCtx=null;box.classList.remove("hide");btns.classList.add("hide");const o=draftSt(),r=o.run;if(!r){box.innerHTML="";return}
  let html="";
@@ -4598,6 +4648,89 @@ function renderDraft(){const o=draftSt(),r=o.run;$("drSub").textContent="最高 
    +'<div class="drDeck">'+L.map(c=>'<div class="drDC"><span class="cCost">'+c.cost+'</span>'+escH(c.name)+'×2</div>').join("")+'</div>'
    +'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'このチャレンジを終わりにしますか？（連勝はここまで）\',draftQuit)">チャレンジを終える</button>'}
  $("drBody").innerHTML=h}
+/* ===== ドラフトタワー =====
+   N・Rだけで3枚から1枚×15回（2枚ずつ・30枚）→ 1〜10階のCPUと戦う。ライフ3（負けると同じ階に再挑戦）。
+   勝つたびに「ごほうびドラフト」3枚から1枚×2回（上の階ほど強いレア度。5階はUR）→ 手に入れたカードとデッキを入れかえ。
+   1日1回はじめられる（とちゅうの挑戦は次の日もつづけられる）。保存 cmTower：{day,used,best,run:{phase,picks,deck,pool,floor,lives,rw,got}} */
+const TOWER_PICKS=15,TOWER_LIVES=3,TOWER_RW_PICKS=2;
+const TOWER_FLOORS=[["rk_riku"],["rk_mei"],["rk_gen"],["rk_jin"],["rk_kotaro","中ボス",12000],["rk_bakushin"],["rk_gard"],["rk_kagero"],["rk_shirayuki"],["rk_reina","塔の主",15000]];
+const TOWER_GEM=[30,30,40,50,100,60,70,80,90,300];
+// 何階をクリアしたあとのごほうびドラフトか → レア度の重み
+const TOWER_RATE={0:[["N",60],["R",40]],1:[["N",50],["R",50]],2:[["N",50],["R",50]],3:[["R",80],["SR",20]],4:[["R",80],["SR",20]],5:[["UR",100]],6:[["R",40],["SR",60]],7:[["R",40],["SR",60]],8:[["SR",80],["UR",20]],9:[["SR",80],["UR",20]]};
+let towerCtx=null,towerOffer=null,towerSel=null;
+function towerSt(){let o={};try{o=JSON.parse(store.get("cmTower")||"{}")||{}}catch(e){o={}}if(o.day!==todayStr()){o.day=todayStr();o.used=0}return o}
+function towerSave(o){store.set("cmTower",JSON.stringify(o))}
+function towerRoll(rate,has){const t=rate.reduce((a,x)=>a+x[1],0);let x=Math.random()*t,r=rate[0][0];for(const [k,w] of rate){x-=w;if(x<0){r=k;break}}
+ const fam=new Set(has.map(familyId));let pool=draftPool(r).filter(c=>!fam.has(familyId(c.id)));
+ if(pool.length<3)pool=draftPool("R").filter(c=>!fam.has(familyId(c.id)));
+ const out=[];while(out.length<3&&pool.length)out.push(pool.splice(Math.random()*pool.length|0,1)[0].id);return out}
+function towerHas(r){return [...(r.picks||[]),...(r.deck||[]),...(r.pool||[])]}
+function openTower(){if(!isIntroDone())return;hideAll();$("tower").classList.remove("hide");$("app").scrollTop=0;renderTower();syncTab()}
+function towerStart(){const o=towerSt();if(o.used&&!o.run){sfx("no");log2Toast("ドラフトタワーは1日1回です（また明日）");return}
+ o.used=1;o.run={phase:"draft",picks:[],deck:null,pool:[],floor:1,lives:TOWER_LIVES,rw:0,got:0};towerSave(o);towerOffer=null;towerSel=null;sfx("sel");renderTower()}
+function towerQuit(){const o=towerSt();o.run=null;towerSave(o);towerOffer=null;renderTower()}
+function towerPick(i){const o=towerSt(),r=o.run;if(!r||!towerOffer)return;const id=towerOffer[i];if(!id)return;sfx("summon");towerOffer=null;
+ if(r.phase=="draft"){r.picks.push(id);if(r.picks.length>=TOWER_PICKS){r.deck=r.picks.flatMap(x=>[x,x]);r.phase="tower"}}
+ else if(r.phase=="reward"){r.pool.push(id);r.rw--;if(r.rw<=0)r.phase="swap"}
+ towerSave(o);renderTower()}
+function towerSwapPick(k){towerSel=towerSel===k?null:k;sfx("sel");renderTower()}
+function towerSwap(id){const o=towerSt(),r=o.run;if(!r||towerSel==null)return;const nid=r.pool[towerSel];if(!nid)return;
+ r.deck=r.deck.map(x=>x===id?nid:x);r.pool.splice(towerSel,1,id);towerSel=null;towerSave(o);sfx("summon");renderTower()}
+function towerDone(){const o=towerSt(),r=o.run;if(!r)return;r.phase="tower";towerSel=null;towerSave(o);sfx("sel");renderTower()}
+function towerOpp(f){const [id,tag,hp]=TOWER_FLOORS[f-1],c=RANK_CPUS.find(x=>x.id==id)||PERSONALITIES[0];
+ return {...c,id:"tw_"+c.id,name:c.name,hp:hp||10000,tagline:f+"F"+(tag?" "+tag:"")+"｜"+(c.tagline||""),deck:[...c.deck]}}
+function towerFight(){const o=towerSt(),r=o.run;if(!r||!r.deck||r.phase!="tower")return;const opp=towerOpp(r.floor);opp.pDeck=[...r.deck];
+ towerCtx={floor:r.floor};draftCtx=null;eventBattleId=null;storyContext=null;drCtx=null;prematch(opp)}
+function towerOnResult(won){const box=$("rTower"),btns=$("rBtns");if(!towerCtx){box.classList.add("hide");return}
+ towerCtx=null;box.classList.remove("hide");btns.classList.add("hide");const o=towerSt(),r=o.run;if(!r){box.innerHTML="";return}
+ let h="";const f=r.floor;
+ if(won){const g=TOWER_GEM[f-1]||0;addCrystal(g,"ドラフトタワー "+f+"F");r.got+=g;o.best=Math.max(o.best||0,f);
+  try{const t=ttStats();t.towerBest=Math.max(t.towerBest||0,f);
+   if(r.deck&&r.deck.every(id=>(by(id)||{}).rarity=="N"))t.towerNOnly=1;
+   if(f>=TOWER_FLOORS.length){t.towerClear=(t.towerClear||0)+1;if(r.lives>=TOWER_LIVES)t.towerNoMiss=1;if(r.lives==1)t.towerLast=1}
+   ttSave(t);titleCheck()}catch(e){}
+  if(f>=TOWER_FLOORS.length){o.run=null;towerSave(o);
+   h='<div class="drRes">🏆 '+f+'階クリア！ 塔のてっぺん！</div><div class="drRes">💎+'+g+'（今回 合計💎'+r.got+'）</div><button class="gold" onclick="hideP(\'resultov\');openTower()">タワーの画面へ</button>'}
+  else{r.floor++;r.phase="reward";r.rw=TOWER_RW_PICKS;towerSave(o);towerOffer=null;
+   h='<div class="drRes">🗼 '+f+'階クリア！　💎+'+g+'</div>'+(f==5?'<div class="drRes" style="font-size:12px">中ボス撃破！ ごほうびドラフトはURから選べる</div>':'')
+    +'<button class="gold" onclick="hideP(\'resultov\');openTower()">ごほうびドラフトへ ▶</button>'}}
+ else{r.lives--;
+  if(r.lives<=0){const got=r.got;o.run=null;towerSave(o);
+   h='<div class="drRes">'+f+'階でライフがなくなった…</div><div class="drRes">今回の報酬 💎'+got+'</div><button class="gold" onclick="hideP(\'resultov\');openTower()">タワーの画面へ</button>'}
+  else{towerSave(o);h='<div class="drRes">ライフ '+"❤️".repeat(r.lives)+'<span style="filter:grayscale(1) brightness(.4)">'+"❤️".repeat(TOWER_LIVES-r.lives)+'</span></div><div class="drRes" style="font-size:12px">'+f+'階にもう一度挑戦できる</div>'
+   +'<button class="gold" onclick="hideP(\'resultov\');openTower()">タワーの画面へ</button>'}}
+ box.innerHTML=h}
+function towerCard(id,i){const c=by(id);if(!c)return "";const img=CARD_IMAGES[id];
+ return '<button type="button" class="twPc rr-'+(c.rarity||"N").toLowerCase()+'" data-i="'+i+'"><span class="twAr" style="'+(img?'background-image:url('+img+')':'')+'">'+(img?'':'<span class="twEm">'+(c.type=="monster"?"👾":"✨")+'</span>')+'<span class="twCo">'+c.cost+'</span><span class="twRr r'+c.rarity+'">'+c.rarity+'</span></span>'
+  +'<span class="twNm">'+escH(c.name)+'</span><span class="twSt">'+(c.type=="monster"?c.atk+'/'+c.def:'呪文')+'</span></button>'}
+function towerHearts(r){return '<span class="twHearts">'+"❤️".repeat(r.lives)+'<span class="off">'+"❤️".repeat(TOWER_LIVES-r.lives)+'</span></span>'}
+function renderTower(){const o=towerSt(),r=o.run;$("twSub").textContent="最高 "+(o.best||0)+"階";let h="";
+ if(!r){h='<div class="twHero"><b>🗼 ドラフトタワー</b><p>N・Rのカードだけでドラフトして、塔を登る。勝つたびに新しいカードを選んで、デッキを強くしていこう。</p></div><div class="twRules">'
+   +'<div><i>🎴</i><span>3枚から1枚を選ぶ×'+TOWER_PICKS+'回（2枚ずつ入って30枚）。<b>出るのはNとRだけ</b></span></div>'
+   +'<div><i>⬆️</i><span>勝つと1つ上の階へ。<b>3枚から1枚×'+TOWER_RW_PICKS+'回</b>選んで、デッキのカードと入れかえられる。上の階ほど強いカードが出る（5階クリアはUR）</span></div>'
+   +'<div><i>❤️</i><span>ライフは'+TOWER_LIVES+'つ。負けるとライフが1つへって、<b>同じ階</b>にもう一度挑戦。0になったら終わり</span></div>'
+   +'<div><i>🏆</i><span>10階まで（5階は中ボス、10階は塔の主）。勝つたびに💎（10階は💎300）</span></div></div>'
+   +(o.used?'<div class="evRw">今日はもう挑戦しました。また明日！</div>':'<button type="button" class="gold evGoBtn" onclick="towerStart()">ドラフトをはじめる ▶</button>')}
+ else if(r.phase=="draft"||r.phase=="reward"){if(!towerOffer)towerOffer=towerRoll(r.phase=="draft"?TOWER_RATE[0]:(TOWER_RATE[r.floor-1]||TOWER_RATE[9]),towerHas(r));
+  const n=r.phase=="draft"?r.picks.length:TOWER_RW_PICKS-r.rw,tot=r.phase=="draft"?TOWER_PICKS:TOWER_RW_PICKS;
+  h='<div class="twLv"><span>'+(r.phase=="draft"?'ドラフト':(r.floor-1)+'階クリアのごほうびドラフト')+'　'+(n+1)+' / '+tot+'</span>'+towerHearts(r)+'</div>'
+   +'<div class="twProg"><i style="width:'+(n/tot*100)+'%"></i></div><div class="twNote">1枚選ぶ（2枚ずつ入る）。長押しで、くわしく見られます</div>'
+   +'<div class="twPick3" id="twPick">'+towerOffer.map(towerCard).join("")+'</div>'
+   +(r.phase=="draft"?'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'ドラフトをやめますか？（今日の1回は使ったことになります）\',towerQuit)">やめる</button>':'')}
+ else if(r.phase=="swap"){const U=[...new Set(r.deck)];
+  h='<div class="twLv"><span>デッキの入れかえ</span>'+towerHearts(r)+'</div>'
+   +'<div class="twH">手に入れたカード（押して選ぶ）</div><div class="twDk">'+r.pool.map((id,k)=>'<button type="button" class="twDc'+(towerSel===k?' sel':'')+'" style="background-image:url('+(CARD_IMAGES[id]||"")+')" onclick="towerSwapPick('+k+')"><b>×2</b><span>'+escH((by(id)||{}).name||"")+'</span></button>').join("")+'</div>'
+   +'<div class="twH">デッキ 30枚（'+(towerSel==null?'上のカードを選んでから押すと入れかえ':'押したカードと入れかえ')+'）</div><div class="twDk">'
+   +U.map(id=>'<button type="button" class="twDc" style="background-image:url('+(CARD_IMAGES[id]||"")+')" onclick="towerSwap(\''+id+'\')"><b>×2</b><span>'+escH((by(id)||{}).name||"")+'</span></button>').join("")+'</div>'
+   +'<button type="button" class="gold evGoBtn" onclick="towerDone()">これで決定 ▶</button>'}
+ else{const F=TOWER_FLOORS.map((x,i)=>{const c=RANK_CPUS.find(q=>q.id==x[0]);const f=i+1;
+   return '<div class="twFl'+(f<r.floor?' done':f==r.floor?' now':'')+(x[1]=="中ボス"?' boss':'')+(x[1]=="塔の主"?' top':'')+'"><span class="n">'+f+'F</span><span class="o">'+(x[1]?x[1]+'：':'')+escH(c?c.name:"？")+'</span><span class="rw">💎'+TOWER_GEM[i]+'</span></div>'}).reverse().join("");
+  h='<div class="twLv"><span>今 '+r.floor+'階　今回 💎'+r.got+'</span>'+towerHearts(r)+'</div>'
+   +'<button type="button" class="gold evGoBtn" style="margin:0 0 10px" onclick="towerFight()">'+r.floor+'階に挑戦 ▶</button><div class="twTw">'+F+'</div>'
+   +(r.pool.length?'<button type="button" class="sec evGoBtn" onclick="(function(){const o=towerSt();o.run.phase=\'swap\';towerSave(o);renderTower()})()">デッキを見る・入れかえ</button>':'')
+   +'<button type="button" class="sec evGoBtn" onclick="askYesNo(\'タワーの挑戦を終わりにしますか？\',towerQuit)">挑戦を終える</button>'}
+ $("twBody").innerHTML=h;
+ const pk=$("twPick");if(pk)[...pk.children].forEach(b=>{const i=+b.dataset.i,id=towerOffer[i];bindPress(b,by(id),()=>towerPick(i))})}
 /* ===== ランク戦のCPU（ブロンズ→マスター、各ランク2人）。強さはシミュレーションで上のランクほど強くなる順に並べた。
    ランク戦はまだ作っていないので、今はデータだけ */
 const RANK_TIERS=[["bronze","ブロンズ"],["silver","シルバー"],["gold","ゴールド"],["platinum","プラチナ"],["diamond","ダイヤ"],["master","マスター"]];
@@ -4775,7 +4908,7 @@ async function coopHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
  fr.ref.child("acts").on("child_added",snap=>{const a=snap.val();if(!a)return;
   if(a.t=="leave"||a.t=="resign")return fmOppGone();   // 相方が退出した
   if(FM.wait){const f=FM.wait;FM.wait=null;f(a)}else FM.queue.push(a)});
- eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;raidCtx=null;rankCtx=null;
+ eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;towerCtx=null;raidCtx=null;rankCtx=null;
  const names={A:frName(),B:R.guest.name};
  coopIntro(b,names,()=>{if(!FM.on)return;
   const opp={id:"coop_"+b.key,name:b.name,tagline:String(b.line||"").replace(/[「」]/g,""),aggro:b.aggro,hp:b.hp||COOP.bossHp,zorome:!!b.zorome,deck:[...b.deck],pDeck:(R.host&&R.host.deck&&R.host.deck.length==30?R.host.deck:coopDeckIds())};
@@ -4903,7 +5036,7 @@ function renderRank(){const o=rankSt(),ri=rankInfo(o.pts),pool=rankPool(ri.ti).l
   +(rankRuleOpen?'<div class="rkRules">'+rules.map(([k,v])=>'<div><b>'+k+'</b><span>'+v+'</span></div>').join("")+'<div class="rkNote">月末の💎はブロンズ100・シルバー300・ゴールド600・マスター1000（＋☆1つ50）。</div></div>':'')}
 function rankFight(){if(!isIntroDone())return;rankRoll();const o=rankSt(),ri=rankInfo(o.pts),L=rankPool(ri.ti);const b=L[Math.random()*L.length|0];
  const opp={...b,id:"rk_"+(b.id||"cpu"),hp:undefined,phpStart:undefined};rankCtx={pts:o.pts};
- eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;raidCtx=null;prematch(opp)}
+ eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;towerCtx=null;raidCtx=null;prematch(opp)}
 function rankOnResult(won){const box=$("rRank"),btns=$("rBtns");if(!rankCtx){box.classList.add("hide");return}
  rankCtx=null;const o=rankSt(),before=rankInfo(o.pts);let d;
  o.games=(o.games||0)+1;
@@ -5030,7 +5163,7 @@ function raidStart(){if(!raidCanTry()){sfx("no");log2Toast(raidSt().cleared?"も
  const o=raidSt();o.day=todayStr();o.tries=(o.tries||0)+1;raidSave(o);raidCtx={start:o.hp};
  const opp={id:"raid_vol",name:"暴走 氷雷龍ボルブリザ",tagline:RAID.limit+"ターンで、どれだけ削れるか",aggro:1.0,hp:o.hp,raidLimit:RAID.limit,
   bossCard:"b2c01_cr",bossLine:"「グオオオオオ……！！」",deck:[...DR_DECK.volbriza_a]};
- sfx("sel");eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;prematch(opp)}
+ sfx("sel");eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;towerCtx=null;prematch(opp)}
 function raidOnResult(w){const box=$("rRaid"),btns=$("rBtns");if(!raidCtx||!S||!S.raid){box.classList.add("hide");return}
  const st=raidCtx.start;raidCtx=null;const dealt=Math.max(0,Math.min(st,st-Math.max(0,S.chp)));const o=raidSt();
  o.hp=Math.max(0,o.hp-dealt);o.dealt=(o.dealt||0)+dealt;o.best=Math.max(o.best||0,dealt);const notes=[];
@@ -5077,7 +5210,7 @@ function htPool(type){return P.filter(c=>c.type==type&&isVisible(c)&&!c.baseId&&
 function htRandomDeck(){const pool=P.filter(c=>isVisible(c)&&!c.baseId&&c.rarity!="CR"&&!c.promo&&!c.event&&(c.type=="monster"||c.type=="spell"));const out=[],fam={};let g=0;
  while(out.length<30&&g++<5000){const c=pool[Math.random()*pool.length|0];const f=familyId(c.id);if((fam[f]||0)>=2)continue;fam[f]=(fam[f]||0)+1;out.push(c.id)}return out}
 function htStart(){if(!isIntroDone())return;const r=HT_RULES[Math.random()*HT_RULES.length|0];const L=PERSONALITIES;const b=L[Math.random()*L.length|0];
- const opp={...b,id:"ht_"+b.id,rule:r.k,tagline:r.icon+" "+r.name+"："+r.desc};sfx("sel");eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;prematch(opp)}
+ const opp={...b,id:"ht_"+b.id,rule:r.k,tagline:r.icon+" "+r.name+"："+r.desc};sfx("sel");eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;towerCtx=null;prematch(opp)}
 // 対戦の始め（手札を配る前）：デッキが変わるルール
 function htSetupDecks(mk){const k=S.rule;if(!k)return;
  if(k=="random"){S.pd=mk(htRandomDeck());S.cd=mk(htRandomDeck())}
@@ -5562,7 +5695,7 @@ function editBack(){if(deck.length>30)return log2Toast("30枚以下にしてか�
 function log2(t){$("info").textContent=t;setTimeout(renderEditInfo,1200)}
 
 /* ================= 画面遷移 ================= */
-function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","stats","rank","coopLobby","dareHub","coopPage","deckList"].forEach(x=>$(x).classList.add("hide"))}
+function hideAll(){["menu","game","edit","list","codex","gacha","tasks","story","storyTalk","playerSetup","tablet","events","eventDetail","exchange","presents","news","friend","pass","titles","battleTab","menuTab","soloHub","draft","tower","stats","rank","coopLobby","dareHub","coopPage","deckList"].forEach(x=>$(x).classList.add("hide"))}
 function hideP(id){$(id).classList.remove("show")}
 function menu(){if(introMode)return;if(TUT.on){TUT.on=false;tutRender()}hideAll();pending=null;$("ov").classList.remove("show");$("menu").classList.remove("hide");$("app").scrollTop=0;renderMenuLock();applyMenuBg();try{renderPresentBadge();renderNewsBadge();maybeShowImportantNews()}catch(e){}}
 function setFilter(f){filter=f;renderEdit()}
@@ -7170,6 +7303,14 @@ const TITLES=[
  {id:"t_draft3",name:"引きの強さ",c:"bronze",cond:"ドラフトチャレンジで3連勝する",ok:()=>(T().draftBest||0)>=3},
  {id:"t_draft5",name:"即席の名手",c:"silver",cond:"ドラフトチャレンジで5連勝する",ok:()=>(T().draftBest||0)>=5},
  {id:"t_draft10",name:"ドラフト王",c:"jet",cond:"ドラフトチャレンジで10連勝する",ok:()=>(T().draftBest||0)>=10},
+ {id:"t_tower3",name:"塔の入口",c:"bronze",cond:"ドラフトタワーで3階をクリアする",ok:()=>(T().towerBest||0)>=3},
+ {id:"t_tower5",name:"塔の中ほど",c:"silver",cond:"ドラフトタワーで5階をクリアする",ok:()=>(T().towerBest||0)>=5},
+ {id:"t_tower7",name:"雲の上",c:"blue",cond:"ドラフトタワーで7階をクリアする",ok:()=>(T().towerBest||0)>=7},
+ {id:"t_tower10",name:"塔の頂",c:"gold",cond:"ドラフトタワーで10階をクリアする",ok:()=>(T().towerBest||0)>=10},
+ {id:"t_towerNoMiss",name:"無傷の登頂",c:"rainbow",cond:"ドラフトタワーで、ライフを1つもへらさずに10階をクリアする",ok:()=>!!T().towerNoMiss},
+ {id:"t_towerLast",name:"ギリギリの頂",c:"red",cond:"ドラフトタワーで、ライフ残り1つで10階をクリアする",ok:()=>!!T().towerLast},
+ {id:"t_towerNOnly",name:"名もなき強者",c:"purple",cond:"ドラフトタワーで、Nのカードだけのデッキで勝つ",ok:()=>!!T().towerNOnly},
+ {id:"t_towerRepeat",name:"塔の常連",c:"jet",cond:"ドラフトタワーで10階を3回クリアする",ok:()=>(T().towerClear||0)>=3},
  {id:"t_ht10",name:"へんてこ名人",c:"silver",cond:"へんてこバトルで10回勝つ",ok:()=>(T().htWins||0)>=10},
  {id:"t_raid1",name:"暴走を止めし者",c:"jet",cond:"総力戦で、暴走ボルブリザを倒す",ok:()=>!!T().raid1},
  {id:"t_raidhit",name:"一撃の重み",c:"rainbow",cond:"総力戦の1回の挑戦で、30,000以上のダメージを与える",ok:()=>(T().raidBest||0)>=30000},
@@ -7266,7 +7407,7 @@ function renderHomeName(){const el=$("homeName");if(!el)return;if(!player){el.in
  try{const box=$("hmTools");if(box&&!box.children.length)["presentBtn","newsBtn"].forEach(id=>{const b=$(id);if(b)box.appendChild(b)});
   const ab=document.querySelector('#menu .menuTools button[onclick="openAbout()"]');if(ab&&box)box.appendChild(ab)}catch(e){}}
 // 対戦の結果を記録する（勝ち負け・とどめ・ボスなど）
-function statMode(friend){return friend?"friend":rankCtx?"rank":draftCtx?"draft":(drCtx||eventBattleId||(S&&S.raid))?"event":storyContext?"story":(S&&S.rule)?"henteko":"random"}
+function statMode(friend){return friend?"friend":rankCtx?"rank":(draftCtx||towerCtx)?"draft":(drCtx||eventBattleId||(S&&S.raid))?"event":storyContext?"story":(S&&S.rule)?"henteko":"random"}
 function titleOnBattleEnd(won,oppId,friend){if(!S)return;const o=ttStats();
  try{const md=statMode(friend);o.mode=o.mode||{};const x=o.mode[md]=o.mode[md]||{w:0,l:0};won?x.w++:x.l++;
   if(["rank","random","story","event","henteko","friend"].includes(md)&&!(S.rule=="random")){o.slot=o.slot||{};const sl=curSlot(),y=o.slot[sl]=o.slot[sl]||{w:0,l:0};won?y.w++:y.l++}
@@ -8039,7 +8180,7 @@ function render(){if(!S)return;try{b2Watch()}catch(e){}try{pasRefresh()}catch(e)
  const HH=coopDispHand(),hk=c=>c.uid!=null?c.uid:c.id,newH=new Set(HH.map(hk));
  HH.forEach((c,index)=>{const d=document.createElement("div");
   d.className="card"+(handSeen.has(hk(c))?"":" deal")+(c.type=="spell"?" spellface":"")+(c.rarity=="CR"?" crframe":"")+rarityEdge(c)+(selH==index?" sel":"");
-  d.innerHTML=htmlCard(c,"p");
+  d.innerHTML=htmlCard(c,"p")+(selH==index?'<i class="selRing"></i><i class="selArw">▼</i>':"");
   bindPress(d,c,()=>{if(S.over)return;
    if(discardPick){discardTap(index);return}
    selH=index;selA=selE=null;sfx("sel");render()});
@@ -8144,7 +8285,7 @@ function rBoard(id,B,isP){const e=$(id);e.innerHTML="";
     +(c.rarity=="CR"?" crframe":"")
     +((c.buff||0)>0||(c.defBuff||0)>0?" buffed":((c.defBuff||0)<0?" debuffed":""))
     +b3Cls(c,side);
-   d.innerHTML=htmlCard(c,side);if(hit)d.style.animationDelay="-"+hit+"ms";
+   d.innerHTML=htmlCard(c,side)+((isP&&selA==i)||(!isP&&selE==i)?'<i class="selRing"></i><i class="selArw">▼</i>':"");if(hit)d.style.animationDelay="-"+hit+"ms";
    if(isFrozen(c)||c.shock){const bd=document.createElement("div");bd.className="b2st";
     bd.innerHTML=(isFrozen(c)?'<span class="stF">❄️</span>':'')+(c.shock?'<span class="stS">⚡'+c.shock+'</span>':'');d.appendChild(bd);
     if(isFrozen(c))d.classList.add("frozenC");if(c.shock)d.classList.add("shockC")}
@@ -9031,7 +9172,7 @@ function renderZsoloDetail(e){const b=ZOROME_BOSS,got=!!(T().zoromeWin||T().zoro
   +'<div class="cpActs"><button type="button" class="cpAct cpGold cpDeck" onclick="zsoloStart()">⚔　挑戦する</button></div>'
   +'<div class="cpReward">🏅 勝つと称号「ゾロ目の覇者」</div></section>'}
 function zsoloStart(){const e=eventById("zsolo");if(!e||!eventInPeriod(e)){log2Toast("開催期間ではありません");return}
- eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;raidCtx=null;rankCtx=null;
+ eventBattleId=null;storyContext=null;drCtx=null;draftCtx=null;towerCtx=null;raidCtx=null;rankCtx=null;
  const b=ZOROME_BOSS,line=String(b.line||"");
  prematch({...b,id:"ev_zorome_solo",hp:ZSOLO_HP,deck:[...b.deck],tagline:line.replace(/[「」]/g,""),bossCard:b.card,bossLine:line})}
 function zsoloResult(won){if(won){const t=ttStats();t.zoromeSolo=1;ttSave(t);try{titleCheck()}catch(e){}}   // 1人版の勝ちは別の印（協力版の初勝利💎1111を消さないように）
@@ -9149,6 +9290,7 @@ function result(w){if(!S||S.over)return;S.over=true;pending=null;render();
  $("rStoryGo").classList.add("hide");
  try{drOnResult(w===true)}catch(e){}
  try{draftOnResult(w===true)}catch(e){}
+ try{towerOnResult(w===true)}catch(e){}
  try{htOnResult(w===true)}catch(e){}
  try{raidOnResult(w)}catch(e){}
  try{rankOnResult(w===true)}catch(e){}
