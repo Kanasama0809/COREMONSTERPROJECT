@@ -940,7 +940,11 @@ img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit
 .dkRow .dkFan{width:138px}.dkFan .cvB{position:absolute;left:76px;bottom:8px;width:54px;margin:0;transform:rotate(16deg);border-radius:7px}.dkFan .cvB:after{font-size:9px}
 .gCardBack.slvBack{background:var(--sb);border-width:3px}.gCardBack.slvBack::after{display:flex;align-items:center;justify-content:center;width:1.6em;height:1.6em;border-radius:50%;background:#000a;box-shadow:0 0 12px currentColor;text-shadow:0 0 8px currentColor}
 #game.nb .pile.d i{background:var(--sb);border-color:var(--sc)}
-#game.nb>.bfield.hasMat{background:linear-gradient(#06101fcc,#06101f55 25%,#06101f55 70%,#06101fdd),var(--mat) center/cover}
+/* プレイマット：画面ぜんたいに敷く（上と下はうすく暗く） */
+#game.nb.hasMat{position:relative;z-index:0;isolation:isolate}
+#game.nb.hasMat:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(#06101f88,#06101f22 25%,#06101f22 70%,#06101f99),var(--mat) center/cover}
+#game.nb.hasMat>.bfield{background:#0000001a}
+#game.nb.hasMat .slot{background:none}
 /* 起動画面（絵） */
 #title.tArt .titleCards{z-index:0}
 .tArtBg{position:absolute;inset:-4%;background:center 30%/cover;animation:tZoom 18s ease-in-out infinite alternate}
@@ -957,6 +961,56 @@ body.calm .tArtBg,body.calm .tFx{animation:none}body.calm .tFx{display:none}
 .gvC b{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#0b1a30;font-size:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px #fff6}
 .gvC span{position:absolute;inset:auto 2px 4px;font-size:9px;line-height:1.2}
 .gvN{grid-column:1/-1;font-size:10px;color:#9fb6d3;margin-top:4px}
+/* ===== ショップ（タブ式） ===== */
+.spTabs{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;margin:0 -8px 6px;padding:6px 8px;background:linear-gradient(#071427f2,#071427d0);scrollbar-width:none}.spTabs::-webkit-scrollbar{display:none}
+.spTabs button{flex:0 0 auto;border:0;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:900;color:#cfe0f5;background:#0d1e33;box-shadow:inset 0 0 0 1px #ffffff22}
+.spTabs button.on{background:linear-gradient(90deg,#2a8dff,#4ec2ff);color:#fff;box-shadow:0 3px 10px #2a8dff66}
+.spPg{padding-bottom:10px;text-align:left}
+.spH{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:14px 2px 8px}.spH b{font-size:15px}.spH small{font-size:10.5px;color:#9fb6d3;text-align:right}
+.spNote{font-size:10.5px;color:#9fb6d3;margin:4px 2px}.spNote.c{text-align:center;margin-top:10px;line-height:1.6}
+.spTag{display:inline-block;font-size:10px;font-weight:900;padding:2px 8px;border-radius:99px;background:#ff3d6e;color:#fff;letter-spacing:.06em}
+.spBan{position:relative;height:200px;border-radius:18px;overflow:hidden;box-shadow:0 8px 20px #0008,inset 0 0 0 1px #ffffff22;margin-top:4px}
+.spSlide{position:absolute;inset:0;opacity:0;transition:opacity .6s;background:#0d1e33 center 22%/cover;cursor:pointer}.spSlide.on{opacity:1;z-index:1}
+.spSlide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000c,#0000 65%)}
+.spTx{position:absolute;z-index:2;left:14px;bottom:14px;right:35%}.spTx b{display:block;font-size:18px;line-height:1.25;margin-top:6px;text-shadow:0 2px 8px #000}.spTx small{display:block;font-size:11px;color:#d7e6ff;margin-top:4px}
+.spDots{position:absolute;z-index:3;right:12px;bottom:12px;display:flex;gap:5px}.spDots i{width:7px;height:7px;border-radius:99px;background:#fff6;transition:.3s}.spDots i.on{background:#fff;width:18px}
+.spQuick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.spQuick button{border:0;border-radius:14px;padding:10px 4px;background:#0d1e33;box-shadow:inset 0 0 0 1px #ffffff1c;color:#eaf6ff;font-size:11px;font-weight:800}.spQuick i{display:block;font-style:normal;font-size:22px;margin-bottom:2px}
+.spSet{position:relative;border-radius:18px;overflow:hidden;margin-bottom:12px;box-shadow:0 6px 16px #0008,inset 0 0 0 1.5px var(--c)}
+.spSetTop{position:relative;height:190px;background:#0d1e33 center 28%/cover;cursor:pointer}.spSetTop:after{content:"";position:absolute;inset:0;background:linear-gradient(#0000 40%,#000d)}
+.spSetTop>.spTag{position:absolute;z-index:2;left:10px;top:10px}
+.spSl{position:absolute;z-index:2;right:12px;top:12px;width:60px;aspect-ratio:3/4;border-radius:7px;background:#06101f center/cover;box-shadow:0 0 0 2px var(--c),0 6px 14px #000b;transform:rotate(8deg)}
+.spIc{position:absolute;z-index:2;right:60px;top:56px;width:50px;height:50px;border-radius:50%;background:#06101f center/cover;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--c),0 6px 12px #000b}
+.spSetNm{position:absolute;z-index:2;left:14px;bottom:10px;right:14px}.spSetNm b{display:block;font-size:17px;text-shadow:0 2px 8px #000}.spSetNm small{font-size:11px;color:#d7e6ff}
+.spSetBody{padding:10px 12px 12px;background:#0b1a30}.spInc{font-size:12px;font-weight:800;color:#d7e6ff;margin:0 2px 10px}
+.spBuy2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.spBt{display:block;width:100%;border:0;border-radius:12px;padding:10px 4px;font-size:14px;font-weight:900;white-space:nowrap}
+.spBt.cr{color:#062033;background:linear-gradient(#bff3ff,#4ec8ff);box-shadow:0 3px 0 #1d7fb0}
+.spBt.sd{color:#1b1440;background:linear-gradient(#e3d6ff,#a98bff);box-shadow:0 3px 0 #6a4fc4}
+.spBt.got{grid-column:1/-1;background:#1e3a26;color:#9dffb1;box-shadow:inset 0 0 0 1px #3fd07a88;font-size:12px}
+.spBt.off{background:#1a2638;color:#9fb6d3;box-shadow:none}
+.spRoll{margin-top:12px;padding:12px}
+.spPm{display:flex;gap:10px;align-items:center;border-radius:16px;padding:10px;background:linear-gradient(120deg,#2a1a4a,#0d1e33);box-shadow:inset 0 0 0 1px #c29bff66;margin-bottom:10px}
+.spPm.dark{background:linear-gradient(120deg,#2a0a2e,#0d1e33)}
+.spPmA{flex:0 0 92px;height:92px;border-radius:12px;background:#06101f center/cover;box-shadow:0 0 0 2px #f0c76a}
+.spPmT{flex:1;min-width:0}.spPmT b{display:block;font-size:14px}.spPmT small{display:block;font-size:11px;color:#d7c6ff;margin:2px 0 8px}
+.spGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.spIt{border-radius:14px;padding:10px 6px;background:#0d1e33;box-shadow:inset 0 0 0 1px #ffffff1c;text-align:center;min-width:0}
+.spIt .icon,.spIt>img{margin:0 auto 6px}
+.spIt b{display:block;font-size:10.5px;line-height:1.3;height:2.6em;overflow:hidden;margin-bottom:4px}
+.spCd{width:100%;aspect-ratio:1;border-radius:8px;margin-bottom:6px;background:#06101f center/cover}
+.spOwn{font-size:10px;color:#9fb6d3;margin-bottom:4px}.spIt .spBt{padding:7px 2px;font-size:12px}
+.spGrid.exIn{display:grid}.spGrid.exIn .exCard{margin:0;min-width:0}
+.spSetBox{max-height:90dvh;overflow:auto;text-align:left}.spSetBox h3{margin:0 0 2px;font-size:17px}
+.spPv{display:flex;gap:10px;margin:10px 0}.spPvL{flex:0 0 54%}
+.spPhone{position:relative;width:100%;aspect-ratio:9/16;border-radius:14px;background:#06101f center/cover;overflow:hidden;box-shadow:0 0 0 3px #222,0 0 0 4px #555}
+.spLn{position:absolute;left:8%;right:8%;display:grid;grid-template-columns:repeat(3,1fr);gap:6%}.spLn i{aspect-ratio:3/4;border-radius:4px;box-shadow:inset 0 0 0 1px #fffb,0 0 0 1px #000a}
+.spLn.l1{top:20%}.spLn.l2{top:50%}.spMid{position:absolute;left:0;right:0;top:44%;text-align:center;font-size:8px;font-weight:900}.spMid span{padding:2px 6px;border-radius:99px;background:#1d6fe0}
+.spHand{position:absolute;left:4%;right:4%;bottom:3%;display:grid;grid-template-columns:repeat(4,1fr);gap:3%}.spHand i{aspect-ratio:3/4;border-radius:3px;background:#ffffffcc}
+.spPr{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.spSlB{width:80%;margin:0 auto;aspect-ratio:3/4;border-radius:10px;background:#06101f center/cover;box-shadow:0 0 0 2px var(--c)}
+.spIcB{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800}.spIcB i{flex:0 0 46px;height:46px;border-radius:50%;background:#06101f center/cover;box-shadow:0 0 0 2px #fff,0 0 0 4px var(--c)}
+.spLbl{font-size:10px;color:#9fb6d3;text-align:center;margin-top:4px}
 /* ===== 対戦の設定 ===== */
 .bsetRow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 2px;border-bottom:1px solid #ffffff14;font-size:13px;text-align:left}
 .bsetRow small{display:block;font-size:10px;color:#9fb6d3;margin-top:2px}
@@ -998,9 +1052,9 @@ body.calm #game.nb .nbBan.show b{animation:none}
 #game.nb .nbZone{display:block;min-height:0;container-type:size}
 /* わくはカードと同じ3:4。幅と高さの小さいほうに合わせて、カードがわくいっぱいになる */
 #game.nb .nbZone>.board{display:flex;justify-content:space-evenly;align-items:center;min-height:0;height:100%;gap:0}
-#game.nb .slot{flex:0 0 auto;width:min((100cqw - 12px)/3,100cqh*.75);height:auto;aspect-ratio:3/4;min-height:0;border:0;box-shadow:inset 0 0 0 1px #ffffff33;background:#0003;border-radius:9px;color:transparent;display:flex;align-items:center;justify-content:center}
+#game.nb .slot{flex:0 0 auto;width:min((100cqw - 12px)/3,100cqh*.75);height:auto;aspect-ratio:3/4;min-height:0;border:0;box-shadow:inset 0 0 0 1.5px #ffffffb3,0 0 0 1.5px #000000a0;background:#0003;border-radius:9px;color:transparent;display:flex;align-items:center;justify-content:center}
 #game.nb.lbl .slot{color:#ffffff40}
-#game.nb .slot.center{box-shadow:inset 0 0 0 1px #6bc8ff88}
+#game.nb .slot.center{box-shadow:inset 0 0 0 1.5px #8fd8ffcc,0 0 0 1.5px #000000a0}
 #game.nb .board .card{width:100%;height:100%;aspect-ratio:auto;border-radius:9px}
 /* カードの中の数字は、わくの大きさに合わせて大きさを変える（小さい画面でも数字が切れない） */
 #game.nb .slot{container-type:size}
@@ -2040,7 +2094,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.46.2</div>
+ <div class="tVer" id="tVer">ver.5.47.0</div>
 </div>
 
 <div id="app">
@@ -2671,7 +2725,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.46.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.47.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -2714,6 +2768,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="confirmBtns" style="margin-top:14px"><button class="gold" onclick="closeLvup()">受け取る</button></div>
 </div></div>
 
+<div id="spSetPop" class="pov" onclick="hideP('spSetPop')"><div class="confirmBox spSetBox" onclick="event.stopPropagation()"><div id="spSetBody"></div>
+ <div class="confirmBtns" style="margin-top:10px"><button class="sec" onclick="hideP('spSetPop')">閉じる</button></div></div></div>
 <div id="kisePop" class="pov" onclick="hideP('kisePop')"><div class="confirmBox kiBox" onclick="event.stopPropagation()">
  <h3>👕 きせかえ</h3><div class="kiTabs" id="kiTabs"></div><div class="kiPv" id="kiPv"></div><div class="kiNote" id="kiNote"></div>
  <div class="bsetRow hide" id="kiRnd"><span>開くたびにランダム<small>持っている起動画面から選びます</small></span><button type="button" class="tgl" id="kiRndBtn" onclick="kiseRnd()"></button></div>
@@ -5071,8 +5127,21 @@ function buyPremium(pid){const x=PREMIUM.find(q=>q.id==pid);if(!x||premiumGot().
 /* ===== きせかえ（起動画面・プレイマット・スリーブ） 保存 cmKise
    スリーブはデッキごと（slot.sleeve）。ガチャの裏は使用中のデッキのスリーブ */
 // スリーブ・マットは専用の絵ができるまで販売停止（前に交換した分も消す：kiseClean）
-const SLEEVES=[{id:"std",name:"いつもの",free:1}];
-const KISE_MATS=[{id:"none",name:"なし",free:1}];
+// きせかえセット（ショップでセットだけ売る：💎か🔹）。絵はリポジトリのいちばん上に置く
+const KISE_SETS=[
+ {id:"set_hien",name:"炎の勇者 ヒエン セット",c:"#ff6a3d",mat:{id:"m_hien",name:"炎の都イグニス",bg:"mat-hien.webp"},slv:{id:"s_hien",name:"イグニスの紋章",img:"slv-hien.webp"},icon:"hien_s2",cr:1500,sd:3000},
+ {id:"set_misuzui",name:"水の勇者 ミスズイ セット",c:"#4ec2ff",mat:{id:"m_misuzui",name:"水の都アクアリア",bg:"mat-misuzui.webp"},slv:{id:"s_misuzui",name:"アクアリアの紋章",img:"slv-misuzui.webp"},icon:"misuzui_s2",cr:1500,sd:3000}];
+const SLEEVES=[{id:"std",name:"いつもの",free:1}].concat(KISE_SETS.map(x=>({...x.slv,c:x.c})));
+const KISE_MATS=[{id:"none",name:"なし",free:1}].concat(KISE_SETS.map(x=>x.mat));
+// 絵のスリーブの色（ふちの色・絵）を用意する
+(function slvCss(){try{const st=document.createElement("style");st.textContent=SLEEVES.filter(x=>x.img).map(x=>{const u=x.img.indexOf("http")==0?x.img:TREE_BASE_URL+x.img;
+ return '.sv-'+x.id+'{--sb:url("'+u+'") center/cover;--sc:'+(x.c||"#fff")+'}.sv-'+x.id+'.kiCb:after{content:""}'}).join("");document.head.appendChild(st)}catch(e){}})();
+function kiseSetGot(x){return kiseHas(x.mat.id,KISE_MATS)&&kiseHas(x.slv.id,SLEEVES)&&extraIcons().includes(x.icon)}
+function buyKiseSet(id,k){const x=KISE_SETS.find(q=>q.id==id);if(!x||kiseSetGot(x))return;const cr=k=="cr",p=cr?x.cr:x.sd;
+ if((cr?crystal:shard)<p){sfx("no");log2Toast((cr?"💎":"🔹かけら")+"が足りません（"+p.toLocaleString()+"必要）");return}
+ askYesNo("「"+x.name+"」を、"+(cr?"💎":"🔹かけら")+p.toLocaleString()+"で"+(cr?"買いますか？":"交換しますか？")+"（プレイマット・スリーブ・アイコン）",()=>{
+  if(!(cr?spendCrystal(p):spendShard(p)))return;kiseGive(x.mat.id);kiseGive(x.slv.id);unlockIcon(x.icon);
+  hideP("spSetPop");sfx("summon");log2Toast("「"+x.name+"」を手に入れた！ メニューの「👕 きせかえ」で使えます");renderShop()})}
 // 起動画面：絵のものはプレミアムパック（PREMIUM の title）で手に入る。fx は舞うもの（leaf / spore）
 const TITLE_SKINS=[{id:"std",name:"いつもの",free:1}];
 function kise(){let o=null;try{o=JSON.parse(store.get("cmKise")||"null")}catch(e){}o=o&&typeof o=="object"?o:{};if(!Array.isArray(o.own))o.own=[];return o}
@@ -5126,29 +5195,48 @@ function shopCrList(){return P.filter(c=>c.rarity=="CR"&&!c.event&&!c.promo&&!c.
 let gachaShopMode=false;
 function setGachaMode(shop){gachaShopMode=!!shop;sfx("sel");$("gacha").classList.toggle("shopMode",gachaShopMode);$("gmGacha").classList.toggle("on",!gachaShopMode);$("gmShop").classList.toggle("on",gachaShopMode);if(gachaShopMode)renderShop()}
 function shopJump(id){const el=$(id);if(el){el.scrollIntoView({block:"start",behavior:"smooth"});sfx("sel")}}
-function renderShop(){const own=extraIcons(),pg=premiumGot();
- $("shopView").innerHTML='<div class="shopNav"><button type="button" onclick="shopJump(\'shPrem\')">プレミアム</button><button type="button" onclick="shopJump(\'shIcon\')">アイコン</button><button type="button" onclick="shopJump(\'shCr\')">CR交換</button><button type="button" onclick="sfx(\'sel\');openExchange()">カード交換</button></div>'
-  +'<div class="stH" id="shPrem" style="margin:4px 2px 6px">プレミアムパック</div><div class="pmList">'
-  +premiumList().map(x=>{const got=pg.includes(x.id),im=CARD_IMAGES[x.card]||"";
-   return '<div class="pmCard'+(got?' got':'')+(x.need?' pmDark':'')+'">'
-    +'<div class="pmArt" style="background-image:url('+im+')"><span class="pmRib">PREMIUM</span><span class="pmShine"></span>'
-    +'<div class="pmTtl"><div class="pmNm">'+escH(x.name)+'</div><div class="pmSub">限定イラスト</div></div>'+(got?'<div class="pmGotMark">✓ 購入済み</div>':'')+'</div>'
-    +'<div class="pmBody"><div class="pmIn"><div class="pmGet"><span class="pmMini" style="background-image:url('+im+')"></span><span class="pmMini pmMini2" style="background-image:url('+im+')"></span><b>CR×2</b></div>'
-    +'<span class="pmPlus">＋</span><div class="pmGet">'+iconHtml(x.card,40)+'<b>アイコン</b></div></div>'
-    +(got?'':'<button type="button" class="gold pmBuy" onclick="buyPremium(\''+x.id+'\')">💎'+x.price.toLocaleString()+'</button>')+'</div></div>'}).join("")+'</div>'
-  +'<div class="stH" id="shIcon" style="margin:14px 2px 6px">アイコン（🔹かけらで交換）</div><div class="shopGrid">'
-  +SHOP_ICONS.filter(x=>!x[2]||x[2]()).map(([id,pr])=>{const c=by(id);if(!c)return"";const got=own.includes(id);return '<div class="shopItem">'+iconHtml(id,64)+'<div class="shopNm">'+escH(c.name)+(c.rarity=="CR"?' <span class="shopCr">CR</span>':'')+'</div>'
-   +(got?'<div class="shopGot">交換済み</div>':'<button type="button" class="gold shopBuy" onclick="shopBuy(\''+id+'\','+pr+')">🔹'+pr+'</button>')+'</div>'}).join("")+'</div>'
-  +'<div class="stH" id="shCr" style="margin:14px 2px 6px">CR交換（🔹'+SHOP_CR_PRICE.toLocaleString()+'）</div>'+(()=>{const L=shopCrList();return L.length?'<div class="shopGrid">'+L.map(c=>{const n=ownedCount(c.id),full=n>=2;
-   return '<div class="shopItem">'+(CARD_IMAGES[c.id]?'<img class="shopCard" src="'+CARD_IMAGES[c.id]+'" alt="">':'')+'<div class="shopNm">'+escH(c.name)+'</div><div class="shopOwn">所持 '+n+'枚</div>'
-   +(full?'<div class="shopGot">2枚そろっています</div>':'<button type="button" class="gold shopBuy" onclick="shopBuyCr(\''+c.id+'\')">🔹'+SHOP_CR_PRICE.toLocaleString()+'</button>')+'</div>'}).join("")+'</div>':'<div class="evRw">ガチャで当てたCRを、もう1枚交換できます（イベントのCRはのぞく）。</div>'})()
-  +(SLEEVES.concat(KISE_MATS).some(x=>!x.free)?'<div class="stH" id="shKise" style="margin:14px 2px 6px">きせかえ（🔹かけらで交換）</div><div class="shopSub">スリーブ</div><div class="shopGrid">'
-   +SLEEVES.filter(x=>!x.free).map(x=>shopKiseItem(x,'<div class="kiCb shopSlv '+slvCls(x.id)+'"></div>')).join("")+'</div>'
-  +'<div class="shopSub">プレイマット</div><div class="shopGrid">'
-   +KISE_MATS.filter(x=>!x.free).map(x=>shopKiseItem(x,'<div class="shopMat" style="background-image:url('+matUrl(x)+')"></div>')).join("")+'</div>'
-  +'<div class="evRw">交換したものは、メニューの「👕 きせかえ」で入れかえられます。スリーブはデッキごとに選べます。</div>':'')
-  +'<div class="stH" style="margin:14px 2px 6px">カード交換</div><button type="button" class="sec evGoBtn" onclick="openExchange()">🔹 かけらでカードを交換する ▶</button>'
-  +'<div class="evRw">交換したアイコンは、メニューの「戦績」→「アイコン」から選べます。</div>'}
+let shopTab=0,shopBi=0;
+const SHOP_TABS=["おすすめ","👕 きせかえ","💠 プレミアム","😀 アイコン","🃏 CR交換","🔁 かけら交換所"];
+function shopGo(i){shopTab=i;sfx("sel");renderShop();try{$("app").scrollTop=0}catch(e){}}
+function shopJump(id){const m={shPrem:2,shIcon:3,shCr:4,shKise:1,shEx:5};if(m[id]!=null)shopGo(m[id])}
+function shopSetCard(x){const got=kiseSetGot(x),mu=matUrl(x.mat),su=TREE_BASE_URL+x.slv.img,ic=CARD_IMAGES[x.icon]||"";
+ return '<div class="spSet" style="--c:'+x.c+'"><div class="spSetTop" style="background-image:url('+mu+')" onclick="shopSetPop(\''+x.id+'\')"><span class="spTag">NEW</span><span class="spSl" style="background-image:url('+su+')"></span><span class="spIc" style="background-image:url('+ic+')"></span>'
+  +'<div class="spSetNm"><b>'+escH(x.name)+'</b><small>押すと、くわしく見られます</small></div></div>'
+  +'<div class="spSetBody"><div class="spInc">プレイマット・スリーブ・アイコン</div>'
+  +(got?'<div class="spBuy2"><button type="button" class="spBt got">✓ 持っています</button></div>':'<div class="spBuy2"><button type="button" class="spBt cr" onclick="buyKiseSet(\''+x.id+'\',\'cr\')">💎 '+x.cr.toLocaleString()+'</button><button type="button" class="spBt sd" onclick="buyKiseSet(\''+x.id+'\',\'sd\')">🔹 '+x.sd.toLocaleString()+'</button></div>')+'</div></div>'}
+function shopSetPop(id){const x=KISE_SETS.find(q=>q.id==id);if(!x)return;const got=kiseSetGot(x);sfx("sel");
+ $("spSetBody").innerHTML='<h3>'+escH(x.name)+'</h3><div class="spNote">セットでの販売です</div><div class="spPv" style="--c:'+x.c+'"><div class="spPvL"><div class="spPhone" style="background-image:url('+matUrl(x.mat)+')"><div class="spLn l1"><i></i><i></i><i></i></div><div class="spMid"><span>T1 YOU</span></div><div class="spLn l2"><i></i><i></i><i></i></div><div class="spHand"><i></i><i></i><i></i><i></i></div></div><div class="spLbl">プレイマット「'+escH(x.mat.name)+'」</div></div>'
+  +'<div class="spPr"><div class="spSlB" style="background-image:url('+TREE_BASE_URL+x.slv.img+')"></div><div class="spLbl">スリーブ「'+escH(x.slv.name)+'」</div><div class="spIcB"><i style="background-image:url('+(CARD_IMAGES[x.icon]||"")+')"></i><span>アイコン<br>「'+escH((by(x.icon)||{}).name||"")+'」</span></div></div></div>'
+  +(got?'<div class="spBuy2"><button type="button" class="spBt got">✓ 持っています</button></div>':'<div class="spBuy2"><button type="button" class="spBt cr" onclick="buyKiseSet(\''+x.id+'\',\'cr\')">💎 '+x.cr.toLocaleString()+' で買う</button><button type="button" class="spBt sd" onclick="buyKiseSet(\''+x.id+'\',\'sd\')">🔹 '+x.sd.toLocaleString()+' で交換</button></div>');
+ $("spSetPop").classList.add("show")}
+function shopBanners(){return KISE_SETS.map(x=>({img:matUrl(x.mat),tag:"NEW",b:escH(x.name.replace(/ セット$/,""))+'<br>きせかえセット',s:"プレイマット・スリーブ・アイコン",go:1}))
+ .concat(premiumList().filter(x=>!premiumGot().includes(x.id)).map(x=>({img:CARD_IMAGES[x.card]||"",tag:"PREMIUM",b:escH(x.name),s:"限定イラストのプロモCR×2",go:2})))}
+function shopBanHtml(){const B=shopBanners();if(!B.length)return"";shopBi%=B.length;
+ return '<div class="spBan" id="spBan">'+B.map((x,i)=>'<div class="spSlide'+(i==shopBi?' on':'')+'" style="background-image:url('+x.img+')" onclick="shopGo('+x.go+')"><div class="spTx"><span class="spTag">'+x.tag+'</span><b>'+x.b+'</b><small>'+x.s+'</small></div></div>').join("")
+  +'<div class="spDots">'+B.map((x,i)=>'<i class="'+(i==shopBi?'on':'')+'"></i>').join("")+'</div></div>'}
+setInterval(()=>{try{const b=$("spBan");if(!b||!b.offsetParent)return;const n=b.querySelectorAll(".spSlide").length;if(n<2)return;shopBi=(shopBi+1)%n;
+ b.querySelectorAll(".spSlide").forEach((e,i)=>e.classList.toggle("on",i==shopBi));b.querySelectorAll(".spDots i").forEach((e,i)=>e.classList.toggle("on",i==shopBi))}catch(e){}},3500);
+function renderShop(){const own=extraIcons(),pg=premiumGot();let h='';
+ const tabs='<div class="spTabs">'+SHOP_TABS.map((t,i)=>'<button type="button" class="'+(shopTab==i?'on':'')+'" onclick="shopGo('+i+')">'+t+'</button>').join("")+'</div>';
+ if(shopTab==0){h=shopBanHtml()+'<div class="spQuick"><button type="button" onclick="shopGo(1)"><i>👕</i>きせかえ</button><button type="button" onclick="shopGo(2)"><i>💠</i>プレミアム</button><button type="button" onclick="shopGo(5)"><i>🔁</i>かけら交換所</button></div>'
+   +'<div class="spH"><b>NEW きせかえセット</b><small>プレイマット・スリーブ・アイコン</small></div>'+KISE_SETS.map(shopSetCard).join("")}
+ else if(shopTab==1){h='<div class="spH"><b>きせかえセット</b><small>💎でも🔹でも買えます</small></div>'+KISE_SETS.map(shopSetCard).join("")
+   +'<div class="spNote c">買ったプレイマット・スリーブは、メニューの「👕 きせかえ」で入れかえられます（スリーブはデッキごと）。アイコンは「戦績」→「アイコン」から選べます。</div>'}
+ else if(shopTab==2){h='<div class="spH"><b>プレミアムパック</b><small>限定イラストのプロモCR×2＋アイコン</small></div>'+premiumList().map(x=>{const got=pg.includes(x.id),im=CARD_IMAGES[x.card]||"";
+   return '<div class="spPm'+(x.need?' dark':'')+'"><div class="spPmA" style="background-image:url('+im+')"></div><div class="spPmT"><b>'+escH(x.name)+'</b><small>プロモCR×2・アイコン</small>'
+    +(got?'<button type="button" class="spBt got">✓ 購入済み</button>':'<button type="button" class="spBt cr" onclick="buyPremium(\''+x.id+'\')">💎 '+x.price.toLocaleString()+'</button>')+'</div></div>'}).join("")}
+ else if(shopTab==3){h='<div class="spH"><b>アイコン</b><small>🔹かけらで交換</small></div><div class="spGrid">'+SHOP_ICONS.filter(x=>!x[2]||x[2]()).map(([id,pr])=>{const c=by(id);if(!c)return"";const got=own.includes(id);
+   return '<div class="spIt">'+iconHtml(id,58)+'<b>'+escH(c.name)+(c.rarity=="CR"?' <span class="shopCr">CR</span>':'')+'</b>'+(got?'<button type="button" class="spBt got">交換済み</button>':'<button type="button" class="spBt sd" onclick="shopBuy(\''+id+'\','+pr+')">🔹 '+pr.toLocaleString()+'</button>')+'</div>'}).join("")+'</div>'
+   +'<div class="spNote c">交換したアイコンは、メニューの「戦績」→「アイコン」から選べます。</div>'}
+ else if(shopTab==4){const L=shopCrList();h='<div class="spH"><b>CR交換</b><small>当てたCRを、もう1枚（🔹'+SHOP_CR_PRICE.toLocaleString()+'）</small></div>'
+   +(L.length?'<div class="spGrid">'+L.map(c=>{const n=ownedCount(c.id),full=n>=2;return '<div class="spIt"><div class="spCd" style="background-image:url('+(CARD_IMAGES[c.id]||"")+')"></div><b>'+escH(c.name)+'</b><div class="spOwn">所持 '+n+'枚</div>'
+    +(full?'<button type="button" class="spBt got">2枚そろっています</button>':'<button type="button" class="spBt sd" onclick="shopBuyCr(\''+c.id+'\')">🔹 '+SHOP_CR_PRICE.toLocaleString()+'</button>')+'</div>'}).join("")+'</div>':'<div class="spNote c">ガチャで当てたCRを、もう1枚交換できます（イベントのCRはのぞく）。</div>')}
+ else{const r=exRoll(),nx=EX_ROLL_PRICE[r.n];
+   h='<div class="spH"><b>かけら交換所</b><small>毎日0時に入れかわります（土日はURの枠）</small></div><div id="shExGrid" class="spGrid exIn"></div>'
+   +'<button type="button" class="spBt sd spRoll'+(nx==null?' off':'')+'" onclick="exReroll()">'+(nx==null?'今日の入れかえは終わり（また明日）':'🔁 6枚を入れかえる　'+(nx===0?'無料':'🔹 '+nx))+'</button>'
+   +'<div class="spNote c">入れかえは1日'+EX_ROLL_PRICE.length+'回まで（1回目は無料）。レア度の並びは変わりません。同じカードは1日1回まで、2枚持っているカードは交換できません。</div>'}
+ $("shopView").innerHTML=tabs+'<div class="spPg">'+h+'</div>';
+ if(shopTab==5)renderExchange("shExGrid")}
 function shopBuyCr(id){const c=by(id);if(!c||ownedCount(id)<1||ownedCount(id)>=2)return;if(shard<SHOP_CR_PRICE){sfx("no");log2Toast("🔹かけらが足りません（"+SHOP_CR_PRICE.toLocaleString()+"必要）");return}
  askYesNo("CR「"+c.name+"」を、🔹かけら"+SHOP_CR_PRICE.toLocaleString()+"で1枚交換しますか？",()=>{if(!spendShard(SHOP_CR_PRICE))return;const m=ownedMap();m[id]=(m[id]||0)+1;store.set("cmOwned",JSON.stringify(m));sfx("summon");log2Toast("CR「"+c.name+"」を手に入れた！");renderShop()})}
 function shopBuy(id,pr){const c=by(id);if(!c||extraIcons().includes(id))return;if(shard<pr){sfx("no");log2Toast("🔹かけらが足りません（"+pr+"必要）");return}
@@ -7627,25 +7715,32 @@ async function loadNews(){
 
 /* ================= かけら交換所 ================= */
 const EX_RATE={N:20,R:50,SR:150,UR:400};
+// 入れかえ：1日3回（1回目は無料・🔹100・🔹200）。保存 cmExRoll {date,n}
+const EX_ROLL_PRICE=[0,100,200];
+function exRoll(){let o={};try{o=JSON.parse(store.get("cmExRoll"))||{}}catch(e){}return o.date===todayStr()?{date:o.date,n:o.n||0}:{date:todayStr(),n:0}}
+function exReroll(){const r=exRoll(),p=EX_ROLL_PRICE[r.n];if(p==null){sfx("no");log2Toast("今日の入れかえは終わりです（また明日）");return}
+ const go=()=>{if(p&&!spendShard(p)){log2Toast("かけらが足りません");return}r.n++;store.set("cmExRoll",JSON.stringify(r));_exCache=null;sfx("summon");log2Toast("交換所のカードを入れかえた！");try{renderShop()}catch(e){}try{renderExchange()}catch(e){}};
+ if(p&&shard<p){sfx("no");log2Toast("🔹かけらが足りません（"+p+"必要）");return}
+ askYesNo("交換所の6枚を"+(p?"🔹"+p+"で":"無料で")+"入れかえますか？（今日あと"+(EX_ROLL_PRICE.length-r.n)+"回）",go)}
 let _exCache=null,_exDay=null;
 function exDaily(){
- const day=todayStr();
+ const roll=exRoll().n,day=todayStr()+(roll?"#"+roll:"");
  if(_exCache&&_exDay===day)return _exCache;
  let s=0;for(let i=0;i<day.length;i++)s=(Math.imul(s,31)+day.charCodeAt(i))>>>0;
  const rng=()=>{s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296};
  const dow=new Date().getDay(),weekend=(dow===0||dow===6);
  const plan=weekend?["UR","N","N","R","R","SR"]:["N","N","N","R","R","SR"];
  const pools={};["N","R","SR","UR"].forEach(r=>pools[r]=P.filter(c=>!c.promo&&!c.event&&!c.gItem&&!c.bossOnly&&!c.unreleased&&c.rarity===r));   // アイテム・ボス専用・未公開は並べない
- const used=new Set(),pick=[];
+ const used=new Set(roll?exDoneList():[]),pick=[];   // 入れかえたあとは、今日もう交換したカードは出さない
  plan.forEach(r=>{const cands=pools[r].filter(c=>!used.has(c.id));if(!cands.length){pick.push(null);return}
   const c=cands[Math.floor(rng()*cands.length)];used.add(c.id);pick.push(c)});
  _exCache=pick;_exDay=day;return pick}
 function exDoneList(){let o={};try{o=JSON.parse(store.get("cmExDone"))||{}}catch(e){}return o.date===todayStr()?(o.ids||[]):[]}
 function exMarkDone(id){const d=exDoneList();d.push(id);store.set("cmExDone",JSON.stringify({date:todayStr(),ids:d}))}
-function openExchange(){hideAll();$("exchange").classList.remove("hide");$("app").scrollTop=0;renderExchange()}
-function renderExchange(){
- $("exShard").textContent="🔹 "+shard;
- const cards=exDaily(),done=exDoneList(),g=$("exGrid");g.innerHTML="";
+function openExchange(){shopTab=5;try{openGacha()}catch(e){hideAll();$("gacha").classList.remove("hide")}setGachaMode(true);try{$("app").scrollTop=0}catch(e){}}
+function renderExchange(target){
+ try{$("exShard").textContent="🔹 "+shard}catch(e){}
+ const cards=exDaily(),done=exDoneList(),g=$(target||"exGrid");if(!g)return;g.innerHTML="";
  cards.forEach((c,i)=>{
   const d=document.createElement("div");
   if(!c){d.className="exCard";d.innerHTML='<div class="exArt">—</div>';g.appendChild(d);return}
@@ -7669,7 +7764,7 @@ function exBuy(i){
   if(!spendShard(cost))return log2Toast("かけらが足りません");
   unlockCard(c.id);exMarkDone(c.id);
   log2Toast(c.name+"を交換しました！");
-  renderExchange()})}
+  renderExchange();try{if(gachaShopMode)renderShop()}catch(e){}})}
 
 /* ================= ストーリー画面 ================= */
 let storyLine=[],storyLineIdx=0,storyAfter=null;
@@ -8234,7 +8329,7 @@ let nbTurnKey=null;
 function nbBanner(w){const b=$("nbBan");if(!b)return;b.innerHTML='<b>'+(w[0]=="YOU"?"YOUR":w[0])+' TURN</b><small>ターン '+turnTotal()+'</small>';
  b.className="nbOnly nbBan "+w[1];void b.offsetWidth;b.classList.add("show")}
 function nbRender(){const g=$("game");if(!S||!g||!g.classList.contains("nb"))return;
- const mu=matUrl(curMat()),bf=$("bfield");if(bf){bf.classList.toggle("hasMat",!!mu);bf.style.setProperty("--mat",mu?"url("+mu+")":"none")}
+ const mu=matUrl(curMat());g.classList.toggle("hasMat",!!mu);g.style.setProperty("--mat",mu?"url("+mu+")":"none");
  const nm=S.coop?"BOSS":((S.opp&&S.opp.name)?fillText(S.opp.name):"相手");$("nbOName").textContent=(S.opp&&S.opp.name)?fillText(S.opp.name):nm;
  $("nbOHand").textContent="手札 "+S.ch.length;
  const hp=(k,v,mx)=>{const w=Math.max(0,Math.min(100,v/mx*100))+"%";$(k).textContent=Math.max(0,v);$(k+"I").style.width=w;$(k+"U").style.width=w};
