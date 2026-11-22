@@ -2223,7 +2223,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.50.3</div>
+ <div class="tVer" id="tVer">ver.5.50.4</div>
 </div>
 
 <div id="app">
@@ -2873,7 +2873,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.50.3</div>
+  <div class="aboutVer" id="aboutVer">ver.5.50.4</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3513,7 +3513,7 @@ function $(id){return document.getElementById(id)}
 function by(id){return P.find(c=>c.id==id)}
 function cp(c){return c?JSON.parse(JSON.stringify(c)):null}
 function shuf(a){for(let i=a.length-1;i>0;i--){let j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms)).then(()=>gWaitN>0?coinIdle():0)}   // コインを投げている間は、先に進まない
 const _mem={};
 const store={
  get(k){try{return localStorage.getItem(k)}catch(e){return _mem[k]??null}},
@@ -5168,7 +5168,7 @@ function coopSwitch(who){const C=S.coop,cur=C.turn;C.hands[cur]=S.ph;C.decks[cur
  S.pOnce=false;S.cOnce=false;S.pLock=false;
  coopResetOwner(who);coopSnap();draw("p");phaseCutIn("main1","p");
  log("ターン"+turnTotal()+"　"+C.names[who]+"のターン")}
-async function coopEndTurn(){if(!S||S.busy||S.over)return;if(coopHostLocked())return log("相方のターンです");
+async function coopEndTurn(){if(!S||S.busy||gWaitN>0||S.over)return;if(coopHostLocked())return log("相方のターンです");
  S.busy=true;selH=selA=selE=null;pending=null;
  await turnEndDeaths("p");chk();if(!S||S.over){if(S)S.busy=false;return}
  if(S.coop.turn=="A"){coopLayerEnd("A");coopSwitch("B");S.busy=false;render();
@@ -7040,7 +7040,7 @@ function fmPlayFx(list){(list||[]).forEach(f=>{if(f.id<=(FM.fxSeen||0))return;FM
   else if(f.n=="phaseCut"){showPhaseCut(a[0],FM_FLIP(a[1]))}
   else if(f.n=="say"){bossSayShow(a[0])}
   else if(f.n=="bigCut"){bigCut(by(a[0]))}
-  else if(f.n=="coin"){const sd=a[0]=="p"?"c":"p";coinQ.push([sd,a[1],a[2]]);if(!coinBusy)coinNext()}
+  else if(f.n=="coin"){const sd=a[0]=="p"?"c":"p";gWaitN++;coinQ.push([sd,a[1],a[2],null]);if(!coinBusy)coinNext()}
   else if(f.n=="cutIn"){if(!(FM.myCast&&FM.myCast.id==a[0]&&Date.now()-FM.myCast.at<4000))cutIn(by(a[0]))}
  }catch(e){}})}
 // 相手（ゲスト）のターン：届いた操作を順に実行する
@@ -7389,7 +7389,7 @@ function b3TurnStart(side){const B=b2B(side);let h=0;
  if(h>0)healHero(side,h);
  B.forEach(m=>{if(m&&m.pas)pasOn(m,side,"turnDraw").forEach(p=>{for(let k=0;k<p.turnDraw;k++)draw(side);log(m.name+"："+p.turnDraw+"枚多くドロー")})});
  if(S.xDraw&&S.xDraw[side]){const n=S.xDraw[side];S.xDraw[side]=0;for(let k=0;k<n;k++)draw(side);log("エネルギー充填："+n+"枚多くドロー")}
- B.forEach(m=>{if(m&&m.turnG&&!S.over){const hd=gambleFlip(side,m);doActs(hd?m.turnG.h:m.turnG.t,side,m)}})}
+ {const L=B.filter(m=>m&&m.turnG);const nx=i=>{if(i>=L.length||!S||S.over)return;gambleFlip(side,L[i],hd=>{doActs(hd?L[i].turnG.h:L[i].turnG.t,side,L[i]);nx(i+1)})};nx(0)}}
 // ターンの終わり（「このターン」の効果を消す）
 function b3TurnEnd(side){[S.pb,S.cb].forEach(B=>B.forEach(m=>{if(!m)return;const b=by(m.id)||{};
  m.tBuff=0;m.tDefDown=0;m.tPierce=0;m.tMul=0;
@@ -7417,22 +7417,23 @@ function b2Target(a,side,MB,EB,okKill){const os=b2Other(side);
    if(a.def){m.curseDef=Math.max(m.curseDef||0,a.def);log(m.name+"のDEF-"+a.def)}
    S.curseBy=side}};
   case"bindOne":return {kind:"enemy",n:1,valid:(m,sd)=>sd==os&&!m.cantAttack,score:(m,sd)=>at(m,sd),apply:(sd,i)=>{const m=b2B(sd)[i];if(m){m.lazy=1;m.lazyMsg=a.g?"出禁で":"影にしばられて";log(m.name+"は次のターン、攻撃できない");
-   if(a.g&&gambleFlip(side,{name:a._nm})){m.curse=Math.max(m.curse||0,a.g.atk||0);S.curseBy=side;log(m.name+"のATK-"+(a.g.atk||0))}}}};
+   if(a.g)gambleFlip(side,{name:a._nm},hd=>{if(hd&&m){m.curse=Math.max(m.curse||0,a.g.atk||0);S.curseBy=side;log(m.name+"のATK-"+(a.g.atk||0))}})}}};
   case"killOwn":return {kind:"ally",n:1,valid:(m,sd)=>sd==side,score:(m,sd)=>-(at(m,sd)+df(m,sd)+(m.cost||0)*300),apply:(sd,i)=>{const m=b2B(sd)[i];if(m){log(a._nm+"：「"+m.name+"」を破壊");boomKill(sd,i)}}};
   case"killOwnName":return {kind:"ally",n:1,valid:(m,sd)=>sd==side&&linkNameHit(a.name,m),score:(m,sd)=>-(at(m,sd)+df(m,sd))+(m.used?3000:0),apply:(sd,i)=>{const m=b2B(sd)[i];if(m){log(a._nm+"：「"+m.name+"」を破壊");boomKill(sd,i)}}};
   case"copyDeck":{const D=side=="p"?S.pd:S.cd;return {kind:"ally",n:1,valid:(m,sd)=>sd==side&&((by(m.id)||m).cost||0)<=(a.maxCost||3)&&D.some(x=>x&&x.id==m.id),score:(m,sd)=>(m.cost||0)*100+at(m,sd),
    apply:(sd,i)=>{const m=b2B(sd)[i];if(!m)return;const H=side=="p"?S.ph:S.ch,k=D.findIndex(x=>x&&x.id==m.id);if(k>=0){const c=D.splice(k,1)[0];H.push(c);log(a._nm+"：山札から「"+c.name+"」を手札に")}}}}
   case"stripGuard":return {kind:"enemy",n:1,valid:(m,sd)=>sd==os&&m.guard,score:(m,sd)=>df(m,sd),apply:(sd,i)=>{const m=b2B(sd)[i];if(m){m.guard=0;m.permGuard=0;m.noGuard=1;log("「"+m.name+"」の守護がなくなった")}}};
   case"buffOne":case"buffTwo":return {kind:"ally",n:a.a=="buffTwo"?2:1,valid:(m,sd)=>sd==side,score:(m,sd)=>a.def&&!a.atk?df(m,sd):at(m,sd)+(a.charge&&m.used?2000:0),
-   apply:(sd,i)=>{const m=b2B(sd)[i];if(!m)return;b3Buff(m,a);if(a.g&&gambleFlip(side,{name:a._nm})&&a.g.guard&&!m.noGuard){m.guard=1;m.permGuard=1;log(m.name+"に守護")}}};
+   apply:(sd,i)=>{const m=b2B(sd)[i];if(!m)return;b3Buff(m,a);if(a.g)gambleFlip(side,{name:a._nm},hd=>{if(hd&&a.g.guard&&!m.noGuard){m.guard=1;m.permGuard=1;log(m.name+"に守護")}})}};
  }return null}
 function doActs(acts,side,src,opt){if(!S||!acts)return;const os=b2Other(side),MB=b2B(side),EB=b2B(os),nm=(src&&src.name)||"",choose=!!(opt&&opt.choose);
  const pre=acts.map(a=>b2Cond(a,side,src));   // 条件は、先に全部判断しておく（破壊で場の数が変わる前に）
  const step=k=>{while(k<acts.length){if(!S||S.over)return;const a0=acts[k];if(!pre[k]){k++;continue}
   const a={...a0,_nm:nm};
   const okKill=m=>(a.maxCost==null||(m.cost||0)<=a.maxCost)&&(a.maxDef==null||df(m,MB.includes(m)?side:os)<=a.maxDef);
-  if(a.a=="gamble"){const hd=gambleFlip(side,src),br=hd?a.h:a.t;if(br&&br.length)doActs(br,side,src,opt);k++;continue}
-  if(a.a=="gambleN"){let n=0;for(let t=0;t<(a.n||1);t++){if(gambleFlip(side,src)){n++;doActs(a.per,side,src)}}log(nm+"：表が"+n+"回");k++;continue}
+  if(a.a=="gamble"){const rest=acts.slice(k+1);gambleFlip(side,src,hd=>{const br=(hd?a.h:a.t)||[];const L=br.concat(rest);if(L.length)doActs(L,side,src,opt)});return}   // コインが止まってから、効果とその後ろを続ける
+  if(a.a=="gambleN"){const rest=acts.slice(k+1);let n=0;const run=t=>{if(!S||S.over)return;if(t>=(a.n||1)){log(nm+"：表が"+n+"回");if(rest.length)doActs(rest,side,src,opt);return}
+    gambleFlip(side,src,hd=>{if(hd){n++;doActs(a.per,side,src)}run(t+1)})};run(0);return}
   const T=b2Target(a,side,MB,EB,okKill);
   if(T){const B=T.kind=="enemy"?EB:MB,sd0=T.kind=="enemy"?os:side;
    const cand=()=>B.map((m,i)=>m&&T.valid(m,sd0)?i:-1).filter(i=>i>=0);
@@ -9102,7 +9103,7 @@ function renderEndWarnBtn(){if($("ewBtn"))$("ewBtn").textContent=store.get("cmEn
 function nextPhase(){
 if(netPaused())return log2Toast("通信の復帰を待っています"); if(coopIsGuest())return coopGuestNext();if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest"){if(!fmCanAct())return;if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(fmGuestEnd);fmSend({t:"phase"});return}
- if(!S||S.busy||S.over||pending)return;
+ if(!S||S.busy||gWaitN>0||S.over||pending)return;
  if(!phaseOn()||S.phase=="battle"||!anyAttacker("p"))return endTurnAsk(endTurn);
  selH=null;sfx("sel");setPhase("battle")}
 function phaseBtnLabel(){if(!S||!phaseOn()||S.active!="p")return "ターンエンド ▶";
@@ -9130,7 +9131,7 @@ function grantCharge(m,force){const sd=sideOfMon(m);
  if(sd&&chargeBlocked(sd)&&m.used&&(m.attacks||0)<=0){m.charge=1;log("パンプキングの威圧："+m.name+"は動けない");return}m.charge=1;if(m.used&&(m.attacks||0)<=0){m.used=false;m.attacks=m.double?2:1}else{m.used=false;m.attacks=Math.max(1,m.attacks||0)}}
 function summon(pos){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestSummon(pos);if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest")return fmGuestSummon(pos);
- if(!S||S.busy||S.over||pending||selH==null)return;
+ if(!S||S.busy||gWaitN>0||S.over||pending||selH==null)return;
  let c=S.ph[selH];if(!c)return;
  if(c.type=="spell")return log("呪文は「発動」ボタンで使います");
  if(!canMain())return log("アタックフェイズ中は召喚できません");
@@ -9227,7 +9228,7 @@ function castCheck(c){const E=c.eff;
  return null}
 function cast(){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestCast();if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest")return fmGuestCast();
- if(!S||S.busy||S.over||pending||selH==null)return;
+ if(!S||S.busy||gWaitN>0||S.over||pending||selH==null)return;
  const c=S.ph[selH];if(!c||c.type!="spell")return;
  if(!canMain())return log("アタックフェイズ中は呪文を使えません");
  if(!tutGate("cast",c.id))return;
@@ -9328,7 +9329,7 @@ function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS
 function guards(B,ex){const r=[];B.forEach((m,i)=>{if(i!=ex&&m&&m.guard&&!m.guardTurn&&!isFrozen(m))r.push(i)});return r}   // 凍結中は守護（身代わり）できない
 function enemyTarget(to){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestAttack(to);if(coopHostLocked())return log("相方のターンです");
  if(FM.on&&FM.role=="guest")return fmGuestAttack(to);
- if(!S||S.over||S.busy)return;
+ if(!S||S.over||S.busy||gWaitN>0)return;
  if(pending)return;
  if(selA==null)return;
  const f=selA,a=S.pb[f];if(!a)return;
@@ -9504,7 +9505,7 @@ async function turnEndDeaths(side){if(!S||S.over)return;const B=side=="p"?S.pb:S
  for(let i=0;i<3;i++){const m=B[i];if(m&&m.limDie){log(m.name+"は力を使いはたした（リミッター解除）");await boomKill(side,i);if(S.over)return}}}
 async function endTurn(){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestNext();if(S&&S.coop&&FM.on&&FM.role=="host")return coopEndTurn();
  if(FM.on&&FM.role=="guest")return fmGuestEnd();
- if(!S||S.busy||S.over)return;
+ if(!S||S.busy||gWaitN>0||S.over)return;
  if(!tutGate("end"))return;
  S.busy=true;selH=selA=selE=null;pending=null;S.pLock=false;
  await turnEndDeaths("p");chk();if(!S||S.over){if(S)S.busy=false;return}
@@ -9809,31 +9810,40 @@ function slJackpot(n){const cs=$("casino"),jp=$("slJp"),im=jp.querySelector(".jp
   c.animate([{transform:"translateY(0) rotate(0)"},{transform:"translateY("+(innerHeight+80)+"px) rotate("+(Math.random()*720-360)+"deg)"}],{duration:1600+Math.random()*1800,delay:Math.random()*2200,easing:"ease-in",fill:"both"}).onfinish=()=>c.remove()}
  try{sfx("win");setTimeout(()=>sfx("win"),700);setTimeout(()=>sfx("win"),1400)}catch(e){}
  setTimeout(()=>{jp.style.display="none";$("slCab").classList.remove("win");slLamp=0},4200)}
-// ===== 【博打】：コインを投げる（表＝true） =====
-function gambleFlip(side,src){if(!S)return false;const B=b2B(side);S.gSure=S.gSure||{};S.gRe=S.gRe||{};
+// ===== 【博打】：コインを投げる（表＝true）。cbがあれば、コインが止まってから呼ぶ =====
+let gWaitN=0;
+function coinIdle(){return new Promise(r=>{const t=()=>gWaitN>0?setTimeout(t,80):r();t()})}
+function gambleFlip(side,src,cb){if(!S){cb&&cb(false);return false}const B=b2B(side);S.gSure=S.gSure||{};S.gRe=S.gRe||{};
  let hd,sure=false;
  if(B.some(m=>m&&m.gSure)){hd=true;sure=true}
  else if(S.gSure[side]>0){S.gSure[side]--;hd=true;sure=true}
  else hd=Math.random()<.5;
  const lane=B.findIndex(m=>m&&src&&m.uid!=null&&m.uid===src.uid);
  if(!hd&&B.some(m=>m&&m.reroll)&&S.gRe[side]!==ownTurn(side)){S.gRe[side]=ownTurn(side);coinFx(side,lane,false);log("イカサマ師：コインを投げ直す！");hd=Math.random()<.5}
- coinFx(side,lane,hd);
- log((src&&src.name?src.name+"の":"")+"【博打】："+(hd?"表！":"裏…")+(sure?"（イカサマ）":""));
- B.forEach(m=>{if(!m)return;
-  if(hd&&m.onHeads&&m.onHeads.draw){for(let k=0;k<m.onHeads.draw;k++)draw(side);log(m.name+"：表が出たので"+m.onHeads.draw+"枚ドロー")}
-  if(!hd&&m.onTails&&m.onTails.heal){healHero(side,m.onTails.heal);log(m.name+"：裏が出たのでHP+"+m.onTails.heal)}});
- if(side=="p"){try{S.gRun=hd?(S.gRun||0)+1:0;S.gTRun=hd?0:(S.gTRun||0)+1;if(!hd)S.gTail=(S.gTail||0)+1;const o=ttStats();let ch=false;
-  if(S.gRun>=5&&!o.lkHead5){o.lkHead5=1;ch=true}if(S.gTail>=5&&!o.lkTail5){o.lkTail5=1;ch=true}o.lkTRun=hd?0:(o.lkTRun||0)+1;ch=true;if(o.lkTRun>=5&&!o.lkTailRun5){o.lkTailRun5=1}
-  if(sure&&hd){o.lkSure=(o.lkSure||0)+1;ch=true}
-  if(ch)store.set("cmStats",JSON.stringify(o))}catch(e){}}
+ const land=()=>{if(!S)return;
+  log((src&&src.name?src.name+"の":"")+"【博打】："+(hd?"表！":"裏…")+(sure?"（イカサマ）":""));
+  b2B(side).forEach(m=>{if(!m)return;
+   if(hd&&m.onHeads&&m.onHeads.draw){for(let k=0;k<m.onHeads.draw;k++)draw(side);log(m.name+"：表が出たので"+m.onHeads.draw+"枚ドロー")}
+   if(!hd&&m.onTails&&m.onTails.heal){healHero(side,m.onTails.heal);log(m.name+"：裏が出たのでHP+"+m.onTails.heal)}});
+  if(side=="p"){try{S.gRun=hd?(S.gRun||0)+1:0;if(!hd)S.gTail=(S.gTail||0)+1;const o=ttStats();
+   if(S.gRun>=5)o.lkHead5=1;if(S.gTail>=5)o.lkTail5=1;if(sure&&hd)o.lkSure=(o.lkSure||0)+1;
+   o.lkTRun=hd?0:(o.lkTRun||0)+1;if(o.lkTRun>=5)o.lkTailRun5=1;store.set("cmStats",JSON.stringify(o))}catch(e){}}
+  try{render()}catch(e){}
+  cb&&cb(hd)};
+ coinFx(side,lane,hd,cb?land:null);
+ if(!cb)land();
  return hd}
 // コインの演出：モンスターならそのカードから、呪文なら真ん中から投げて、マットの上で回って止まる
 const coinQ=[];let coinBusy=false;
-function coinFx(side,lane,hd){coinQ.push([side,lane,hd]);if(FM.on)try{fmFx("coin",[side,lane,hd])}catch(e){}if(!coinBusy)coinNext()}
+function coinFx(side,lane,hd,onLand){gWaitN++;coinQ.push([side,lane,hd,onLand]);if(FM.on&&!onLand?.remote)try{fmFx("coin",[side,lane,hd])}catch(e){}if(!coinBusy)coinNext()}
 function coinNext(){const q=coinQ.shift();if(!q){coinBusy=false;return}coinBusy=true;
- try{coinPlay(q[0],q[1],q[2],()=>coinNext())}catch(e){coinBusy=false}}
-function coinPlay(side,lane,hd,done){const g=$("game");if(!g||g.classList.contains("hide")){done();return}
- const gr=g.getBoundingClientRect(),bd=(g.querySelector(".board")||g).getBoundingClientRect();
+ let landed=false;const land=()=>{if(landed)return;landed=true;try{q[3]&&q[3]()}catch(e){console.error(e)}};
+ let fin=false,safe=null;const done=()=>{if(fin)return;fin=true;if(safe)clearTimeout(safe);land();gWaitN=Math.max(0,gWaitN-1);coinNext()};
+ try{coinPlay(q[0],q[1],q[2],land,done)}catch(e){done()}
+ if(!fin)safe=setTimeout(done,4000);}   // 万一アニメが止まっても、ずっと待たないように
+function coinPlay(side,lane,hd,land,done){const g=$("game");
+ if(!g||!g.classList||g.classList.contains("hide")||typeof document.body.animate!="function"||!g.getBoundingClientRect){done();return}
+ const bd=(g.querySelector(".board")||g).getBoundingClientRect();
  let sx=bd.left+bd.width/2,sy=bd.top+bd.height/2,el=null;
  if(lane>=0){try{el=slot(side,lane);const r=el.getBoundingClientRect();sx=r.left+r.width/2;sy=r.top+r.height/2}catch(e){}}
  const ex=bd.left+bd.width/2,ey=bd.top+bd.height/2;
@@ -9847,6 +9857,7 @@ function coinPlay(side,lane,hd,done){const g=$("game");if(!g||g.classList.contai
   setTimeout(()=>{const t=document.createElement("div");t.className="coinRes "+(hd?"omote":"ura");t.textContent=hd?"表！":"裏…";w.appendChild(t);
    try{sfx(hd?"win":"lose")}catch(e){}
    const card=el&&el.querySelector(".card");if(card){card.classList.add(hd?"coinGold":"coinDim");setTimeout(()=>card.classList.remove("coinGold","coinDim"),900)}
+   land();   // ここで効果が出る
    setTimeout(()=>{w.animate([{opacity:1},{opacity:0}],{duration:200,fill:"forwards"});setTimeout(()=>{w.remove();done()},200)},650)},820)},T)}
 function bigCut(c){if(!c)return;const f=$("bossFlash"),bc=$("bossCut");if(!f||!bc)return;
  f.classList.remove("on");void f.offsetWidth;f.classList.add("on");
