@@ -2023,7 +2023,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 .ttRb{position:absolute;right:8px;top:8px;font-size:10px;font-weight:900;color:#2a1600;background:#f6cf6b;border-radius:99px;padding:1px 7px}
 .ttLim{font-size:9.5px;color:#ff9ad8;font-weight:900}
 .ttEmpty{text-align:center;color:#9fb6d3;margin:30px}
-.ttSheet{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;z-index:80}
+.ttSheet{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;z-index:130}
 .ttSheet.show{display:flex!important}
 .ttSp{width:100%;max-width:430px;border-radius:22px 22px 0 0;background:#0e2038;padding:18px 16px calc(26px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(0,0,0,.5);animation:ttUp .22s ease-out}
 @keyframes ttUp{from{transform:translateY(100%)}}
@@ -2223,7 +2223,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.50.4</div>
+ <div class="tVer" id="tVer">ver.5.50.5</div>
 </div>
 
 <div id="app">
@@ -2873,7 +2873,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.50.4</div>
+  <div class="aboutVer" id="aboutVer">ver.5.50.5</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -8489,7 +8489,7 @@ function battleTopY(){const g=$("game");let y=110;try{const t=g&&g.classList.con
 function heroBox(side){const g=$("game");if(g&&g.classList.contains("nb"))return $(side=="p"?"nbPHp":"nbOHp").parentElement;return $(side=="p"?"phpBox":"chpBox")}
 function showGrave(side){const G=side=="p"?S.pg:S.cg;$("gvTitle").textContent=(side=="p"?"自分":"相手")+"の墓地（"+G.length+"枚）";
  const nb=$("game").classList.contains("nb");$("gvBody").classList.toggle("gvGrid",nb&&G.length>0);
- if(nb){gvList=G.slice().reverse();$("gvBody").innerHTML=G.length?gvList.map((c,i)=>'<button type="button" class="gvC" onclick="showD(gvList['+i+'])" style="'+(CARD_IMAGES[c.id]?'background-image:url('+CARD_IMAGES[c.id]+')':'')+'"><b>'+(c.cost||0)+'</b>'+(CARD_IMAGES[c.id]?'':'<span>'+escH(c.name)+'</span>')+'</button>').join("")+'<div class="gvN">新しく墓地に行ったカードが左上。押すと、くわしく見られます</div>':'まだカードがありません';$("graveov").classList.add("show");return}
+ if(nb){gvList=G.slice().reverse();$("gvBody").innerHTML=G.length?gvList.map((c,i)=>'<button type="button" class="gvC" onclick="showD(gvList['+i+']);$(\'ov\').classList.add(\'topmost\')" style="'+(CARD_IMAGES[c.id]?'background-image:url('+CARD_IMAGES[c.id]+')':'')+'"><b>'+(c.cost||0)+'</b>'+(CARD_IMAGES[c.id]?'':'<span>'+escH(c.name)+'</span>')+'</button>').join("")+'<div class="gvN">新しく墓地に行ったカードが左上。押すと、くわしく見られます</div>':'まだカードがありません';$("graveov").classList.add("show");return}
  $("gvBody").textContent=G.length?G.slice().reverse().map(c=>`${c.type=="monster"?"👾":"✨"} ${c.name}（コスト${c.cost}）`).join("\n"):"（空）";
  $("graveov").classList.add("show")}
 function draw(side,quiet){let D=side=="p"?S.pd:S.cd,H=side=="p"?S.ph:S.ch;
