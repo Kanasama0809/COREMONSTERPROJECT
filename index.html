@@ -2287,7 +2287,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.52.0</div>
+ <div class="tVer" id="tVer">ver.5.52.1</div>
 </div>
 
 <div id="app">
@@ -2960,7 +2960,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.52.0</div>
+  <div class="aboutVer" id="aboutVer">ver.5.52.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -9968,7 +9968,7 @@ function csRenderMenu(){$("csMenu").innerHTML='<div class="csHero"><h2>🎭 裏�
  +'<div class="csSub" style="text-align:center;margin-top:8px">ラッキーメダルは、毎日はじめて入ったときに🪙'+CS_DAILY+'もらえる</div></div>'}
 // ---- 換金所 ----
 const CS_ROT=[{k:"gcard",ic:"🎲",n:"【博打】カード（N・R）1枚",p:30},{k:"gcard2",ic:"🎲",n:"【博打】カード（N・R）2枚",p:55},{k:"gcardS",ic:"🎰",n:"【博打】カード（SR）1枚",p:120}];
-function csShopToday(o){const t=todayStr();if(!o.shop||o.shop.day!==t){let x=0;for(const ch of t)x=(x*31+ch.charCodeAt(0))%9973;
+function csShopToday(o){const t=todayStr();if(!o.shop||o.shop.day!==t||!Array.isArray(o.shop.rot)||o.shop.rot.some(i=>!CS_ROT[i])){let x=0;   /* 前の版で消した品が残っていたら作り直す */ for(const ch of t)x=(x*31+ch.charCodeAt(0))%9973;
   const a=CS_ROT.map((it,i)=>i);for(let i=a.length-1;i>0;i--){x=(x*9301+49297)%233280;const j=Math.floor(x/233280*(i+1));[a[i],a[j]]=[a[j],a[i]]}
   o.shop={day:t,rot:a.slice(0,2),got:{},gem:0,sh:0};csSave(o)}return o.shop}
 function csRenderShop(){const o=csSt(),sh=csShopToday(o),T=ttStats();
@@ -9980,7 +9980,7 @@ function csRenderShop(){const o=csSt(),sh=csShopToday(o),T=ttStats();
  h+=item("reg","🏷️","称号「裏カジノの常連」","銀の称号",100,reg,reg?'交換ずみ':null);
  h+=item("gem","💎","💎100","今日 "+sh.gem+"/"+CS_GEM_CAP,30,sh.gem>=CS_GEM_CAP);
  h+=item("sh","🔹","🔹200","今日 "+sh.sh+"/"+CS_SHARD_CAP,30,sh.sh>=CS_SHARD_CAP);
- sh.rot.forEach(i=>{const it=CS_ROT[i];h+=item(it.k,it.ic,it.n,"今日だけ",it.p,sh.got[it.k],sh.got[it.k]?'交換ずみ':null)});
+ sh.rot.forEach(i=>{const it=CS_ROT[i];if(!it)return;h+=item(it.k,it.ic,it.n,"今日だけ",it.p,sh.got[it.k],sh.got[it.k]?'交換ずみ':null)});
  h+='</div><div class="csTimer" id="csTimer"></div>';$("csShop").innerHTML=h;csTick()}
 function csTick(){const e=$("csTimer");if(!e)return;const d=new Date(),m=new Date(d);m.setHours(24,0,0,0);const s=Math.floor((m-d)/1000);e.textContent="入れかわりまで あと "+Math.floor(s/3600)+"時間"+String(Math.floor(s/60)%60).padStart(2,"0")+"分"}
 function csBuy(k){const o=csSt(),sh=csShopToday(o);const price={jp:777,reg:100,gem:30,sh:30};let p=price[k];const rot=CS_ROT.find(x=>x.k==k);if(rot)p=rot.p;
