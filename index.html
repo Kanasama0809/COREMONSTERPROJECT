@@ -883,6 +883,21 @@ body.calm .slot.laneGuard{box-shadow:0 0 12px 3px #ffd23ebb}
 .dActs{margin-top:10px;display:flex;justify-content:center}
 .dActs .castb{padding:9px 16px}
 /* ログ内のカード名リンク */
+/* 対戦ログ（11/24 B型） */
+.lgF{display:flex;gap:4px;padding:0 0 6px}
+.lgF button{flex:1;font:inherit;font-size:11px;padding:6px 0;border-radius:9px;border:1px solid #1d3452;background:#0a1626;color:#8fb8dc}
+.lgF button.on{background:#2f5a8d;color:#fff}
+#logbody.lgBody{padding:0 4px 10px;line-height:1.4}
+.lgH{position:sticky;top:0;z-index:2;margin:8px -4px 4px;padding:5px 8px;font-size:11px;font-weight:900;background:#0b1a2c;border-top:1px solid #1d3452;border-bottom:1px solid #1d3452;display:flex;justify-content:space-between;gap:6px}
+.lgH.p{color:#7fd8ff}.lgH.c{color:#ff9a8a}.lgH small{font-weight:400;color:#8fb8dc;white-space:nowrap}.lgH small b{color:#fff}
+.lgI{display:flex;gap:7px;align-items:center;padding:5px 2px;border-bottom:1px solid #12243a;text-align:left}
+.lgI.atk{background:#ffffff08;border-radius:8px}
+.lgK{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto}
+.lgI.p .lgK{background:#11345a;box-shadow:0 0 0 1px #2f6aa0}.lgI.c .lgK{background:#3a1d24;box-shadow:0 0 0 1px #6b2f38}
+.lgT{width:28px;height:28px;border-radius:6px;background:#22375a center/cover;flex:0 0 auto;box-shadow:0 0 0 1px #fff3}
+.lgX{flex:1;font-size:12.5px;min-width:0}.lgX small{display:block;font-size:10.5px;color:#8fb8dc}
+.lgV{font-weight:900;font-size:13px;flex:0 0 auto}.lgV.d{color:#ff6a6a}.lgV.h{color:#7fe08a}
+.lgNone{padding:20px;text-align:center;color:#8fb8dc;font-size:12px}
 .logLink{color:#78dcff;text-decoration:underline;text-decoration-color:#78dcff88;cursor:pointer;font-weight:800}
 .card{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 /* 長押しで「写真に保存」が出ないように（カードの長押しは、くわしく見るに使う） */
@@ -952,6 +967,14 @@ img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit
 #title.tArt:before{background:linear-gradient(#050b1800 25%,#050b18aa 62%,#050b18ee)}
 #title.tArt>.tTitle{margin-top:auto;text-shadow:0 0 18px var(--tc,#2ab6ff),0 0 48px var(--tc,#2ab6ff),0 3px 0 #0008}
 .tFx{position:absolute;z-index:1;display:block}
+.tFx.tP{border-radius:50%}.tFx.tP.up{bottom:-20px;animation:tSpore linear infinite}.tFx.tP.dn{top:-30px;animation:tLeaf linear infinite}.tFx.tP.blink{animation:tBl 1.4s steps(2) infinite}
+@keyframes tBl{50%{opacity:0}}
+.spTs{position:relative;display:flex;height:132px;border-radius:16px;overflow:hidden;margin-bottom:10px;box-shadow:0 6px 16px #0008,inset 0 0 0 2px var(--c);background:#0d1e33}
+.spTs>i{flex:1;background:#0d1e33 center/cover}.spTs>i+i{clip-path:polygon(14% 0,100% 0,100% 100%,0 100%);margin-left:-9%}
+.spTsNm{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;background:linear-gradient(#0000,#000d);display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.spTsNm b{font-family:'Dela Gothic One',sans-serif;font-size:16px;color:#fff;text-shadow:0 0 8px var(--c)}.spTsNm small{display:block;font-size:10px;color:#cde}
+.spTsB{display:flex;flex-direction:column;gap:4px}.spTsB .spBt{padding:5px 10px;font-size:12px;min-width:84px}
+.spTsGot{font-size:11px;font-weight:900;background:#000a;padding:4px 9px;border-radius:9px;color:#bfe9c8}
 .fx-leaf .tFx{top:-30px;width:12px;height:8px;border-radius:0 80% 0 80%;background:#7fe08a;opacity:.85;animation:tLeaf linear infinite}
 .fx-spore .tFx{bottom:-20px;width:6px;height:6px;border-radius:50%;background:#c58cff;box-shadow:0 0 10px #b45cff;animation:tSpore linear infinite}
 @keyframes tLeaf{to{transform:translate(var(--dx),110vh) rotate(720deg)}}@keyframes tSpore{to{transform:translate(var(--dx),-110vh);opacity:0}}
@@ -1924,6 +1947,47 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 /* ===== 裏カジノ ===== */
 .mtCasino{display:block;margin:14px auto 0;font:inherit;font-size:11px;font-weight:900;color:#6f5a8a;background:none;border:1px solid #2a2140;border-radius:99px;padding:5px 14px;letter-spacing:1px}
 #casino{min-height:100%;background:radial-gradient(ellipse at 50% -10%,#2a1440 0%,#0c0714 55%,#07050c 100%);color:#f3ecff;padding-bottom:30px;position:relative}
+/* 丁半・BJ・ルーレット */
+.cgWrap{padding:0 12px 14px;display:flex;flex-direction:column;gap:8px}
+.cgFelt{position:relative;border-radius:20px;border:3px solid #c99a3a;box-shadow:0 0 0 3px #3a2208,inset 0 0 40px #0009;background:radial-gradient(ellipse at 50% 40%,#1f6a45,#0c3322 75%);display:flex;flex-direction:column;align-items:center;padding:10px;min-height:330px}
+.cgFelt.red{background:radial-gradient(ellipse at 50% 40%,#7a1a2a,#35070f 75%)}.cgFelt.blue{background:radial-gradient(ellipse at 50% 40%,#1d3f7a,#0a1733 75%)}
+.cgDl{display:flex;align-items:center;gap:8px;align-self:stretch}
+.cgFace{width:44px;height:44px;border-radius:50%;background:#222 center/cover;border:2px solid #ffe08a;box-shadow:0 0 10px #000;flex:0 0 auto}.cgFace+.cgFace{margin-left:-18px}
+.cgSay{flex:1;font-size:12px;background:#000a;border-radius:12px;padding:6px 10px;line-height:1.4;min-height:34px;display:flex;align-items:center}
+.cgRes{font-size:19px;font-weight:900;min-height:30px;text-align:center;text-shadow:0 0 10px #000}.cgRes.w{color:#ffe08a;text-shadow:0 0 14px #ffb020}.cgRes.l{color:#aab}
+.cgBets{display:flex;gap:8px;justify-content:center;align-items:center}.cgBets span{font-size:11px;color:#cbb}
+.cgChip{width:46px;height:46px;border-radius:50%;font:inherit;font-weight:900;font-size:13px;color:#fff;border:3px dashed #fff8;background:#7a3fb5;box-shadow:0 3px 0 #0008}
+.cgChip:nth-of-type(2){background:#c0392b}.cgChip:nth-of-type(3){background:#1f7a4a}.cgChip.on{outline:3px solid #ffe08a;transform:translateY(-3px)}
+.cgGo{flex:1;width:100%;font:inherit;font-size:15px;font-weight:900;padding:12px 0;border-radius:14px;border:0;color:#2a1400;background:linear-gradient(#ffe08a,#d8a030);box-shadow:0 3px 0 #6a4a10}
+.cgGo.s{background:linear-gradient(#cfe6ff,#7fa8d8);box-shadow:0 3px 0 #2a4a70}.cgGo:disabled{opacity:.35}
+.cgAct{display:flex;gap:6px}.cgAct.hide{display:none}
+.cgMat{position:relative;width:200px;height:130px;margin:10px 0 4px;display:flex;align-items:center;justify-content:center}
+.cgDice{display:flex;gap:14px}
+.cgDie{width:52px;height:52px;border-radius:10px;background:#fffdf5;box-shadow:inset -3px -4px 0 #d8cfc0,0 4px 8px #0008;display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:7px}
+.cgDie i{width:10px;height:10px;border-radius:50%;background:#222;margin:auto;visibility:hidden}.cgDie i.on{visibility:visible}.cgDie.one i{background:#d01020;width:14px;height:14px}
+.cgCup{position:absolute;left:50%;top:50%;width:150px;height:120px;margin:-70px 0 0 -75px;border-radius:70px 70px 18px 18px;background:radial-gradient(ellipse at 40% 25%,#8a5a30,#4a2a10 70%);box-shadow:0 8px 16px #000a,inset 0 -8px 0 #2a1408;transition:transform .5s,opacity .5s}
+.cgCup:after{content:"壺";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:26px;color:#e8c890;opacity:.6}
+.cgCup.up{transform:translateY(-120px) rotate(-12deg);opacity:0}.cgCup.shake{animation:cgSk .12s linear infinite}
+@keyframes cgSk{0%{transform:translate(-4px,0) rotate(-3deg)}50%{transform:translate(4px,-3px) rotate(3deg)}100%{transform:translate(-4px,0) rotate(-3deg)}}
+.cgPick{display:flex;gap:6px;align-self:stretch;margin-top:auto}
+.cgPick button{flex:1;font:inherit;font-weight:900;padding:10px 0;border-radius:12px;border:2px solid #ffffff44;background:#0006;color:#fff;font-size:18px}
+.cgPick button small{display:block;font-size:10px;font-weight:400;color:#cbb}.cgPick button.on{border-color:#ffe08a;background:#ffe08a22;box-shadow:0 0 12px #ffe08a88}
+.cgHand{display:flex;justify-content:center;min-height:84px;margin:4px 0}
+.cgCd{width:56px;height:80px;border-radius:8px;background:#fffdf7;color:#111;margin-left:-14px;box-shadow:-2px 2px 6px #0007;position:relative;font-weight:900;animation:cgDeal .3s ease-out}
+.cgCd:first-child{margin-left:0}.cgCd b{position:absolute;left:5px;top:3px;font-size:16px;line-height:1}.cgCd em{position:absolute;right:6px;bottom:4px;font-style:normal;font-size:22px}
+.cgCd.r{color:#c81e2a}.cgCd.bk{background:repeating-linear-gradient(45deg,#7a1a2a 0 6px,#5a0f1c 6px 12px);border:3px solid #fffdf7}.cgCd.bk *{visibility:hidden}
+@keyframes cgDeal{from{transform:translate(60px,-60px) rotate(20deg);opacity:0}}@keyframes cgFlip{0%{transform:scaleX(1)}50%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.cgSc{font-size:12px;color:#dde;text-align:center}.cgSc b{font-size:15px;color:#fff}
+.cgWheelBox{position:relative;width:150px;height:150px;margin:6px 0 2px;flex:0 0 auto}
+.cgWheel{width:100%;height:100%;border-radius:50%;border:6px solid #c99a3a;box-shadow:0 0 0 3px #3a2208,0 6px 18px #000a;overflow:hidden}.cgWheel svg{width:100%;height:100%;display:block}
+.cgPtr{position:absolute;left:50%;top:-8px;margin-left:-8px;width:0;height:0;border:8px solid transparent;border-top:14px solid #ffe08a;filter:drop-shadow(0 2px 2px #000)}
+.cgHub{position:absolute;left:50%;top:50%;width:50px;height:50px;margin:-25px;border-radius:50%;background:radial-gradient(#ffe08a,#a87a20);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:#2a1400;box-shadow:0 0 8px #000}
+.cgRb{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;align-self:stretch}
+.cgRb button{font:inherit;font-size:12px;font-weight:900;padding:7px 0;border-radius:9px;border:2px solid #ffffff33;color:#fff;background:#0006}
+.cgRb button.on{border-color:#ffe08a;box-shadow:0 0 10px #ffe08a99}.cgRb .R{background:#b0182a}.cgRb .K{background:#15151c}
+.cgNt{font-size:10px;color:#cbb;align-self:flex-start;margin-top:4px}
+.cgNum{display:grid;grid-template-columns:repeat(13,1fr);gap:2px;align-self:stretch;margin-top:3px}
+.cgNum button{font:inherit;font-size:9px;font-weight:900;padding:5px 0;border-radius:4px;border:1px solid #ffffff22;color:#fff}.cgNum button.on{outline:2px solid #ffe08a}
 .csTop{display:flex;align-items:center;gap:8px;padding:10px 12px 8px}
 .csBack{font:inherit;font-size:13px;font-weight:900;color:#d8c8f0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:6px 10px}
 .csTtl{font-size:16px;font-weight:900;flex:1}
@@ -2223,7 +2287,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.50.5</div>
+ <div class="tVer" id="tVer">ver.5.52.0</div>
 </div>
 
 <div id="app">
@@ -2513,6 +2577,28 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
    <div class="slCtl"><button type="button" id="slLever" class="slLever" onclick="slSpin()">スピン</button></div></div>
   <div class="slPay" id="slPay"></div>
  </div>
+ <!-- 11/24 丁半・ブラックジャック・ルーレット（賭けは🪙10/30/50） -->
+ <div id="csCho" class="hide cgWrap"><div class="cgFelt">
+  <div class="cgDl"><span class="cgFace" style="background-image:url(https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lk05.webp)"></span><span class="cgFace" style="background-image:url(https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lk06.webp)"></span><div class="cgSay" id="cgChSay">「さあさあ、張った張った！ 丁か半か！」</div></div>
+  <div class="cgMat"><div class="cgDice"><div class="cgDie" id="cgD1"></div><div class="cgDie" id="cgD2"></div></div><div class="cgCup" id="cgCup"></div></div>
+  <div class="cgRes" id="cgChRes"></div>
+  <div class="cgPick" id="cgChPick"><button type="button" data-p="cho">丁<small>偶数 ×1.9</small></button><button type="button" data-p="han">半<small>奇数 ×1.9</small></button><button type="button" data-p="zoro">ゾロ目<small>×5.5</small></button></div></div>
+  <div class="cgBets" data-g="ch"></div><button type="button" class="cgGo" id="cgChGo" disabled onclick="cgChPlay()">勝負！</button></div>
+ <div id="csBj" class="hide cgWrap"><div class="cgFelt red">
+  <div class="cgDl"><span class="cgFace" style="background-image:url(https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lk17.webp)"></span><div class="cgSay" id="cgBjSay">「21に近いほうの勝ち。超えたら、おしまいだぜ」</div></div>
+  <div class="cgSc">ジャッカル <b id="cgDS">-</b></div><div class="cgHand" id="cgDH"></div>
+  <div class="cgRes" id="cgBjRes"></div>
+  <div class="cgHand" id="cgPH"></div><div class="cgSc">あなた <b id="cgPS">-</b></div></div>
+  <div class="cgBets" data-g="bj"></div>
+  <div class="cgAct" id="cgBjA1"><button type="button" class="cgGo" onclick="cgBjDeal()">配る</button></div>
+  <div class="cgAct hide" id="cgBjA2"><button type="button" class="cgGo" onclick="cgBjHit()">ヒット</button><button type="button" class="cgGo s" onclick="cgBjEnd()">スタンド</button><button type="button" class="cgGo s" id="cgBjDb" onclick="cgBjDouble()">ダブル</button></div></div>
+ <div id="csRu" class="hide cgWrap"><div class="cgFelt blue">
+  <div class="cgDl"><span class="cgFace" style="background-image:url(https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/lk02.webp)"></span><div class="cgSay" id="cgRuSay">「どこに賭ける？ 球は嘘をつかないわ」</div></div>
+  <div class="cgWheelBox"><div class="cgWheel" id="cgWh"></div><div class="cgHub" id="cgHub">?</div><div class="cgPtr"></div></div>
+  <div class="cgRes" id="cgRuRes"></div>
+  <div class="cgRb" id="cgRb"><button type="button" class="R" data-b="red">赤 ×2</button><button type="button" class="K" data-b="black">黒 ×2</button><button type="button" data-b="odd">奇数 ×2</button><button type="button" data-b="even">偶数 ×2</button><button type="button" data-b="d1">1〜12 ×3</button><button type="button" data-b="d2">13〜24 ×3</button><button type="button" data-b="d3" style="grid-column:span 3">25〜36 ×3</button></div>
+  <div class="cgNt">1点賭け ×36</div><div class="cgNum" id="cgNum"></div></div>
+  <div class="cgBets" data-g="ru"></div><button type="button" class="cgGo" id="cgRuGo" disabled onclick="cgRuPlay()">回す！</button></div>
  <div id="csShop" class="hide"></div>
  <div id="slPop" class="slPop"></div><div id="slCut" class="slCut"><div class="cbg"></div><div class="cim"></div><div class="ctx">ジャックポット</div></div>
  <div id="slFlash" class="slFlash"></div><div id="slRain" class="slRain"></div><div id="slJp" class="slJp"><div class="ray"></div><div class="jpim"></div><div class="jpt">JACKPOT!!</div><div class="jps"></div></div>
@@ -2797,7 +2883,8 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 
 <div id="logov" class="pov" onclick="hideP('logov')"><div class="panel" onclick="event.stopPropagation()">
  <div class="phead">ゲームログ <button class="sec mini" onclick="hideP('logov')">閉じる</button></div>
- <div id="logbody" class="pbody"></div>
+ <div id="lgF" class="lgF"><button data-f="all" onclick="logFilt('all')">ぜんぶ</button><button data-f="p" onclick="logFilt('p')">自分</button><button data-f="c" onclick="logFilt('c')">相手</button><button data-f="atk" onclick="logFilt('atk')">⚔️ 攻撃</button></div>
+ <div id="logbody" class="pbody lgBody"></div>
 </div></div>
 
 <div id="graveov" class="pov" onclick="hideP('graveov')"><div class="panel" onclick="event.stopPropagation()">
@@ -2873,7 +2960,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.50.5</div>
+  <div class="aboutVer" id="aboutVer">ver.5.52.0</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3614,11 +3701,11 @@ const PERSONALITIES=[
  {id:"balance",name:"均衡のカイ",tagline:"堅実に盤面を作り、隙を見て攻める",aggro:1.0,deck:[...defDeck]},
  {id:"aggro",name:"疾風のレン",tagline:"とにかく速く、とにかく攻める",aggro:1.6,
   deck:["slime","mucha","kamakamakiri","fairy","goblingo","wolfket","sonobashinobi","gaikotsu","ami","majician","jujika","ippanA","aquaknight","dashpanther","hien","solo","heavylancer","baikingu","kaendan","firestraight","moratta","rafaeri","quickorder","lastpower","battlepose","allcharge","dokubari","shoukyuukei","sokougeki","teppeki"]},
- {id:"control",name:"静寂のミレイ",tagline:"耐えて、削って、確実に勝つ",aggro:0.55,
+ {id:"control",name:"静寂のミレイ",tagline:"耐えて、削って、確実に勝つ",aggro:0.55,smart:1,
   deck:["aichu","boseki","magnetmin","kucha","fukurou","babygolem","komoku","katatsumura","tarakong","uradracula","boobybar","pentagon","kinkyu","yoshiyoshi","muffin","ramen","dokubari","batto","shokei","deathmark","firecurve","kami","kanpou","hibashira","mimi","hontou","heijou","armor","mikaera","spelllock"]},
  {id:"burn",name:"業火のゾグ",tagline:"顔面しか狙わない",aggro:1.8,
   deck:["slime","kaendan","firestraight","rafaeri","moratta","hontou","kanpou","jirasanaide","mucha","wolfket","sonobashinobi","gaikotsu","dashpanther","heavylancer","hien","quickorder","lastpower","battlepose","sokougeki","allcharge","goblingo","fairy","majician","aquaknight","mottai","wsurprise","suiso","daichi","shoukyuukei","baikingu"]},
- {id:"grave",name:"亡霊のクロエ",tagline:"墓地こそが本当の戦場",aggro:0.65,
+ {id:"grave",name:"亡霊のクロエ",tagline:"墓地こそが本当の戦場",aggro:0.65,smart:1,
   deck:["slime","boseki","goblingo","kucha","fairy","ladyga","koutei","deathhero","gaikotsu","jujika","sakanakushun","fukurou","babygolem","fontni","majician","ami","komoku","ikiru","nekura","tarakong","uradracula","library","daichi","yoshiyoshi","kinkyu","muffin","ramen","ousei","shokei","firecurve"]},
  {id:"sacrifice",name:"生贄のファウナ",tagline:"犠牲の先にしか勝利はない",aggro:1.45,
   deck:["slime","magnetmin","aichu","fairy","goblingo","kucha","ladyga","boseki","ami","majician","gaikotsu","wolfket","sonobashinobi","dashpanther","hien","heavylancer","baikingu","lastpower","gomen","michizure","choi","jirasanaide","kami","kanpou","uriega","quickorder","battlepose","allcharge","sokougeki","shoukyuukei"]},
@@ -3626,8 +3713,24 @@ const PERSONALITIES=[
  {id:"b2raiga",name:"迅雷のライガ",tagline:"痺れさせて、一気に削り切る",aggro:1.4,rel:"2026-10-01",deck:["b2v15", "b2v15", "b2v13", "b2v13", "b2v27", "b2v27", "b2v25", "b2v25", "b2v14", "b2v14", "b2v28", "b2v28", "b2v17", "b2v17", "b2v06", "b2v06", "b2v23", "b2v23", "b2v05", "b2v05", "b2c09", "b2c09", "b2v36", "b2v36", "b2v41", "b2v41", "b2v37", "b2v37", "b2v35", "b2v35"]},
  {id:"b2yukina",name:"氷結のユキナ",tagline:"凍らせて、動きを止めてから",aggro:0.7,rel:"2026-10-01",deck:["b2f13", "b2f13", "b2c07", "b2c07", "b2f11", "b2f11", "b2f07", "b2f07", "b2f14", "b2f14", "b2f19", "b2f19", "b2f22", "b2f22", "b2f16", "b2f16", "b2f08", "b2f08", "b2f05", "b2f05", "b2f36", "b2f36", "b2f41", "b2f41", "b2f35", "b2f35", "b2f37", "b2f37", "b2f33", "b2f33"]},
  {id:"b2tempe",name:"嵐呼びのテンペ",tagline:"天気は、気まぐれなのさ",aggro:1.0,rel:"2026-10-01",deck:["b2c06", "b2c06", "b2c10", "b2c10", "b2c07", "b2c07", "b2c13", "b2c13", "b2c09", "b2c09", "b2c14", "b2c14", "b2c08", "b2c08", "b2c05", "b2c05", "b2c11", "b2c11", "b2c_kosame", "b2c_kosame", "b2c16", "b2c16", "b2c32", "b2c32", "b2c34", "b2c34", "b2c40", "b2c40", "b2c35", "b2c35"]},
- {id:"b2koharu",name:"湯けむりのコハル",tagline:"あったまって、ゆっくり勝つの",aggro:0.6,rel:"2026-10-01",deck:["b2f24", "b2f24", "b2f25", "b2f25", "b2f20", "b2f20", "b2f21", "b2f21", "b2f28", "b2f28", "b2f12", "b2f12", "b2f04", "b2f04", "b2f10", "b2f10", "b2f23", "b2f23", "b2c02", "b2c02", "b2f42", "b2f42", "b2f46", "b2f46", "b2f33", "b2f33", "b2f45", "b2f45", "b2f32", "b2f32"]},
+ {id:"b2koharu",name:"湯けむりのコハル",tagline:"あったまって、ゆっくり勝つの",aggro:0.6,smart:1,rel:"2026-10-01",deck:["b2f24", "b2f24", "b2f25", "b2f25", "b2f20", "b2f20", "b2f21", "b2f21", "b2f28", "b2f28", "b2f12", "b2f12", "b2f04", "b2f04", "b2f10", "b2f10", "b2f23", "b2f23", "b2c02", "b2c02", "b2f42", "b2f42", "b2f46", "b2f46", "b2f33", "b2f33", "b2f45", "b2f45", "b2f32", "b2f32"]},
  {id:"b2bakugo",name:"火山のバクゴウ",tagline:"辛さも火力も、爆発だ！",aggro:1.1,rel:"2026-10-01",deck:["b2v26", "b2v26", "b2v19", "b2v19", "b2v18", "b2v18", "b2v29", "b2v29", "b2v10", "b2v10", "b2v20", "b2v20", "b2v04", "b2v04", "b2v03", "b2v03", "b2v11", "b2v11", "b2v39", "b2v39", "b2v40", "b2v40", "b2v34", "b2v34", "b2v31", "b2v31", "b2c41", "b2c41", "b2c49", "b2c49"]},
+ /* ===== 11/24 追加の15人（第3・4弾／クラウスの最強デッキ／ジェイの最強デッキ）。smart＝強いAI（画面には出さない） ===== */
+ {"id":"cpu_hinata","name":"陽だまりのヒナタ","tagline":"光がそろえば、こわくないよ","aggro":1,"smart":1,"deck":["b3s25","b3s25","kou","kou","b3s22","b3s22","b3s21","b3s21","b3s24","b3s24","b3s23","b3s23","b3s19","b3s19","b3s20","b3s20","lumi","lumi","b3s02","b3s02","b3s01","b3s01","b3s09","b3s09","b3s15","b3s15","b3s17","b3s17","b3s06","b3s06"]},
+ {"id":"cpu_shion","name":"宵闇のシオン","tagline":"夜が明けるまでに、終わらせる","aggro":0.9,"smart":1,"deck":["b3l23","b3l23","b3l22","b3l22","b3l18","b3l18","b3l24","b3l24","b3l21","b3l21","b3l01","b3l01","b3l17","b3l17","b3l08","b3l08","b3l02","b3l02","b3l25","b3l25","b3l15","b3l15","b3l09","b3l09","b3l13","b3l13","b3l05","b3l05","b3l20","b3l20"]},
+ {"id":"cpu_bolt","name":"歯車いじりのボルト","tagline":"つなげばつなぐほど、強くなる！","aggro":1.1,"smart":1,"deck":["b3m09","b3m09","b3m10","b3m10","b3m07","b3m07","b3m02","b3m02","b3m03","b3m03","b3m04","b3m04","b3m05","b3m05","b3m94","b3m94","b3m100","b3m100","b3m47","b3m47","b3m11","b3m11","b3m39","b3m39","b3m38","b3m38","b3m55","b3m55","b3m40","b3m40"]},
+ {"id":"cpu_gantetsu","name":"鋼の親方ガンテツ","tagline":"ギアの音を聞かせてやる","aggro":0.8,"smart":1,"deck":["b3m43","b3m43","b3m37","b3m37","b3m41","b3m41","b3m60","b3m60","b3m96","b3m96","b3m97","b3m97","b3m58","b3m58","b3m32","b3m32","b3m20","b3m20","b3m48","b3m48","b3m31","b3m31","b3m25","b3m25","b3m08","b3m08","b3m07","b3m07","b3m30","b3m30"]},
+ {"id":"cpu_dice","name":"一攫千金のダイス","tagline":"表が出りゃ、全部おれのもんだ","aggro":1.3,"smart":1,"deck":["lk01","lk01","lk02","lk02","lk03","lk03","lk07","lk07","lk16","lk16","lk24","lk24","lk14","lk14","lk04","lk04","lk12","lk12","lk17","lk17","lk09","lk09","lk20","lk20","lk31","lk31","lk32","lk32","lk33","lk33"]},
+ {"id":"cpu_amane","name":"天災のアマネ","tagline":"嵐も吹雪も、わたしの味方","aggro":0.8,"smart":1,"deck":["b2c01","b2c01","b2f02","b2f02","b3l23","b3l23","kanpou","b2c31","b2c31","b2f31","b2f31","uriega","uriega","b2f04","b2f04","b2v04","b2v04","b2c04","b2c04","b2f05","b2f05","b2c07","b2c07","b3m47","b3m47","mk13","mk13","b2f24","b2f24","mk05"]},
+ {"id":"cpu_joy","name":"連結師ジョイ","tagline":"部品は、全部そろってる","aggro":1.1,"smart":1,"deck":["b3m09","b3m09","b3m10","b3m10","b3m07","b3m07","mk01","mk01","mk02","mk02","b3m02","b3m02","b3m03","b3m03","b3m04","b3m04","b3m05","b3m05","b3m94","b3m94","b3m100","b3m100","b3m43","b3m43","b3m06","b3m06","b3m08","b3m08","b3m01","b3m01"]},
+ {"id":"cpu_shiden","name":"紫電のシデン","tagline":"まばたきする間に終わらせる","aggro":1.6,"deck":["b2v_raika","b2v_raika","b2c03","b2c03","b2c06","b2c06","b2c10","b2c10","gaikotsu","gaikotsu","solo","solo","allcharge","allcharge","sokougeki","sokougeki","b2c35","b2c35","deathhero","deathhero","tsubame","tsubame","katatsumura","katatsumura","b3m56","b3m56","b2v06","b2v06","b3l25","b3l25"]},
+ {"id":"cpu_towa","name":"黄昏のトワ","tagline":"光と闇のあいだに立つ者","aggro":1,"deck":["kou","kou","b3s25","b3s25","b3s24","b3s24","b3s23","b3s23","b3l23","b3l23","b3s22","b3s22","b3s21","b3s21","b3s19","b3s19","lumi","lumi","b3l24","b3l24","b3s20","b3s20","b3l18","b3l18","b3l01","b3l01","b3s02","b3s02","b3s01","b3s01"]},
+ {"id":"cpu_hisame","name":"氷雨のヒサメ","tagline":"凍ったまま、負けなさい","aggro":0.7,"smart":1,"deck":["b2f02","b2f02","b2f05","b2f05","b2c07","b2c07","b2f08","b2f08","b2f09","b2f09","b2c33","b2c33","b2c34","b2c34","b2c31","b2c31","b2f04","b2f04","b2f03","b2f03","b2c01","b2c01","b2v04","b2v04","b3m47","b3m47","mk13","mk13","b2f24","b2f24"]},
+ {"id":"cpu_ibuki","name":"猛突のイブキ","tagline":"考える前に、突っこむ！","aggro":1.7,"deck":["b2v24","b2v24","b2v15","b2v15","b2c10","b2c10","b2f27","b2f27","b2c29","b2c29","wolfket","wolfket","mucha","mucha","b2c06","b2c06","b2v23","b2v23","hien","hien","b2v36","b2v36","b2c35","b2c35","allcharge","allcharge","b2v40","b2v40","b2v39","b2v39"]},
+ {"id":"cpu_freesia","name":"氷獄のフリージア","tagline":"動けないあなたに、勝ち目はないわ","aggro":0.7,"smart":1,"deck":["b2f13","b2f13","b2f30","b2f30","b2f19","b2f19","b2f24","b2f24","b2f26","b2f26","b2f08","b2f08","b2f05","b2f05","b2f02","b2f02","b2f_setsu","b2f_setsu","b2f11","b2f11","b2c07","b2c07","b2f22","b2f22","b2c33","b2c33","b2c31","b2f44","b2f35","b2f37"]},
+ {"id":"cpu_nova","name":"からくり博士ノヴァ","tagline":"準備がととのうまで、少し待ちたまえ","aggro":0.9,"smart":1,"deck":["b3m01","b3m02","b3m03","b3m04","b3m05","b3m06","mk01","b3m09","b3m11","b3m11","b3m12","b3m12","b3m13","b3m13","b3m15","b3m15","b3m16","b3m16","b3m17","b3m17","b3m18","b3m18","b3m94","b3m94","b3m85","b3m85","b3m91","b3m91","b3m98","b3m98"]},
+ {"id":"cpu_kagutsu","name":"火吹きのカグツ","tagline":"殴り合い？ そんなの燃やせば早い","aggro":1.8,"deck":["b2v40","b2v40","b2v39","b2v39","b2c41","b2c41","b2v32","b2v32","firestraight","firestraight","rafaeri","rafaeri","b2c49","b2c49","b2f43","b2f43","b2v26","b2v26","b2v18","b2v18","hinoko","hinoko","b2v23","b2v23","hw02","hw02","kaijou","kaijou","pv09","pv09"]},
+ {"id":"cpu_yomi","name":"闇夜の策士ヨミ","tagline":"あなたの手は、もう読んである","aggro":0.8,"smart":1,"deck":["b3l01","b3l01","b3l06","b3l06","b3l07","b3l07","b3l16","b3l16","b3l17","b3l17","b3l18","b3l18","b3l21","b3l21","b3l23","b3l23","b3l24","b3l24","b3l25","b3l25","shokei","shokei","b3m99","b3m99","batto","batto","b3m89","b3m89","b3m84","b3m84"]},
  /* 謎の男 Mr.K（開発者かなさんの速攻デッキ） */
  {id:"nazo_k",name:"謎の男 Mr.K",tagline:"名乗るほどの者じゃない",aggro:1.4,deck:["idolwinkp", "idolwinkp", "kamakamakiri", "dashpanther", "dashpanther", "mucha", "mrk", "moratta", "kamakamakiri", "mucha", "mrk", "moratta", "solo", "solo", "shokei", "shokei", "lastpower", "lastpower", "b2c10", "b2v14", "deathmark", "deathmark", "b2c06", "b2c06", "b2v06", "b2v06", "hontou", "hontou", "hien_cr", "hien_cr"]}
 ];
@@ -3852,7 +3955,7 @@ const STORY=[
 {"ch": 11, "title": "第11章：賭けの国ラッキーナ", "episodes": [{"title": "地図にない国", "pre": [{"t": "n", "text": "メカニカへ向かう鉄の船。そのとき、船がガクンと大きくゆれた。"}, {"t": "s", "who": "マキナ", "text": "むむっ、歯車がひとつ割れおった！ どこかで直さんと、メカニカまでもたんぞ"}, {"t": "s", "who": "ギア", "text": "じいちゃん、あれ見て！ 地図にない島がある！"}, {"t": "n", "text": "夕暮れの海の向こうに、ネオンがきらめく街と、丘の上のお城が見えた。"}, {"t": "s", "who": "{rival}", "text": "なにあれ、まぶしっ！ ずっとお祭りしてるみたい"}, {"t": "n", "text": "港の大きな門の前に、サイコロのかぶとをかぶった双子が立っていた。"}, {"t": "s", "who": "チョウ", "text": "ようこそ、賭けの国ラッキーナへ！ おれは丁のチョウ"}, {"t": "s", "who": "ハン", "text": "おいらは半のハン！ この国じゃ、門を通るのも勝負で決めるんだ！"}, {"t": "s", "who": "チョウ", "text": "丁か半か！ 勝てば通す、負けたら海へお帰りだ！"}], "post": [{"t": "s", "who": "ハン", "text": "うわー、負けちゃった！ 兄ちゃんが丁ばっかり言うからだよ！"}, {"t": "s", "who": "チョウ", "text": "おまえが半ばっかり言うからだろ！ ……通っていいぞ。ラッキーナを楽しんでいけ"}, {"t": "s", "who": "{name}", "text": "（船の歯車を直せる職人、見つかるといいけど……）"}], "enemy": "lk_gate"}, {"title": "換金所のカネナシ", "pre": [{"t": "n", "text": "きらびやかなカジノ街。どこからでも、コインのジャラジャラという音が聞こえてくる。"}, {"t": "s", "who": "借金取り", "text": "待ちやがれ、カネナシ！ 今日こそ借金を返してもらうぞ！"}, {"t": "s", "who": "カネナシ", "text": "ひいい、助けてくれ！ わたしは元貴族だぞ、えらいんだぞ！ ……お金はないけど"}, {"t": "s", "who": "{rival}", "text": "ちょっと！ よってたかって、かっこわるいって！"}, {"t": "s", "who": "借金取り", "text": "なんだお前ら。じゃあ代わりに、カードで勝負してもらおうか！"}], "post": [{"t": "s", "who": "カネナシ", "text": "た、助かった……。きみたち、強いんだな"}, {"t": "s", "who": "カネナシ", "text": "お礼に、いいことを教えてやろう。この街の地下には、王さまにもないしょの「裏カジノ」がある"}, {"t": "s", "who": "カネナシ", "text": "わたしはそこで、換金所の番をしているんだ。……気が向いたら、のぞいてみるといい"}, {"t": "s", "who": "ギア", "text": "裏カジノ……！ なんかワクワクするね！"}], "enemy": "lk_debt"}, {"title": "ディーラーのルーレ", "pre": [{"t": "n", "text": "カジノの奥、ルーレット台の前で、黒髪の女性がカードを配っていた。"}, {"t": "s", "who": "ルーレ", "text": "いらっしゃい。旅の人ね。船の歯車を直したいんでしょう？"}, {"t": "s", "who": "{name}", "text": "どうしてそれを……"}, {"t": "s", "who": "ルーレ", "text": "この国の職人はみんな、王さまのものよ。王さまに勝たないと、だれも働いてくれない"}, {"t": "s", "who": "ルーレ", "text": "でもね……王は絶対に負けない。何かおかしいの。あなたの腕、見せてもらえる？"}], "post": [{"t": "s", "who": "ルーレ", "text": "……いい腕ね。あなたなら、王の秘密にたどりつけるかもしれない"}, {"t": "s", "who": "ルーレ", "text": "王の側近、ブラフに気をつけて。あの人は、王の「勝ち」を守る番人よ"}], "enemy": "lk_roule"}, {"title": "王の側近ブラフ", "pre": [{"t": "n", "text": "お城へつづく長い廊下。燕尾服の男が、トランプで口元をかくして立っていた。"}, {"t": "s", "who": "ブラフ", "text": "王に会いたい？ ふふ、だれもがそう言う。そして、だれもが帰っていく"}, {"t": "s", "who": "ブラフ", "text": "王の勝ちは、運命なのです。あなたも、その証人になるといい"}], "post": [{"t": "s", "who": "ブラフ", "text": "……まさか、わたしが負けるとは。いいでしょう。王がお待ちです"}, {"t": "s", "who": "{rival}", "text": "なんか、いやな予感がする……"}], "enemy": "lk_bluff"}, {"title": "大当たり王ジャックポット", "pre": [{"t": "n", "text": "金貨が舞う玉座の間。金色の仮面をつけた若い王が、ゆっくりと立ち上がった。"}, {"t": "s", "who": "ジャックポット", "text": "ようこそ。ぼくは大当たり王、ジャックポット。この国で一度も負けたことがない"}, {"t": "s", "who": "ジャックポット", "text": "さあ、コインを投げようか。……もっとも、表しか出ないけどね"}], "post": [{"t": "s", "who": "ジャックポット", "text": "ほらね。ぼくは負けない。それが、この国のルールさ"}, {"t": "n", "text": "王の王冠の奥で、宝石がにぶく光った。それは、{name}が見覚えのある光だった。"}, {"t": "s", "who": "{name}", "text": "あれは……COREだ！"}, {"t": "s", "who": "ルーレ", "text": "やっぱり……！ 王はCOREの力で、コインの裏表を変えていたのね"}], "enemy": "lk_jack1", "boss": true, "loseOk": true, "loseText": "コインは、何度投げても表だった……"}, {"title": "仮面の下", "pre": [{"t": "s", "who": "ルーレ", "text": "COREの力があるかぎり、王の【博打】は全部、表になる"}, {"t": "s", "who": "ルーレ", "text": "でも、王の場からその力を引きはがせば……運は、みんなに平等よ"}, {"t": "s", "who": "{name}", "text": "もう一度いこう。今度は、本当の勝負だ！"}, {"t": "s", "who": "ジャックポット", "text": "何度来ても同じさ。……さあ、最後の大勝負だ！"}], "post": [{"t": "n", "text": "最後のコインが、裏を向いて止まった。玉座の間が、しんと静まりかえった。"}, {"t": "s", "who": "ジャックポット", "text": "……裏、か。ふふ、はじめて見たよ"}, {"t": "n", "text": "ジャックポットは、ゆっくりと仮面を外した。その目は、どこかさびしそうだった。"}, {"t": "s", "who": "ジャックポット", "text": "負けを知らない王なんて、ただの置物さ。……約束だ。職人たちに、船を直させよう"}, {"t": "s", "who": "ルーレ", "text": "この国には、まだ王の知らない秘密がある。……またいつか、会いましょう"}, {"t": "n", "text": "夜明けの港で、直った船がふたたび浮かび上がった。ラッキーナのネオンが、遠く小さくなっていく。　――つづく"}], "enemy": "lk_jack2", "boss": true}]}
 ];
 DECK_SLOTS=10;   // 枠の数を先に決める（これより前に loadDeck が動くと、いつも1番の枠になっていた）
-let deck=loadDeck(),filter="all",S=null,selH=null,selA=null,selE=null,pending=null,logs=[];
+let deck=loadDeck(),filter="all",S=null,selH=null,selA=null,selE=null,pending=null,logs=[],logX=[];
 /* ===== ゲーム内の入力・確認ダイアログ ===== */
 let askCb=null,yesnoCb=null;
 function askText(title,value,note,cb){
@@ -4716,6 +4819,11 @@ const TICKETS={
  tree:{name:"樹の券",icon:"🌿",key:"cmTicketTr",day:"cmTicketDayTr"},
  gear:{name:"発明の歯車",icon:"⚙️",key:"cmTicketGe",day:"cmTicketDayGe"}};
 function tkOf(k){return TICKETS[k]||TICKETS.promo}
+// イベントが終わったあとに残った券は、🔹かけらに交換する（1枚＝🔹30）
+const TK_END={promo:"2026-10-31",hw:"2026-10-31",dragon:"2026-11-30",tree:"2026-11-30",gear:"2026-12-31"},TK_SHARD=30;
+function tkExpire(){const t=todayStr(),got=[];let sum=0;
+ for(const k in TK_END){if(t<=TK_END[k])continue;const n=tickets(k);if(n<=0)continue;setTickets(0,k);sum+=n*TK_SHARD;got.push(tkOf(k).icon+tkOf(k).name+n+"枚")}
+ if(sum>0){addShard(sum,"イベントの券の交換");setTimeout(()=>log2Toast("期間が終わった "+got.join("・")+" を 🔹"+sum+" に交換しました"),1500)}return sum}
 function tkLabel(k){const t=tkOf(k);return t.icon+t.name}
 function tickets(k){return parseInt(store.get(tkOf(k).key)||"0",10)||0}
 function setTickets(v,k){store.set(tkOf(k).key,String(Math.max(0,v)));renderTicketDisplays()}
@@ -5117,7 +5225,7 @@ const RANK_CPUS=[
 const COOP={hp:15000,bossHp:50000,gem:300,daily:3};
 let coopRemote=false;        // ホストが相方の操作を再現している間 true
 function coopDeckIds(){try{const d=JSON.parse(store.get("cmCoopDeck")||"[]");return Array.isArray(d)?d.filter(id=>by(id)):[]}catch(e){return[]}}
-function coopBosses(){const L=[];[["chronoga","覚醒 時間の神 クロノガ"],["halloween","覚醒 パンプキング"],["shokuju","覚醒 蝕樹のコモク"]].forEach(([id])=>{const e=eventById(id);if(!e)return;
+function coopBosses(){const L=[];[["chronoga","覚醒 時間の神 クロノガ"],["halloween","覚醒 パンプキング"],["shokuju","覚醒 蝕樹のコモク"],["makina","覚醒 王子マキナ"]].forEach(([id])=>{const e=eventById(id);if(!e)return;
   const st=eventStages(e).find(x=>!x.plain&&eventStages(e).length>1);if(st){const o=rankEvOpp(e,st);L.push({key:id,name:st.name||o.name,card:st.card||o.bossCard,line:(e.boss&&e.boss.line)||"",aggro:o.aggro||1,deck:o.deck})}});
  DR_KEYS.forEach(k=>L.push({key:"dr_"+k,name:DR[k].a.name,card:DR[k].a.card,line:"「グオオオオ……！」",aggro:DR[k].a.aggro||1,deck:[...DR_DECK[k+"_a"]]}));return L}
 function coopDayIdx(){const t=todayStr().split("-").map(Number);return Math.floor(Date.UTC(t[0],t[1]-1,t[2])/864e5)}
@@ -5281,7 +5389,7 @@ async function coopHostStart(){const R=fr.room||{};if(!R.guest||!fr.ref)return;
 // ---- 入る（相方）
 function coopGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;
  FM={on:true,role:"guest",coop:true,ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"ホスト",sent:false};
- logs=[];selH=selA=selE=null;pending=null;S=null;
+ logs=[];logX=[];selH=selA=selE=null;pending=null;S=null;
  const b=coopBossByKey(room.match&&room.match.boss)||coopBossToday();
  coopIntro(b,{A:FM.oppName,B:frName()},()=>{if(!S)$("log").textContent="ホストが準備しています…"});
  fr.ref.child("ask").on("value",snap=>{if(!FM.on||!FM.coop)return;coopGuestAsk(snap.val())});
@@ -5442,7 +5550,36 @@ function buyKiseSet(id,k){const x=KISE_SETS.find(q=>q.id==id);if(!x||kiseSetGot(
   if(!(cr?spendCrystal(p):spendShard(p)))return;kiseGive(x.mat.id);kiseGive(x.slv.id);unlockIcon(x.icon);
   hideP("spSetPop");sfx("summon");log2Toast("「"+x.name+"」を手に入れた！ メニューの「👕 きせかえ」で使えます");renderShop()})}
 // 起動画面：絵のものはプレミアムパック（PREMIUM の title）で手に入る。fx は舞うもの（leaf / spore）
-const TITLE_SKINS=[{id:"std",name:"いつもの",free:1}];
+// 起動画面セット（11/24）：対になる勇者2人ぶん。💎1,500／🔹3,000。fx＝舞うもの[向き up/dn/blink, 色, 大きさ, 数]、x＝絵の横位置
+const TS_HERO={
+ t_hien:{name:"炎の勇者 ヒエン",card:"hien_cr",color:"#ff6a3d",fx:["up","#ffb347",4,22],x:35},
+ t_misuzui:{name:"水の勇者 ミスズイ",card:"misuzui_cr",color:"#4ec2ff",fx:["up","#bfe9ff",7,16],x:50},
+ t_raika:{name:"雷の勇者 ライカ",card:"b2v_raika_cr",color:"#ffd84a",fx:["blink","#fff27a",3,24],x:40},
+ t_setsu:{name:"雪の勇者 セツ",card:"b2f_setsu_cr",color:"#bfe9ff",fx:["dn","#ffffff",5,26],x:50},
+ t_kou:{name:"光の勇者 コウ",card:"kou_cr",color:"#ffe27a",fx:["up","#fff3b0",4,20],x:50},
+ t_an:{name:"闇の勇者 アン",card:"an_cr",color:"#9a5cff",fx:["up","#c58cff",5,18],x:50},
+ t_ikiru:{name:"生の勇者 イキル",card:"ikiru_cr",color:"#7fe08a",fx:["dn","#d9ffd0",6,16],x:50},
+ t_death:{name:"死の勇者 デス",card:"deathhero_cr",color:"#8a8f9c",fx:["dn","#5a5e68",5,18],x:50},
+ t_komoku:{name:"木の勇者 コモク",card:"komoku_cr",color:"#4fd16a",fx:["dn","#7fe08a",7,16],x:50},
+ t_skomoku:{name:"蝕樹のコモク",card:"sk01cr",color:"#b45cff",fx:["up","#c58cff",6,18],x:50}};
+const TITLE_SETS=[
+ {id:"ts_fire_water",name:"炎と水",a:"t_hien",b:"t_misuzui",c:"#ff8a4d",cr:1500,sd:3000},
+ {id:"ts_thunder_snow",name:"雷と雪",a:"t_raika",b:"t_setsu",c:"#ffd84a",cr:1500,sd:3000},
+ {id:"ts_light_dark",name:"光と闇",a:"t_kou",b:"t_an",c:"#c9a6ff",cr:1500,sd:3000},
+ {id:"ts_life_death",name:"生と死",a:"t_ikiru",b:"t_death",c:"#9fe0a8",cr:1500,sd:3000},
+ {id:"ts_wood",name:"木と蝕樹",a:"t_komoku",b:"t_skomoku",c:"#7fe08a",cr:1500,sd:3000}];
+const TITLE_SKINS=[{id:"std",name:"いつもの",free:1}].concat(Object.entries(TS_HERO).map(([id,h])=>({id,name:h.name,img:CARD_IMAGES[h.card]||"",color:h.color,fx:h.fx,x:h.x})));
+function titleSetGot(x){return kiseHas(x.a,TITLE_SKINS)&&kiseHas(x.b,TITLE_SKINS)}
+function buyTitleSet(id,k){const x=TITLE_SETS.find(q=>q.id==id);if(!x||titleSetGot(x))return;const cr=k=="cr",p=cr?x.cr:x.sd;
+ if((cr?crystal:shard)<p){sfx("no");log2Toast((cr?"💎":"🔹かけら")+"が足りません（"+p.toLocaleString()+"必要）");return}
+ askYesNo("起動画面「"+x.name+"」（"+TS_HERO[x.a].name+"・"+TS_HERO[x.b].name+"）を、"+(cr?"💎":"🔹かけら")+p.toLocaleString()+"で"+(cr?"買いますか？":"交換しますか？"),()=>{
+  if(!(cr?spendCrystal(p):spendShard(p)))return;kiseGive(x.a);kiseGive(x.b);
+  sfx("summon");log2Toast("起動画面「"+x.name+"」を手に入れた！ メニューの「👕 きせかえ」で選べます");renderShop()})}
+function shopTitleCard(x){const got=titleSetGot(x),A=TS_HERO[x.a],B=TS_HERO[x.b];
+ return '<div class="spTs" style="--c:'+x.c+'"><i style="background-image:url('+(CARD_IMAGES[A.card]||"")+');background-position:'+A.x+'% 25%"></i><i style="background-image:url('+(CARD_IMAGES[B.card]||"")+');background-position:'+B.x+'% 25%"></i>'
+  +'<div class="spTsNm"><div><b>'+escH(x.name)+'</b><small>'+escH(A.name.split(" ").pop())+' ＆ '+escH(B.name.split(" ").pop())+'</small></div>'
+  +(got?'<span class="spTsGot">✓ 持っています</span>':'<div class="spTsB"><button type="button" class="spBt cr" onclick="buyTitleSet(\''+x.id+'\',\'cr\')">💎 '+x.cr.toLocaleString()+'</button><button type="button" class="spBt sd" onclick="buyTitleSet(\''+x.id+'\',\'sd\')">🔹 '+x.sd.toLocaleString()+'</button></div>')+'</div></div>'}
+function shopTitleHtml(){return '<div class="spH"><b>NEW 起動画面セット</b><small>対になる勇者2人ぶん。きせかえで好きな方を選べます</small></div>'+TITLE_SETS.map(shopTitleCard).join("")}
 function kise(){let o=null;try{o=JSON.parse(store.get("cmKise")||"null")}catch(e){}o=o&&typeof o=="object"?o:{};if(!Array.isArray(o.own))o.own=[];return o}
 function kiseSave(o){store.set("cmKise",JSON.stringify(o))}
 (function kiseClean(){try{const ok=TITLE_SKINS.concat(SLEEVES,KISE_MATS).map(x=>x.id),o=kise(),n=o.own.length;o.own=o.own.filter(id=>ok.includes(id));
@@ -5470,7 +5607,7 @@ function renderKise(){const o=kise(),T=[["起動画面",TITLE_SKINS],["プレイ
   else if(kiTab==1)th='<div class="kiTh" style="'+(x.bg?'background-image:url('+matUrl(x)+')':'')+'"></div>';
   else th='<div class="kiTh tall" style="'+(x.img?'background-image:url('+x.img+')':'')+'">'+(x.img?'':'CORE<br>MONSTERS')+'</div>';
   return '<button type="button" class="kiIt'+(own?'':' lock')+(cur==x.id?' on':'')+'" onclick="kisePick(\''+x.id+'\')"><span class="kiCk">✓</span>'+th+'<span class="kiNm">'+escH(x.name)+'</span><span class="kiFr">'+(own?(cur==x.id?'使用中':'もっている'):x.price?'🔹'+x.price.toLocaleString():escH(x.from||'これから'))+'</span></button>'}).join("")
-  +'<div class="kiSoon">'+(kiTab==0?'新しい起動画面は、これからのプレミアムパックに入ります':'ほかの'+["","プレイマット","スリーブ"][kiTab]+'は、ショップの「きせかえ」で交換できます')+'</div>';
+  +'<div class="kiSoon">'+(kiTab==0?'ほかの起動画面は、ショップの「きせかえ」で買えます':'ほかの'+["","プレイマット","スリーブ"][kiTab]+'は、ショップの「きせかえ」で交換できます')+'</div>';
  $("kiRnd").classList.toggle("hide",kiTab!=0);$("kiRndBtn").classList.toggle("on",!!o.titleRnd)}
 function kisePick(id){const L=[TITLE_SKINS,KISE_MATS,SLEEVES][kiTab];if(!kiseHas(id,L))return;kiseUse(id);sfx("sel");renderKise()}
 function kiseUse(id){if(kiTab==2){const a=deckSlots(),i=curSlot();if(!a[i])a[i]={name:"デッキ"+(i+1),cards:[...deck]};a[i].sleeve=id;saveSlots(a);try{renderDeckList()}catch(e){}return}
@@ -5507,8 +5644,8 @@ function shopSetPop(id){const x=KISE_SETS.find(q=>q.id==id);if(!x)return;const g
   +'<div class="spPr"><div class="spSlB" style="background-image:url('+TREE_BASE_URL+x.slv.img+')"></div><div class="spLbl">スリーブ「'+escH(x.slv.name)+'」</div><div class="spIcB"><i style="background-image:url('+(CARD_IMAGES[x.icon]||"")+')"></i><span>アイコン<br>「'+escH((by(x.icon)||{}).name||"")+'」</span></div></div></div>'
   +(got?'<div class="spBuy2"><button type="button" class="spBt got">✓ 持っています</button></div>':'<div class="spBuy2"><button type="button" class="spBt cr" onclick="buyKiseSet(\''+x.id+'\',\'cr\')">💎 '+x.cr.toLocaleString()+' で買う</button><button type="button" class="spBt sd" onclick="buyKiseSet(\''+x.id+'\',\'sd\')">🔹 '+x.sd.toLocaleString()+' で交換</button></div>');
  $("spSetPop").classList.add("show")}
-function shopBanners(){return KISE_SETS.map(x=>({img:matUrl(x.mat),tag:"NEW",b:escH(x.name.replace(/ セット$/,""))+'<br>きせかえセット',s:"プレイマット・スリーブ・アイコン",go:1}))
- .concat(premiumList().filter(x=>!premiumGot().includes(x.id)).map(x=>({img:CARD_IMAGES[x.card]||"",tag:"PREMIUM",b:escH(x.name),s:"限定イラストのプロモCR×2",go:2})))}
+function shopBanners(){return TITLE_SETS.filter(x=>!titleSetGot(x)).slice(0,1).map(x=>({img:CARD_IMAGES[TS_HERO[x.a].card]||"",tag:"NEW",b:"起動画面セット",s:"対になる勇者2人ぶん（5種）",go:1})).concat(KISE_SETS.map(x=>({img:matUrl(x.mat),tag:"NEW",b:escH(x.name.replace(/ セット$/,""))+'<br>きせかえセット',s:"プレイマット・スリーブ・アイコン",go:1}))
+ .concat(premiumList().filter(x=>!premiumGot().includes(x.id)).map(x=>({img:CARD_IMAGES[x.card]||"",tag:"PREMIUM",b:escH(x.name),s:"限定イラストのプロモCR×2",go:2}))))}
 function shopBanHtml(){const B=shopBanners();if(!B.length)return"";shopBi%=B.length;
  return '<div class="spBan" id="spBan">'+B.map((x,i)=>'<div class="spSlide'+(i==shopBi?' on':'')+'" style="background-image:url('+x.img+')" onclick="shopGo('+x.go+')"><div class="spTx"><span class="spTag">'+x.tag+'</span><b>'+x.b+'</b><small>'+x.s+'</small></div></div>').join("")
   +'<div class="spDots">'+B.map((x,i)=>'<i class="'+(i==shopBi?'on':'')+'"></i>').join("")+'</div></div>'}
@@ -5517,8 +5654,8 @@ setInterval(()=>{try{const b=$("spBan");if(!b||!b.offsetParent)return;const n=b.
 function renderShop(){const own=extraIcons(),pg=premiumGot();let h='';
  const tabs='<div class="spTabs">'+SHOP_TABS.map((t,i)=>'<button type="button" class="'+(shopTab==i?'on':'')+'" onclick="shopGo('+i+')">'+t+'</button>').join("")+'</div>';
  if(shopTab==0){h=shopBanHtml()+'<div class="spQuick"><button type="button" onclick="shopGo(1)"><i>👕</i>きせかえ</button><button type="button" onclick="shopGo(2)"><i>💠</i>プレミアム</button><button type="button" onclick="shopGo(5)"><i>🔁</i>かけら交換所</button></div>'
-   +'<div class="spH"><b>NEW きせかえセット</b><small>プレイマット・スリーブ・アイコン</small></div>'+KISE_SETS.map(shopSetCard).join("")}
- else if(shopTab==1){h='<div class="spH"><b>きせかえセット</b><small>💎でも🔹でも買えます</small></div>'+KISE_SETS.map(shopSetCard).join("")
+   +shopTitleHtml()+'<div class="spH"><b>きせかえセット</b><small>プレイマット・スリーブ・アイコン</small></div>'+KISE_SETS.map(shopSetCard).join("")}
+ else if(shopTab==1){h=shopTitleHtml()+'<div class="spH"><b>きせかえセット</b><small>💎でも🔹でも買えます</small></div>'+KISE_SETS.map(shopSetCard).join("")
    +'<div class="spNote c">買ったプレイマット・スリーブは、メニューの「👕 きせかえ」で入れかえられます（スリーブはデッキごと）。アイコンは「戦績」→「アイコン」から選べます。</div>'}
  else if(shopTab==2){h='<div class="spH"><b>プレミアムパック</b><small>限定イラストのプロモCR×2＋アイコン</small></div>'+premiumList().map(x=>{const got=pg.includes(x.id),im=CARD_IMAGES[x.card]||"";
    return '<div class="spPm'+(x.need?' dark':'')+'"><div class="spPmA" style="background-image:url('+im+')"></div><div class="spPmT"><b>'+escH(x.name)+'</b><small>プロモCR×2・アイコン</small>'
@@ -7128,7 +7265,7 @@ function fmOppGone(){if(!FM.on)return;const msg=FM.coop?"相方が退出しま�
 // ---- ゲスト
 function fmGuestEnter(room){fr.lastMatchAt=room.match&&room.match.at;completeWelcome("friend1");gcEvent("friend-match");
  FM={on:true,role:"guest",ref:fr.ref,seq:0,oppName:(room.host&&room.host.name)||"相手",oppTitle:(room.host&&room.host.title)||"",sent:false};
- hideAll();$("game").classList.remove("hide");logs=[];selH=selA=selE=null;pending=null;
+ hideAll();$("game").classList.remove("hide");logs=[];logX=[];selH=selA=selE=null;pending=null;
  S=null;$("log").textContent="ホストが対戦を準備しています…";
  fmRoulette(FM.oppName,room.match&&room.match.first=="host",()=>{});
  fr.ref.child("state").on("value",snap=>{const v=snap.val();if(!v||!FM.on)return;
@@ -7252,7 +7389,7 @@ function isFrozen(m){return !!(m&&(m.frz||m.freeze||m.frozenNow))}
 /* 凍結のルール（統一）：凍結させた人の、次のターンの初めまで凍る。凍っている間は攻撃も守護もできない
    m.frz に「凍結させた人」を入れる（1人用：p／c、協力バトル：A／B／c）。その人のターンの初めに溶ける（frzExpire） */
 function frzCaster(frozenSide){const cs=frozenSide==="p"?"c":"p";if(cs==="c")return "c";if(!S||!S.coop)return "p";return S.active==="p"?S.coop.turn:"A"}
-function frzExpire(key){if(!S||!key)return;[S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m&&m.frz===key){m.frz=0;m.preFreeze=null}}))}
+function frzExpire(key){if(!S||!key)return;[S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m&&m.frz===key){m.frz=0;m.preFreeze=null;logE({k:"start",sd:B===S.pb?"p":"c",s:m.name+"の凍結が解けた",ph:"ターンのはじめ"})}}))}
 function statusFx(side,i,kind){const s=slot(side,i);if(!s)return;s.classList.add(kind=="freeze"?"fxFreeze":"fxShock");setTimeout(()=>s.classList.remove("fxFreeze","fxShock"),700)}
 // いまが、このモンスターの持ち主のターンか（協力バトルでは、A・Bそれぞれのターン）
 function ownerTurnNow(side,m){return !!(S&&S.active===side&&(!S.coop||side!=="p"||(m.owner||"A")===S.coop.turn))}
@@ -8418,6 +8555,7 @@ async function prematchGo(){
  start(p.personality,p.fixed);
  if(lastMatch)lastMatch.random=!!p.random;
  try{storyIntroTip()}catch(e){}
+ if(S&&!p.second)log("ターン"+turnTotal()+"　"+((player&&player.name)||"あなた")+"のターン");   // ログの最初の見出し
  if(S&&!p.second)setTimeout(()=>{if(S&&S.active=="p"&&S.tn&&S.tn.p==1)phaseCutIn("main1","p")},250);
  if(p.second&&S){                       // 後攻：相手のターンから始める
   S.pSecond=true;S.tn={p:0,c:0};
@@ -8437,7 +8575,7 @@ function start(personality,fixed){
  if(opp.name&&opp.name.includes("{"))opp={...opp,name:fillText(opp.name)};
  lastMatch={personality:opp,fixed,event:eventBattleId,stage:eventStageId,story:storyContext,
   random:!!(pmPending&&pmPending.personality===personality&&pmPending.random),rule:opp.rule||null};   // random・rule：もう一度のときに相手（とルール）を選び直す
- hideAll();$("game").classList.remove("hide");logs=[];
+ hideAll();$("game").classList.remove("hide");logs=[];logX=[];
  const mk=(ids,keep)=>{const a=ids.map(id=>cp(by(id))).filter(Boolean).map(c=>({...c,uid:Math.random()}));return keep?a:shuf(a)};
  S={turn:1,tn:{p:1,c:0},phase:"main1",active:"p",cost:1,max:1,php:10000,chp:10000,opp:opp,
   pd:mk(fixed?fixed.p:(opp.pDeck||deck),!!fixed),cd:mk(fixed?fixed.c:opp.deck,!!fixed),ph:[],ch:[],pb:[null,null,null],cb:[null,null,null],pg:[],cg:[],
@@ -8460,7 +8598,42 @@ function start(personality,fixed){
  if(opp.zorome&&!FM.on){S.zrSaid={0:1};setTimeout(()=>{if(S&&!S.over)bossSayShow(0)},900)}   // ゾロ目（1人版）：登場のセリフ
 }
 function log(t){if(FM.on&&FM.role=="host")t=String(t).replace(/CPU/g,FM.coop?((S&&S.opp&&S.opp.name)||"ボス"):FM.oppName);
- logs.push(`T${S?S.turn:"?"}｜${t}`);if($("log"))$("log").textContent=t}
+ logs.push(`T${S?S.turn:"?"}｜${t}`);if($("log"))$("log").textContent=t;try{logAdd(String(t))}catch(e){}}
+/* ===== 対戦ログ（11/24 リニューアル）：logX に1行ずつ形をそろえて残す
+   h=ターンの見出し／k=種類（sum spell atk guard kill dmg heal gamble start eff）／sd=どちら側／src=誰の効果／ph=いつ（登場した時 など）
+   ダメージ・回復・破壊は heroDmg / healHero / kill から数字つきで入れ、同じことを書いた文の行とまとめる */
+const LOG_SKIP=/^対戦相手：|選んでください|をタップ|ターンを終えました|^ターン終了$|^開始$/;
+let _logNm=null;function logCard(nm){if(!_logNm){_logNm={};P.forEach(c=>{if(c.name&&!_logNm[c.name])_logNm[c.name]=c})}return _logNm[nm]||null}
+function logKind(t){return /を召喚/.test(t)?"sum":/呪文「/.test(t)?"spell":/守護で受け止め/.test(t)?"guard":/【博打】：/.test(t)?"gamble":/破壊|倒れ|やられ/.test(t)?"kill":/ダメージ/.test(t)?"dmg":/回復|HP\+/.test(t)?"heal":"eff"}
+function logSide(){return S&&S.active=="c"?"c":"p"}
+function logAdd(t,o){if(!S&&!o)return;o=o||{};if(!o.k&&LOG_SKIP.test(t))return;
+ const hm=!o.k&&t.match(/^ターン(\d+)　(.+)のターン$/);
+ if(hm){if(S)S.logSrc=null;logX.push({h:1,turn:+hm[1],sd:logSide(),who:hm[2],hp:S?{p:Math.max(0,S.php),c:Math.max(0,S.chp)}:null});return}
+ let s=t,sd=o.sd||logSide();if(/^CPU：/.test(s)){s=s.slice(4);sd="c"}
+ const e={sd,k:o.k||logKind(s),s,v:o.v||0,det:o.det||"",img:o.img||null,src:o.src||null,ph:o.ph||(S&&S.logPh)||"",auto:!!o.auto};
+ if(!e.src&&!o.k){const m=s.match(/^(.+?)[：:]\s*(.+)$/);if(m&&logCard(m[1].replace(/^[「]|[」]$/g,""))){e.src=m[1];e.s=m[2]}}
+ const L=S&&S.logSrc;if(!e.src&&L&&(!o.k||o.auto&&e.k!="atk")&&e.k!="spell"&&e.k!="sum"&&e.k!="gamble"&&!s.includes(L.name)){e.src=L.name;if(!e.ph)e.ph=L.ph||""}
+ // 少し前（同じターンの4行まで）に同じことを書いた行があれば、まとめる
+ for(let j=logX.length-1,n=0;j>=0&&n<4;j--,n++){const q=logX[j];if(q.h)break;if(logMerge(q,e))return}
+ logX.push(e)}
+// 数字つきの行（auto）と、同じことを書いた文の行を1行にまとめる
+function logMerge(q,e){const num=x=>Math.abs(x.v||0);
+ const same=(a,b)=>{if(a.k!=b.k)return false;
+  if(a.k=="dmg"||a.k=="heal")return b.s.replace(/,/g,"").includes(String(num(a)));
+  if(a.k=="kill"){const n=a.s.replace(/が破壊された$/,"");return b.s.includes(n)||!/「|」/.test(b.s)&&!logHasCard(b.s)}
+  return false};
+ if(e.auto&&!q.auto&&same(e,q)){q.k=e.k;q.v=e.v;q.sd=e.sd;q.det=q.det||(q.s!==e.s?q.s:"");q.s=e.s;q.auto=true;return true}
+ if(!e.auto&&q.auto&&!q.mg&&same(q,e)){q.mg=1;if(!q.src&&e.src){q.src=e.src;q.ph=q.ph||e.ph}if(!q.det)q.det=e.s;return true}
+ return false}
+function logHasCard(t){if(!_logRe)logHtml("");_logRe.lastIndex=0;const r=_logRe.test(t);_logRe.lastIndex=0;return r}
+function logE(o){try{logAdd(o.s,Object.assign({auto:1},o))}catch(e){}}
+function lgLane(sd,i){return (sd=="p"?"あなたの":"相手の")+["左","中央","右"][i]}
+// 攻撃の行：誰が → どこへ（守護で止められたときは、くわしい数字は守護の行に書く）
+function logAtk(as,ai,ds,di,a,d,av,blocked){if(S)S.logSrc=null;
+ const who=ds=="p"?"あなた":"相手",face=!d;
+ logE({k:"atk",sd:as,img:a.id,s:a.name+" → "+(face?who:d.name),
+  det:lgLane(as,ai)+" → "+(face?lgLane(ds,1)+"（空き）　直接攻撃":lgLane(ds,di)+(blocked?"":"　ATK "+av.toLocaleString()+" vs DEF "+df(d,ds).toLocaleString()))})}
+function logDet(t,img){const q=logX[logX.length-1];if(q&&!q.h){q.det=t;if(img&&!q.img)q.img=img}}
 // プレイヤーに見せるターン番号（後攻でも自分の1手目=ターン1になるよう見た目だけ調整。内部のS.turnはコスト/偶奇効果用にそのまま）
 function pturn(){return S?Math.max(1,S.tn?S.tn.p:S.turn-(S.pSecond?1:0)):1}
 // その持ち主にとって今が何ターン目か（相手のターン中は、持ち主の直前のターンの番号）
@@ -8475,7 +8648,25 @@ function logHtml(line){
   _logRe=new RegExp("("+names.join("|")+")","g");}
  return esc.replace(_logRe,m=>{const c=P.find(x=>x.name===m);return c?`<span class=logLink onclick="showDById('${c.id}')">${m}</span>`:m});
 }
-function showLogs(){$("logbody").innerHTML=logs.slice().reverse().map(logHtml).join("<br>");$("logov").classList.add("show")}
+let logF="all";
+function showLogs(){renderLogs();$("logov").classList.add("show");const b=$("logbody");b.scrollTop=b.scrollHeight}
+function logFilt(f){logF=f;renderLogs();const b=$("logbody");b.scrollTop=b.scrollHeight}
+const LOG_IC={start:"🌅",gamble:"🪙",sum:"🃏",spell:"✨",atk:"⚔️",dmg:"💥",kill:"💀",heal:"💚",eff:"▶",guard:"🛡"};
+function logImg(e){if(e.img&&CARD_IMAGES[e.img])return e.img;
+ if(!/sum|spell|start/.test(e.k))return null;
+ const m=String(e.s).match(/「(.+?)」/)||String(e.s).match(/^(.+?)(を召喚|の凍結)/);const c=m&&logCard(m[1]);return c&&CARD_IMAGES[c.id]?c.id:null}
+function renderLogs(){document.querySelectorAll("#lgF button").forEach(b=>b.classList.toggle("on",b.dataset.f==logF));
+ let h="",head="",rows=[];const flush=()=>{if(rows.length)h+=head+rows.join("");rows=[]};
+ logX.forEach(e=>{
+  if(e.h){flush();head='<div class="lgH '+e.sd+'"><span>ターン'+e.turn+'　'+escH(fillText(e.who))+'</span>'+(e.hp?'<small>HP あなた <b>'+e.hp.p.toLocaleString()+'</b> ／ 相手 <b>'+e.hp.c.toLocaleString()+'</b></small>':'')+'</div>';return}
+  if(logF=="p"&&e.sd!="p"||logF=="c"&&e.sd!="c")return;
+  if(logF=="atk"&&!/atk|dmg|kill|guard|gamble/.test(e.k))return;
+  const im=logImg(e),det=[e.det,e.ph].filter(Boolean).join("　");
+  rows.push('<div class="lgI '+e.sd+(e.k=="atk"?" atk":"")+'"><span class="lgK">'+(LOG_IC[e.k]||"▶")+'</span>'
+   +(im?'<span class="lgT" style="background-image:url('+CARD_IMAGES[im]+')" onclick="showDById(\''+im+'\')"></span>':'')
+   +'<div class="lgX">'+(e.src?logHtml(e.src)+"の効果 → ":"")+logHtml(e.s)+(det?'<small>'+logHtml(det)+'</small>':'')+'</div>'
+   +(e.v?'<span class="lgV '+(e.v>0?"h":"d")+'">'+(e.v>0?"+":"")+e.v.toLocaleString()+'</span>':'')+'</div>')});
+ flush();$("logbody").innerHTML=h||'<div class="lgNone">まだ記録はありません</div>'}
 let _cutT=null;
 function cutIn(c){const o=$("cutin");if(!o||!c)return;const img=CARD_IMAGES[c.id];
  const im=$("cutinImg");if(img){im.src=img;im.style.display=""}else im.style.display="none";
@@ -8559,8 +8750,9 @@ function df(c,side){if(!c)return 0;let B=side=="p"?S.pb:S.cb,v=(c.def||0)+(c.def
  return Math.max(0,v)}
 
 /* ================= HP操作 ================= */
-function healHero(side,n){if(n<=0||S.over)return;
+function healHero(side,n){if(n<=0||S.over)return;const h0=side=="p"?S.php:S.chp;
  if(side=="p")S.php=Math.max(S.php,Math.min(S.pMax||10000,S.php+n));else S.chp=Math.max(S.chp,Math.min(S.cMax||10000,S.chp+n));   // 上限より多いときに回復しても、減らない
+ {const d=(side=="p"?S.php:S.chp)-h0;if(d>0)logE({k:"heal",sd:side,s:(side=="p"?"あなた":"相手")+"が回復",v:d})}
  floatHero(side,"+"+n,"green");sfx("heal");render()}
 // 山札を指定枚数だけ墓地へ置く（足りなければあるだけ）
 function millDeck(side,k){
@@ -8578,6 +8770,7 @@ function heroDmg(side,n,from){if(n<=0||S.over)return;
   if(side=="c"&&S.cShield){S.cShield=false;floatHero("c","無効化!","green");sfx("shield");log("CPUがダメージを無効化");return}
  }
  if(side=="p")S.php-=n;else S.chp-=n;
+ logE({k:"dmg",sd:side,s:(side=="p"?"あなた":"相手")+"にダメージ",v:-n});
  if(side=="c")S.lastHitSpell=!!S.castingSpell;   // イベントミッション「呪文でとどめ」用
  if(side=="c")S.lastHitId=S.curSrc||null;          // 称号「〇〇でとどめ」用
  if(side=="c"){const src=S.pb.find(m=>m&&m.id==S.curSrc);S.lastHitChoi=!!(src&&src.choiDie);S.lastHitLim=!!(src&&src.tMul);S.lastHitGattai=!!(src&&src.gattai)}
@@ -9179,7 +9372,7 @@ function afterSummon(m,side){if(!S||!m)return;
  OB.forEach(o=>{if(!o)return;
   if(o.summonTax){heroDmg(side,o.summonTax,os);log(o.name+"：宿代"+o.summonTax)}
   if(o.drawOnEnemyCharge&&(m.charge||m.permCharge)){draw(os);log(o.name+"：1枚ドロー")}})}
-function summonEff(c,side){const p=side=="p",EB=p?S.cb:S.pb,ES=p?"c":"p";
+function summonEff(c,side){const p=side=="p",EB=p?S.cb:S.pb,ES=p?"c":"p";S.logSrc={name:c.name,ph:"登場した時"};
  if(c.bigCut)try{bigCut(c)}catch(e){}
  try{mkOnSummon(c,side)}catch(e){}
  if(c.onActs)doActs(c.onActs,side,c,{choose:true});
@@ -9245,7 +9438,7 @@ function cast(){if(netPaused())return log2Toast("通信の復帰を待ってい�
 function discardRnd(side,n){const H=side=="p"?S.ph:S.ch,G=side=="p"?S.pg:S.cg;let k=0;
  for(let i=0;i<n&&H.length;i++){G.push(H.splice(Math.random()*H.length|0,1)[0]);k++}
  if(k)log((side=="p"?"あなた":"相手")+"の手札を"+k+"枚捨てさせた");return k}
-function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS=side,ES=p?"c":"p";
+function spell(c,side,refund){const p=side=="p",MB=p?S.pb:S.cb,EB=p?S.cb:S.pb,MS=side,ES=p?"c":"p";S.logSrc={name:c.name,ph:""};
  if(S.rule=="blood"){const n=((by(c.id)||c).cost||0)*500;if(n){heroDmg(side,n,side);log("🩸 呪文の代わりにHP-"+n)}}
  if(side=="p"){S.playCnt=S.playCnt||{};const k=c.baseId||c.id;S.playCnt[k]=(S.playCnt[k]||0)+1}   // 戦績：使った回数
  const heal=n=>healHero(MS,n),oDmg=n=>heroDmg(ES,n,MS),sDmg=n=>heroDmg(MS,n,MS);
@@ -9399,9 +9592,10 @@ async function playerAtk(f,to){let a=S.pb[f],d=S.cb[to];if(!a)return;
  await sleep(260);
  // 守護で止めるかは、守る側が決める（CPUは自動・フレンドはゲストに聞く）
  const bi=FM.on&&FM.role=="host"&&!S.coop?await fmAskBlock(av,to,a.name,d?d.name:"直接攻撃"):cpuBlockChoice(av,to,f);   // 協力バトルのボスは自動で決める
+ logAtk("p",f,"c",to,a,d,av,bi>=0&&bi!=to);
  if(bi>=0&&bi!=to){
   S.cb[bi].guardTurn=true;shield("c",bi);sfx("shield");
-  log(S.cb[bi].name+"が守護で受け止めた！");if(S.cb[bi].drawOnBlock&&S.cb[bi].dobT!==S.turn){S.cb[bi].dobT=S.turn;draw("c")}
+  log(S.cb[bi].name+"が守護で受け止めた！");logDet("ATK "+av.toLocaleString()+" vs DEF "+df(S.cb[bi],"c").toLocaleString(),S.cb[bi].id);if(S.cb[bi].drawOnBlock&&S.cb[bi].dobT!==S.turn){S.cb[bi].dobT=S.turn;draw("c")}
   if(S.cb[bi].blockBurn){heroDmg("p",S.cb[bi].blockBurn,"c");log(S.cb[bi].name+"："+S.cb[bi].blockBurn+"ダメージ")}
   to=bi;d=S.cb[to];
   setLaneFx({atk:{side:"p",i:f},tgt:{side:"c",i:to}});  // 青を守護のレーンへ移す
@@ -9464,6 +9658,8 @@ function tryMillGuard(side,i){
 function kill(side,i){const B=side=="p"?S.pb:S.cb,G=side=="p"?S.pg:S.cg,c=B[i];if(!c)return;
  if(tryMillGuard(side,i))return;
  G.push(c);B[i]=null;try{pasRefresh()}catch(e){}
+ logE({k:"kill",sd:side,s:c.name+"が破壊された",img:c.id});
+ const src0=S.logSrc;S.logSrc={name:c.name,ph:"破壊された時"};
  if(c.deathActs)doActs(c.deathActs,side,c);
  if(c.death=="draw1")draw(side);
  if(c.death=="heal1000")healHero(side,1000);
@@ -9474,7 +9670,8 @@ function kill(side,i){const B=side=="p"?S.pb:S.cb,G=side=="p"?S.pg:S.cg,c=B[i];i
  if(c.death=="enemyDiscard1")discardRnd(side=="p"?"c":"p",1);
  if(c.death=="selfMill3")millDeck(side,3);
  if(B.some(m=>m&&m.aura=="deathHealOnce")&&!(side=="p"?S.pOnce:S.cOnce)){
-  if(side=="p")S.pOnce=true;else S.cOnce=true;healHero(side,1000);log("肯定ペンギン：HP+1000")}}
+  if(side=="p")S.pOnce=true;else S.cOnce=true;healHero(side,1000);log("肯定ペンギン：HP+1000")}
+ S.logSrc=src0}
 async function boomKill(side,i){const B=side=="p"?S.pb:S.cb,t=B[i];if(!t)return;
  boomFx(side,i);sfxCard(B[i],"death","boom");await sleep(400);
  if(!S)return;
@@ -9489,7 +9686,7 @@ async function mark(side,i){S.atkSide=side;S.atkI=i;render();await sleep(450);S.
 function clearHalloween(side){if(!S)return;
  if(S.curseBy===side){[S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m){m.curse=0;m.curseDef=0}}));S.curseBy=null}
  if(S.webBy===side){S.web=null;S.webBy=null}}
-function resetBoard(side){clearHalloween(side);if(!(S.coop&&side==="p"))frzExpire(side);   // 凍結させた側のターンの初めに溶ける（協力のA・Bは coopResetOwner で）
+function resetBoard(side){S.logPh="ターンのはじめ";S.logSrc=null;clearHalloween(side);if(!(S.coop&&side==="p"))frzExpire(side);   // 凍結させた側のターンの初めに溶ける（協力のA・Bは coopResetOwner で）
  if(side=="p")S.pMillUsed=false;else S.cMillUsed=false;
  // 守護の「このターンかばった」印を、お互いぶん戻す
  [S.pb,S.cb].forEach(B=>B.forEach(m=>{if(m)m.guardTurn=false}));const B=side=="p"?S.pb:S.cb;
@@ -9497,12 +9694,15 @@ function resetBoard(side){clearHalloween(side);if(!(S.coop&&side==="p"))frzExpir
   m.used=false;m.attacks=m.double?2:1;m.buff=0;m.defBuff=0;m.webbed=0;m.acted=0;
   m.charge=(b.charge||m.permCharge)?1:0;
   m.guard=(b.guard||m.permGuard)&&!m.noGuard?1:0});
- try{b2TurnStart(side)}catch(e){}}
+ try{b2TurnStart(side)}catch(e){}
+ S.logPh=""}
 // ちょい呑み：そのターンの終わりに、印のついたモンスターを破壊する
 async function turnEndDeaths(side){if(!S||S.over)return;const B=side=="p"?S.pb:S.cb;
+ S.logPh="ターンのおわり";S.logSrc=null;
  try{b2TurnEnd(side)}catch(e){}
  for(let i=0;i<3;i++){const m=B[i];if(m&&m.choiDie){log(m.name+"は酔いつぶれた（ちょい呑み）");await boomKill(side,i);if(S.over)return}}
- for(let i=0;i<3;i++){const m=B[i];if(m&&m.limDie){log(m.name+"は力を使いはたした（リミッター解除）");await boomKill(side,i);if(S.over)return}}}
+ for(let i=0;i<3;i++){const m=B[i];if(m&&m.limDie){log(m.name+"は力を使いはたした（リミッター解除）");await boomKill(side,i);if(S.over)return}}
+ if(S)S.logPh=""}
 async function endTurn(){if(netPaused())return log2Toast("通信の復帰を待っています");if(coopIsGuest())return coopGuestNext();if(S&&S.coop&&FM.on&&FM.role=="host")return coopEndTurn();
  if(FM.on&&FM.role=="guest")return fmGuestEnd();
  if(!S||S.busy||gWaitN>0||S.over)return;
@@ -9521,8 +9721,8 @@ async function endTurn(){if(netPaused())return log2Toast("通信の復帰を待�
   S.phase="main1";phaseCutIn("main1","p");
   suddenDeath("p");chk();
   S.pDef2=false;S.pDefBonus=0;S.pShield=false;S.pOnce=false;S.cOnce=false;
-  resetBoard("p");draw("p");
-  log("ターン"+turnTotal()+"　"+((player&&player.name)||"あなた")+"のターン")}
+  log("ターン"+turnTotal()+"　"+((player&&player.name)||"あなた")+"のターン");
+  resetBoard("p");draw("p")}
  if(S){S.busy=false;render();chk()}
  tutAfterTurn()}
 
@@ -9533,7 +9733,45 @@ const BUFF_FX={allAtk2000:1,allAtk2500:1,laneBuff:1,allCharge:1,allChargeAtk1000
 // こちらの一番強い攻撃でも越えられない守護（壁）がいるか
 function guardWall(){let mx=0;S.cb.forEach(m=>{if(m&&!m.cantAttack)mx=Math.max(mx,at(m,"c"))});
  return S.pb.some(m=>m&&m.guard&&df(m,"p")>=mx&&mx>0)}
+/* ===== 強いAI（相手の smart:1。画面には出さない）11/24
+   ①そのターンで勝てるなら、中央を空けてから中央を狙う ②何でも壊せる除去は大物のために取っておく
+   ③次の相手のターンで負けそうなら守りを固める ④リンク・チェインがそろう順番で出す */
+function cpuSmart(){return !!(S&&S.opp&&S.opp.smart&&!FM.on)}
+const SMART_KEEP={shokei:1,b3m99:1,b2c32:1};                  // 処刑・レーザービーム・晴天の霹靂
+function smartBig(m){return monVal(m,"p")>=6500||at(m,"p")>=3500}
+function smartReady(){const R=[];for(const pos of[1,0,2]){const m=S.cb[pos];if(!m||m.used||(m.attacks||0)<=0||m.cantAttack||isFrozen(m)||at(m,"c")<=0)continue;R.push({pos,av:at(m,"c")})}return R}
+// 勝てる攻撃の順番。プレイヤーが守護でどう受けても勝てるときだけ返す（{pos,t}）
+function smartLethal(){if(!S||S.pShield||S.php<=0)return null;const R=smartReady();if(!R.length)return null;
+ const c=S.pb[1],dv=c?df(c,"p"):0,pierce=c&&!noPierceOn(c,"p");
+ const g=Math.min(guards(S.pb,c?1:-1).length,R.length),n=R.length;
+ const face=U=>{if(!c)return U.reduce((a,r)=>a+r.av,0);const k=U.filter(r=>r.av>dv).sort((a,b)=>a.av-b.av)[0];if(!k)return 0;
+  return U.reduce((a,r)=>a+(r===k?0:r.av),0)+(pierce?k.av-dv:0)};
+ for(let mask=0;mask<(1<<n);mask++){let bits=0;for(let k=0;k<n;k++)if(mask>>k&1)bits++;if(bits!=g)continue;
+  if(face(R.filter((r,k)=>!(mask>>k&1)))<S.php)return null}
+ if(c){const k=R.filter(r=>r.av>dv).sort((a,b)=>a.av-b.av)[0];return k?{pos:k.pos,t:1}:null}
+ const big=R.sort((a,b)=>b.av-a.av)[0];return {pos:big.pos,t:1}}
+// 中央さえいなければ勝てる（除去を使う理由になる）
+function smartCenterBlocks(){if(!S.pb[1]||S.pShield)return false;const R=smartReady();const g=guards(S.pb,1).length;
+ const a=R.map(r=>r.av).sort((x,y)=>y-x).slice(g);return a.reduce((x,y)=>x+y,0)>=S.php}
+// 次の相手のターンに負けそうか（守護で受けられる分を引いて数える）
+function smartDanger(){if(!S)return false;const a=[];S.pb.forEach(m=>{if(m&&!m.cantAttack&&!isFrozen(m))a.push(at(m,"p"))});
+ a.sort((x,y)=>y-x);const g=S.cb.filter(m=>m&&m.guard).length;return a.slice(g).reduce((x,y)=>x+y,0)>=S.chp}
+// 殴り合いの見こみ：こちらが先に倒せそうなら顔を、遅れているなら盤面を優先する
+function smartRace(){let o=0,t=0;S.cb.forEach(m=>{if(m&&!m.cantAttack)o+=at(m,"c")});S.pb.forEach(m=>{if(m&&!m.cantAttack)t+=at(m,"p")});
+ const my=S.php/Math.max(500,o),th=S.chp/Math.max(500,t);return my<=th?1.5:my>th*2?0.7:1}
+function smartGate(c){if(!cpuSmart())return null;const id=c.baseId||c.id,E=c.eff;
+ if(SMART_KEEP[id]){const keep=S.ch.filter(x=>SMART_KEEP[x.baseId||x.id]).length;
+  if(!(keep>=2||S.ch.length>=6||S.pb.some(m=>m&&smartBig(m))||smartCenterBlocks()||S.chp<=4000))return false}
+ if(smartDanger()&&E!="acts"&&/heal|Shield|Def|Guard/i.test(E||""))return true;
+ return null}
+function smartBias(c){if(!cpuSmart())return 0;let b=0;
+ if(c.chain){const n=S.cb.filter(m=>m&&m.chain).length;b+=n?1500*Math.min(2,n):(S.ch.some(x=>x!==c&&x.chain)?300:0)}
+ if(c.link&&c.link.some(k=>S.cb.some(m=>m&&linkHit(k,m))))b+=1500;
+ if(c.gSure&&S.ch.some(x=>x!==c&&x.gamble))b+=1200;
+ if(c.guard&&smartDanger())b+=2500;
+ return b}
 function cpuGate(c){const E=c.eff,ps=pStats(),cs=cStats(),php=S.php,chp=S.chp;
+ {const sg=smartGate(c);if(sg!==null)return sg}
  if(E=="acts")return b2CpuGate(c);
  if(E=="turnBurn")return php<=Math.min(5000,turnTotal()*500)||turnTotal()>=8;
  if(E=="stew")return ps.n>=2&&S.pb.some(m=>m&&!m.curse);
@@ -9602,7 +9840,7 @@ function cpuPickSummon(cc){let best=null,bs=-1;
   const cost=ec(c,"c");if(cost>cc)return;
   if(c.handLessThan3&&S.ch.length>=3)return;
   if(cpuLane(c)<0)return;
-  const v=(c.atk||0)+(c.def||0)+cost*300+Math.random()*100+mkSummonBias(c);
+  const v=(c.atk||0)+(c.def||0)+cost*300+Math.random()*100+mkSummonBias(c)+smartBias(c);
   if(v>bs){bs=v;best={c,idx,cost}}});
  return best}
 function cpuLane(c){const free=i=>!S.cb[i];
@@ -9629,7 +9867,7 @@ function monVal(m,sd){return at(m,sd)+df(m,sd)+(m.cost||0)*400+(m.guard?800:0)}
 function faceVal(dmg){if(dmg<=0)return 0;
  if(S.pShield)return 300;                              // 無効化されるので、盾を割る分だけ
  if(dmg>=S.php)return 1e7;                             // とどめ
- const aggro=(S.opp&&S.opp.aggro)||1;
+ const aggro=((S.opp&&S.opp.aggro)||1)*(cpuSmart()?smartRace():1);
  return dmg*(S.php<=4000?1.6:1)*aggro}
 // 攻撃側がav、相手のモンスターdと戦ったときのCPUの得（dの位置dt）
 function clashGain(av,A,d,dt){const dv=df(d,"p");
@@ -9713,21 +9951,23 @@ let csView="menu";
 function openCasino(){if(!casinoOpen())return;store.set("cmCasinoSeen","1");hideAll();$("casino").classList.remove("hide");$("app").scrollTop=0;sfx("sel");
  const o=csSt(),t=todayStr();if(o.day!==t){o.day=t;o.medal+=CS_DAILY;csSave(o);setTimeout(()=>log2Toast("🪙 ラッキーメダル +"+CS_DAILY+"（入店ボーナス）"),300)}
  csGo("menu")}
-function csBack(){if(csView!="menu"){if(slBusy)return;csGo("menu")}else openMenuTab()}
-function csGo(v){csView=v;["csMenu","csSlot","csShop"].forEach(id=>$(id).classList.toggle("hide",id!={menu:"csMenu",slot:"csSlot",shop:"csShop"}[v]));
- $("csTtl").textContent={menu:"裏カジノ",slot:"ラッキーナスロット",shop:"換金所"}[v];$("csBack").textContent=v=="menu"?"‹ メニュー":"‹ もどる";
- if(v=="menu")csRenderMenu();if(v=="slot")slInit();if(v=="shop")csRenderShop();csMedalUpd()}
+function csBack(){if(csView!="menu"){if(slBusy||cgBusy)return;csGo("menu")}else openMenuTab()}
+const CS_VIEWS={menu:"csMenu",slot:"csSlot",shop:"csShop",cho:"csCho",bj:"csBj",ru:"csRu"};
+function csGo(v){csView=v;Object.values(CS_VIEWS).forEach(id=>$(id).classList.toggle("hide",id!=CS_VIEWS[v]));
+ $("csTtl").textContent={menu:"裏カジノ",slot:"ラッキーナスロット",shop:"換金所",cho:"丁半",bj:"ブラックジャック",ru:"ルーレット"}[v];$("csBack").textContent=v=="menu"?"‹ メニュー":"‹ もどる";
+ if(v=="menu")csRenderMenu();if(v=="slot")slInit();if(v=="shop")csRenderShop();if(v=="cho"||v=="bj"||v=="ru")cgInit(v);csMedalUpd()}
 function csMedalUpd(){$("csMedal").textContent=csSt().medal}
 function csRenderMenu(){$("csMenu").innerHTML='<div class="csHero"><h2>🎭 裏カジノ</h2><p>ラッキーナ国の地下。王の目もとどかない場所。<br>ここで起きたことは、ここだけの話。</p></div>'
  +'<div class="csList"><div class="csSub">あそぶ</div>'
  +'<button type="button" class="csIt gold" onclick="csGo(\'slot\')"><span class="ic">🎰</span><span><b>ラッキーナスロット</b><small>1回 🪙1。ジャックポットをねらえ</small></span></button>'
- +'<button type="button" class="csIt lock" onclick="log2Toast(\'まだ準備中…\')"><span class="ic">🎲</span><span><b>？？？</b><small>準備中</small></span></button>'
- +'<button type="button" class="csIt lock" onclick="log2Toast(\'まだ準備中…\')"><span class="ic">🃏</span><span><b>？？？</b><small>準備中</small></span></button>'
+ +'<button type="button" class="csIt" onclick="csGo(\'cho\')"><span class="ic">🎲</span><span><b>丁半</b><small>チョウとハンの壺ふり。丁か半か</small></span></button>'
+ +'<button type="button" class="csIt" onclick="csGo(\'bj\')"><span class="ic">🃏</span><span><b>ブラックジャック</b><small>ブラックジャッカルと21の勝負</small></span></button>'
+ +'<button type="button" class="csIt" onclick="csGo(\'ru\')"><span class="ic">🎡</span><span><b>ルーレット</b><small>ルーレの盤。1点当てなら×36</small></span></button>'
  +'<div class="csSub">お店</div>'
  +'<button type="button" class="csIt" onclick="csGo(\'shop\')"><span class="ic">💱</span><span><b>換金所</b><small>🪙でアイテムと交換（毎日いれかわり）</small></span></button>'
  +'<div class="csSub" style="text-align:center;margin-top:8px">ラッキーメダルは、毎日はじめて入ったときに🪙'+CS_DAILY+'もらえる</div></div>'}
 // ---- 換金所 ----
-const CS_ROT=[{k:"promo",ic:"🎫",n:"プロモ券 ×1",p:40},{k:"gcard",ic:"🎲",n:"【博打】カード（N・R）1枚",p:30},{k:"promo2",ic:"🎫",n:"プロモ券 ×2",p:75},{k:"gcard2",ic:"🎲",n:"【博打】カード（N・R）2枚",p:55}];
+const CS_ROT=[{k:"gcard",ic:"🎲",n:"【博打】カード（N・R）1枚",p:30},{k:"gcard2",ic:"🎲",n:"【博打】カード（N・R）2枚",p:55},{k:"gcardS",ic:"🎰",n:"【博打】カード（SR）1枚",p:120}];
 function csShopToday(o){const t=todayStr();if(!o.shop||o.shop.day!==t){let x=0;for(const ch of t)x=(x*31+ch.charCodeAt(0))%9973;
   const a=CS_ROT.map((it,i)=>i);for(let i=a.length-1;i>0;i--){x=(x*9301+49297)%233280;const j=Math.floor(x/233280*(i+1));[a[i],a[j]]=[a[j],a[i]]}
   o.shop={day:t,rot:a.slice(0,2),got:{},gem:0,sh:0};csSave(o)}return o.shop}
@@ -9750,9 +9990,73 @@ function csBuy(k){const o=csSt(),sh=csShopToday(o);const price={jp:777,reg:100,g
  else if(k=="gem"){if(sh.gem>=CS_GEM_CAP)return;o.medal-=p;sh.gem+=100;csSave(o);addCrystal(100,"換金所")}
  else if(k=="sh"){if(sh.sh>=CS_SHARD_CAP)return;o.medal-=p;sh.sh+=200;csSave(o);addShard(200,"換金所")}
  else if(rot){if(sh.got[k])return;o.medal-=p;sh.got[k]=1;csSave(o);
-  if(k=="promo"||k=="promo2")addTicket(k=="promo"?1:2,"換金所","promo");
-  else{const L=P.filter(c=>c.gamble&&!c.baseId&&(c.rarity=="N"||c.rarity=="R"));const n=k=="gcard"?1:2,got=[];for(let i=0;i<n;i++){const c=L[Math.random()*L.length|0];unlockCard(c.id);got.push(c.name)}log2Toast("「"+got.join("」「")+"」を手に入れた")}}
+  {const L=P.filter(c=>c.gamble&&!c.baseId&&(k=="gcardS"?c.rarity=="SR":(c.rarity=="N"||c.rarity=="R")));const n=k=="gcard2"?2:1,got=[];for(let i=0;i<n;i++){const c=L[Math.random()*L.length|0];unlockCard(c.id);got.push(c.name)}log2Toast("「"+got.join("」「")+"」を手に入れた")}}
  sfx("win");csRenderShop();csMedalUpd()}
+// ---- 丁半・ブラックジャック・ルーレット（11/24）：賭けは🪙10/30/50 ----
+const CG_BETS=[10,30,50];let cgBusy=false,cgBet={ch:10,bj:10,ru:10};
+const cgSleep=ms=>new Promise(r=>setTimeout(r,ms));
+function cgPay(n){const o=csSt();o.medal+=n;csSave(o);csMedalUpd()}
+function cgTake(n){const o=csSt();if(o.medal<n){log2Toast("🪙ラッキーメダルが足りない");sfx("no");return false}o.medal-=n;csSave(o);csMedalUpd();return true}
+function cgRes(id,t,w){const r=$(id);r.textContent=t;r.className="cgRes "+(w?"w":"l")}
+function cgBetsHtml(g){document.querySelectorAll('.cgBets[data-g="'+g+'"]').forEach(b=>{b.innerHTML='<span>賭け</span>'+CG_BETS.map(v=>'<button type="button" class="cgChip'+(cgBet[g]==v?' on':'')+'" onclick="cgSetBet(\''+g+'\','+v+')">'+v+'</button>').join("")})}
+function cgSetBet(g,v){if(cgBusy)return;cgBet[g]=v;sfx("sel");cgBetsHtml(g)}
+function cgTtl(k){try{const T=ttStats();T[k]=(T[k]||0)+1;store.set("cmStats",JSON.stringify(T))}catch(e){}}
+let cgInited={};
+function cgInit(v){const g={cho:"ch",bj:"bj",ru:"ru"}[v];cgBetsHtml(g);if(cgInited[v])return;cgInited[v]=1;
+ if(v=="cho"){cgFace($("cgD1"),3);cgFace($("cgD2"),4);$("cgChPick").querySelectorAll("button").forEach(b=>b.onclick=()=>{if(cgBusy)return;cgChP=b.dataset.p;sfx("sel");$("cgChPick").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x==b));$("cgChGo").disabled=false})}
+ if(v=="ru")cgRuBuild()}
+/* 丁半 */
+const CG_PIP={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};let cgChP=null;
+function cgFace(el,n){el.className="cgDie"+(n==1?" one":"");el.innerHTML=Array.from({length:9},(_,i)=>'<i'+(CG_PIP[n].includes(i)?' class="on"':'')+'></i>').join("")}
+async function cgChPlay(){const b=cgBet.ch;if(cgBusy||!cgChP||!cgTake(b))return;cgBusy=true;$("cgChRes").textContent="";
+ const cup=$("cgCup");cup.classList.remove("up");await cgSleep(400);$("cgChSay").textContent="「入ります！」";cup.classList.add("shake");try{sfx("sel")}catch(e){}await cgSleep(1300);cup.classList.remove("shake");
+ $("cgChSay").textContent="「……勝負！」";await cgSleep(600);
+ const a=1+Math.random()*6|0,c=1+Math.random()*6|0;cgFace($("cgD1"),a);cgFace($("cgD2"),c);cup.classList.add("up");await cgSleep(500);
+ const cho=(a+c)%2==0,zoro=a==c,win=cgChP=="cho"?cho:cgChP=="han"?!cho:zoro,pay=win?Math.floor(b*(cgChP=="zoro"?5.5:1.9)):0;
+ if(pay)cgPay(pay);cgRes("cgChRes",a+"・"+c+"　"+(zoro?"ゾロ目の":"")+(cho?"丁":"半")+(win?"！ +"+pay:"　はずれ"),win);sfx(win?"win":"no");
+ $("cgChSay").textContent=win?"「お見事！ 持ってけ！」":"「残念、また張りな！」";cgBusy=false}
+/* ブラックジャック：増えた1枚だけを配る */
+const CG_SU=["♠","♥","♦","♣"],CG_RK=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];let cgDeck=[],cgP=[],cgD=[],cgBjBet=0,cgHide=true;
+function cgNewDeck(){cgDeck=[];for(let k=0;k<4;k++)for(const s of CG_SU)for(const r of CG_RK)cgDeck.push({s,r});for(let i=cgDeck.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[cgDeck[i],cgDeck[j]]=[cgDeck[j],cgDeck[i]]}}
+const cgVal=h=>{let t=0,a=0;h.forEach(c=>{if(c.r=="A"){a++;t+=11}else t+=/[JQK]/.test(c.r)?10:+c.r});while(t>21&&a){t-=10;a--}return t};
+const cgPull=()=>{if(cgDeck.length<15)cgNewDeck();return cgDeck.pop()};
+function cgCard(c,hid){const d=document.createElement("div");d.className="cgCd"+(hid?" bk":/[♥♦]/.test(c.s)?" r":"");d.innerHTML='<b>'+c.r+'</b><em>'+c.s+'</em>';return d}
+function cgScores(){$("cgPS").textContent=cgP.length?cgVal(cgP):"-";$("cgDS").textContent=cgD.length?(cgHide&&cgD.length>1?cgVal([cgD[0]])+"＋?":cgVal(cgD)):"-"}
+function cgGive(sd,hid){const h=sd=="p"?cgP:cgD,c=cgPull();h.push(c);$(sd=="p"?"cgPH":"cgDH").appendChild(cgCard(c,hid));cgScores();try{sfx("sel")}catch(e){}}
+function cgBjMode(play){$("cgBjA1").classList.toggle("hide",play);$("cgBjA2").classList.toggle("hide",!play);$("cgBjDb").disabled=!(play&&cgP.length==2&&csSt().medal>=cgBjBet)}
+async function cgBjDeal(){const b=cgBet.bj;if(cgBusy||!cgTake(b))return;cgBusy=true;cgBjBet=b;cgHide=true;cgP=[];cgD=[];$("cgPH").innerHTML="";$("cgDH").innerHTML="";$("cgBjRes").textContent="";cgScores();
+ for(const [t,k] of [["p",0],["d",0],["p",1],["d",1]]){cgGive(t,t=="d"&&k==1);await cgSleep(320)}
+ if(cgVal(cgP)==21){await cgBjEnd();return}
+ $("cgBjSay").textContent="「さあ、どうする？」";cgBjMode(true)}
+async function cgBjHit(){if(!cgBusy||$("cgBjA2").classList.contains("hide"))return;cgGive("p");cgBjMode(true);if(cgVal(cgP)>=21){$("cgBjA2").classList.add("hide");await cgSleep(400);await cgBjEnd()}}
+async function cgBjDouble(){if(!cgBusy||cgP.length!=2||!cgTake(cgBjBet))return;cgBjBet*=2;$("cgBjA2").classList.add("hide");cgGive("p");await cgSleep(500);await cgBjEnd()}
+async function cgBjEnd(){if(!cgBusy||cgBjEnding)return;cgBjEnding=true;$("cgBjA2").classList.add("hide");const pv=cgVal(cgP),pbj=pv==21&&cgP.length==2;
+ const el=$("cgDH").children[1];if(el){el.style.animation="cgFlip .35s";el.className="cgCd"+(/[♥♦]/.test(cgD[1].s)?" r":"")}cgHide=false;cgScores();await cgSleep(600);
+ if(pv<=21&&!pbj)while(cgVal(cgD)<17){cgGive("d");await cgSleep(500)}
+ const dv=cgVal(cgD),dbj=dv==21&&cgD.length==2;let pay=0,t;
+ if(pv>21)t="バースト… はずれ";else if(pbj&&!dbj){pay=Math.floor(cgBjBet*2.5);t="ブラックジャック！ +"+pay}
+ else if(dv>21||pv>dv){pay=cgBjBet*2;t=(dv>21?"ジャッカルがバースト！ +":"勝ち！ +")+pay}else if(pv==dv){pay=cgBjBet;t="引き分け（もどし "+pay+"）"}else t="負け… はずれ";
+ if(pay)cgPay(pay);cgRes("cgBjRes",t,pay>cgBjBet);sfx(pay>cgBjBet?"win":pay?"sel":"no");if(pbj&&!dbj)cgTtl("lkBj");
+ $("cgBjSay").textContent=pay>cgBjBet?"「チッ……やるじゃねえか」":pay==cgBjBet?"「おあいこだな」":"「ククッ、いただきだ」";cgBusy=false;cgBjEnding=false;cgBjMode(false)}
+let cgBjEnding=false;
+/* ルーレット（0〜36） */
+const CG_ORD=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26],CG_RED=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+const cgCol=n=>n==0?"#1f8a4a":CG_RED.includes(n)?"#b0182a":"#15151c";let cgRuB=null,cgRot=0;
+function cgRuBuild(){const N=CG_ORD.length,R=90;let s='<svg viewBox="-90 -90 180 180"><g>';
+ CG_ORD.forEach((n,i)=>{const a0=(i/N)*2*Math.PI-Math.PI/2-Math.PI/N,a1=a0+2*Math.PI/N,am=(a0+a1)/2,tx=74*Math.cos(am),ty=74*Math.sin(am);
+  s+='<path d="M0 0L'+(R*Math.cos(a0)).toFixed(2)+' '+(R*Math.sin(a0)).toFixed(2)+'A'+R+' '+R+' 0 0 1 '+(R*Math.cos(a1)).toFixed(2)+' '+(R*Math.sin(a1)).toFixed(2)+'Z" fill="'+cgCol(n)+'" stroke="#c99a3a" stroke-width=".6"/>'
+   +'<text x="'+tx.toFixed(2)+'" y="'+ty.toFixed(2)+'" fill="#fff" font-size="8" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate('+(am*180/Math.PI+90).toFixed(1)+' '+tx.toFixed(2)+' '+ty.toFixed(2)+')">'+n+'</text>'});
+ $("cgWh").innerHTML=s+'</g></svg>';
+ $("cgNum").innerHTML=Array.from({length:37},(_,n)=>'<button type="button" data-n="'+n+'" style="background:'+cgCol(n)+'">'+n+'</button>').join("");
+ const pick=(el,k)=>{if(cgBusy)return;cgRuB=k;sfx("sel");document.querySelectorAll("#cgRb button,#cgNum button").forEach(x=>x.classList.toggle("on",x==el));$("cgRuGo").disabled=false};
+ $("cgRb").querySelectorAll("button").forEach(b=>b.onclick=()=>pick(b,b.dataset.b));$("cgNum").querySelectorAll("button").forEach(b=>b.onclick=()=>pick(b,"n"+b.dataset.n))}
+async function cgRuPlay(){const b=cgBet.ru;if(cgBusy||!cgRuB||!cgTake(b))return;cgBusy=true;$("cgRuRes").textContent="";$("cgHub").textContent="?";$("cgRuSay").textContent="「回るわよ……」";
+ const n=Math.random()*37|0,i=CG_ORD.indexOf(n),seg=360/37;cgRot+=360*5+(360-((cgRot%360)+i*seg)%360);
+ const g=$("cgWh").querySelector("svg");g.style.transition="transform 3.4s cubic-bezier(.15,.7,.2,1)";g.style.transform="rotate("+cgRot+"deg)";
+ await cgSleep(3500);$("cgHub").textContent=n;const red=CG_RED.includes(n),B=cgRuB;let m=0;
+ if(B=="red"&&red||B=="black"&&n&&!red||B=="odd"&&n%2==1||B=="even"&&n&&n%2==0)m=2;else if(B=="d1"&&n>=1&&n<=12||B=="d2"&&n>=13&&n<=24||B=="d3"&&n>=25)m=3;else if(B=="n"+n)m=36;
+ const pay=b*m;if(pay)cgPay(pay);cgRes("cgRuRes",n+"（"+(n==0?"緑":red?"赤":"黒")+"）"+(pay?"　+"+pay:"　はずれ"),pay>0);sfx(pay?"win":"no");if(m==36)cgTtl("lkRu36");
+ $("cgRuSay").textContent=m==36?"「……1点で当てたの？ あなた、何者？」":pay?"「あら、おめでとう」":"「残念。球は正直なの」";cgBusy=false}
 // ---- スロット ----
 const SL_SYM={cr:'<span class="crt" style="background-image:url(\''+(CARD_IMAGES.lk01cr||"")+'\')"></span>',s7:'<span class="s7">7</span>',bar:'<span class="bar">BAR</span>',bell:'<span class="em">🔔</span>',suika:'<span class="em">🍉</span>',replay:'<span class="rp">REPLAY</span>',cherry:'<span class="em">🍒</span>'};
 const SL_CNT={cr:1,s7:1,bar:2,bell:5,suika:3,replay:6,cherry:3},SL_PAY={cr:500,s7:100,bar:30,bell:15,suika:15},SL_NAME={s7:"7",bar:"BAR",bell:"ベル",suika:"スイカ"};
@@ -9822,6 +10126,10 @@ function gambleFlip(side,src,cb){if(!S){cb&&cb(false);return false}const B=b2B(s
  if(!hd&&B.some(m=>m&&m.reroll)&&S.gRe[side]!==ownTurn(side)){S.gRe[side]=ownTurn(side);coinFx(side,lane,false);log("イカサマ師：コインを投げ直す！");hd=Math.random()<.5}
  const land=()=>{if(!S)return;
   log((src&&src.name?src.name+"の":"")+"【博打】："+(hd?"表！":"裏…")+(sure?"（イカサマ）":""));
+  try{const q=logX[logX.length-1],tx=String(((src&&by(src.baseId||src.id))||src||{}).text||""),mm=tx.match(/表：(.+?)／裏：(.+)$/);
+   if(q&&q.k=="gamble"){q.src=null;q.sd=side;q.img=src&&src.id||null;q.s=(src&&src.name?src.name+"の":"")+"博打："+(hd?"表":"裏")+(sure?"（イカサマ）":"");
+    q.det=mm?(hd?"表：":"裏：")+(hd?mm[1]:mm[2]).replace(/。$/,""):""}
+   if(src&&src.name)S.logSrc={name:src.name,ph:hd?"表が出た時":"裏が出た時"}}catch(e){}
   b2B(side).forEach(m=>{if(!m)return;
    if(hd&&m.onHeads&&m.onHeads.draw){for(let k=0;k<m.onHeads.draw;k++)draw(side);log(m.name+"：表が出たので"+m.onHeads.draw+"枚ドロー")}
    if(!hd&&m.onTails&&m.onTails.heal){healHero(side,m.onTails.heal);log(m.name+"：裏が出たのでHP+"+m.onTails.heal)}});
@@ -9912,6 +10220,7 @@ async function cpuAttacks(){
  for(let loop=0;loop<12;loop++){
   await netGate();if(!S||S.over)return;
   let best=null,bs=0;
+  if(cpuSmart()){const L=smartLethal();if(L){await cpuDoAttack(L.pos,L.t);continue}}   // 強いAI：勝てるなら中央へ
   for(const pos of[1,0,2]){const m=S.cb[pos];
    if(!m||m.used||(m.attacks||0)<=0||m.cantAttack||isFrozen(m)||at(m,"c")<=0)continue;   // ATK0では攻撃しない（得点の小さなゆらぎで攻撃していた）
    if(S.opp&&S.opp.zorome&&isC1(m))continue;            // ゾロ目：コスト1は禁断召喚の材料なので、攻撃に使わない
@@ -9929,9 +10238,10 @@ async function cpuDoAttack(pos,tgt){const m=S.cb[pos];if(!m)return;if(isFrozen(m
   const bi=S.coop&&FM.on?await coopAskBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなたたち（直接）")):await askBlock(av,tgt,m.name,(S.pb[tgt]?S.pb[tgt].name:"あなた（直接）"));
   clearLaneFx();
   if(!S||S.over)return;
+  logAtk("c",pos,"p",tgt,m,S.pb[tgt],av,bi>=0&&bi!=tgt);
   if(bi>=0&&bi!=tgt){
    S.pb[bi].guardTurn=true;shield("p",bi);sfx("shield");if(!FM.on)ttAdd("guard");
-   log(S.pb[bi].name+"が守護で受け止めた！");if(S.pb[bi].drawOnBlock&&S.pb[bi].dobT!==S.turn){S.pb[bi].dobT=S.turn;draw("p")}
+   log(S.pb[bi].name+"が守護で受け止めた！");logDet("ATK "+av.toLocaleString()+" vs DEF "+df(S.pb[bi],"p").toLocaleString(),S.pb[bi].id);if(S.pb[bi].drawOnBlock&&S.pb[bi].dobT!==S.turn){S.pb[bi].dobT=S.turn;draw("p")}
    if(S.pb[bi].blockBurn){heroDmg("c",S.pb[bi].blockBurn,"p");log(S.pb[bi].name+"："+S.pb[bi].blockBurn+"ダメージ")}
    await mark("c",pos);shockOnAttack(m,"c");if(!S||S.over)return;await battle("c",pos,"p",bi);await sleep(450);return}
   if(S.pb[tgt]&&S.pb[tgt].guard&&!S.pb[tgt].guardTurn)S.pb[tgt].guardTurn=true;   // 守護そのものを殴った
@@ -9944,7 +10254,7 @@ function cpuPlan(cc){S.cpuCC=cc;
  const free=[0,1,2].filter(i=>!S.cb[i]).length;
  const cand=[];
  S.ch.forEach(c=>{const cost=ec(c,"c");if(cost>cc)return;
-  if(c.type=="monster"){if(c.handLessThan3&&S.ch.length>=3)return;if(cpuLane(c)<0)return;cand.push({c,cost,mon:1,v:(c.atk||0)+(c.def||0)+mkSummonBias(c)})}
+  if(c.type=="monster"){if(c.handLessThan3&&S.ch.length>=3)return;if(cpuLane(c)<0)return;cand.push({c,cost,mon:1,v:(c.atk||0)+(c.def||0)+mkSummonBias(c)+smartBias(c)})}
   else if(!S.cLock&&!BUFF_FX[c.eff]&&cpuGate(c))cand.push({c,cost,mon:0,v:cost*300})});
  const L=cand.slice(0,11);let best=[],bs=0;
  for(let mask=1;mask<(1<<L.length);mask++){let cost=0,mon=0,v=0;
@@ -9952,10 +10262,14 @@ function cpuPlan(cc){S.cpuCC=cc;
   if(cost>cc||mon>free)continue;
   const sc=cost*1000+v/2;
   if(sc>bs){bs=sc;best=L.filter((x,k)=>mask>>k&1)}}
+ // 強いAI：リンク・チェインは、軽いもの（そろえる役）から出す
+ if(cpuSmart())return best.sort((a,b)=>{if(a.mon!==b.mon)return a.mon-b.mon;
+  if(a.mon&&(a.c.chain||a.c.link||a.c.gSure||b.c.chain||b.c.link))return ((b.c.gSure?1:0)-(a.c.gSure?1:0))||(a.cost-b.cost);
+  return b.v-a.v});
  return best.sort((a,b)=>(a.mon-b.mon)||(b.v-a.v))}   // 呪文（除去など）→ 強いモンスターの順
 async function cpuTurn(){if(!S||S.over)return;
  S.active="c";S.cDef2=false;S.cDefBonus=0;S.cShield=false;S.pOnce=false;S.cOnce=false;
- resetBoard("c");draw("c");S.phase="main1";log("ターン"+turnTotal()+"　"+((S.opp&&S.opp.name)?fillText(S.opp.name):"相手")+"のターン");phaseCutIn("main1","c");render();await sleep(phaseOn()?1100:800);
+ log("ターン"+turnTotal()+"　"+((S.opp&&S.opp.name)?fillText(S.opp.name):"相手")+"のターン");resetBoard("c");draw("c");S.phase="main1";phaseCutIn("main1","c");render();await sleep(phaseOn()?1100:800);
  let cc=S.max;
  if(S.opp&&S.opp.zorome){cc=await zoromeAI(cc);if(!S||S.over)return;
   if(phaseOn()&&anyAttacker("c")){S.phase="battle";phaseCutIn("battle","c");render();await sleep(900)}
@@ -10073,7 +10387,7 @@ function titleShowReady(){
 }
 function titleGo(){
  if(!titleReady||titleGone)return;
- titleGone=true;gcEvent("start");
+ titleGone=true;gcEvent("start");try{tkExpire()}catch(e){}
  try{sfx("sel");preloadSfx()}catch(e){}   // ここで音を有効にし、ファイルの先読みも始める
  const t=$("title");
  t.classList.add("fade");
@@ -10102,7 +10416,12 @@ document.addEventListener("contextmenu",e=>{if(e.target&&e.target.tagName=="IMG"
 (function bootTitle(){
  const t=$("title");if(!t)return;
  let sk=null;try{sk=titleSkin()}catch(e){}
- if(sk&&sk.img){t.classList.add("tArt","fx-"+(sk.fx||"none"));$("titleCards").innerHTML='<div class="tArtBg" style="background-image:url('+sk.img+')"></div>'+(sk.fx?Array.from({length:18},()=>'<i class="tFx" style="left:'+(Math.random()*100).toFixed(1)+'%;--dx:'+(Math.random()*100-50).toFixed(0)+'px;animation-duration:'+(6+Math.random()*8).toFixed(1)+'s;animation-delay:'+(-Math.random()*14).toFixed(1)+'s"></i>').join(""):"");if(sk.color)t.style.setProperty("--tc",sk.color)}
+ if(sk&&sk.img&&Array.isArray(sk.fx)){const [dir,col,sz,n]=sk.fx;t.classList.add("tArt");
+  $("titleCards").innerHTML='<div class="tArtBg" style="background-image:url('+sk.img+');background-position:'+(sk.x||50)+'% 30%"></div>'+Array.from({length:n},()=>{const z=(sz*(.6+Math.random()*.8)).toFixed(1);
+   return '<i class="tFx tP '+dir+'" style="left:'+(Math.random()*100).toFixed(1)+'%;width:'+z+'px;height:'+z+'px;background:'+col+';box-shadow:0 0 8px '+col+';--dx:'+(Math.random()*100-50).toFixed(0)+'px;'
+    +(dir=="blink"?'top:'+(Math.random()*90).toFixed(0)+'%;animation-delay:'+(-Math.random()*1.4).toFixed(2)+'s':'animation-duration:'+(6+Math.random()*8).toFixed(1)+'s;animation-delay:'+(-Math.random()*14).toFixed(1)+'s')+'"></i>'}).join("");
+  if(sk.color)t.style.setProperty("--tc",sk.color)}
+ else if(sk&&sk.img){t.classList.add("tArt","fx-"+(sk.fx||"none"));$("titleCards").innerHTML='<div class="tArtBg" style="background-image:url('+sk.img+')"></div>'+(sk.fx?Array.from({length:18},()=>'<i class="tFx" style="left:'+(Math.random()*100).toFixed(1)+'%;--dx:'+(Math.random()*100-50).toFixed(0)+'px;animation-duration:'+(6+Math.random()*8).toFixed(1)+'s;animation-delay:'+(-Math.random()*14).toFixed(1)+'s"></i>').join(""):"");if(sk.color)t.style.setProperty("--tc",sk.color)}
  else try{renderTitleCards()}catch(e){}
  t.addEventListener("click",titleGo);
  t.addEventListener("touchend",titleGo,{passive:true});
