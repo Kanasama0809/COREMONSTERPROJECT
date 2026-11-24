@@ -1511,6 +1511,8 @@ body.calm #game.nb .nbBan.show b{animation:none}
 .crystalToast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);left:50%;transform:translateX(-50%) translateY(-20px);z-index:300;
  background:#0a3a63ee;border:1px solid #4ee3ff;color:#e9fbff;font-weight:900;font-size:13px;padding:8px 18px;border-radius:99px;
  opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap}
+/* 長い通知は折り返して、画面の左右からはみ出さない（11/24） */
+.crystalToast{white-space:normal;width:max-content;max-width:calc(100vw - 24px);text-align:center;line-height:1.45;border-radius:18px;overflow-wrap:anywhere}
 .crystalToast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ===== ストーリー ===== */
@@ -1752,6 +1754,16 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 .bsWho{font-size:11px;font-weight:900;color:#c29bff;letter-spacing:.06em;margin-bottom:2px}.bsTxt{font-size:15px;font-weight:800;line-height:1.5;min-height:1.5em;color:#eaf2ff}
 .bossSay.big .bsBub{border-color:#ffd84a;background:#2a1a00f2}.bossSay.big .bsWho{color:#ffd84a}.bossSay.big .bsBub:before{border-right-color:#ffd84a}
 #game.zrShake{animation:zrSh .45s}@keyframes zrSh{0%,100%{transform:none}20%{transform:translate(-5px,2px)}40%{transform:translate(5px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(3px,0)}}
+/* 召喚演出「光の柱」 */
+.pilFx{position:fixed;inset:0;z-index:140;pointer-events:none;overflow:hidden}
+.pilP{position:absolute;top:-10%;width:110px;height:120%;margin-left:-55px;background:linear-gradient(90deg,transparent,var(--c) 35%,#fff 50%,var(--c) 65%,transparent);filter:blur(2px);opacity:0;mix-blend-mode:screen;animation:pilP 1.2s ease-out forwards}
+@keyframes pilP{0%{opacity:0;transform:scaleX(.1)}15%{opacity:1;transform:scaleX(1)}60%{opacity:.9}100%{opacity:0;transform:scaleX(.3)}}
+.pilR{position:absolute;width:40px;height:40px;margin:-20px;border-radius:50%;border:3px solid var(--c);box-shadow:0 0 20px var(--c);animation:pilR 1s ease-out forwards}
+@keyframes pilR{from{transform:scale(.2);opacity:1}to{transform:scale(6);opacity:0}}
+.pilN{position:absolute;left:0;right:0;text-align:center;font-size:20px;color:#fff;text-shadow:0 0 12px var(--c),0 0 30px var(--c),0 2px 0 #000;animation:pilN 1.3s forwards}
+@keyframes pilN{0%{opacity:0;letter-spacing:12px}25%{opacity:1;letter-spacing:2px}80%{opacity:1}100%{opacity:0}}
+.pilShake{animation:pilShk .35s .25s}
+@keyframes pilShk{20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(2px,0)}}
 .bossCut{position:fixed;inset:0;z-index:390;display:flex;align-items:center;justify-content:center;background:#000c;opacity:0;pointer-events:none;transition:opacity .2s}
 .bossCut.on{opacity:1}.bcImg{width:min(78vw,340px);aspect-ratio:1;border-radius:16px;background-size:cover;background-position:center;border:3px solid #ffd84a;box-shadow:0 0 40px #ffd84acc;transform:scale(.6);transition:transform .35s cubic-bezier(.2,1.6,.4,1)}
 .bossCut.on .bcImg{transform:scale(1)}.bcNm{position:absolute;bottom:18%;left:0;right:0;text-align:center;font-size:24px;font-weight:900;color:#ffd84a;text-shadow:0 0 12px #000}
@@ -1917,6 +1929,9 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 .pbody{padding:10px 12px;overflow-y:auto;font-size:13px;line-height:1.6;white-space:normal}
 #gvBody{white-space:pre-line}
 .confirmBox{width:min(86vw,320px);background:#071a2e;border:2px solid #70d7ff;border-radius:18px;padding:18px;box-shadow:0 0 18px #33b8ff;text-align:center}
+/* 中身が長いとき（設定など）は、画面の上下からはみ出さずに中でスクロール（11/24） */
+.pov{padding:calc(env(safe-area-inset-top,0px) + 14px) 14px calc(env(safe-area-inset-bottom,0px) + 14px)}
+.pov>.confirmBox{max-height:calc(100vh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 28px);max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 28px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .confirmText{font-size:17px;font-weight:900;margin-bottom:16px}
 .confirmBtns{display:flex;gap:10px}
 .saveLinks{display:flex;gap:8px;margin-top:12px}
@@ -2287,7 +2302,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.52.2</div>
+ <div class="tVer" id="tVer">ver.5.52.4</div>
 </div>
 
 <div id="app">
@@ -2960,7 +2975,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.52.2</div>
+  <div class="aboutVer" id="aboutVer">ver.5.52.4</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -9373,7 +9388,8 @@ function afterSummon(m,side){if(!S||!m)return;
   if(o.summonTax){heroDmg(side,o.summonTax,os);log(o.name+"：宿代"+o.summonTax)}
   if(o.drawOnEnemyCharge&&(m.charge||m.permCharge)){draw(os);log(o.name+"：1枚ドロー")}})}
 function summonEff(c,side){const p=side=="p",EB=p?S.cb:S.pb,ES=p?"c":"p";S.logSrc={name:c.name,ph:"登場した時"};
- if(c.bigCut)try{bigCut(c)}catch(e){}
+ if(c.bigCut&&side=="c")try{bigCut(c)}catch(e){}   // ボス（相手）が出したときだけ、いまの大きな演出
+ if(side=="p"&&SUMMON_FX.has(c.id))try{pillarFx(c,S.pb.indexOf(c))}catch(e){}
  try{mkOnSummon(c,side)}catch(e){}
  if(c.onActs)doActs(c.onActs,side,c,{choose:true});
  if(c.bond&&(c.bondCharge||c.bondGuard)){const B=b2B(side);if(B.some(m=>m&&m.uid!==c.uid&&(m.baseId||m.id)==c.bond)){const me=B.find(m=>m&&m.uid===c.uid)||c;
@@ -10167,6 +10183,19 @@ function coinPlay(side,lane,hd,land,done){const g=$("game");
    const card=el&&el.querySelector(".card");if(card){card.classList.add(hd?"coinGold":"coinDim");setTimeout(()=>card.classList.remove("coinGold","coinDim"),900)}
    land();   // ここで効果が出る
    setTimeout(()=>{w.animate([{opacity:1},{opacity:0}],{duration:200,fill:"forwards"});setTimeout(()=>{w.remove();done()},200)},650)},820)},T)}
+/* ===== 召喚演出「光の柱」（11/24）：自分が出したCR・シーズンパスのカード（かなさんのチェック済み43枚） ===== */
+const SUMMON_FX=new Set(["komoku_cr", "deathhero_cr", "ikiru_cr", "kou_cr", "hien_cr", "misuzui_cr", "an_cr", "b2f03_cr", "b2v_raika_cr", "b2v02_cr", "b2v03_cr", "b2f02_cr", "b2c02_cr", "b2c01_cr", "b2f_setsu_cr", "b3m07cr", "b3m09cr", "b3m10cr", "b3s25cr", "b3l25cr", "b3m08cr", "lk01cr", "lk03cr", "lk02cr", "komoku_pr", "b2v02_crp", "chronoga_cr", "sk01cr", "b2f02_crp", "b2c03_crp", "mk01cr", "b2c14_crp", "mk02cr", "hw01cr", "b2c01_crp", "uradracula_s1", "deathhero_s1", "ikiru_s1", "nekura_s1", "kou_s1", "an_s1", "hien_s2", "misuzui_s2"]);
+function pillarColor(c){const n=c.name||"";
+ const K=[[/炎|火|ヒエン/,"#ff6a3d"],[/水|ミスズイ/,"#4ec2ff"],[/木|コモク/,"#4fd16a"],[/雷|サンダー|ライカ/,"#ffd84a"],[/雪|氷|スノー|セツ|ボルブリザ|鶴/,"#bfe9ff"],[/光|コウ|ペガサン/,"#ffe27a"],[/闇|夜|アン|ドラキュラ|根暗/,"#9a5cff"],[/生の|イキル/,"#7fe08a"],[/死の|デス/,"#a0a4b0"]];
+ for(const [r,col] of K)if(r.test(n))return col;
+ const id=c.baseId||c.id;return /^lk/.test(id)?"#ffcf3a":/^mk|^b3m/.test(id)?"#ffc15a":/^hw/.test(id)?"#ff9a3d":/^sk/.test(id)?"#b45cff":c.b2=="v"?"#ffd84a":c.b2=="f"?"#bfe9ff":"#4ee3ff"}
+function pillarFx(c,pos){if(document.body.classList.contains("calm"))return;   /* 「演出を減らす」のときは出さない */ const pb=document.getElementById("pb"),lane=pb&&pb.querySelectorAll(":scope>.slot")[pos];if(!lane||typeof lane.getBoundingClientRect!="function")return;
+ const r=lane.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,col=pillarColor(c);
+ const o=document.createElement("div");o.className="pilFx";o.style.setProperty("--c",col);
+ o.innerHTML='<div class="pilP" style="left:'+x+'px"></div><div class="pilR" style="left:'+x+'px;top:'+y+'px"></div><div class="pilN dot" style="top:'+Math.max(8,r.top-52)+'px">'+escH(c.name)+'</div>';
+ document.body.appendChild(o);sfx("summon");
+ const g=$("game");if(g){g.classList.remove("pilShake");void g.offsetWidth;g.classList.add("pilShake")}
+ setTimeout(()=>{o.remove();if(g)g.classList.remove("pilShake")},1300)}
 function bigCut(c){if(!c)return;const f=$("bossFlash"),bc=$("bossCut");if(!f||!bc)return;
  f.classList.remove("on");void f.offsetWidth;f.classList.add("on");
  $("bcImg").style.backgroundImage="url("+(CARD_IMAGES[c.id]||CARD_IMAGES[c.baseId]||"")+")";$("bcNm").textContent=c.name;bc.classList.add("on");sfx("summon");
