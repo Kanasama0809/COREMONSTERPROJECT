@@ -2330,7 +2330,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.55.1</div>
+ <div class="tVer" id="tVer">ver.5.55.3</div>
 </div>
 
 <div id="app">
@@ -3003,7 +3003,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.55.1</div>
+  <div class="aboutVer" id="aboutVer">ver.5.55.3</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -5105,7 +5105,7 @@ function xmOnResult(won){const box=$("rDragon"),btns=$("rBtns"),r=xmRun;xmCtx=nu
  box.innerHTML=html+'<button class="gold" onclick="hideP(\'resultov\');openEventDetail(\'xmas\')">イベントへ戻る</button>'}
 function xmDarkHtml(e){if(!e.dark)return"";const o=xmDarkSt();
  if(!o.open)return "";   // 現れるまでは何も出さない
- return '<section class="gBlock evCard open evStage" style="--g1:#2a0a2a;--g2:#08040c;--ga:#c58cff"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES[e.dark.a.card]||"")+')"></div><div class="gbPeriod">闇</div><div class="gbTitle">闇の組織 サンタ・マックロース</div><div class="gbSub">通常 → 覚醒の連戦（HPは残り＋2,000）</div></div>'
+ return '<section class="gBlock evCard open evStage" style="--g1:#2a0a2a;--g2:#08040c;--ga:#c58cff"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES[e.dark.a.card]||"")+')"></div><div class="gbPeriod">闇</div><div class="gbTitle"><span style="display:block;font-size:.6em;opacity:.85">闇の組織</span>サンタ・マックロース</div><div class="gbSub">通常 → 覚醒の連戦（HPは残り＋2,000）</div></div>'
   +'<div class="gBody"><div class="evRw">'+(o.cleared?'今日のごほうびは受け取りずみ（挑戦はできる）':'越えると 🔔ベルの券 ×'+e.dark.tk+'（1日1回）')+'</div><button type="button" class="gold evGoBtn" onclick="xmStartDark()">🌑 連戦に挑む ▶</button></div></section>'}
 let drRun=null,drCtx=null,drTab="thunder";
 function drState(){let o={};try{o=JSON.parse(store.get("cmDragon")||"{}")||{}}catch(e){o={}}
@@ -5733,8 +5733,8 @@ const KISE_SETS=[
  {id:"set_hien",name:"炎の勇者 ヒエン セット",c:"#ff6a3d",mat:{id:"m_hien",name:"炎の都イグニス",bg:"mat-hien.webp"},slv:{id:"s_hien",name:"イグニスの紋章",img:"slv-hien.webp"},icon:"hien_s2",cr:1500,sd:3000},
  {id:"set_misuzui",name:"水の勇者 ミスズイ セット",c:"#4ec2ff",mat:{id:"m_misuzui",name:"水の都アクアリア",bg:"mat-misuzui.webp"},slv:{id:"s_misuzui",name:"アクアリアの紋章",img:"slv-misuzui.webp"},icon:"misuzui_s2",cr:1500,sd:3000},
  // クリスマス（11/25）：サンタ・クロース／サンタ・マックロースのCR版とプレミアム版
- {id:"set_xm01cr",name:"サンタ・クロース セット",c:"#ff5a6e",mat:{id:"m_xm01cr",name:"聖夜の町",bg:"mat-xm01cr.webp"},slv:{id:"s_xm01cr",name:"赤いプレゼント",img:"slv-xm01cr.webp"},icon:"xm01cr",cr:1500,sd:3000},
- {id:"set_xm11cr",name:"サンタ・マックロース セット",c:"#9a5cff",mat:{id:"m_xm11cr",name:"闇の組織の城",bg:"mat-xm11cr.webp"},slv:{id:"s_xm11cr",name:"鎖のプレゼント",img:"slv-xm11cr.webp"},icon:"xm11cr",cr:1500,sd:3000},
+ {id:"set_xm01cr",name:"サンタ・クロース セット",c:"#ff5a6e",mat:{id:"m_xm01cr",name:"聖夜の町",bg:"mat-xm01cr.webp"},slv:{id:"s_xm01cr",name:"赤いプレゼント",img:"slv-xm01cr.webp"},icon:"xm01cr",cr:1500,sd:3000,pos:"center 6%"},
+ {id:"set_xm11cr",name:"サンタ・マックロース セット",c:"#9a5cff",mat:{id:"m_xm11cr",name:"闇の組織の城",bg:"mat-xm11cr.webp"},slv:{id:"s_xm11cr",name:"鎖のプレゼント",img:"slv-xm11cr.webp"},icon:"xm11cr",cr:1500,sd:3000,pos:"center 8%"},
  {id:"set_xm01pr",name:"プレミアム サンタ・クロース セット",c:"#ff3a3a",mat:{id:"m_xm01pr",name:"真紅の聖夜",bg:"mat-xm01pr.webp"},slv:{id:"s_xm01pr",name:"サンタの袋",img:"slv-xm01pr.webp"},icon:"xm01_pr",cr:1500,sd:3000},
  {id:"set_xm11pr",name:"プレミアム サンタ・マックロース セット",c:"#d04aff",mat:{id:"m_xm11pr",name:"紫電の夜",bg:"mat-xm11pr.webp"},slv:{id:"s_xm11pr",name:"稲妻のプレゼント",img:"slv-xm11pr.webp"},icon:"xm11_pr",cr:1500,sd:3000}];
 const SLEEVES=[{id:"std",name:"いつもの",free:1}].concat(KISE_SETS.map(x=>({...x.slv,c:x.c})));
@@ -5836,7 +5836,7 @@ const SHOP_TABS=["おすすめ","👕 きせかえ","💠 プレミアム","😀
 function shopGo(i){shopTab=i;sfx("sel");renderShop();try{$("app").scrollTop=0}catch(e){}}
 function shopJump(id){const m={shPrem:2,shIcon:3,shCr:4,shKise:1,shEx:5};if(m[id]!=null)shopGo(m[id])}
 function shopSetCard(x){const got=kiseSetGot(x),mu=matUrl(x.mat),su=TREE_BASE_URL+x.slv.img,ic=CARD_IMAGES[x.icon]||"";
- return '<div class="spSet" style="--c:'+x.c+'"><div class="spSetTop" style="background-image:url('+mu+')" onclick="shopSetPop(\''+x.id+'\')"><span class="spTag">NEW</span><span class="spSl" style="background-image:url('+su+')"></span><span class="spIc" style="background-image:url('+ic+')"></span>'
+ return '<div class="spSet" style="--c:'+x.c+'"><div class="spSetTop" style="background-image:url('+mu+')'+(x.pos?';background-position:'+x.pos:'')+'" onclick="shopSetPop(\''+x.id+'\')"><span class="spTag">NEW</span><span class="spSl" style="background-image:url('+su+')"></span><span class="spIc" style="background-image:url('+ic+')"></span>'
   +'<div class="spSetNm"><b>'+escH(x.name)+'</b><small>押すと、くわしく見られます</small></div></div>'
   +'<div class="spSetBody"><div class="spInc">プレイマット・スリーブ・アイコン</div>'
   +(got?'<div class="spBuy2"><button type="button" class="spBt got">✓ 持っています</button></div>':'<div class="spBuy2"><button type="button" class="spBt cr" onclick="buyKiseSet(\''+x.id+'\',\'cr\')">💎 '+x.cr.toLocaleString()+'</button><button type="button" class="spBt sd" onclick="buyKiseSet(\''+x.id+'\',\'sd\')">🔹 '+x.sd.toLocaleString()+'</button></div>')+'</div></div>'}
@@ -5845,10 +5845,10 @@ function shopSetPop(id){const x=KISE_SETS.find(q=>q.id==id);if(!x)return;const g
   +'<div class="spPr"><div class="spSlB" style="background-image:url('+TREE_BASE_URL+x.slv.img+')"></div><div class="spLbl">スリーブ「'+escH(x.slv.name)+'」</div><div class="spIcB"><i style="background-image:url('+(CARD_IMAGES[x.icon]||"")+')"></i><span>アイコン<br>「'+escH((by(x.icon)||{}).name||"")+'」</span></div></div></div>'
   +(got?'<div class="spBuy2"><button type="button" class="spBt got">✓ 持っています</button></div>':'<div class="spBuy2"><button type="button" class="spBt cr" onclick="buyKiseSet(\''+x.id+'\',\'cr\')">💎 '+x.cr.toLocaleString()+' で買う</button><button type="button" class="spBt sd" onclick="buyKiseSet(\''+x.id+'\',\'sd\')">🔹 '+x.sd.toLocaleString()+' で交換</button></div>');
  $("spSetPop").classList.add("show")}
-function shopBanners(){return TITLE_SETS.filter(x=>!titleSetGot(x)).slice(0,1).map(x=>({img:CARD_IMAGES[TS_HERO[x.a].card]||"",tag:"NEW",b:"起動画面セット",s:"対になる勇者2人ぶん（5種）",go:1})).concat(KISE_SETS.map(x=>({img:matUrl(x.mat),tag:"NEW",b:escH(x.name.replace(/ セット$/,""))+'<br>きせかえセット',s:"プレイマット・スリーブ・アイコン",go:1}))
+function shopBanners(){return TITLE_SETS.filter(x=>!titleSetGot(x)).slice(0,1).map(x=>({img:CARD_IMAGES[TS_HERO[x.a].card]||"",tag:"NEW",b:"起動画面セット",s:"対になる勇者2人ぶん（5種）",go:1})).concat(KISE_SETS.map(x=>({img:matUrl(x.mat),pos:x.pos,tag:"NEW",b:escH(x.name.replace(/ セット$/,""))+'<br>きせかえセット',s:"プレイマット・スリーブ・アイコン",go:1}))
  .concat(premiumList().filter(x=>!premiumGot().includes(x.id)).map(x=>({img:CARD_IMAGES[x.card]||"",tag:"PREMIUM",b:escH(x.name),s:"限定イラストのプロモCR×2",go:2}))))}
 function shopBanHtml(){const B=shopBanners();if(!B.length)return"";shopBi%=B.length;
- return '<div class="spBan" id="spBan">'+B.map((x,i)=>'<div class="spSlide'+(i==shopBi?' on':'')+'" style="background-image:url('+x.img+')" onclick="shopGo('+x.go+')"><div class="spTx"><span class="spTag">'+x.tag+'</span><b>'+x.b+'</b><small>'+x.s+'</small></div></div>').join("")
+ return '<div class="spBan" id="spBan">'+B.map((x,i)=>'<div class="spSlide'+(i==shopBi?' on':'')+'" style="background-image:url('+x.img+')'+(x.pos?';background-position:'+x.pos:'')+'" onclick="shopGo('+x.go+')"><div class="spTx"><span class="spTag">'+x.tag+'</span><b>'+x.b+'</b><small>'+x.s+'</small></div></div>').join("")
   +'<div class="spDots">'+B.map((x,i)=>'<i class="'+(i==shopBi?'on':'')+'"></i>').join("")+'</div></div>'}
 setInterval(()=>{try{const b=$("spBan");if(!b||!b.offsetParent)return;const n=b.querySelectorAll(".spSlide").length;if(n<2)return;shopBi=(shopBi+1)%n;
  b.querySelectorAll(".spSlide").forEach((e,i)=>e.classList.toggle("on",i==shopBi));b.querySelectorAll(".spDots i").forEach((e,i)=>e.classList.toggle("on",i==shopBi))}catch(e){}},3500);
