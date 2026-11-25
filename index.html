@@ -197,6 +197,8 @@ body.hasTab #menu{height:calc(100dvh - 20px - var(--tabH))}
 #edit .slotBar,#edit .slotTools{display:none}
 /* ===== デッキ編集（新しい形） ===== */
 #edit .eHead2{padding:8px 6px 8px;box-shadow:0 6px 14px #0009}
+/* 見出しの上のすき間を、見出しと同じ色でふさぐ（デッキ編集は下に影をつけたので、上にのばす影が消えていた）11/25 */
+.editorHead::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:140px;background:#08162c;pointer-events:none}
 .eBar{display:flex;align-items:center;gap:8px}
 .eBack{width:36px;height:36px;flex:0 0 auto;border-radius:50%;border:1px solid #2c4568;background:#0d1e33;color:#cfe0f5;font-size:15px;padding:0}
 .eName{flex:1;min-width:0;border:0;background:none;color:#fff;font-weight:900;font-size:17px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0;box-shadow:none}
@@ -1754,6 +1756,32 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
 .bsWho{font-size:11px;font-weight:900;color:#c29bff;letter-spacing:.06em;margin-bottom:2px}.bsTxt{font-size:15px;font-weight:800;line-height:1.5;min-height:1.5em;color:#eaf2ff}
 .bossSay.big .bsBub{border-color:#ffd84a;background:#2a1a00f2}.bossSay.big .bsWho{color:#ffd84a}.bossSay.big .bsBub:before{border-right-color:#ffd84a}
 #game.zrShake{animation:zrSh .45s}@keyframes zrSh{0%,100%{transform:none}20%{transform:translate(-5px,2px)}40%{transform:translate(5px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(3px,0)}}
+/* ジャックポットの選択 */
+#jpPop{z-index:135}#jpPop .cT{font-weight:900;font-size:16px;margin-bottom:4px}#jpPop .cS{font-size:12px;color:#bcd6ee;margin-bottom:10px}
+.jpB{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;color:#fff;background:#0d2440;border:1px solid #2f6aa0;border-radius:12px;padding:7px 9px;margin-bottom:6px}
+.jpB b{display:block;font-size:13px}.jpB small{display:block;font-size:10.5px;color:#ffe27a;line-height:1.35}
+.jpT{width:40px;height:40px;border-radius:8px;background:#22375a center/cover;flex:0 0 auto}
+.jpNo{margin-top:4px;width:100%}
+/* クリスマスログボ */
+.advWrap{position:relative}
+.advHd{text-align:center;margin-bottom:10px}.advT{font-size:20px;color:#fff;text-shadow:0 0 12px #ff5a6e}.advS{font-size:11px;color:#bcd6ee;margin-top:3px;line-height:1.5}
+.advPr{display:flex;align-items:center;gap:8px;margin:8px 2px 0;font-size:11px;color:#bcd6ee}
+.advPb{flex:1;height:7px;border-radius:9px;background:#0a1628;overflow:hidden;box-shadow:inset 0 0 0 1px #2c4568}.advPb i{display:block;height:100%;background:linear-gradient(90deg,#3fd47a,#ffe27a,#ff5a6e)}
+.advGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.advD{position:relative;aspect-ratio:1/1.12;perspective:400px;cursor:pointer}
+.advIn{position:absolute;inset:0;border-radius:10px;background:#0d2440;box-shadow:inset 0 0 0 1px #2f6aa0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:19px}
+.advIn small{font-size:8.5px;color:#bcd6ee;margin-top:2px;text-align:center;line-height:1.2;padding:0 2px}
+.advLid{position:absolute;inset:0;border-radius:10px;transform-origin:left center;transition:transform .5s cubic-bezier(.3,1.3,.5,1);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 3px 0 #0007,inset 0 0 0 2px #ffffff30;backface-visibility:hidden}
+.advLid:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;background:#ffd84acc}.advLid:after{content:"";position:absolute;top:50%;left:0;right:0;height:6px;margin-top:-3px;background:#ffd84acc}
+.advLid b{position:relative;z-index:1;background:#0006;border-radius:7px;padding:1px 4px;font-size:13px;color:#fff}
+.advD.open .advLid{transform:rotateY(-110deg)}
+.advD.today .advLid{animation:advG 1.4s ease-in-out infinite}@keyframes advG{50%{box-shadow:0 3px 0 #0007,0 0 16px 4px #ffe27a,inset 0 0 0 2px #fff}}
+.advD.lock .advLid{filter:saturate(.35) brightness(.55)}.advD.miss .advLid{filter:saturate(.6) brightness(.8)}
+.advTag{position:absolute;right:-3px;top:-5px;z-index:3;font-size:8.5px;font-weight:900;padding:1px 4px;border-radius:7px;background:#ff5a6e;color:#fff}
+.advBox{border-color:#ffe27a;box-shadow:0 0 30px #ffe27a66}.advPD{font-size:12px;color:#ffb3bd;letter-spacing:2px}.advPI{font-size:60px;margin:6px 0;filter:drop-shadow(0 0 14px #ffe27a)}
+.advPCr{width:150px;height:150px;margin:8px auto;border-radius:14px;background:#22375a center/cover;box-shadow:0 0 30px #4ee3ff}
+.advPN{font-size:17px;font-weight:900}.advPS{font-size:12px;color:#ffe27a;margin-top:4px}
+.advCf{position:fixed;top:-10px;width:8px;height:12px;z-index:200;animation:advCf 1.6s ease-in forwards;pointer-events:none}@keyframes advCf{to{transform:translate(var(--dx),105vh) rotate(720deg)}}
 /* 召喚演出「光の柱」 */
 .pilFx{position:fixed;inset:0;z-index:140;pointer-events:none;overflow:hidden}
 .pilP{position:absolute;top:-10%;width:110px;height:120%;margin-left:-55px;background:linear-gradient(90deg,transparent,var(--c) 35%,#fff 50%,var(--c) 65%,transparent);filter:blur(2px);opacity:0;mix-blend-mode:screen;animation:pilP 1.2s ease-out forwards}
@@ -2302,7 +2330,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <div class="tSpacer"></div>
  <div id="titleStart" class="tLoad">読み込み中…</div>
  <div id="titleSave" class="tSave hide"></div>
- <div class="tVer" id="tVer">ver.5.52.4</div>
+ <div class="tVer" id="tVer">ver.5.55.1</div>
 </div>
 
 <div id="app">
@@ -2975,7 +3003,7 @@ body.calm .phaseCut.go{animation:pcFade 1s ease-out forwards}
  <h3>このアプリについて</h3>
  <div class="aboutBody">
   <div class="aboutName dot">CORE MONSTERS</div>
-  <div class="aboutVer" id="aboutVer">ver.5.52.4</div>
+  <div class="aboutVer" id="aboutVer">ver.5.55.1</div>
   <div class="aboutRow">開発：かな</div>
   <div class="aboutNote">カードのイラストは画像生成AIを使用して作成しています。</div>
  </div>
@@ -3080,6 +3108,7 @@ Object.assign(CARD_IMAGES,{"b3x02":"https://raw.githubusercontent.com/Kanasama08
 const TREE_BASE_URL="https://raw.githubusercontent.com/Kanasama0809/COREMONSTERPROJECT/main/";
 ["mk01","mk01cr","mk02","mk02cr","mk03","mk04","mk05","mk06","mk07","mk08","mk09","mk10","mk11","mk12","mk13","mk14","mk15"].forEach(k=>{CARD_IMAGES[k]=TREE_BASE_URL+k+".webp"});CARD_IMAGES.pm_makina=TREE_BASE_URL+"pmmakina.webp";
 ["lk01", "lk01cr", "lk02", "lk02cr", "lk03", "lk03cr", "lk04", "lk05", "lk06", "lk07", "lk08", "lk09", "lk10", "lk11", "lk12", "lk13", "lk14", "lk15", "lk16", "lk17", "lk18", "lk19", "lk20", "lk21", "lk22", "lk23", "lk24", "lk25", "lk26", "lk27", "lk28", "lk29", "lk30", "lk31", "lk32", "lk33", "lk34", "lk35", "lk36", "lk37", "lk38", "lk39", "lk40", "lk41", "lk42", "lk43", "lk44", "lk45", "lk46", "lk47", "lk48", "lk49", "lk50"].forEach(k=>{CARD_IMAGES[k]=TREE_BASE_URL+k+".webp"});
+["xm01", "xm02", "xm03", "xm04", "xm05", "xm06", "xm07", "xm08", "xm09", "xm10", "xm11", "xm12", "xm13", "xm14", "xm15", "xm16", "xm17", "xm18", "xm19", "xm20", "xm01cr", "xm11cr"].forEach(k=>{CARD_IMAGES[k]=TREE_BASE_URL+k+".webp"});CARD_IMAGES.xm01_pr=TREE_BASE_URL+"pr-santa.webp";CARD_IMAGES.xm11_pr=TREE_BASE_URL+"pr-mackrose.webp";   // クリスマスパック（11/25）・プレミアム
 const TREE_IMAGES={base:TREE_BASE_URL+"tree_base.webp",N:TREE_BASE_URL+"tree_n.webp",R:TREE_BASE_URL+"tree_r.webp",SR:TREE_BASE_URL+"tree_sr.webp",UR:TREE_BASE_URL+"tree_ur.webp",CR:TREE_BASE_URL+"tree_cr.webp"};
 function kanaSort(a,b){return (a.sortName||a.name).localeCompare((b.sortName||b.name),'ja')}
 const P=[{"id":"aichu","name":"アイチュ","sortName":"あいちゅ","type":"monster","cost":1,"atk":500,"def":500,"text":"守護","guard":1,"rarity":"N","pack":1},{"id":"aquaknight","name":"アクアナイト","sortName":"あくあないと","type":"monster","cost":3,"atk":2000,"def":2000,"text":"攻撃時、自分の山札を1枚ドローする","atkEff":"draw1","rarity":"R","pack":1},{"id":"ippanA","name":"一般男性A","sortName":"いっぱんだんせいえー","type":"monster","cost":3,"atk":3000,"def":3000,"text":"","rarity":"N","pack":1},{"id":"uradracula","name":"裏ドラキュラ","sortName":"うらどらきゅら","type":"monster","cost":8,"atk":6000,"def":6000,"text":"墓地のカードが10枚以上なら、このモンスターのコストを-3する。守護","graveDiscount":3,"graveDiscountNeed":10,"guard":1,"rarity":"UR","pack":1},{"id":"udon","name":"ウ首領","sortName":"うどん","type":"monster","cost":5,"atk":2500,"def":2000,"text":"中央レーンにいる間、ATKを2倍にする","centerAtk":1,"rarity":"N","pack":1},{"id":"oomawari","name":"おお巡りさん","sortName":"おおまわりさん","type":"monster","cost":3,"atk":1000,"def":1000,"text":"中央レーンにいる間、ATKを+2500する","centerAtkBuff":2500,"rarity":"R","pack":1},{"id":"katatsumura","name":"カタツムラナイト","sortName":"かたつむらないと","type":"monster","cost":5,"atk":3000,"def":3000,"text":"守護。突撃","guard":1,"charge":1,"rarity":"R","pack":1},{"id":"kamakamakiri","name":"カマカマキリ","sortName":"かまかまきり","type":"monster","cost":3,"atk":1000,"def":500,"text":"二回攻撃","double":1,"rarity":"N","pack":1},{"id":"gaikotsu","name":"がいこつダンサー","sortName":"がいこつだんさー","type":"monster","cost":3,"atk":2500,"def":1000,"text":"登場時、自分の山札を3枚墓地へ置く。突撃","on":"mill3","charge":1,"rarity":"SR","pack":1},{"id":"komoku","name":"木の勇者 コモク","sortName":"きのゆうしゃこもく","type":"monster","cost":4,"atk":2000,"def":4000,"text":"守護","guard":1,"rarity":"N","pack":1},{"id":"komoku_cr","name":"木の勇者 コモク","sortName":"きのゆうしゃこもく","type":"monster","cost":4,"atk":2000,"def":4000,"text":"守護","guard":1,"rarity":"CR","pack":1,"baseId":"komoku","lore":"三つ子の長男。水の勇者ミスズイの企みにはいつも巻き込まれる役だった。末っ子の炎の勇者ヒエンが誰よりも不器用に剣を振る姿を、誰よりも近くで見てきた。"},{"id":"kucha","name":"苦茶","sortName":"くちゃ","type":"monster","cost":2,"atk":1000,"def":2000,"text":"右レーンに召喚した時、守護を得る","rightGuard":1,"rarity":"R","pack":1},{"id":"koutei","name":"肯定ペンギン","sortName":"こうていぺんぎん","type":"monster","cost":3,"atk":1500,"def":1500,"text":"1ターンに1回、自分のモンスターが破壊されるたび、自分のHPを+1000する","aura":"deathHealOnce","rarity":"R","pack":1},{"id":"goblingo","name":"ゴブリンゴ","sortName":"ごぶりんご","type":"monster","cost":2,"atk":1000,"def":1000,"text":"このモンスターが破壊された時、自分の山札を1枚ドローする","death":"draw1","rarity":"R","pack":1},{"id":"saralion","name":"サライオン","sortName":"さらいおん","type":"monster","cost":5,"atk":0,"def":0,"text":"自分の奇数回目のターンと、その次の相手のターンは、ATKを+5000する。自分の偶数回目のターンと、その次の相手のターンは、DEFを+5000する","turnShift":1,"rarity":"R","pack":1},{"id":"sakanakushun","name":"さかなクシュン","sortName":"さかなくしゅん","type":"monster","cost":3,"atk":1000,"def":3000,"text":"貫通されない","noPierce":1,"rarity":"N","pack":1},{"id":"deathhero","name":"死の勇者 デス","sortName":"しのゆうしゃです","type":"monster","cost":5,"atk":4000,"def":3000,"text":"破壊された時、相手プレイヤーに2000ダメージ","death":"enemyDamage2000","rarity":"SR","pack":1},{"id":"deathhero_cr","name":"死の勇者 デス","sortName":"しのゆうしゃです","type":"monster","cost":5,"atk":4000,"def":3000,"text":"破壊された時、相手プレイヤーに2000ダメージ","death":"enemyDamage2000","rarity":"CR","pack":1,"baseId":"deathhero","lore":"「消えることを恐れるな。俺たちはまた巡り会う」——闇の勇者アンに、幾度となくそう言われてきた。生の勇者イキルとは戦場で何百回とぶつかったが、憎しみからではない。ただ、在り方が違うだけだ。"},{"id": "solo", "name": "潮干狩りはソロ", "sortName": "しおひがりはそろ", "type": "monster", "cost": 5, "atk": 4000, "def": 0, "text": "突撃。右レーンにのみ召喚できる", "charge": 1, "rightOnly": 1, "rarity": "SR", "pack": 1},{"id":"jujika","name":"10時架","sortName":"じゅうじか","type":"monster","cost":2,"atk":1000,"def":2000,"text":"登場時、自分の山札を1枚墓地へ置く","on":"mill1","rarity":"R","pack":1},{"id":"misuzui","name":"水の勇者 ミスズイ","sortName":"みずのゆうしゃみすずい","type":"monster","cost":5,"atk":3000,"def":3000,"text":"登場時、自分の山札を2枚ドローする","on":"draw2","rarity":"R","pack":1},{"id":"misuzui_cr","name":"水の勇者 ミスズイ","sortName":"みずのゆうしゃみすずい","type":"monster","cost":5,"atk":3000,"def":3000,"text":"登場時、自分の山札を2枚ドローする","on":"draw2","rarity":"CR","pack":1,"baseId":"misuzui","lore":"三つ子の次女。要領の良さでは誰にも負けない。末っ子の炎の勇者ヒエンに剣の才が無いことに、実は一番早く気づいていた——そして、誰よりも先に信じるのをやめなかった。"},{"id":"slime","name":"スライム","sortName":"すらいむ","type":"monster","cost":1,"atk":1000,"def":1000,"text":"","rarity":"N","pack":1},{"id":"suhada","name":"素足の人事","sortName":"すあしのじんじ","type":"monster","cost":3,"atk":3000,"def":3000,"text":"登場時、自分のHPを+1000する。左レーンにのみ召喚できる","on":"heal1000","leftOnly":1,"rarity":"SR","pack":1},{"id":"ami","name":"ただの猫 アミ","sortName":"ただのねこあみ","type":"monster","cost":3,"atk":2000,"def":2000,"text":"登場時、相手の手札を1枚ランダムに捨てさせる","on":"discard","rarity":"R","pack":1},{"id": "dashpanther", "name": "ダッシュパンサー", "sortName": "だっしゅぱんさー", "type": "monster", "cost": 5, "atk": 3500, "def": 2500, "text": "突撃", "charge": 1, "rarity": "N", "pack": 1},{"id":"tarakong","name":"たらコング","sortName":"たらこんぐ","type":"monster","cost":6,"atk":5000,"def":4000,"text":"守護","guard":1,"rarity":"R","pack":1},{"id":"baikingu","name":"倍キング","sortName":"ばいきんぐ","type":"monster","cost":5,"atk":2500,"def":2500,"text":"二回攻撃","double":1,"rarity":"N","pack":1},{"id":"balloon5","name":"バルーン5","sortName":"ばるーんふぁいぶ","type":"monster","cost":4,"atk":5000,"def":0,"text":"","rarity":"N","pack":1},{"id":"kou","name":"光の勇者 コウ","sortName":"ひかりのゆうしゃこう","type":"monster","cost":8,"atk":6000,"def":3500,"text":"自分の偶数回目のターンなら、このモンスターのコストを-2する。登場時、相手のDEF2000以下のモンスター全てを破壊する","even":2,"on":"def2000","rarity":"UR","pack":1},{"id":"kou_cr","name":"光の勇者 コウ","sortName":"ひかりのゆうしゃこう","type":"monster","cost":8,"atk":6000,"def":3500,"text":"自分の偶数回目のターンなら、このモンスターのコストを-2する。登場時、相手のDEF2000以下のモンスター全てを破壊する","even":2,"on":"def2000","rarity":"CR","pack":1,"baseId":"kou","lore":"闇の勇者アンとは、光と闇という名前ほどには分かり合えなかった。それでも生の勇者イキルの隣にいる時だけは、何も気負わずに笑える。"},{"id": "hien", "name": "炎の勇者 ヒエン", "sortName": "ほのおのゆうしゃひえん", "type": "monster", "cost": 6, "atk": 4500, "def": 2000, "text": "突撃", "charge": 1, "rarity": "R", "pack": 1},{"id": "hien_cr", "name": "炎の勇者 ヒエン", "sortName": "ほのおのゆうしゃひえん", "type": "monster", "cost": 6, "atk": 4500, "def": 2000, "text": "突撃", "charge": 1, "rarity": "CR", "pack": 1, "baseId": "hien", "lore": "三つ子の末っ子。木の勇者コモクにも水の勇者ミスズイにも、剣才では遠く及ばなかった。それでも振り続けた。今のこの一撃は、才能ではなく、積み重ねた夜の数だ。"},{"id":"boobybar","name":"ブービーバー","sortName":"ぶーびーばー","type":"monster","cost":4,"atk":2000,"def":2000,"text":"相手の呪文のコストを+1する。守護","aura":"spellCost","guard":1,"rarity":"SR","pack":1},{"id":"fairy","name":"フェありー","sortName":"ふぇありー","type":"monster","cost":2,"atk":1000,"def":1000,"text":"登場時、自分のHPを+1000する","on":"heal1000","rarity":"R","pack":1},{"id":"fukurou","name":"フク蝋","sortName":"ふくろう","type":"monster","cost":3,"atk":0,"def":4000,"text":"守護","guard":1,"rarity":"N","pack":1},{"id":"fontni","name":"フォントに！？","sortName":"ふぉんとに","type":"monster","cost":3,"atk":2000,"def":2000,"text":"吸収","lifesteal":1,"rarity":"N","pack":1},{"id":"boseki","name":"墓石","sortName":"ぼせき","type":"monster","cost":1,"atk":0,"def":2500,"text":"攻撃できない。破壊された時、自分のHPを+1000する","cantAttack":1,"death":"heal1000","rarity":"R","pack":1},{"id":"babygolem","name":"ベビーゴーレム","sortName":"べびーごーれむ","type":"monster","cost":3,"atk":1000,"def":3000,"text":"守護","guard":1,"rarity":"N","pack":1},{"id":"babydragon","name":"ベビードラゴン","sortName":"べびーどらごん","type":"monster","cost":4,"atk":3000,"def":3000,"text":"登場時、自分の山札を1枚ドローする","on":"draw1","rarity":"R","pack":1},{"id":"boen","name":"ボーエン卿","sortName":"ぼーえんきょう","type":"monster","cost":7,"atk":5000,"def":5000,"text":"攻撃するたび、ATKを+500する","atkEff":"gain500","rarity":"SR","pack":1},{"id":"hotdog","name":"ホットドッグ","sortName":"ほっとどっぐ","type":"monster","cost":6,"atk":3000,"def":1000,"text":"登場時、相手モンスター1体を破壊する","on":"targetKill","rarity":"R","pack":1},{"id":"mrk","name":"Mr.K","sortName":"みすたーけー","type":"monster","cost":3,"atk":1000,"def":1000,"text":"隣のモンスターのATKを+1500する","aura":"adjacentPlus2000","rarity":"R","pack":1},{"id":"makijack","name":"巻きジャック","sortName":"まきじゃっく","type":"monster","cost":0,"atk":1000,"def":1000,"text":"自分の手札が3枚以上の時、召喚できない","handLessThan3":1,"rarity":"R","pack":1},{"id":"majician","name":"「マジ」シャン","sortName":"まじしゃん","type":"monster","cost":3,"atk":2000,"def":2000,"text":"登場時、自分の山札を1枚ドローする","on":"draw1","rarity":"R","pack":1},{"id":"magnetmin","name":"マグネット民","sortName":"まぐねっとみん","type":"monster","cost":1,"atk":0,"def":3000,"text":"","rarity":"N","pack":1},{"id":"mucha","name":"無茶","sortName":"むちゃ","type":"monster","cost":2,"atk":2000,"def":1000,"text":"左レーンに召喚した時、突撃を得る","leftCharge":1,"rarity":"R","pack":1},{"id":"an","name":"闇の勇者 アン","sortName":"やみのゆうしゃあん","type":"monster","cost":9,"atk":4000,"def":6000,"text":"自分の奇数回目のターンなら、このモンスターのコストを-2する。相手のモンスターの召喚コストを+1する","odd":2,"aura":"monsterCost","rarity":"UR","pack":1},{"id":"an_cr","name":"闇の勇者 アン","sortName":"やみのゆうしゃあん","type":"monster","cost":9,"atk":4000,"def":6000,"text":"自分の奇数回目のターンなら、このモンスターのコストを-2する。相手のモンスターの召喚コストを+1する","odd":2,"aura":"monsterCost","rarity":"CR","pack":1,"baseId":"an","lore":"「お前は嫌われることを恐れすぎだ」と死の勇者デスに言われた時、初めて誰かに理解された気がした。光の勇者コウとは、きっと一生分かり合えない。それでいい。"},{"id":"ladyga","name":"レディー･蛾","sortName":"れでぃーが","type":"monster","cost":2,"atk":1000,"def":3500,"text":"DEF側でバトルに勝った後、このモンスターを破壊する","defSelf":1,"rarity":"N","pack":1},{"id":"wolfket","name":"狼ケット","sortName":"ろうけっと","type":"monster","cost":3,"atk":2000,"def":2000,"text":"突撃","charge":1,"rarity":"N","pack":1},{"id":"ikiru","name":"生の勇者 イキル","sortName":"せいのゆうしゃいきる","type":"monster","cost":6,"atk":4000,"def":5000,"text":"破壊された時、自分のHPを+2000する","death":"heal2000","rarity":"SR","pack":1},{"id":"ikiru_cr","name":"生の勇者 イキル","sortName":"せいのゆうしゃいきる","type":"monster","cost":6,"atk":4000,"def":5000,"text":"破壊された時、自分のHPを+2000する","death":"heal2000","rarity":"CR","pack":1,"baseId":"ikiru","lore":"死の勇者デスとは、もう何回戦ったか覚えていない。それでも嫌いになれないのは、光の勇者コウが「あいつも不器用なだけだ」と笑って言うからかもしれない。"},{"id":"nekura","name":"根暗マンサー","sortName":"ねくらまんさー","type":"monster","cost":5,"atk":500,"def":3000,"text":"このモンスターのATKは、自分の墓地のカードの枚数×600になる","graveAtk":600,"rarity":"SR","pack":1},{"id":"pentagon","name":"ペンタゴン","sortName":"ぺんたごん","type":"monster","cost":3,"atk":1500,"def":1500,"text":"相手の唱える呪文のコストを+1する","aura":"spellCost","rarity":"R","pack":1},{"id":"heavylancer","name":"ヘビーランサー","sortName":"へびーらんさー","type":"monster","cost":4,"atk":5000,"def":2000,"text":"中央レーンにのみ召喚できる","centerOnly":1,"rarity":"R","pack":1},{"id":"sonobashinobi","name":"ソノバシノビ","sortName":"そのばしのび","type":"monster","cost":3,"atk":2500,"def":1000,"text":"突撃","charge":1,"rarity":"N","pack":1},{"id":"idolwink","name":"アイドルのウィンク","sortName":"あいどるのうぃんく","type":"spell","cost":3,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター1体のATKとDEFを+2000する","eff":"targetAllyAtkDef2000","rarity":"R","pack":1},{"id":"uriega","name":"ウリエガ","sortName":"うりえが","type":"spell","cost":6,"atk":0,"def":0,"text":"自分のモンスター1体を破壊する。破壊したなら、相手のモンスター全てを破壊する","eff":"allyKillEnemyAll","rarity":"UR","pack":1},{"id":"chantprep","name":"詠唱準備","sortName":"えいしょうじゅんび","type":"spell","cost":4,"atk":0,"def":0,"text":"山札からランダムな呪文を1枚手札に加える","eff":"spellSearch1","rarity":"N","pack":1},{"id":"daichi","name":"栄養は大地から","sortName":"えいようはだいちから","type":"spell","cost":3,"atk":0,"def":0,"text":"自分のHPを+3000する。その後、自分の山札を3枚墓地に置く","eff":"healMill","rarity":"N","pack":1},{"id":"ousei","name":"王政復古の大号令","sortName":"おうせいふっこのだいごうれい","type":"spell","cost":3,"atk":0,"def":0,"text":"自分の墓地のカード全てを山札に戻す。その後、山札をシャッフルする","eff":"graveToDeck","rarity":"SR","pack":1},{"id":"kaijou","name":"営業しております！","sortName":"えいぎょうしております","type":"spell","cost":5,"atk":0,"def":0,"text":"相手の中央レーンのモンスターを破壊する。その後、破壊したモンスターのコスト×300ダメージを相手プレイヤーに与える","eff":"enemyCenterKill","rarity":"SR","pack":1},{"id":"gabriel","name":"ガブリエール","sortName":"がぶりえーる","type":"spell","cost":6,"atk":0,"def":0,"text":"山札からランダムな呪文を3枚手札に加える","eff":"spellSearch3","rarity":"SR","pack":1},{"id":"kaendan","name":"火炎弾","sortName":"かえんだん","type":"spell","cost":2,"atk":0,"def":0,"text":"相手プレイヤーに1000ダメージ","eff":"face1000","rarity":"N","pack":1},{"id":"kami","name":"神よ命よ","sortName":"かみよいのちよ","type":"spell","cost":5,"atk":0,"def":0,"text":"自分のHPを-5000する。その後、相手の場のモンスター全てを破壊する","eff":"selfAllKill","rarity":"UR","pack":1},{"id":"kanpou","name":"艦砲射撃","sortName":"かんぽうしゃげき","type":"spell","cost":5,"atk":0,"def":0,"text":"場のモンスター全てを破壊する。その後、お互いのプレイヤーに3000ダメージ","eff":"allKillBoth3000","rarity":"UR","pack":1},{"id":"kinkyu","name":"緊急修復","sortName":"きんきゅうしゅうふく","type":"spell","cost":1,"atk":0,"def":0,"text":"自分のHPを+2000する","eff":"heal2000","rarity":"N","pack":1},{"id":"tomoni","name":"共に逝こうか","sortName":"ともにいこうか","type":"spell","cost":4,"atk":0,"def":0,"text":"お互いの中央レーンのモンスターを破壊する","eff":"bothCenterKill","rarity":"SR","pack":1},{"id":"kokoikku","name":"ここで1句","sortName":"ここでいっく","type":"spell","cost":1,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分の左右レーンのモンスターはATKとDEFを+500する。中央レーンのモンスターはATKとDEFを+700する","eff":"laneBuff","rarity":"SR","pack":1},{"id":"gomen","name":"ごめん！待った？","sortName":"ごめんまった","type":"spell","cost":2,"atk":0,"def":0,"text":"自分のHPを-2000する。次の自分のターンの開始まで、自分のモンスター全てに突撃を与える","eff":"hpMinusAllCharge","rarity":"SR","pack":1},{"id":"lastpower","name":"最後の力","sortName":"さいごのちから","type":"spell","cost":2,"atk":0,"def":0,"text":"自分のHPを-1000する。次の自分のターンの開始まで、自分のモンスター1体に突撃を与え、ATKを+2000する","eff":"targetChargeAtk2000","rarity":"R","pack":1},{"id":"deathmark","name":"死の宣告","sortName":"しのせんこく","type":"spell","cost":3,"atk":0,"def":0,"text":"相手モンスター1体のDEFを0にする","eff":"targetEnemyDef0","rarity":"R","pack":1},{"id":"shokei","name":"処刑","sortName":"しょけい","type":"spell","cost":4,"atk":0,"def":0,"text":"相手モンスター1体を破壊する","eff":"targetEnemyKill","rarity":"R","pack":1},{"id":"library","name":"閲覧許可","sortName":"えつらんきょか","type":"spell","cost":3,"atk":0,"def":0,"text":"自分の山札を2枚ドローする","eff":"draw2","rarity":"N","pack":1},{"id":"jirasanaide","name":"焦らさないでよね！","sortName":"じらさないでよね","type":"spell","cost":3,"atk":0,"def":0,"text":"自分のモンスター全てを破壊する。その後、破壊したモンスターの数×1000ダメージを相手プレイヤーに与える","eff":"selfBoardBurn","rarity":"SR","pack":1},{"id":"suki","name":"総崩れ","sortName":"そうくずれ","type":"spell","cost":2,"atk":0,"def":0,"text":"次の自分のターンの開始まで、相手モンスター全てのDEFを-2000する","eff":"enemyDefMinus2000","rarity":"N","pack":1},{"id":"suiso","name":"水素の音ォ！！","sortName":"すいそのおと","type":"spell","cost":4,"atk":0,"def":0,"text":"相手の手札をランダムに3枚まで捨てさせる","eff":"discard3","rarity":"N","pack":1},{"id":"armor","name":"スーパーアーマー","sortName":"すーぱーあーまー","type":"spell","cost":5,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター全てのDEFを2倍にする","eff":"def2","rarity":"SR","pack":1},{"id":"spelllock","name":"スペルロック","sortName":"すぺるろっく","type":"spell","cost":5,"atk":0,"def":0,"text":"相手は次のターン、呪文を唱えられない","eff":"spelllock","rarity":"SR","pack":1},{"id":"quickorder","name":"速攻指示","sortName":"そっこうしじ","type":"spell","cost":1,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター1体に突撃を与え、ATKを+1000する","eff":"allyChargeAtk1000","rarity":"R","pack":1},{"id":"battlepose","name":"戦闘態勢","sortName":"せんとうたいせい","type":"spell","cost":1,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター1体のATKを+2000する","eff":"targetAllyAtk2000","rarity":"R","pack":1},{"id":"sokougeki","name":"総攻撃","sortName":"そうこうげき","type":"spell","cost":5,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター全てのATKを+2000する","eff":"allAtk2000","rarity":"SR","pack":1},{"id":"allcharge","name":"軍旗","sortName":"ぐんき","type":"spell","cost":4,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター全てに突撃を与え、ATKを+1000する","eff":"allChargeAtk1000","rarity":"SR","pack":1},{"id":"wsurprise","name":"Wサプライズ","sortName":"だぶるさぷらいず","type":"spell","cost":6,"atk":0,"def":0,"text":"相手の手札を2枚ランダムに捨てさせる。その後、自分の山札を2枚ドローする","eff":"discard2draw2","rarity":"N","pack":1},{"id": "choi", "name": "ちょい呑み", "sortName": "ちょいのみ", "type": "spell", "cost": 3, "atk": 0, "def": 0, "text": "このターンの間、自分のモンスター1体のATKを+3000する。ターン終了時、そのモンスターを破壊する", "eff": "buffKill", "rarity": "R", "pack": 1},{"id":"tsubame","name":"燕よ","sortName":"つばめよ","type":"spell","cost":3,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター全てに突撃を与える","eff":"allCharge","rarity":"SR","pack":1},{"id":"teppeki","name":"鉄壁","sortName":"てっぺき","type":"spell","cost":2,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター1体のDEFを+3000する","eff":"targetAllyDef3000","rarity":"R","pack":1},{"id":"dokubari","name":"毒針","sortName":"どくばり","type":"spell","cost":2,"atk":0,"def":0,"text":"コスト2以下のモンスター1体を破壊する","eff":"cost2kill","rarity":"R","pack":1},{"id":"michizure","name":"道連れ爆弾","sortName":"みちづればくだん","type":"spell","cost":3,"atk":0,"def":0,"text":"自分のモンスター1体を破壊する。その後、相手モンスター1体を破壊する","eff":"allyAndEnemyKill","rarity":"R","pack":1},{"id":"heijou","name":"閉場しております！","sortName":"へいじょうしております","type":"spell","cost":2,"atk":0,"def":0,"text":"次の自分のターンの開始まで、ダメージを1回無効化する","eff":"damageShield","rarity":"N","pack":1},{"id":"batto","name":"抜刀","sortName":"ばっとう","type":"spell","cost":3,"atk":0,"def":0,"text":"コスト3以下の相手モンスター1体を破壊する","eff":"cost3kill","rarity":"R","pack":1},{"id":"firecurve","name":"火の玉カーブ","sortName":"ひのたまかーぶ","type":"spell","cost":3,"atk":0,"def":0,"text":"相手のDEF1500以下のモンスター全てを破壊する","eff":"def1500","rarity":"SR","pack":1},{"id":"firestraight","name":"火の玉ストレート","sortName":"ひのたますとれーと","type":"spell","cost":4,"atk":0,"def":0,"text":"相手プレイヤーに2000ダメージ","eff":"face2000","rarity":"N","pack":1},{"id":"hibashira","name":"火柱・双","sortName":"ひばしらそう","type":"spell","cost":6,"atk":0,"def":0,"text":"相手の左右レーンのモンスターを破壊する","eff":"enemySidesKill","rarity":"SR","pack":1},{"id":"maketakunai","name":"負けたくない","sortName":"まけたくない","type":"spell","cost":6,"atk":0,"def":0,"text":"自分の墓地のカードの枚数×500、自分のHPを+する（最大+5000）","eff":"graveHealShuffle","rarity":"UR","pack":1},{"id":"hontou","name":"本当だからだ！","sortName":"ほんとうだからだ","type":"spell","cost":8,"atk":0,"def":0,"text":"場のモンスター全てを破壊する。その後、相手のHPを半分にする（最大5000ダメージ）","eff":"allkillHalfHp","rarity":"UR","pack":1},{"id": "muffin", "name": "麦茶のマフィン", "sortName": "むぎちゃのまふぃん", "type": "spell", "cost": 5, "atk": 0, "def": 0, "text": "自分のHPを+4000する。その後、自分の山札を1枚ドローする", "eff": "heal5000draw1", "rarity": "N", "pack": 1},{"id":"mimi","name":"耳に刻め！！","sortName":"みみにきざめ","type":"spell","cost":7,"atk":0,"def":0,"text":"自分の場が全て埋まっているなら、このカードのコストを-5する。コスト3以下のモンスター全てを破壊する","eff":"cost3AllKill","fullBoardDiscount":5,"rarity":"UR","pack":1},{"id":"minnano","name":"みんなの為に！！","sortName":"みんなのために","type":"spell","cost":3,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター全てに守護を与える","eff":"allGuard","rarity":"SR","pack":1},{"id":"mikaera","name":"ミカエラ","sortName":"みかえら","type":"spell","cost":5,"atk":0,"def":0,"text":"次の自分のターンの開始まで、自分のモンスター全てのDEFを+3000する","eff":"allDef3000","rarity":"SR","pack":1},{"id":"mottai","name":"もったいぶんなよ","sortName":"もったいぶんなよ","type":"spell","cost":3,"atk":0,"def":0,"text":"相手の手札を2枚ランダムに捨てさせる","eff":"discard2","rarity":"N","pack":1},{"id":"moratta","name":"もらった！","sortName":"もらった","type":"spell","cost":3,"atk":0,"def":0,"text":"相手のHPが2000以下の時のみ使える。相手プレイヤーに2000ダメージ","eff":"finish","rarity":"N","pack":1},{"id":"ramen","name":"夜中のラーメン","sortName":"よなかのらーめん","type":"spell","cost":3,"atk":0,"def":0,"text":"自分のHPが3000以下の時のみ使える。自分のHPを+5000する","eff":"lowHpHeal5000","rarity":"N","pack":1},{"id": "yoshiyoshi", "name": "よしよし", "sortName": "よしよし", "type": "spell", "cost": 3, "atk": 0, "def": 0, "text": "自分のHPを+3000する", "eff": "heal4000", "rarity": "N", "pack": 1},{"id":"rafaeri","name":"ラファエリー","sortName":"らふぁえりー","type":"spell","cost":5,"atk":0,"def":0,"text":"自分のHPを+2000する。その後、相手プレイヤーに2000ダメージ","eff":"heal2000face2000","rarity":"N","pack":1},{"id":"shoukyuukei","name":"小休憩","sortName":"しょうきゅうけい","type":"spell","cost":2,"atk":0,"def":0,"text":"自分の山札を1枚ドローする。その後、自分のHPを+1000する","eff":"draw1heal1000","rarity":"N","pack":1},
@@ -3129,8 +3158,35 @@ const P=[{"id":"aichu","name":"アイチュ","sortName":"あいちゅ","type":"m
 {"type": "monster", "id": "sk09", "name": "樹海の亡者", "sortName": "じゅかいのもうじゃ", "cost": 2, "atk": 500, "def": 500, "text": "カードの効果で突撃を与えられない", "noGrantCharge": 1, "rarity": "N", "pack": 95, "promo": 1, "event": 1},
 {"type": "monster", "id": "sk10", "name": "ほうほうし", "sortName": "ほうほうし", "cost": 2, "atk": 1000, "def": 1000, "text": "貫通されない。破壊された時、次の自分のターンの開始まで、相手のモンスター全てのATKを-1000する", "noPierce": 1, "deathActs": [{"a": "debuffAll", "atk": 1000}], "rarity": "R", "pack": 95, "promo": 1, "event": 1},
 /* ===== 第4弾 ラッキーナパック-04（ラッキーナ国） ===== */
-{"id": "lk01", "type": "monster", "cost": 8, "name": "大当たり王 ジャックポット", "rarity": "UR", "atk": 5000, "def": 5000, "text": "このモンスターが場にいる間、自分の【博打】は必ず表になる。登場時、【博打】表：相手のモンスター全てのATKとDEFを-2000する（次の自分のターンの開始まで）／裏：相手のモンスター1体を破壊する", "gSure": 1, "onActs": [{"a": "gamble", "h": [{"a": "curseAll", "atk": 2000, "def": 2000}], "t": [{"a": "kill"}]}], "gamble": 1, "pack": 100, "b4": 1, "sortName": "おおあたりおうじゃっくぽっと"},
-{"id": "lk01cr", "type": "monster", "cost": 8, "name": "大当たり王 ジャックポット", "rarity": "CR", "atk": 5000, "def": 5000, "text": "このモンスターが場にいる間、自分の【博打】は必ず表になる。登場時、【博打】表：相手のモンスター全てのATKとDEFを-2000する（次の自分のターンの開始まで）／裏：相手のモンスター1体を破壊する", "gSure": 1, "onActs": [{"a": "gamble", "h": [{"a": "curseAll", "atk": 2000, "def": 2000}], "t": [{"a": "kill"}]}], "gamble": 1, "pack": 100, "b4": 1, "sortName": "おおあたりおうじゃっくぽっと", "baseId": "lk01", "lore": "「勝ちつづける男に、運など要らない。――仮面の下の目は、そう言っていた。」"},
+{"id": "lk01", "type": "monster", "cost": 8, "name": "大当たり王 ジャックポット", "rarity": "UR", "atk": 5000, "def": 5000, "text": "このモンスターが場にいる間、自分の【博打】は必ず表になる。自分のターンの初めに、自分の場のほかのモンスター1体を選び、その登場時の【博打】を使える", "gSure": 1, "jpRe": 1, "gamble": 1, "pack": 100, "b4": 1, "sortName": "おおあたりおうじゃっくぽっと"},
+{"id": "lk01cr", "type": "monster", "cost": 8, "name": "大当たり王 ジャックポット", "rarity": "CR", "atk": 5000, "def": 5000, "text": "このモンスターが場にいる間、自分の【博打】は必ず表になる。自分のターンの初めに、自分の場のほかのモンスター1体を選び、その登場時の【博打】を使える", "gSure": 1, "jpRe": 1, "gamble": 1, "pack": 100, "b4": 1, "sortName": "おおあたりおうじゃっくぽっと", "baseId": "lk01", "lore": "「勝ちつづける男に、運など要らない。――仮面の下の目は、そう言っていた。」"},
+// ===== クリスマスパック（11/25）：サンタ10＋ブラック10＋CR2＋はずれ枠2 =====
+{"type": "monster", "id": "xm01", "name": "夢を届けるサンタ・クロース", "sortName": "ゆめをとどけるさんたくろーす", "cost": 7, "atk": 4500, "def": 4500, "text": "突撃。登場時、相手のモンスター1体を【凍結】する", "rarity": "UR", "pack": 101, "xm": 1, "charge": 1, "onActs": [{"a": "freeze", "t": "one"}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm02", "name": "赤鼻のトナカイ ルドルフ", "sortName": "あかはなのとなかいるどるふ", "cost": 4, "atk": 3000, "def": 2000, "text": "突撃。【リンク「サンタ・クロース」】：ATK+1000", "rarity": "SR", "pack": 101, "xm": 1, "charge": 1, "link": ["サンタ・クロース"], "pas": [{"if": "link", "atk": 1000}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm03", "name": "こおりモミ", "sortName": "こおりもみ", "cost": 5, "atk": 2500, "def": 4000, "text": "守護。登場時、相手のモンスター1体を【凍結】する", "rarity": "SR", "pack": 101, "xm": 1, "guard": 1, "onActs": [{"a": "freeze", "t": "one"}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm04", "name": "トナカイトリオ", "sortName": "となかいとりお", "cost": 3, "atk": 2000, "def": 2000, "text": "突撃", "rarity": "R", "pack": 101, "xm": 1, "charge": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm05", "name": "ブリザードナカイ", "sortName": "ぶりざーどなかい", "cost": 3, "atk": 2500, "def": 1500, "text": "突撃。【凍結】している相手モンスターを攻撃する時、このモンスターのATKを+1000する", "rarity": "R", "pack": 101, "xm": 1, "charge": 1, "atkVsFrozen": 1000, "promo": 1, "event": 1},
+{"type": "spell", "id": "xm06", "name": "そりの鈴", "sortName": "そりのすず", "cost": 2, "atk": 0, "def": 0, "text": "次の自分のターンの開始まで、自分のモンスター1体に突撃を与え、ATKを+1000する", "rarity": "R", "eff": "acts", "acts": [{"a": "buffOne", "atk": 1000, "charge": 1}], "pack": 101, "xm": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm07", "name": "エルフィー", "sortName": "えるふぃー", "cost": 2, "atk": 1500, "def": 1500, "text": "【リンク「サンタ・クロース」】：登場時、相手のモンスター1体を【凍結】する", "rarity": "N", "pack": 101, "xm": 1, "link": ["サンタ・クロース"], "onActs": [{"a": "freeze", "t": "one", "if": "link"}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm08", "name": "コナカイ", "sortName": "こなかい", "cost": 2, "atk": 1500, "def": 1000, "text": "突撃", "rarity": "N", "pack": 101, "xm": 1, "charge": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm09", "name": "スノーボウズ", "sortName": "すのーぼうず", "cost": 1, "atk": 1000, "def": 500, "text": "登場時、【凍結】している相手モンスターがいるなら、相手プレイヤーに500ダメージ", "rarity": "N", "pack": 101, "xm": 1, "onActs": [{"a": "dmg", "x": 500, "if": "frozenExists"}], "promo": 1, "event": 1},
+{"type": "spell", "id": "xm10", "name": "くつしたサプライズ", "sortName": "くつしたさぷらいず", "cost": 1, "atk": 0, "def": 0, "text": "自分の山札を1枚ドローする", "rarity": "N", "eff": "acts", "acts": [{"a": "draw", "n": 1}], "pack": 101, "xm": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm11", "name": "サンタ・マックロース", "sortName": "さんたまっくろーす", "cost": 7, "atk": 5000, "def": 4000, "text": "突撃。登場時、相手の手札を1枚ランダムに捨てさせる", "rarity": "UR", "pack": 101, "xm": 1, "charge": 1, "onActs": [{"a": "discardEnemy", "n": 1}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm12", "name": "クロナカイ", "sortName": "くろなかい", "cost": 5, "atk": 4000, "def": 2500, "text": "突撃。登場時、相手の手札を1枚ランダムに捨てさせる", "rarity": "SR", "pack": 101, "xm": 1, "charge": 1, "onActs": [{"a": "discardEnemy", "n": 1}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm13", "name": "クランプス大佐", "sortName": "くらんぷすたいさ", "cost": 6, "atk": 3500, "def": 4000, "text": "【リンク「マックロース」】：登場時、相手の手札を2枚ランダムに捨てさせる", "rarity": "SR", "pack": 101, "xm": 1, "link": ["マックロース"], "onActs": [{"a": "discardEnemy", "n": 2, "if": "link"}], "promo": 1, "event": 1},
+{"type": "spell", "id": "xm14", "name": "ブラックプレゼント", "sortName": "ぶらっくぷれぜんと", "cost": 3, "atk": 0, "def": 0, "text": "相手の手札を1枚ランダムに捨てさせる。その後、自分の山札を1枚ドローする", "rarity": "R", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}, {"a": "draw", "n": 1}], "pack": 101, "xm": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm15", "name": "こそドロくん", "sortName": "こそどろくん", "cost": 3, "atk": 2000, "def": 2000, "text": "【リンク「マックロース」】：突撃を得て、ATK+1000", "rarity": "R", "pack": 101, "xm": 1, "link": ["マックロース"], "pas": [{"if": "link", "charge": 1, "atk": 1000}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm16", "name": "ヤミゾリ", "sortName": "やみぞり", "cost": 3, "atk": 2500, "def": 1500, "text": "突撃", "rarity": "R", "pack": 101, "xm": 1, "charge": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm17", "name": "ヤミフィー", "sortName": "やみふぃー", "cost": 1, "atk": 1000, "def": 500, "text": "【リンク「マックロース」】：登場時、相手の手札を1枚ランダムに捨てさせる", "rarity": "N", "pack": 101, "xm": 1, "link": ["マックロース"], "onActs": [{"a": "discardEnemy", "n": 1, "if": "link"}], "promo": 1, "event": 1},
+{"type": "monster", "id": "xm18", "name": "すすまみれ丸", "sortName": "すすまみれまる", "cost": 2, "atk": 1500, "def": 1000, "text": "突撃", "rarity": "N", "pack": 101, "xm": 1, "charge": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm19", "name": "すみっころ", "sortName": "すみっころ", "cost": 2, "atk": 1500, "def": 1500, "text": "登場時、相手の手札を1枚ランダムに捨てさせ、自分の手札を1枚ランダムに捨てる", "rarity": "N", "pack": 101, "xm": 1, "onActs": [{"a": "discardEnemy", "n": 1}, {"a": "discardSelf", "n": 1}], "promo": 1, "event": 1},
+{"type": "spell", "id": "xm20", "name": "ぬすみぎき", "sortName": "ぬすみぎき", "cost": 1, "atk": 0, "def": 0, "text": "相手の手札を1枚ランダムに捨てさせる", "rarity": "N", "eff": "acts", "acts": [{"a": "discardEnemy", "n": 1}], "pack": 101, "xm": 1, "promo": 1, "event": 1},
+{"type": "monster", "id": "xm01cr", "name": "夢を届けるサンタ・クロース", "sortName": "ゆめをとどけるさんたくろーす", "cost": 7, "atk": 4500, "def": 4500, "text": "突撃。登場時、相手のモンスター1体を【凍結】する", "rarity": "CR", "pack": 101, "xm": 1, "charge": 1, "onActs": [{"a": "freeze", "t": "one"}], "baseId": "xm01", "lore": "「いい子にも、ちょっぴり悪い子にも。夢は、ちゃんと届けてみせる」", "promo": 1, "event": 1},
+{"type": "monster", "id": "xm11cr", "name": "サンタ・マックロース", "sortName": "さんたまっくろーす", "cost": 7, "atk": 5000, "def": 4000, "text": "突撃。登場時、相手の手札を1枚ランダムに捨てさせる", "rarity": "CR", "pack": 101, "xm": 1, "charge": 1, "onActs": [{"a": "discardEnemy", "n": 1}], "baseId": "xm11", "lore": "「奪ったプレゼントは、まだひとつも開けていない。――開け方を、忘れてしまったから」", "promo": 1, "event": 1},
+{"type": "monster", "id": "xm01_pr", "name": "夢を届けるサンタ・クロース", "sortName": "ゆめをとどけるさんたくろーす", "cost": 7, "atk": 4500, "def": 4500, "text": "突撃。登場時、相手のモンスター1体を【凍結】する", "rarity": "CR", "pack": 0, "xm": 1, "charge": 1, "onActs": [{"a": "freeze", "t": "one"}], "promo": 1, "baseId": "xm01", "premium": 1, "lore": "「さあ、配達の時間だ。今夜だけは、誰ひとり待たせはせん」"},
+{"type": "monster", "id": "xm11_pr", "name": "サンタ・マックロース", "sortName": "さんたまっくろーす", "cost": 7, "atk": 5000, "def": 4000, "text": "突撃。登場時、相手の手札を1枚ランダムに捨てさせる", "rarity": "CR", "pack": 0, "xm": 1, "charge": 1, "onActs": [{"a": "discardEnemy", "n": 1}], "promo": 1, "baseId": "xm11", "premium": 1, "lore": "「欲しいものは、奪えばいい。――今夜の空は、わしのものだ」"},
+{"type": "item", "id": "xm_it_shard", "name": "かけら×30", "sortName": "かけら", "cost": 0, "rarity": "N", "text": "かけらが30もらえる", "pack": 101, "gItem": {"shard": 30}, "w": 37, "itemTag": "かけら"},
+{"type": "item", "id": "xm_it_crys", "name": "クリスタル×50", "sortName": "くりすたる", "cost": 0, "rarity": "N", "text": "クリスタルが50もらえる", "pack": 101, "gItem": {"crystal": 50}, "w": 15, "itemTag": "クリスタル"},
 {"id": "lk02", "type": "monster", "cost": 5, "name": "ディーラー ルーレ", "rarity": "UR", "atk": 3000, "def": 4000, "text": "登場時、次の自分の【博打】は必ず表になる。自分の【博打】で表が出るたび、自分の山札を1枚ドローする", "onActs": [{"a": "sureNext"}], "onHeads": {"draw": 1}, "gamble": 1, "pack": 100, "b4": 1, "sortName": "でぃーらーるーれ"},
 {"id": "lk02cr", "type": "monster", "cost": 5, "name": "ディーラー ルーレ", "rarity": "CR", "atk": 3000, "def": 4000, "text": "登場時、次の自分の【博打】は必ず表になる。自分の【博打】で表が出るたび、自分の山札を1枚ドローする", "onActs": [{"a": "sureNext"}], "onHeads": {"draw": 1}, "gamble": 1, "pack": 100, "b4": 1, "sortName": "でぃーらーるーれ", "baseId": "lk02", "lore": "「カードは嘘をつかない。嘘をつくのは、いつだって人間のほう」"},
 {"id": "lk03", "type": "monster", "cost": 7, "name": "幸運の女神 フォルトゥーナ", "rarity": "UR", "atk": 4000, "def": 5000, "text": "自分のターンの初めに【博打】表：次の自分のターンの開始まで、自分のモンスター全てのATKとDEFを+1000する／裏：自分のHPを+1000する", "turnG": {"h": [{"a": "buffAll", "atk": 1000, "def": 1000}], "t": [{"a": "heal", "x": 1000}]}, "gamble": 1, "pack": 100, "b4": 1, "sortName": "こううんのめがみふぉるとぅーな"},
@@ -3573,6 +3629,9 @@ const P=[{"id":"aichu","name":"アイチュ","sortName":"あいちゅ","type":"m
    bossOnly:1 … 手に入らない印。imgOf … 絵は元のカードのものを使う。
    強さはここだけで調整できる（プレイヤー側のバランスに影響しない）。 */
 const BOSS_CARDS=[
+ // ===== サンタイベント（11/26〜）：覚醒ボス。絵はCRと同じ =====
+ {"type": "monster", "id": "xm_santa_a", "name": "覚醒 サンタ・クロース", "sortName": "かくせいさんたくろーす", "cost": 8, "atk": 5500, "def": 5500, "text": "突撃。登場時、相手のモンスター全てを【凍結】する", "charge": 1, "onActs": [{"a": "freeze", "t": "all"}], "rarity": "UR", "imgOf": "xm01cr"},
+ {"type": "monster", "id": "xm_mac_a", "name": "覚醒 サンタ・マックロース", "sortName": "かくせいさんたまっくろーす", "cost": 8, "atk": 5500, "def": 5000, "text": "登場時、相手の手札を2枚ランダムに捨てさせる", "onActs": [{"a": "discardEnemy", "n": 2}], "rarity": "UR", "imgOf": "xm11cr"},
  /* 11/11 協力バトルの特別ボス「禁断の召喚士 ゾロ目」だけが使うカード */
  {"type": "monster", "id": "zr_zorome", "codexSeen": 1, "name": "禁断の召喚士 ゾロ目", "sortName": "きんだんのしょうかんしぞろめ", "cost": 1, "atk": 1111, "def": 1111, "text": "登場時、このモンスター以外の自分のコスト1のモンスターを全て破壊する。その後、自分の山札からコスト11のカードを1枚ランダムに手札に加える", "onActs": [{"a": "zoromeTutor"}], "rarity": "UR"},
  {"type": "monster", "id": "zr_ichi", "codexSeen": 1, "name": "イチイチ兵", "sortName": "いちいちへい", "cost": 1, "atk": 1111, "def": 1111, "text": "破壊された時、自分の山札を1枚ドローする", "deathActs": [{"a": "draw", "n": 1}], "rarity": "R"},
@@ -4102,6 +4161,7 @@ const PACKS=[
  {id:91,name:"ハロウィンパック",sub:"パンプキングと仲間たち",open:!EVENTS_LOCKED,cost:"ticket",ticket:"hw",noStep:true},
  {id:95,name:"蝕樹パック",sub:"蝕樹のコモクと闇の森",open:!EVENTS_LOCKED,cost:"ticket",ticket:"tree",noStep:true},
  {id:98,name:"発明録パック",sub:"若き王子マキナと機巧島の発明",open:!EVENTS_LOCKED,cost:"ticket",ticket:"gear",noStep:true},
+ {id:101,name:"クリスマスパック",sub:"サンタ・クロースと闇の組織",open:!EVENTS_LOCKED,cost:"ticket",ticket:"bell",noStep:true},
  {id:94,name:"伝説の龍パック",sub:"龍騎士と龍の秘宝",open:!EVENTS_LOCKED,cost:"ticket",ticket:"dragon",noStep:true,table:[["N",52],["R",30],["SR",11],["UR",3.5],["CR",3.5]]},
  {id:92,name:"ボルテアパック-02a",sub:"雷の勇者ライカと雷鳴の獣たち",open:true},
  {id:93,name:"フロスティアパック-02b",sub:"雪の勇者セツと白銀の仲間たち",open:true},
@@ -4162,6 +4222,7 @@ const GACHAS=[   // メイン（いつでも引ける・天井なし）→ イ�
   limit:1, pulls:[{label:"10回引く",count:10,cost:100,guarantee:["SR"]}]},
  {id:"promo",pack:90,title:"時の王パック",sub:"時の王の従者たち",whenEvent:true,whenEventId:"chronoga",pity:{n:50,r:"CR"},theme:["#8a2d6e","#2a0c2a"],accent:"#ff9ad8"},
  {id:"dragon",pack:94,bg:"bg_volt.webp",title:"伝説の龍パック",sub:"龍騎士と龍の秘宝",whenEvent:true,whenEventId:"dragon",pity:{n:50,r:"CR",unowned:true},theme:["#3a2a6a","#0a1030"],accent:"#bfe9ff"},
+ {id:"xmas",pack:101,bg:"bgxmas.webp",title:"クリスマスパック",sub:"サンタ・クロースと闇の組織",whenEvent:true,whenEventId:"xmas",pity:{n:50,r:"CR",unowned:true},theme:["#7a1a2a","#140a10"],accent:"#ffe27a"},
  {id:"makina",pack:98,art:"bnmakina.webp",title:"発明録パック",sub:"若き王子マキナと機巧島の発明",whenEvent:true,whenEventId:"makina",pity:{n:50,r:"CR",unowned:true},theme:["#8a5a1e","#1e140a"],accent:"#ffc15a"},
  {id:"shokuju",pack:95,title:"蝕樹パック",sub:"蝕樹のコモクと闇の森",whenEvent:true,whenEventId:"shokuju",pity:{n:50,r:"CR"},theme:["#4a1a6a","#100818"],accent:"#c29bff"},
  {id:"halloween",pack:91,title:"ハロウィンパック",sub:"パンプキングと仲間たち",whenEvent:true,whenEventId:"halloween",pity:{n:50,r:"CR"},theme:["#c2561a","#2a0c2a"],accent:"#ffb347"}
@@ -4663,6 +4724,37 @@ function renderMenuLock(){try{titleCheck(!isIntroDone())}catch(e){}renderWheel()
      start:"2026-10-01", end:"2026-10-31" … 期間外は一覧に出ない・挑戦できない
      period を書くとその文字を出す。省略すると「〜10/31まで」か「常設」を自動で出す */
 const EVENTS=[
+ // ===== クリスマス（11/26〜12/25）=====
+ {id:"xmlogin",kind:"advent",open:true,icon:"🎄",tag:"ログボ",art:"bgxmas.webp",
+  name:"クリスマスログボ",title:"クリスマスログボ",sub:"30日間、1日1マス。最後の日はサンタのCRアイコン＋💎1000",
+  theme:["#7a1a2a","#0c2a1a"],accent:"#ffe27a",start:"2026-11-26",end:"2026-12-25",
+  desc:"11/26から12/25まで、毎日1マスずつ開けられる。開けそびれた日は🔹50であとから開けられる。12/25のマスはサンタ・クロースのCRアイコンと💎1000。"},
+ {id:"xmas",kind:"boss",open:true,icon:"🎅",tag:"サンタ",ticket:"bell",gachaPack:101,art:"bgxmas.webp",   // クリスマスパックの背景と同じ絵（届くまではボスの絵が下から見える）
+  name:"聖夜の配達大作戦",title:"聖夜の配達大作戦",sub:"ボスバトル",
+  theme:["#7a1a2a","#140a10"],accent:"#ffe27a",start:"2026-11-26",end:"2026-12-25",
+  desc:"闇の組織のボス、サンタ・マックロースが、世界中のプレゼントを奪っていった。取り返しに行く前に、まずはサンタ・クロースに力を見せよう。勝つとベルの券がもらえて、クリスマスパックが引ける。",
+  missions:[
+   {id:"win1", label:"イベントのボスに1回勝利する",type:"win",goal:1,tk:3},
+   {id:"win5", label:"イベントのボスに5回勝利する",type:"win",goal:5,tk:5},
+   {id:"win10",label:"イベントのボスに10回勝利する",type:"win",goal:10,tk:10},
+   {id:"win20",label:"イベントのボスに20回勝利する",type:"win",goal:20,tk:15},
+   {id:"aw",   label:"覚醒 サンタ・クロースに勝利する",type:"flag",key:"aw",goal:1,tk:5},
+   {id:"dark", label:"闇の組織の連戦を越える",type:"flag",key:"dark",goal:1,tk:10,hide:()=>!xmEver()},
+   {id:"pull10",label:"クリスマスパックを10回引く",type:"cnt",key:"pull",goal:10,reward:300},
+   {id:"adv10",label:"クリスマスログボのマスを10個開ける",type:"cnt",key:"adv",goal:10,tk:5},
+   {id:"fast5",label:"自分の5ターン目までにイベントのボスに勝利する",type:"fastWin",turns:5,goal:1,reward:300},
+   {id:"streak5",label:"イベントのボスに5連勝する",type:"streak",goal:5,reward:300}],
+  boss:{card:"xm01",line:"「闇の組織に挑むなら、まずはわしを越えてゆけ」",name:"サンタ・クロース",ico:"🎅",tagline:"夢を届けるサンタ",smart:1,
+   story:"クリスマスを前に、世界中のプレゼントが消えた。\n奪ったのは、闇の組織のボス、サンタ・マックロース。\n「取り返しに行くなら、まずはわしを越えてゆけ。夢を届けるのは、強い者の仕事じゃ」",
+   aggro:1.1,deck:["xm01", "xm01", "xm02", "xm02", "xm03", "xm03", "xm04", "xm04", "xm05", "xm05", "xm06", "xm06", "xm07", "xm07", "xm08", "xm08", "xm09", "xm09", "xm10", "xm10", "shokei", "shokei", "b2f11", "b2f11", "b2f07", "b2f07", "b2f14", "b2f14", "b2f19", "b2f19"]},
+  stages:[
+   {id:"normal",label:"ふつう",name:"サンタ・クロース",card:"xm01",ticket:1,hp:10000,theme:["#7a1a2a","#140a10"],accent:"#ffb3bd",
+    sub:"夢を届けるサンタ。凍結と突撃",deckFrom:"boss",line:"「闇の組織に挑むなら、まずはわしを越えてゆけ」"},
+   {id:"awake",label:"覚醒",name:"覚醒 サンタ・クロース",card:"xm_santa_a",ticket:2,hp:15000,theme:["#1f6a45","#0a1a10"],accent:"#ffe27a",needWin:"normal",
+    sub:"本気のサンタ・とても手ごわい",deckFrom:"boss",line:"「ほっほっほ……本気でゆくぞ！」",deck:["xm_santa_a", "xm01", "xm02", "xm02", "xm03", "xm03", "xm04", "xm04", "xm05", "xm05", "xm06", "xm06", "xm07", "xm07", "xm08", "xm08", "xm09", "xm09", "xm10", "xm10", "shokei", "shokei", "b2f11", "b2f11", "b2f07", "b2f07", "b2f14", "b2f14", "b2f19", "b2f19"]}],
+  dark:{n:{name:"サンタ・マックロース",card:"xm11",hp:10000,line:"「プレゼント？ ぜんぶ、わしらがいただいた」",deck:["xm11", "xm11", "xm12", "xm12", "xm13", "xm13", "xm14", "xm14", "xm15", "xm15", "xm16", "xm16", "xm17", "xm17", "xm18", "xm18", "xm19", "xm19", "xm20", "xm20", "shokei", "shokei", "ami", "ami", "mottai", "mottai", "b3l20", "b3l20", "dashpanther", "dashpanther"]},
+        a:{name:"覚醒 サンタ・マックロース",card:"xm_mac_a",hp:15000,line:"「夢など、わしが全部まっくろに塗ってやる」",deck:["xm_mac_a", "xm11", "xm12", "xm12", "xm13", "xm13", "xm14", "xm14", "xm15", "xm15", "xm16", "xm16", "xm17", "xm17", "xm18", "xm18", "xm19", "xm19", "xm20", "xm20", "shokei", "shokei", "ami", "ami", "mottai", "mottai", "b3l20", "b3l20", "dashpanther", "dashpanther"]},tk:5},
+  reward:{ticket:1,dailyCap:20}},
  // ===== ハロウィン（10月）=====
  {id:"zsolo",kind:"zsolo",open:true,icon:"🎲",tag:"11/11",
   name:"禁断の召喚士 ゾロ目",title:"禁断の召喚士 ゾロ目",sub:"11/11だけの特別ボス",
@@ -4813,12 +4905,12 @@ function renderEvents(){
   const th=e.theme||["#1d5aa6","#0a1d3c"],ac=e.accent||"#f0c76a";
   const banner=e.banner
    ?'<div class="gBanner hasImg" style="background-image:url('+TREE_BASE_URL+e.banner+')"><div class="gbPeriod">'+eventPeriodText(e)+'</div></div>'
-   :'<div class="gBanner'+(e.art?' hasArt" style="background-image:url('+TREE_BASE_URL+e.art+')"':(eventArtImg(e)?' evArtBn"':'"'))+'><div class="gbPeriod">'+eventPeriodText(e)+'</div>'+(e.art?'':(eventArtImg(e)?'<img class="evArtImg" src="'+eventArtImg(e)+'" alt="">':'<div class="evIco">'+(e.icon||"")+'</div>'))
+   :'<div class="gBanner'+(e.art?' hasArt" style="background-image:url('+TREE_BASE_URL+e.art+')'+(eventArtImg(e)?',url('+eventArtImg(e)+')':'')+'"':(eventArtImg(e)?' evArtBn"':'"'))+'><div class="gbPeriod">'+eventPeriodText(e)+'</div>'+(e.art?'':(eventArtImg(e)?'<img class="evArtImg" src="'+eventArtImg(e)+'" alt="">':'<div class="evIco">'+(e.icon||"")+'</div>'))
     +'<div class="gbTitle">'+(e.title||e.name)+'</div><div class="gbSub">'+(e.sub||e.tag||"")+'</div></div>';
   const rw=e.open&&e.reward&&e.reward.ticket?'<div class="evRw">勝利で '+tkLabel(eventTicket(e))+' ×'+e.reward.ticket+(e.reward.dailyCap?'（1日'+e.reward.dailyCap+'枚まで）':"")+'</div>':"";
   return '<section class="gBlock evCard '+(e.open?"open":"closed")+'" style="--g1:'+th[0]+';--g2:'+th[1]+';--ga:'+ac+'">'+banner
    +'<div class="gBody"><div class="evDesc">'+(e.open?e.desc:"準備中です。お楽しみに。")+'</div>'+rw
-   +(e.open?'<button type="button" class="gold evGoBtn" onclick="openEventDetail(\''+e.id+'\')">挑戦する ▶</button>'
+   +(e.open?'<button type="button" class="gold evGoBtn" onclick="openEventDetail(\''+e.id+'\')">'+(e.kind=="advent"?(advCanToday()?"🎁 今日のマスを開ける ▶":"カレンダーを見る ▶"):"挑戦する ▶")+'</button>'
     :'<button type="button" class="sec evGoBtn" disabled>準備中</button>')
    +'</div></section>'}).join("")
   :'<div class="pEmpty">現在ひらいているイベントはありません</div>';
@@ -4832,10 +4924,11 @@ const TICKETS={
  hw:{name:"ハロウィン券",icon:"🎃",key:"cmTicketHw",day:"cmTicketDayHw"},
  dragon:{name:"龍の券",icon:"🐉",key:"cmTicketDr",day:"cmTicketDayDr"},
  tree:{name:"樹の券",icon:"🌿",key:"cmTicketTr",day:"cmTicketDayTr"},
- gear:{name:"発明の歯車",icon:"⚙️",key:"cmTicketGe",day:"cmTicketDayGe"}};
+ gear:{name:"発明の歯車",icon:"⚙️",key:"cmTicketGe",day:"cmTicketDayGe"},
+ bell:{name:"ベルの券",icon:"🔔",key:"cmTicketBe",day:"cmTicketDayBe"}};
 function tkOf(k){return TICKETS[k]||TICKETS.promo}
 // イベントが終わったあとに残った券は、🔹かけらに交換する（1枚＝🔹30）
-const TK_END={promo:"2026-10-31",hw:"2026-10-31",dragon:"2026-11-30",tree:"2026-11-30",gear:"2026-12-31"},TK_SHARD=30;
+const TK_END={promo:"2026-10-31",hw:"2026-10-31",dragon:"2026-11-30",tree:"2026-11-30",gear:"2026-12-31",bell:"2026-12-31"},TK_SHARD=30;
 function tkExpire(){const t=todayStr(),got=[];let sum=0;
  for(const k in TK_END){if(t<=TK_END[k])continue;const n=tickets(k);if(n<=0)continue;setTickets(0,k);sum+=n*TK_SHARD;got.push(tkOf(k).icon+tkOf(k).name+n+"枚")}
  if(sum>0){addShard(sum,"イベントの券の交換");setTimeout(()=>log2Toast("期間が終わった "+got.join("・")+" を 🔹"+sum+" に交換しました"),1500)}return sum}
@@ -4870,18 +4963,68 @@ function openEventDetail(id){if(id==="coop")return openCoopPage();
  renderEventDetail();
 }
 // イベント一覧のバナーに出す絵：いちばん強い挑戦（覚醒）のボスのカードの絵（CRなど）
-function eventArtImg(e){if(e&&e.kind=="coop"){try{return CARD_IMAGES[coopBossToday().card]||""}catch(x){return ""}}try{const st=eventStages(e),c=(st[st.length-1]&&st[st.length-1].card)||(e.boss&&e.boss.card);return (c&&CARD_IMAGES[c])||""}catch(x){return ""}}
+function eventArtImg(e){if(e&&e.kind=="advent")return CARD_IMAGES.xm01||"";if(e&&e.kind=="coop"){try{return CARD_IMAGES[coopBossToday().card]||""}catch(x){return ""}}try{const st=eventStages(e),c=(st[st.length-1]&&st[st.length-1].card)||(e.boss&&e.boss.card);return (c&&CARD_IMAGES[c])||""}catch(x){return ""}}
+/* ===== クリスマスログボ（11/26〜12/25の30日）：日付のマスを開ける。開けそびれた日は🔹50 ===== */
+const ADV_START="2026-11-26",ADV_DAYS=30,ADV_LATE=50,ADV_ICON="xm01cr";   // 12/25はサンタ・クロースのCRのアイコン
+// [ごほうび, 札]  c=💎 s=🔹 b=🔔ベルの券 card=カード
+const ADV_R=[
+ [{c:50}],[{s:100}],[{c:100},"土日"],[{b:2},"土日"],[{s:100}],
+ [{c:50}],[{b:1}],[{s:100}],[{c:50}],[{c:150},"10日目"],[{b:3},"土日"],[{s:150}],
+ [{c:50}],[{b:1}],[{s:150}],[{c:50}],[{c:100},"土日"],[{b:2},"土日"],[{s:150}],
+ [{c:200},"20日目"],[{b:1}],[{s:200}],[{c:50}],[{c:100},"土日"],[{b:3},"土日"],[{s:200}],
+ [{c:100}],[{b:2}],[{c:300,b:3},"前夜祭"],[{icon:ADV_ICON,c:1000},"CR"]];
+function advDate(i){const d=new Date(2026,10,26+i);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function advLabel(i){const d=new Date(2026,10,26+i);return (d.getMonth()+1)+"/"+d.getDate()}
+function advIndexToday(){const t=todayStr();for(let i=0;i<ADV_DAYS;i++)if(advDate(i)===t)return i;return t<ADV_START?-1:ADV_DAYS}
+function advSt(){try{const o=JSON.parse(store.get("cmAdvent")||"{}");o.got=o.got||{};return o}catch(e){return{got:{}}}}
+function advSave(o){store.set("cmAdvent",JSON.stringify(o))}
+function advText(r){const o=r[0];if(o.icon)return "🎅 サンタのCRアイコン"+(o.c?"＋💎"+o.c.toLocaleString():"");if(o.card){const c=by(o.card);return c?"🃏 "+c.name:"🎅 サンタのCR"}
+ return [o.c?"💎"+o.c:"",o.s?"🔹"+o.s:"",o.b?"🔔ベルの券"+o.b+"枚":""].filter(Boolean).join("＋")}
+function advIcon(r){const o=r[0];return o.icon||o.card?"🎅":o.b&&o.c?"🔔":o.c?"💎":o.s?"🔹":o.b?"🔔":"🎁"}
+function advGive(i){const o=ADV_R[i][0];
+ if(o.icon)unlockIcon(o.icon);
+ if(o.card){if(by(o.card))unlockCard(o.card);else{crystal+=500;saveCrystal()}}
+ if(o.c){crystal+=o.c;saveCrystal()}if(o.s){shard+=o.s;saveShard()}if(o.b)setTickets(tickets("bell")+o.b,"bell");
+ try{renderCrystalDisplays();renderShardDisplays()}catch(e){}}
+function advCanToday(){const e=eventById("xmlogin");if(!e||!eventInPeriod(e))return false;const i=advIndexToday();return i>=0&&i<ADV_DAYS&&!advSt().got[i]}
+function advOpen(i){const st=advSt(),ti=advIndexToday();if(st.got[i])return;
+ if(i>ti){sfx("sel");log2Toast(advLabel(i)+"になったら開けられるよ");return}
+ const late=i<ti;
+ const go=()=>{if(late&&!spendShard(ADV_LATE))return;const o=advSt();o.got[i]=1;advSave(o);advGive(i);sfx("summon");xmMisSet("adv",Object.keys(o.got).length);try{titleCheck()}catch(x){}
+  const el=document.querySelector('.advD[data-i="'+i+'"]');if(el)el.classList.add("open");
+  setTimeout(()=>{advPop(i);if(curEvent&&curEvent.kind=="advent")renderAdvent(curEvent)},520)};
+ if(late){if(shard<ADV_LATE){sfx("no");log2Toast("🔹かけらが足りません（"+ADV_LATE+"必要）");return}
+  askYesNo(advLabel(i)+"のマスを、🔹"+ADV_LATE+"で開けますか？",go);return}
+ go()}
+function advPop(i){const n=Object.keys(advSt().got).length,all=n>=ADV_DAYS,r=ADV_R[i],cr=r[0].card||r[0].icon;
+ const ov=document.createElement("div");ov.className="pov show";ov.id="advPop";
+ ov.innerHTML='<div class="confirmBox advBox"><div class="advPD">'+advLabel(i)+(i==ADV_DAYS-1?"　MERRY CHRISTMAS":"")+'</div>'
+  +(cr&&by(cr)?'<div class="advPCr" style="background-image:url('+(CARD_IMAGES[cr]||"")+')"></div>':'<div class="advPI">'+advIcon(r)+'</div>')
+  +'<div class="advPN">'+advText(r)+'</div>'+(r[0].icon?'<div class="advPS">プロフィールのアイコンに使えます</div>':'')+(all?'<div class="advPS">🎅 30マス全部あけた！</div>':'')
+  +'<button type="button" class="gold" style="width:100%;margin-top:10px" onclick="document.getElementById(\'advPop\').remove()">受け取る</button></div>';
+ document.body.appendChild(ov);if(cr||all)advConfetti()}
+function advConfetti(){const C=["#ff5a6e","#ffe27a","#3fd47a","#4ec2ff","#fff"];for(let k=0;k<50;k++){const e=document.createElement("i");e.className="advCf";
+ e.style.cssText="left:"+(Math.random()*100)+"%;background:"+C[k%5]+";--dx:"+(Math.random()*120-60)+"px;animation-delay:"+(Math.random()*.6)+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}}
+const ADV_COL=[["#d8283c","#8a1020"],["#1f8a4a","#0c4a26"],["#e0a52c","#8a5a10"],["#2f6ad8","#123a8a"],["#b45cff","#5a1a9a"]];
+function renderAdvent(e){const st=advSt(),ti=advIndexToday(),n=Object.keys(st.got).length;
+ const cells=ADV_R.map((r,i)=>{const got=st.got[i],c=ADV_COL[(i*7)%5],cls=got?"open":i>ti?"lock":i==ti?"today":"miss";
+  return '<div class="advD '+cls+'" data-i="'+i+'" style="--a:'+c[0]+';--b:'+c[1]+'" onclick="advOpen('+i+')">'+(r[1]?'<span class="advTag">'+r[1]+'</span>':'')
+   +'<div class="advIn">'+(got?advIcon(r)+'<small>'+advText(r)+'</small>':'')+'</div><div class="advLid"><b>'+advLabel(i)+'</b></div></div>'}).join("");
+ $("evdBody").innerHTML='<div class="evList advWrap"><div class="advHd"><div class="advT dot">🎄 クリスマスログボ</div><div class="advS">1日1マス。光っているのが今日のマス。暗いマスは🔹'+ADV_LATE+'であとから開けられる</div>'
+  +'<div class="advPr"><span>'+n+'/'+ADV_DAYS+'</span><div class="advPb"><i style="width:'+(n/ADV_DAYS*100)+'%"></i></div><span>12/25は🎅CRアイコン＋💎1000</span></div></div>'
+  +'<div class="advGrid">'+cells+'</div></div>'}
 function renderEventDetail(){
  const e=curEvent;if(!e)return;
  $("evdTitle").textContent=e.name;
  if(e.kind=="dragon")return renderDragonDetail(e);
+ if(e.kind=="advent")return renderAdvent(e);
  if(e.kind=="raid")return renderRaidDetail(e);
  if(e.kind=="coop")return renderCoopDetail(e);
  if(e.kind=="zsolo")return renderZsoloDetail(e);
  const tk=eventTicket(e),got=ticketToday(tk),cap=(e.reward&&e.reward.dailyCap)||0;
  const capOver=cap&&got>=cap;
- const misN=(e.missions||[]).length,misReady=(e.missions||[]).filter(m=>!evMisGot(e,m)&&evMisProg(e,m)>=m.goal).length;
- const misDone=(e.missions||[]).filter(m=>evMisGot(e,m)).length;
+ const misN=evMisVis(e).length,misReady=evMisVis(e).filter(m=>!evMisGot(e,m)&&evMisProg(e,m)>=m.goal).length;
+ const misDone=evMisVis(e).filter(m=>evMisGot(e,m)).length;
  const stageHtml=eventStages(e).map(st=>{
   const th=st.theme||e.theme||["#1d5aa6","#0a1d3c"],ac=st.accent||e.accent||"#f0c76a";
   const img=st.card&&CARD_IMAGES[st.card];
@@ -4899,9 +5042,10 @@ function renderEventDetail(){
   +'<div><div class="sK">今日もらった券</div><div class="sV">'+got+' / '+cap+'</div></div>'
   +'</div>'
   +(capOver?'<div class="evNote">今日の券はもらいきりました。挑戦はできますが、券は増えません。</div>':"")
-  +stageHtml
+  +stageHtml+(e.dark?xmDarkHtml(e):"")
   +'<div class="evSubBtns">'
-  +'<button type="button" class="evSubBtn" onclick="openPromoGacha('+(e.gachaPack||90)+')"><span class="esIco">'+tkOf(tk).icon+'</span><span>'+((packById(e.gachaPack||90)||{}).name||"時の王パック")+'</span></button>'
+  +(e.gachaPack||!e.ticket?'<button type="button" class="evSubBtn" onclick="openPromoGacha('+(e.gachaPack||90)+')"><span class="esIco">'+tkOf(tk).icon+'</span><span>'+((packById(e.gachaPack||90)||{}).name||"時の王パック")+'</span></button>'
+    :'<button type="button" class="evSubBtn" disabled style="opacity:.6"><span class="esIco">'+tkOf(tk).icon+'</span><span>クリスマスパック<small>近日公開・券はためておけます</small></span></button>')
   +(misN?'<button type="button" class="evSubBtn" onclick="openTasksTab(\'event\')"><span class="esIco">🎯</span><span>イベントミッション<small>'+misDone+' / '+misN+'</small></span>'+(misReady?'<span class="pBadge">'+misReady+'</span>':"")+'</button>':"")
   +'</div></div>';
 }
@@ -4934,6 +5078,35 @@ const DR={
  tornado:{tab:"🌀 嵐龍",name:"嵐龍への挑戦",n:{name:"トルネードラゴン",card:"b2c03",aggro:1.1},a:{name:"覚醒 トルネードラゴン",card:"bd_tornado",aggro:1.1,hp:12000},theme:["#1f8a6a","#0a2a22"],accent:"#9fffd6"},
  volbriza:{tab:"⚡❄️ 氷雷龍",name:"氷雷龍への挑戦",n:{name:"氷雷龍ボルブリザ",card:"b2c01",aggro:1.0},a:{name:"覚醒 氷雷龍ボルブリザ",card:"bd_volbriza",aggro:1.0,hp:15000},theme:["#4a3a8a","#0a1030"],accent:"#ffe9a0"}};
 const DR_TIX_CAP=30;
+/* ===== 聖夜の配達大作戦：闇の組織（天変地異と同じ、かくれボス）=====
+   その日に覚醒サンタに勝つと出る。通常闇→覚醒闇の連戦（HPは残り＋2,000）。何回でも挑めて、報酬は1日1回
+   保存 cmXmDark：{day, open:1, cleared:1} */
+let xmRun=null,xmCtx=null;
+function xmMisSet(k,v,add){try{const ms=evMisOf("xmas");ms.f=ms.f||{};ms.f[k]=add?(ms.f[k]||0)+v:Math.max(ms.f[k]||0,v);evMisSave("xmas",ms)}catch(e){}}
+function xmEver(){return store.get("cmXmEver")==="1"}
+
+function xmDarkSt(){let o={};try{o=JSON.parse(store.get("cmXmDark")||"{}")||{}}catch(e){o={}}if(o.day!==todayStr())o={day:todayStr()};return o}
+function xmDarkSave(o){store.set("cmXmDark",JSON.stringify(o))}
+function xmDarkOpen(){return !!xmDarkSt().open}
+function xmOpp(){const e=eventById("xmas"),r=xmRun,d=r.idx?e.dark.a:e.dark.n;
+ return {id:"ev_xmas_dark_"+(r.idx?"a":"n"),name:d.name,tagline:"闇の組織のボス",aggro:1.1,hp:d.hp,phpStart:r.hp,smart:1,bossCard:d.card,bossLine:d.line,deck:[...d.deck]}}
+function xmFight(){if(!xmRun)return;xmCtx={...xmRun};eventBattleId=null;storyContext=null;prematch(xmOpp())}
+function xmStartDark(){const e=eventById("xmas");if(!e||!eventInPeriod(e)||!xmDarkOpen())return;xmRun={idx:0,hp:10000};sfx("sel");xmFight()}
+function xmOnResult(won){const box=$("rDragon"),btns=$("rBtns"),r=xmRun;xmCtx=null;box.classList.remove("hide");btns.classList.add("hide");
+ const back='<button class="sec" onclick="hideP(\'resultov\');xmRun=null;openEventDetail(\'xmas\')">イベントへ戻る</button>';
+ if(!r){box.innerHTML=back;return}
+ if(!won){xmRun=null;box.innerHTML='<div class="drRes">'+(r.idx?"覚醒 サンタ・マックロースに敗れた……":"サンタ・マックロースに敗れた……")+'</div><button class="gold" onclick="hideP(\'resultov\');xmStartDark()">🔁 1戦目からやり直す</button>'+back;return}
+ const before=Math.max(0,S.php),hp=Math.min(10000,before+2000);
+ if(r.idx==0){r.idx=1;r.hp=hp;box.innerHTML='<div class="drRes">闇の組織のボスを倒した……が、まだ終わらない！</div><div class="drRes">HP '+before.toLocaleString()+' → <b>'+hp.toLocaleString()+'</b>（＋2,000）</div>'
+  +'<button class="gold" onclick="hideP(\'resultov\');xmFight()">覚醒 サンタ・マックロースへ ▶</button><button class="sec" onclick="hideP(\'resultov\');xmRun=null;openEventDetail(\'xmas\')">やめる（次は1戦目から）</button>';return}
+ xmRun=null;const e=eventById("xmas"),o=xmDarkSt();let html='<div class="drRes">🎁 プレゼントを取り返した！</div>';
+ xmMisSet("dark",1);ttSet("xmDark",1);try{titleCheck()}catch(x){}
+ if(!o.cleared&&e&&eventInPeriod(e)){o.cleared=1;xmDarkSave(o);addTicket(e.dark.tk,"闇の組織","bell");html+='<div class="drRes">🔔 ベルの券 +'+e.dark.tk+'</div>'}else html+='<div class="drRes">今日のごほうびは受け取りました（また明日）</div>';
+ box.innerHTML=html+'<button class="gold" onclick="hideP(\'resultov\');openEventDetail(\'xmas\')">イベントへ戻る</button>'}
+function xmDarkHtml(e){if(!e.dark)return"";const o=xmDarkSt();
+ if(!o.open)return "";   // 現れるまでは何も出さない
+ return '<section class="gBlock evCard open evStage" style="--g1:#2a0a2a;--g2:#08040c;--ga:#c58cff"><div class="gBanner"><div class="evStageImg" style="background-image:url('+(CARD_IMAGES[e.dark.a.card]||"")+')"></div><div class="gbPeriod">闇</div><div class="gbTitle">闇の組織 サンタ・マックロース</div><div class="gbSub">通常 → 覚醒の連戦（HPは残り＋2,000）</div></div>'
+  +'<div class="gBody"><div class="evRw">'+(o.cleared?'今日のごほうびは受け取りずみ（挑戦はできる）':'越えると 🔔ベルの券 ×'+e.dark.tk+'（1日1回）')+'</div><button type="button" class="gold evGoBtn" onclick="xmStartDark()">🌑 連戦に挑む ▶</button></div></section>'}
 let drRun=null,drCtx=null,drTab="thunder";
 function drState(){let o={};try{o=JSON.parse(store.get("cmDragon")||"{}")||{}}catch(e){o={}}
  if(o.day!==todayStr())o={day:todayStr(),cleared:{},tenpen:0};o.cleared=o.cleared||{};return o}
@@ -4951,7 +5124,7 @@ function drStartTenpen(){if(!drTenpenOpen())return;drRun={mode:"tenpen",idx:0,hp
 function drGive(n,why){const left=Math.max(0,DR_TIX_CAP-ticketToday("dragon")),g=Math.min(n,left);
  if(g<=0){log2Toast("今日の龍の券はもらいきりました");return 0}bumpTicketToday(g,"dragon");addTicket(g,why,"dragon");return g}
 // 結果画面：次へ進むボタン
-function drOnResult(won){const box=$("rDragon"),btns=$("rBtns");if(!drCtx){box.classList.add("hide");if(!draftCtx&&!towerCtx)btns.classList.remove("hide");return}
+function drOnResult(won){if(xmCtx)return xmOnResult(won);const box=$("rDragon"),btns=$("rBtns");if(!drCtx){box.classList.add("hide");if(!draftCtx&&!towerCtx)btns.classList.remove("hide");return}
  const r=drRun;drCtx=null;box.classList.remove("hide");btns.classList.add("hide");
  const back='<button class="sec" onclick="hideP(\'resultov\');drRun=null;openEventDetail(\'dragon\')">イベントへ戻る</button>';
  if(!r){box.innerHTML=back;return}
@@ -4999,7 +5172,7 @@ function startEventBattle(sid){
  if(e.id=="makina")mkDaily("try",1);
  prematch({id:"ev_"+e.id+"_"+st.id,name:st.name||b.name,tagline:b.tagline||"時は我が味方",aggro:b.aggro,hp:st.hp||undefined,pmArt:b.pmArt||null,
         bossCard:st.card||b.card||null,bossLine:st.line||b.line||"",       // ルーレットの前にボスのカードを大きく出す
-        deck:stageDeck(e,st)});
+        deck:stageDeck(e,st),smart:(st.smart||b.smart)?1:undefined});
 }
 let eventBattleId=null,eventStageId=null;
 /* ===== イベントミッション =====
@@ -5032,16 +5205,19 @@ function mkOnResult(won){if(!S)return;const id=(S.opp&&S.opp.id)||"",o=ttStats()
  if(won&&S.lkCH){o.lkCHW=1;ch=true}
  if(won&&S.mkCh2){o.mkCh2W=1;ch=true}
  if(won&&id=="ev_makina_normal"){o.mkN=1;ch=true;mkMis("winN")}
+ if(won&&id=="ev_xmas_normal"){o.xmN=1;ch=true}
  if(won&&id=="ev_makina_awake"){mkMis("winA");if(!S.pHurt){o.mkNoDmg=1;ch=true;mkMis("noDmgA")}}
  if(ch){store.set("cmStats",JSON.stringify(o));try{titleCheck()}catch(e){}}
  if(won&&/^ev_makina_/.test(id)){const q=id.endsWith("awake")?"「……トルカにも、見せてやりたかったのう」":"「やるのう！ 若い頃のわしも、そんな顔で笑っておったわ」";
   const r=$("rSub");if(r)r.innerHTML=escH(r.textContent)+'<br><span class="rQuote">'+escH(q)+'　――マキナ</span>'}}
+function evMisVis(e){return (e.missions||[]).filter(m=>!m.hide||!m.hide())}   // まだ見せないミッション（闇の組織など）
 function evMisProg(e,m){const st=evMisOf(e.id);
  if(m.daily){const d=st.d&&st.d.day===todayStr()?st.d:{};return m.type=="dTry"?(d.try||0):m.type=="dLink"?(d.link||0):m.type=="dChainWin"?(d.chainWin||0):0}
  if(m.type=="flag")return st.f&&st.f[m.key]?1:0;
+ if(m.type=="cnt")return (st.f&&st.f[m.key])||0;
  if(m.type=="col")return mkColN();
  if(m.type=="win")return st.wins||0;if(m.type=="fastWin")return st.fast?1:0;if(m.type=="spellFinish")return st.spell?1:0;if(m.type=="lsAwake")return st.lsAwake?1:0;if(m.type=="streak")return st.bestStreak||0;return 0}
-function evMisReadyCount(){let n=0;eventsActive().forEach(e=>(e.missions||[]).forEach(m=>{if(!evMisGot(e,m)&&evMisProg(e,m)>=m.goal)n++}));return n}
+function evMisReadyCount(){let n=0;eventsActive().forEach(e=>evMisVis(e).forEach(m=>{if(!evMisGot(e,m)&&evMisProg(e,m)>=m.goal)n++}));return n}
 function evMisOnWin(e){if(!e.missions)return;const before=evMisReadyCount();
  const st=evMisOf(e.id);st.wins=(st.wins||0)+1;
  const fastTurns=Math.min(...e.missions.filter(m=>m.type=="fastWin").map(m=>m.turns||99),99);
@@ -5068,6 +5244,7 @@ function onEventWin(){
  if(!e)return;
  if(!eventInPeriod(e)){log2Toast("イベントの開催期間が終わりました");return}
  {const ms=evMisOf(e.id);ms.stWin=ms.stWin||{};if(!ms.stWin[eventStageId]){ms.stWin[eventStageId]=1;evMisSave(e.id,ms)}}   // 覚醒のロック解除用
+ if(e.dark&&eventStageId=="awake"){xmMisSet("aw",1);store.set("cmXmEver","1");const o=xmDarkSt();if(!o.open){o.open=1;xmDarkSave(o);setTimeout(()=>log2Toast("🌑 闇の組織が姿を見せた……！（イベントの画面）"),1200)}}
  evMisOnWin(e);
  const st=eventStage(e,eventStageId);
  const want=st.ticket||(e.reward&&e.reward.ticket)||0;if(!want)return;
@@ -5539,11 +5716,13 @@ const SHOP_ICONS=[["hw01",500],["hw01cr",1500],["chronoga",500],["chronoga_cr",1
 const SHOP_CR_PRICE=10000;
 // プレミアムパック：プロモCR×2＋アイコン。💎3000・それぞれ1回だけ。蝕樹のコモクは覚醒に勝つと並ぶ
 const PREMIUM=[{id:"pm_komoku",card:"komoku_pr",price:3000,name:"木の勇者 コモク"},
- {id:"pm_skomoku",card:"sk01_pr",price:3000,name:"蝕樹のコモク",need:()=>(T().awake_shokuju||0)>=1}];
+ {id:"pm_skomoku",card:"sk01_pr",price:3000,name:"蝕樹のコモク",need:()=>(T().awake_shokuju||0)>=1},
+ {id:"pm_santa",card:"xm01_pr",price:3000,name:"サンタ・クロース",title:"t_xmpr_santa"},        // クリスマス：プロモCR×2＋アイコン＋起動画面
+ {id:"pm_mackrose",card:"xm11_pr",price:3000,name:"サンタ・マックロース",title:"t_xmpr_mac"}];
 function premiumGot(){try{return JSON.parse(store.get("cmPremium")||"[]")||[]}catch(e){return[]}}
 function premiumList(){return PREMIUM.filter(x=>!x.need||x.need())}
 function buyPremium(pid){const x=PREMIUM.find(q=>q.id==pid);if(!x||premiumGot().includes(pid))return;if(crystal<x.price){sfx("no");log2Toast("💎が足りません（"+x.price.toLocaleString()+"必要）");return}
- askYesNo("プレミアムパック「"+x.name+"」を、💎"+x.price.toLocaleString()+"で買いますか？（プロモCR×2＋アイコン）",()=>{if(!spendCrystal(x.price))return;
+ askYesNo("プレミアムパック「"+x.name+"」を、💎"+x.price.toLocaleString()+"で買いますか？（プロモCR×2＋アイコン"+(x.title?"＋起動画面":"")+"）",()=>{if(!spendCrystal(x.price))return;
   const m=ownedMap();m[x.card]=(m[x.card]||0)+2;store.set("cmOwned",JSON.stringify(m));unlockIcon(x.card);
   const g=premiumGot();g.push(pid);store.set("cmPremium",JSON.stringify(g));if(x.title)kiseGive(x.title);sfx("summon");log2Toast("「"+x.name+"」のプロモCR×2とアイコン"+(x.title?"と起動画面":"")+"を手に入れた！");renderShop()})}
 /* ===== きせかえ（起動画面・プレイマット・スリーブ） 保存 cmKise
@@ -5552,7 +5731,12 @@ function buyPremium(pid){const x=PREMIUM.find(q=>q.id==pid);if(!x||premiumGot().
 // きせかえセット（ショップでセットだけ売る：💎か🔹）。絵はリポジトリのいちばん上に置く
 const KISE_SETS=[
  {id:"set_hien",name:"炎の勇者 ヒエン セット",c:"#ff6a3d",mat:{id:"m_hien",name:"炎の都イグニス",bg:"mat-hien.webp"},slv:{id:"s_hien",name:"イグニスの紋章",img:"slv-hien.webp"},icon:"hien_s2",cr:1500,sd:3000},
- {id:"set_misuzui",name:"水の勇者 ミスズイ セット",c:"#4ec2ff",mat:{id:"m_misuzui",name:"水の都アクアリア",bg:"mat-misuzui.webp"},slv:{id:"s_misuzui",name:"アクアリアの紋章",img:"slv-misuzui.webp"},icon:"misuzui_s2",cr:1500,sd:3000}];
+ {id:"set_misuzui",name:"水の勇者 ミスズイ セット",c:"#4ec2ff",mat:{id:"m_misuzui",name:"水の都アクアリア",bg:"mat-misuzui.webp"},slv:{id:"s_misuzui",name:"アクアリアの紋章",img:"slv-misuzui.webp"},icon:"misuzui_s2",cr:1500,sd:3000},
+ // クリスマス（11/25）：サンタ・クロース／サンタ・マックロースのCR版とプレミアム版
+ {id:"set_xm01cr",name:"サンタ・クロース セット",c:"#ff5a6e",mat:{id:"m_xm01cr",name:"聖夜の町",bg:"mat-xm01cr.webp"},slv:{id:"s_xm01cr",name:"赤いプレゼント",img:"slv-xm01cr.webp"},icon:"xm01cr",cr:1500,sd:3000},
+ {id:"set_xm11cr",name:"サンタ・マックロース セット",c:"#9a5cff",mat:{id:"m_xm11cr",name:"闇の組織の城",bg:"mat-xm11cr.webp"},slv:{id:"s_xm11cr",name:"鎖のプレゼント",img:"slv-xm11cr.webp"},icon:"xm11cr",cr:1500,sd:3000},
+ {id:"set_xm01pr",name:"プレミアム サンタ・クロース セット",c:"#ff3a3a",mat:{id:"m_xm01pr",name:"真紅の聖夜",bg:"mat-xm01pr.webp"},slv:{id:"s_xm01pr",name:"サンタの袋",img:"slv-xm01pr.webp"},icon:"xm01_pr",cr:1500,sd:3000},
+ {id:"set_xm11pr",name:"プレミアム サンタ・マックロース セット",c:"#d04aff",mat:{id:"m_xm11pr",name:"紫電の夜",bg:"mat-xm11pr.webp"},slv:{id:"s_xm11pr",name:"稲妻のプレゼント",img:"slv-xm11pr.webp"},icon:"xm11_pr",cr:1500,sd:3000}];
 const SLEEVES=[{id:"std",name:"いつもの",free:1}].concat(KISE_SETS.map(x=>({...x.slv,c:x.c})));
 const KISE_MATS=[{id:"none",name:"なし",free:1}].concat(KISE_SETS.map(x=>x.mat));
 // 絵のスリーブの色（ふちの色・絵）を用意する
@@ -5583,7 +5767,9 @@ const TITLE_SETS=[
  {id:"ts_light_dark",name:"光と闇",a:"t_kou",b:"t_an",c:"#c9a6ff",cr:1500,sd:3000},
  {id:"ts_life_death",name:"生と死",a:"t_ikiru",b:"t_death",c:"#9fe0a8",cr:1500,sd:3000},
  {id:"ts_wood",name:"木と蝕樹",a:"t_komoku",b:"t_skomoku",c:"#7fe08a",cr:1500,sd:3000}];
-const TITLE_SKINS=[{id:"std",name:"いつもの",free:1}].concat(Object.entries(TS_HERO).map(([id,h])=>({id,name:h.name,img:CARD_IMAGES[h.card]||"",color:h.color,fx:h.fx,x:h.x})));
+const TITLE_SKINS=[{id:"std",name:"いつもの",free:1}].concat(Object.entries(TS_HERO).map(([id,h])=>({id,name:h.name,img:CARD_IMAGES[h.card]||"",color:h.color,fx:h.fx,x:h.x})))
+ .concat([{id:"t_xmpr_santa",name:"プレミアム サンタ・クロース",img:CARD_IMAGES.xm01_pr||"",color:"#ff5a6e",fx:["dn","#ffffff",5,26],x:50},     // プレミアムパックの起動画面
+          {id:"t_xmpr_mac",name:"プレミアム サンタ・マックロース",img:CARD_IMAGES.xm11_pr||"",color:"#b45cff",fx:["blink","#e08aff",3,22],x:50}]);
 function titleSetGot(x){return kiseHas(x.a,TITLE_SKINS)&&kiseHas(x.b,TITLE_SKINS)}
 function buyTitleSet(id,k){const x=TITLE_SETS.find(q=>q.id==id);if(!x||titleSetGot(x))return;const cr=k=="cr",p=cr?x.cr:x.sd;
  if((cr?crystal:shard)<p){sfx("no");log2Toast((cr?"💎":"🔹かけら")+"が足りません（"+p.toLocaleString()+"必要）");return}
@@ -5673,7 +5859,7 @@ function renderShop(){const own=extraIcons(),pg=premiumGot();let h='';
  else if(shopTab==1){h=shopTitleHtml()+'<div class="spH"><b>きせかえセット</b><small>💎でも🔹でも買えます</small></div>'+KISE_SETS.map(shopSetCard).join("")
    +'<div class="spNote c">買ったプレイマット・スリーブは、メニューの「👕 きせかえ」で入れかえられます（スリーブはデッキごと）。アイコンは「戦績」→「アイコン」から選べます。</div>'}
  else if(shopTab==2){h='<div class="spH"><b>プレミアムパック</b><small>限定イラストのプロモCR×2＋アイコン</small></div>'+premiumList().map(x=>{const got=pg.includes(x.id),im=CARD_IMAGES[x.card]||"";
-   return '<div class="spPm'+(x.need?' dark':'')+'"><div class="spPmA" style="background-image:url('+im+')"></div><div class="spPmT"><b>'+escH(x.name)+'</b><small>プロモCR×2・アイコン</small>'
+   return '<div class="spPm'+(x.need?' dark':'')+'"><div class="spPmA" style="background-image:url('+im+')"></div><div class="spPmT"><b>'+escH(x.name)+'</b><small>プロモCR×2・アイコン'+(x.title?'・起動画面':'')+'</small>'
     +(got?'<button type="button" class="spBt got">✓ 購入済み</button>':'<button type="button" class="spBt cr" onclick="buyPremium(\''+x.id+'\')">💎 '+x.price.toLocaleString()+'</button>')+'</div></div>'}).join("")}
  else if(shopTab==3){h='<div class="spH"><b>アイコン</b><small>🔹かけらで交換</small></div><div class="spGrid">'+SHOP_ICONS.filter(x=>!x[2]||x[2]()).map(([id,pr])=>{const c=by(id);if(!c)return"";const got=own.includes(id);
    return '<div class="spIt">'+iconHtml(id,58)+'<b>'+escH(c.name)+(c.rarity=="CR"?' <span class="shopCr">CR</span>':'')+'</b>'+(got?'<button type="button" class="spBt got">交換済み</button>':'<button type="button" class="spBt sd" onclick="shopBuy(\''+id+'\','+pr+')">🔹 '+pr.toLocaleString()+'</button>')+'</div>'}).join("")+'</div>'
@@ -6158,7 +6344,7 @@ function onBattleEnd(won,oppId){ensureTaskState();addXp(won?XP_WIN:XP_LOSE,won?"
  completeWelcome("battle1");bumpDaily("battle",1);
  if(oppId)bumpWeeklyPersona(oppId);
  if(won){completeWelcome("win1");bumpDaily("win",1);bumpWeekly("win10",1)}}
-function onGachaPull(){ensureTaskState();ttAdd("gacha");completeWelcome("gacha1");bumpWeekly("gacha5",1);addXp(XP_GACHA,"ガチャ")}
+function onGachaPull(){ensureTaskState();if(typeof curPack!=="undefined"&&curPack==101)xmMisSet("pull",1,true);ttAdd("gacha");completeWelcome("gacha1");bumpWeekly("gacha5",1);addXp(XP_GACHA,"ガチャ")}
 
 const TASK_TABS=[
  {id:"daily",label:"デイリー",title:"デイリーミッション",sub:"毎日0時にリセット"},
@@ -6190,7 +6376,7 @@ function startTaskTimer(){if(taskTimer)return;
 function taskItems(cat){
  const L=[];
  if(cat=="event"){
-  eventsActive().forEach(e=>(e.missions||[]).forEach(m=>{const got=evMisGot(e,m),p=Math.min(m.goal,evMisProg(e,m));
+  eventsActive().forEach(e=>evMisVis(e).forEach(m=>{const got=evMisGot(e,m),p=Math.min(m.goal,evMisProg(e,m));
    L.push({key:"e:"+e.id+":"+m.id,label:m.label,prog:p,goal:m.goal,reward:m.tk||m.reward,tk:m.tk?tkOf(eventTicket(e)).icon:"",state:got?"taken":p>=m.goal?"ready":"doing",
     claim:"claimEvMission('"+e.id+"','"+m.id+"')"})}));
   const ord={ready:0,doing:1,taken:2};
@@ -6386,7 +6572,7 @@ function openList(keepScroll){hideAll();$("list").classList.remove("hide");if(!k
 function detailCard(id){showD(by(id))}
 
 /* ================= 図鑑 ================= */
-const PACK_LABELS={0:"プロモ",90:"イベント",92:"第2弾",96:"第3弾 明暗",97:"第3弾 機巧",100:"第4弾"};   // 配布・ステップアップ特典の別イラストもプロモ(0)に入れる   // 90番はイベント報酬のプロモ弾
+const PACK_LABELS={0:"プロモ",90:"イベント",92:"第2弾",96:"第3弾 明暗",97:"第3弾 機巧",100:"第4弾",101:"クリスマス"};   // 配布・ステップアップ特典の別イラストもプロモ(0)に入れる   // 90番はイベント報酬のプロモ弾
 function packLabel(p){return PACK_LABELS[p]||("第"+p+"弾")}
 let codexPackKeys=[];
 function codexPacks(){
@@ -7578,6 +7764,26 @@ function b2Target(a,side,MB,EB,okKill){const os=b2Other(side);
   case"buffOne":case"buffTwo":return {kind:"ally",n:a.a=="buffTwo"?2:1,valid:(m,sd)=>sd==side,score:(m,sd)=>a.def&&!a.atk?df(m,sd):at(m,sd)+(a.charge&&m.used?2000:0),
    apply:(sd,i)=>{const m=b2B(sd)[i];if(!m)return;b3Buff(m,a);if(a.g)gambleFlip(side,{name:a._nm},hd=>{if(hd&&a.g.guard&&!m.noGuard){m.guard=1;m.permGuard=1;log(m.name+"に守護")}})}};
  }return null}
+/* ===== 大当たり王 ジャックポット（11/25改）：自分のターンの初めに、ほかの自分のモンスター1体の「登場時の【博打】」を使える ===== */
+const JP_PRI=["lk07","lk17","lk39","lk10","lk19","lk20","lk41","lk21","lk35","lk37","lk36","lk40","lk31","lk32","lk33"];
+function jpActs(m){return ((m&&m.onActs)||[]).filter(a=>a.a=="gamble"||a.a=="gambleN")}
+function jpCands(side){const B=b2B(side);if(!B.some(m=>m&&m.jpRe))return[];const r=[];B.forEach((m,i)=>{if(m&&!m.jpRe&&jpActs(m).length)r.push(i)});return r}
+function jpRun(side,i){const m=b2B(side)[i];if(!m)return;const jp=b2B(side).find(x=>x&&x.jpRe);
+ log((jp?jp.name:"ジャックポット")+"：「"+m.name+"」の登場時の【博打】をもう一度！");
+ try{doActs(jpActs(m),side,m,{choose:side=="p"})}catch(e){}render()}
+async function jpTurn(side){if(!S||S.over)return;const C=jpCands(side);if(!C.length)return;
+ if(side=="c"){const B=S.cb,EN=S.pb.some(Boolean);
+  const sc=i=>{const id=B[i].baseId||B[i].id,k=JP_PRI.indexOf(id),kill=/kill/.test(JSON.stringify(jpActs(B[i])));return (kill&&!EN?100:0)+(k<0?50:k)};
+  const best=C.slice().sort((a,b)=>sc(a)-sc(b))[0];await sleep(400);jpRun("c",best);try{await coinIdle()}catch(e){}await sleep(300);return}
+ if(S.active!="p")return;
+ const ov=document.createElement("div");ov.className="pov show";ov.id="jpPop";
+ ov.innerHTML='<div class="confirmBox"><div class="cT">🎰 大当たり王の力</div><div class="cS">登場時の【博打】をもう一度使うモンスターを選んでね（必ず表）</div>'
+  +C.map(i=>{const m=S.pb[i],t=(String(m.text||"").match(/【博打】表：([^／]+)/)||["",""])[1];
+   return '<button type="button" class="jpB" data-i="'+i+'"><span class="jpT" style="background-image:url('+(CARD_IMAGES[m.id]||CARD_IMAGES[m.baseId]||"")+')"></span><span><b>'+escH(m.name)+'</b><small>表：'+escH(t)+'</small></span></button>'}).join("")
+  +'<button type="button" class="sec jpNo">使わない</button></div>';
+ document.body.appendChild(ov);
+ ov.querySelectorAll(".jpB").forEach(b=>b.onclick=()=>{ov.remove();sfx("sel");jpRun("p",+b.dataset.i)});
+ ov.querySelector(".jpNo").onclick=()=>{ov.remove();sfx("sel")}}
 function doActs(acts,side,src,opt){if(!S||!acts)return;const os=b2Other(side),MB=b2B(side),EB=b2B(os),nm=(src&&src.name)||"",choose=!!(opt&&opt.choose);
  const pre=acts.map(a=>b2Cond(a,side,src));   // 条件は、先に全部判断しておく（破壊で場の数が変わる前に）
  const step=k=>{while(k<acts.length){if(!S||S.over)return;const a0=acts[k];if(!pre[k]){k++;continue}
@@ -7805,7 +8011,7 @@ function isDragon(c){const b=c.baseId?by(c.baseId)||c:c;return b.type=="monster"
 function storyChDone(ch){const c=STORY.find(x=>x.ch===ch);return !!c&&c.episodes.every((e,i)=>storyProgress().includes(ch+"-"+i))}
 function ttInSet(c,n){return n==3?!!c.b3:n==2?!!c.b2:(!c.b2&&packOf(c)==1&&!c.event&&!c.promo)}
 function ttOwnedRSet(r,n){const m=ownedMap();return P.filter(c=>!c.bossOnly&&!c.unreleased&&c.rarity==r&&ttInSet(c,n)&&m[c.id]>0).length}
-function ttOwnedR(r){const m=ownedMap();return P.filter(c=>!c.bossOnly&&c.rarity==r&&m[c.id]>0).length}
+function ttOwnedR(r){const m=ownedMap();return P.filter(c=>!c.bossOnly&&!c.unreleased&&c.rarity==r&&m[c.id]>0).length}
 function ttAll(f){const m=ownedMap(),L=P.filter(c=>!c.bossOnly&&!c.unreleased&&f(c));return L.length>0&&L.every(c=>m[c.id]>0)}
 function ttPassDone(k,sid){sid=sid||"s1";try{const se=SEASONS.find(x=>x.id==sid),st=JSON.parse(store.get("cmPass")||"null");return !!(st&&st.sid==sid&&st.open&&st.open[k]&&(st.pts||0)>=se.tiers*se.ptPer)}catch(e){return false}}
 const T=ttStats;
@@ -7959,6 +8165,12 @@ const TITLES=[
  {id:"t_lk_reg",casino:1,name:"裏カジノの常連",c:"silver",cond:"裏カジノの換金所で交換する",ok:()=>!!T().lkReg},
  {id:"t_lk_lose",casino:1,name:"不幸体質",c:"bronze",cond:"ラッキーナスロットで20回つづけてはずれる",ok:()=>!!T().lkLose20},
  {id:"t_lk_all",name:"ラッキーナの収集家",c:"silver",cond:"ラッキーナパック-04のカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.b4&&c.rarity!="CR")},
+ {id:"t_xm1",name:"サンタの弟子",c:"bronze",cond:"ふつうのサンタ・クロースに勝つ",ok:()=>!!T().xmN},
+ {id:"t_xm2",name:"聖夜を越えし者",c:"gold",cond:"覚醒 サンタ・クロースに勝つ",ok:()=>(T().awake_xmas||0)>=1},
+ {id:"t_xm3",xmdark:1,name:"プレゼント奪還",c:"rainbow",cond:"闇の組織の連戦を越える",ok:()=>!!T().xmDark},
+ {id:"t_xm4",name:"サンタの友だち",c:"silver",cond:"クリスマスログボの30マスを全部開ける",ok:()=>Object.keys(advSt().got).length>=ADV_DAYS},
+ {id:"t_xm5",name:"表と裏",c:"purple",cond:"エルフィーとヤミフィーを両方持つ",ok:()=>ownedCount("xm07")>0&&ownedCount("xm17")>0},
+ {id:"t_xm6",name:"聖夜の収集家",c:"silver",cond:"クリスマスパックのカードを全部集める（CRはのぞく）",ok:()=>ttAll(c=>c.xm&&c.rarity!="CR")},
  {id:"t_mk1",name:"発明王子のライバル",c:"bronze",cond:"ふつうの王子マキナに勝つ",ok:()=>!!T().mkN},
  {id:"t_mk2",name:"覚醒を越えし者",c:"gold",cond:"覚醒 王子マキナに勝つ",ok:()=>(T().awake_makina||0)>=1},
  {id:"t_mk3",name:"無傷の発明王",c:"rainbow",cond:"覚醒 王子マキナに、ダメージを受けずに勝つ",ok:()=>!!T().mkNoDmg},
@@ -7969,7 +8181,7 @@ const TITLES=[
  {id:"t_mk8",name:"発明家の連結",c:"silver",cond:"発明録のカード2体を【チェイン】でつないで勝つ",ok:()=>!!T().mkCh2W},
  {id:"t_shokuju",name:"森を取り戻せし者",c:"jet",cond:"覚醒 蝕樹のコモクに勝つ",ok:()=>(T().awake_shokuju||0)>=1},
  {id:"t_shokuju10",name:"世界樹の守り人",c:"jet",cond:"覚醒 蝕樹のコモクに10勝する",ok:()=>(T().awake_shokuju||0)>=10},
- {id:"t_skall",name:"闇を払う光",c:"rainbow",cond:"蝕まれし世界樹のイベントミッションを全部達成する",ok:()=>{try{const e=eventById("shokuju");return evMisOf("shokuju").got.length>=(e.missions||[]).length}catch(x){return false}},limited:1},
+ {id:"t_skall",name:"闇を払う光",c:"rainbow",cond:"蝕まれし世界樹のイベントミッションを全部達成する",ok:()=>{try{const e=eventById("shokuju");return evMisOf("shokuju").got.length>=evMisVis(e).length}catch(x){return false}},limited:1},
  {id:"t_kimiboku",name:"君は僕？",c:"rainbow",cond:"木の勇者 コモクのCRと、蝕樹のコモクのCRを入れたデッキで、蝕樹のコモクに勝つ",ok:()=>!!T().kimiboku,secret:1},
  {id:"t_coop1",name:"最高の相棒",c:"gold",cond:"協力バトルで勝つ",ok:()=>(T().coopWin||0)>=1},
  {id:"t_zorome",name:"ゾロ目の覇者",c:"rainbow",cond:"11/11の特別ボス「禁断の召喚士 ゾロ目」に勝つ（協力・1人どちらでも）",ok:()=>!!(T().zoromeWin||T().zoromeSolo),limited:1},
@@ -7983,7 +8195,7 @@ const TITLES=[
  {id:"t_s2fire",name:"炎の継承者",c:"rainbow",cond:"炎のシーズンパスを30段まで進める（シーズン2）",ok:()=>ttPassDone("fire","s2"),limited:1},
  {id:"t_s2water",name:"水の継承者",c:"rainbow",cond:"水のシーズンパスを30段まで進める（シーズン2）",ok:()=>ttPassDone("water","s2"),limited:1},
  {id:"t_s2both",name:"湯けむりの向こう",c:"rainbow",cond:"両方のシーズンパスを30段まで進める（シーズン2）",ok:()=>ttPassDone("fire","s2")&&ttPassDone("water","s2"),limited:1},
- {id:"t_hwall",name:"ハロウィン・ナイト",c:"rainbow",cond:"ハロウィンのイベントミッションを全部達成する",ok:()=>{try{const e=eventById("halloween");return evMisOf("halloween").got.length>=(e.missions||[]).length}catch(x){return false}},limited:1},
+ {id:"t_hwall",name:"ハロウィン・ナイト",c:"rainbow",cond:"ハロウィンのイベントミッションを全部達成する",ok:()=>{try{const e=eventById("halloween");return evMisOf("halloween").got.length>=evMisVis(e).length}catch(x){return false}},limited:1},
  // ===== 第3弾 =====
  {id:"t_ch6",name:"旅を止めない者",c:"green",cond:"第6章をクリアする",ok:()=>storyChDone(6)},
  {id:"t_ch7",name:"機巧島の客人",c:"green",cond:"第7章をクリアする",ok:()=>storyChDone(7)},
@@ -8045,7 +8257,7 @@ const TT_COL={rainbow:["虹","#ff9ad8"],jet:["漆黒","#b48cff"],gold:["金","#f
 const TT_ORDER=["rainbow","jet","gold","silver","bronze","red","purple","blue","green","white"];
 let ttF1="all",ttF2="all";
 function csSeen(){return store.get("cmCasinoSeen")=="1"}
-function ttVis(o){return TITLES.filter(t=>(!t.secret||o.got[t.id])&&(!t.casino||csSeen()||o.got[t.id]))}
+function ttVis(o){return TITLES.filter(t=>(!t.secret||o.got[t.id])&&(!t.casino||csSeen()||o.got[t.id])&&(!t.xmdark||xmEver()||o.got[t.id]))}
 function renderTitles(){const o=tState(),eq=titleEquipped(),V=ttVis(o),got=V.filter(t=>o.got[t.id]),rw=got.filter(t=>!o.claimed[t.id]);
  $("titleCount").textContent=got.length+" / "+V.length;
  const pct=V.length?Math.round(got.length/V.length*100):0;
@@ -9738,7 +9950,7 @@ async function endTurn(){if(netPaused())return log2Toast("通信の復帰を待�
   suddenDeath("p");chk();
   S.pDef2=false;S.pDefBonus=0;S.pShield=false;S.pOnce=false;S.cOnce=false;
   log("ターン"+turnTotal()+"　"+((player&&player.name)||"あなた")+"のターン");
-  resetBoard("p");draw("p")}
+  resetBoard("p");draw("p");setTimeout(()=>jpTurn("p"),phaseOn()?1300:350)}
  if(S){S.busy=false;render();chk()}
  tutAfterTurn()}
 
@@ -10184,9 +10396,9 @@ function coinPlay(side,lane,hd,land,done){const g=$("game");
    land();   // ここで効果が出る
    setTimeout(()=>{w.animate([{opacity:1},{opacity:0}],{duration:200,fill:"forwards"});setTimeout(()=>{w.remove();done()},200)},650)},820)},T)}
 /* ===== 召喚演出「光の柱」（11/24）：自分が出したCR・シーズンパスのカード（かなさんのチェック済み43枚） ===== */
-const SUMMON_FX=new Set(["komoku_cr", "deathhero_cr", "ikiru_cr", "kou_cr", "hien_cr", "misuzui_cr", "an_cr", "b2f03_cr", "b2v_raika_cr", "b2v02_cr", "b2v03_cr", "b2f02_cr", "b2c02_cr", "b2c01_cr", "b2f_setsu_cr", "b3m07cr", "b3m09cr", "b3m10cr", "b3s25cr", "b3l25cr", "b3m08cr", "lk01cr", "lk03cr", "lk02cr", "komoku_pr", "b2v02_crp", "chronoga_cr", "sk01cr", "b2f02_crp", "b2c03_crp", "mk01cr", "b2c14_crp", "mk02cr", "hw01cr", "b2c01_crp", "uradracula_s1", "deathhero_s1", "ikiru_s1", "nekura_s1", "kou_s1", "an_s1", "hien_s2", "misuzui_s2"]);
+const SUMMON_FX=new Set(["xm01cr","xm11cr","xm01_pr","xm11_pr","komoku_cr", "deathhero_cr", "ikiru_cr", "kou_cr", "hien_cr", "misuzui_cr", "an_cr", "b2f03_cr", "b2v_raika_cr", "b2v02_cr", "b2v03_cr", "b2f02_cr", "b2c02_cr", "b2c01_cr", "b2f_setsu_cr", "b3m07cr", "b3m09cr", "b3m10cr", "b3s25cr", "b3l25cr", "b3m08cr", "lk01cr", "lk03cr", "lk02cr", "komoku_pr", "b2v02_crp", "chronoga_cr", "sk01cr", "b2f02_crp", "b2c03_crp", "mk01cr", "b2c14_crp", "mk02cr", "hw01cr", "b2c01_crp", "uradracula_s1", "deathhero_s1", "ikiru_s1", "nekura_s1", "kou_s1", "an_s1", "hien_s2", "misuzui_s2"]);
 function pillarColor(c){const n=c.name||"";
- const K=[[/炎|火|ヒエン/,"#ff6a3d"],[/水|ミスズイ/,"#4ec2ff"],[/木|コモク/,"#4fd16a"],[/雷|サンダー|ライカ/,"#ffd84a"],[/雪|氷|スノー|セツ|ボルブリザ|鶴/,"#bfe9ff"],[/光|コウ|ペガサン/,"#ffe27a"],[/闇|夜|アン|ドラキュラ|根暗/,"#9a5cff"],[/生の|イキル/,"#7fe08a"],[/死の|デス/,"#a0a4b0"]];
+ const K=[[/マックロース/,"#9a5cff"],[/サンタ・クロース/,"#ff5a6e"],[/炎|火|ヒエン/,"#ff6a3d"],[/水|ミスズイ/,"#4ec2ff"],[/木|コモク/,"#4fd16a"],[/雷|サンダー|ライカ/,"#ffd84a"],[/雪|氷|スノー|セツ|ボルブリザ|鶴/,"#bfe9ff"],[/光|コウ|ペガサン/,"#ffe27a"],[/闇|夜|アン|ドラキュラ|根暗/,"#9a5cff"],[/生の|イキル/,"#7fe08a"],[/死の|デス/,"#a0a4b0"]];
  for(const [r,col] of K)if(r.test(n))return col;
  const id=c.baseId||c.id;return /^lk/.test(id)?"#ffcf3a":/^mk|^b3m/.test(id)?"#ffc15a":/^hw/.test(id)?"#ff9a3d":/^sk/.test(id)?"#b45cff":c.b2=="v"?"#ffd84a":c.b2=="f"?"#bfe9ff":"#4ee3ff"}
 function pillarFx(c,pos){if(document.body.classList.contains("calm"))return;   /* 「演出を減らす」のときは出さない */ const pb=document.getElementById("pb"),lane=pb&&pb.querySelectorAll(":scope>.slot")[pos];if(!lane||typeof lane.getBoundingClientRect!="function")return;
@@ -10299,6 +10511,7 @@ function cpuPlan(cc){S.cpuCC=cc;
 async function cpuTurn(){if(!S||S.over)return;
  S.active="c";S.cDef2=false;S.cDefBonus=0;S.cShield=false;S.pOnce=false;S.cOnce=false;
  log("ターン"+turnTotal()+"　"+((S.opp&&S.opp.name)?fillText(S.opp.name):"相手")+"のターン");resetBoard("c");draw("c");S.phase="main1";phaseCutIn("main1","c");render();await sleep(phaseOn()?1100:800);
+ await jpTurn("c");if(!S||S.over)return;
  let cc=S.max;
  if(S.opp&&S.opp.zorome){cc=await zoromeAI(cc);if(!S||S.over)return;
   if(phaseOn()&&anyAttacker("c")){S.phase="battle";phaseCutIn("battle","c");render();await sleep(900)}
@@ -10421,6 +10634,7 @@ function titleGo(){
  const t=$("title");
  t.classList.add("fade");
  setTimeout(()=>{t.style.display="none";try{maybeShowImportantNews()}catch(e){}},500);
+ setTimeout(()=>{try{if(player&&advCanToday())log2Toast("🎄 クリスマスログボ：今日のマスが開けられます（イベント）")}catch(e){}},2600);
  if(!player)bootIntro();else menu();
 }
 /* タイトル画面：持っているカードを画面いっぱいに散らす（奥のものはぼかして小さく、手前は大きく）
